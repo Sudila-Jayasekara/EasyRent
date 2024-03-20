@@ -2,7 +2,7 @@ import React from 'react'
 
 function Home() {
   return (
-    <div>Home</div>
+    <div className='-mb-20 front size-36'>Home</div>
   )
 }
 
