@@ -9,6 +9,7 @@ import Landing from './pages/Renter Management/Landing';
 import BookingHistory from './pages/Booking And Payment Management/BookingHistory';
 import Payment from './pages/Booking And Payment Management/Payment';
 import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 
 
@@ -18,6 +19,7 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Layout><Home/></Layout>} />
       <Route path='/signup' element={<Signup/>} />
+      <Route path='/login' element={<Login/>} />
       
       <Route path='/landing'element={<Layout><Landing/></Layout>}/>
        
