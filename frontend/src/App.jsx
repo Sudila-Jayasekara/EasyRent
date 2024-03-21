@@ -9,9 +9,9 @@ import Landing from './pages/Renter Management/Landing';
 const App = () => {
   return (
     <Routes>
-      <Route path='/home' element={<Layout><Home/></Layout>} />
+      <Route path='/' element={<Layout><Home/></Layout>} />
       <Route path='/booking' element={<Layout><Booking/></Layout>} />
-      <Route path='/' element={<Layout><Landing/></Layout>} />
+      <Route path='/home' element={<Layout><Landing/></Layout>} />
     </Routes>
   )
 }
