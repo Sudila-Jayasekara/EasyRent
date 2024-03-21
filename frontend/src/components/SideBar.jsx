@@ -53,18 +53,22 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import TestButtons from './TestButtons';
+import PaymentSidebar from '../pages/Booking And Payment Management/PaymentSidebar';
 
 const SideBar = ({children , title}) => {
   const location = useLocation();
 
   return (
     <div className='flex'>
-        <div className='w-1/6 min-h-10 flex flex-col rounded-lg bg-yellow-400 py-5 px-5 mx-4 my-4 space-y-4 text-center'>
+        <div className='w-1/6 min-h-10 flex flex-col rounded-lg bg-yellow-400 py-5 px-5 mx-4 my-4 space-y-4 text-center '>
             {location.pathname === '/' && (
               <TestButtons/>
             )}
-            {(location.pathname === '/booking' || location.pathname=== '/payment') && (
+            {(location.pathname === '/booking') && (
                 <p>Hello, welcome! this is {location.pathname} page </p>
+            )}
+            {(location.pathname=== '/payment') && (
+                <PaymentSidebar/>
             )}
         </div>
         <div className='flex-grow mr-4 my-4'>

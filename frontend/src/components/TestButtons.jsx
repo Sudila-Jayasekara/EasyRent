@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const TestButtons = () => {
   return (
-    <div className='flex flex-col space-y-4 text-center'>                
+    <>                
         <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded '>
         <Link>Renter</Link>
         </button>
@@ -31,7 +31,7 @@ const TestButtons = () => {
         <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
         <Link>Reviews</Link>
         </button> 
-    </div>
+    </>
   )
 }
 
