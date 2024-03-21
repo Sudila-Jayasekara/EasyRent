@@ -32,7 +32,7 @@ import {Link} from 'react-router-dom'
 
 const Header = ({title}) => {
   return (
-    <div className=' bg-yellow-400 py-4 px-4 flex justify-between items-center'>
+    <div className=' bg-yellow-400 py-4 px-4 flex justify-between items-center '>
         <div className='w-1/4'>
             <span className='text-3xl text-white font-bold tracking-tight'>
                 <Link to="/">EasyRent</Link>
