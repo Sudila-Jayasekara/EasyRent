@@ -10,7 +10,7 @@ const PaymentSidebar = () => {
     <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
     <Link>Payment History</Link>
     </button>
-</>
+    </>
   )
 }
 
