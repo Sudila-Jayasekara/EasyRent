@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const SideBar = ({children}) => {
+const SideBar = ({children , title}) => {
   return (
     <div className='flex'>
         <div className='w-1/6 flex flex-col rounded-lg bg-yellow-400 py-5 px-5 mx-4 my-4 space-y-4 text-center'>
@@ -33,9 +33,15 @@ const SideBar = ({children}) => {
             <Link>Reviews</Link>
             </button>
         </div>
-        <div className='flex-grow bg-yellow-100 my-4 mr-4'>
-            {children}
+        <div className='flex-grow mr-4 my-4'>
+          <div className='w-full py-2 px-4 bg-yellow-400 rounded-lg mb-4'>
+            <span className='text-xl text-white font-bold'>{title}</span>
+          </div>
+          <div>
+              {children}
+          </div>
         </div>
+
     </div>
     
 
