@@ -17,7 +17,7 @@ const Header = () => {
                 <Link>Log in</Link>
             </span>
             <span className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
-                <Link to={'/signup'}>Sign Up</Link>
+                <Link to='/signup'>Sign Up</Link>
             </span>
         </div>
     </div>

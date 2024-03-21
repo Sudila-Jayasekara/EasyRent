@@ -17,14 +17,13 @@ const App = () => {
   return (
     <Routes>
       <Route path='/' element={<Layout><Home/></Layout>} />
-     
+      <Route path='/signup' element={<Signup/>} />
       
       <Route path='/landing'element={<Layout><Landing/></Layout>}/>
        
       
-       <Route path='/signup'>
-       <Route path='' element={<Layout><Signup/></Layout>}/>
-       </Route>
+       
+       
       <Route path='/booking'>
         <Route path='' element={<Layout><Booking/></Layout>} />
         <Route path='history' element={<Layout><BookingHistory/></Layout>} />
@@ -36,6 +35,7 @@ const App = () => {
       
 
     </Routes>
+    
   )
 }
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -5,7 +6,7 @@ const TestButtons = () => {
   return (
     <>                
         <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded '>
-        <Link>Renter</Link>
+        <Link to={'/landing'}>Renter</Link>
         </button>
         <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
         <Link>Vehicle</Link>
