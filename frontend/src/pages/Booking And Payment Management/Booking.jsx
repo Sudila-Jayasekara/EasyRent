@@ -1,8 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Booking = () => {
   return (
-    <div className='flex justify-center'>Hello This is Booking Page</div>
+    <div>Bookin</div>
   )
 }
 
