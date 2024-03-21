@@ -21,7 +21,7 @@ const SideBar = ({children , title}) => {
             <Link>Owner</Link>
             </button>
             <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
-            <Link>Payment</Link>
+            <Link to={'/payment'}>Payment</Link>
             </button>
             <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
             <Link>HR</Link>
@@ -35,7 +35,7 @@ const SideBar = ({children , title}) => {
         </div>
         <div className='flex-grow mr-4 my-4'>
           <div className='w-full py-2 px-4 bg-yellow-400 rounded-lg mb-4'>
-            <span className=' text-white font-bold'>{title}</span>
+            <span className='text-xl text-white font-bold'>{title}</span>
           </div>
           <div>
               {children}
