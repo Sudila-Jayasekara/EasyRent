@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Booking from './pages/Booking And Payment Management/Booking';
 import BookingHistory from './pages/Booking And Payment Management/BookingHistory';
 import Payment from './pages/Booking And Payment Management/Payment';
+import DriverDashboard from './pages/Driver Management/DriverDashboard';
 
 
 
@@ -20,6 +21,10 @@ const App = () => {
 
       <Route path='/payment'>
         <Route path='' element={<Layout><Payment/></Layout>} />
+      </Route>
+      
+      <Route path='/driver'>
+        <Route path='' element={<Layout><DriverDashboard/></Layout>} />
       </Route>
       
     </Routes>
