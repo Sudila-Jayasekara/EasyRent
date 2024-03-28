@@ -4,6 +4,7 @@ import TestButtons from './TestButtons';
 import PaymentSidebar from '../pages/Booking And Payment Management/PaymentSidebar';
 import BookingSidebar from '../pages/Booking And Payment Management/BookingSidebar';
 
+
 const SideBar = ({children}) => {
   const location = useLocation();
 
@@ -19,6 +20,8 @@ const SideBar = ({children}) => {
             {(location.pathname=== '/payment') && (
                 <PaymentSidebar/>
             )}
+           
+            
         </div>
         <div className='flex-grow mr-4 my-4'>
           <div className='w-full py-2 px-4 bg-yellow-400 rounded-lg mb-4'>
