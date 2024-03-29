@@ -1,10 +1,4 @@
 import React from 'react'
-<<<<<<< HEAD
-
-const DriverdashboardSidebar = () => {
-  return (
-    <div>DriverdashboardSidebar</div>
-=======
 import { Link } from 'react-router-dom'
 
 const DriverdashboardSidebar = () => {
@@ -23,7 +17,6 @@ const DriverdashboardSidebar = () => {
     <Link>Owners</Link>
     </button>
     </>
->>>>>>> bd1cfd02d74ed0e55960500922a970b98084c27a
   )
 }
 
