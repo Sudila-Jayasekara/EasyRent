@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom'
 
 function Home() {
   return (
-<<<<<<< Updated upstream
-<div>Home</div>
-=======
     <div className='flex justify-center space-x-2'>
         <span className='bg-gray-200 text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
           <Link>Renter</Link>
@@ -35,7 +32,6 @@ function Home() {
           <Link>Reviews</Link>
         </span>
     </div>
->>>>>>> Stashed changes
   )
 }
 
