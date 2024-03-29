@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import TestButtons from './TestButtons';
 import PaymentSidebar from '../pages/Booking And Payment Management/PaymentSidebar';
 import BookingSidebar from '../pages/Booking And Payment Management/BookingSidebar';
+import DriverdashboardSidebar from '../pages/Driver Management/DriverdashboardSidebar';
 
 
 const SideBar = ({children}) => {
@@ -19,6 +20,9 @@ const SideBar = ({children}) => {
             )}
             {(location.pathname=== '/payment') && (
                 <PaymentSidebar/>
+            )}
+             {(location.pathname === '/driver') && (
+                <DriverdashboardSidebar/>
             )}
            
             
