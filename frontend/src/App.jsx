@@ -35,7 +35,6 @@ const App = () => {
         <Route path='' element={<Layout><Payment/></Layout>} />
       </Route>
       
-
     </Routes>
     
   )
