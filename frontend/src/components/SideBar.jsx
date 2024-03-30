@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import TestButtons from './TestButtons';
 import PaymentSidebar from '../pages/Booking And Payment Management/PaymentSidebar';
 import BookingSidebar from '../pages/Booking And Payment Management/BookingSidebar';
+import OwnerSidebar from '../pages/Vehicle Owner Management/OwnerSidebar';
 
 const SideBar = ({children}) => {
   const location = useLocation();
@@ -18,6 +19,9 @@ const SideBar = ({children}) => {
             )}
             {(location.pathname=== '/payment') && (
                 <PaymentSidebar/>
+            )}
+            {(location.pathname=== '/owner') && (
+                <OwnerSidebar/>
             )}
         </div>
         <div className='flex-grow mr-4 my-4'>
