@@ -1,13 +1,9 @@
 import React from 'react'
-import Carwalljpeg from '../../assets/carwall.jpeg'
 
-const vehicleManager = () => {
+const VehicleManager = () => {
   return (
-    <div className="manager-container">
-      <img src= {Carwalljpeg} alt=" car photo"/>
-
-    </div>
+    <div>vehicleManager</div>
   )
 }
 
-export default vehicleManager
+export default VehicleManager

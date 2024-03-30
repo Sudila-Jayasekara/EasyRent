@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 import TestButtons from './TestButtons';
 import PaymentSidebar from '../pages/Booking And Payment Management/PaymentSidebar';
 import BookingSidebar from '../pages/Booking And Payment Management/BookingSidebar';
-import vehicleSidebar from '../pages/Vehicle Management/vehicleSidebar.jsx';
+import VehicleSidebar from '../pages/Vehicle Management/VehicleSidebar.jsx';
+
 
 const SideBar = ({children}) => {
   const location = useLocation();
@@ -21,7 +22,7 @@ const SideBar = ({children}) => {
                 <PaymentSidebar/>
             )}
              {(location.pathname=== '/vehicleManager') && (
-                <vehicleSidebar/>
+                <VehicleSidebar/>
             )}
            
         </div>

@@ -6,7 +6,8 @@ import Booking from './pages/Booking And Payment Management/Booking';
 import BookingHistory from './pages/Booking And Payment Management/BookingHistory';
 import Payment from './pages/Booking And Payment Management/Payment';
 import DriverDashboard from './pages/Driver Management/DriverDashboard';
-import vehicleManager from './pages/Vehicle Management/vehicleManager';
+import VehicleManager from './pages/Vehicle Management/VehicleManager';
+import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar';
 
 
 
@@ -29,9 +30,9 @@ const App = () => {
       </Route>
 
       <Route path='/vehicleManager'>
-        <Route path='' element={<Layout><vehicleManager/></Layout>} />
+        <Route path='' element={<Layout><VehicleManager/></Layout>} />
       </Route>
-      
+      <Route path='/vehiclesidebar' element={<Layout><VehicleSidebar/></Layout>}/>
     </Routes>
   )
 }
