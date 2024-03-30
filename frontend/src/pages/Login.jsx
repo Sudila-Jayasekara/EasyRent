@@ -1,8 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState } from 'react';
 import carpng from '../assets/carpng2.png';
 const Login = () => {
-
+  const[data,setData]=useState({
+    email:'',
+    password:'',
+  })
+  const loginUser=(e)=>{
+    e.preventDefault()
+  }
   return (
     <div>
       <section className="gradient-form h-full bg-neutral-200 dark:bg-neutral-700">
@@ -19,22 +25,22 @@ const Login = () => {
                         </h4>
                       </div>
 
-                      <form>
+                      <form onSubmit={loginUser}>
   <p className="mb-4">Please login to your account</p>
 
   <div className="relative mb-4" data-twe-input-wrapper-init>
     <input
-      type="text"
+      type="text" value={data.email} onChange={(e)=>setData({...data,email:e.target.value})}
  
       className={`peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary`}
       id="exampleFormControlInput1"
-      placeholder="Username" 
+      placeholder="Email" 
     />
   </div>
 
   <div className="relative mb-4" data-twe-input-wrapper-init>
     <input
-      type="password"
+      type="password" value={data.password} onChange={(e)=>setData({...data,password:e.target.value})}
  
       className={`peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary`}
       id="exampleFormControlInput11"
