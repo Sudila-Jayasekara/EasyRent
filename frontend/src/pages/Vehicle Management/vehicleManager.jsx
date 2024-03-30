@@ -1,10 +1,10 @@
 import React from 'react'
-import carwall from 'C:/Users/Dushan/Documents/GitHub/EasyRent/frontend/src/assets/carwall.jpeg'
+import carwall from '../Vehicle Management/carwall.jpeg'
 
 const VehicleManager = () => {
   return (
     <div>
-      <div className='bg-slate-600'>
+      <div >
         <img src={carwall}/>
       </div>
     </div>

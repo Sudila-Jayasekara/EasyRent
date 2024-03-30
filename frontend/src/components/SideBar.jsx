@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import TestButtons from './TestButtons';
 import PaymentSidebar from '../pages/Booking And Payment Management/PaymentSidebar';
 import BookingSidebar from '../pages/Booking And Payment Management/BookingSidebar';
-import VehicleSidebar from '../pages/Vehicle Management/VehicleSidebar.jsx';
+import VehicleSidebar from '../pages/Vehicle Management/VehicleSidebar';
 
 
 const SideBar = ({children}) => {
