@@ -84,7 +84,7 @@ const Login = () => {
                   <p className="text-sm">
                     Api thma hodatama kree <br></br>
                     log wenwanan log weyn....
-                    Echahrai.
+                    Echahrai........................
 
                   </p>
                   <div><img src={carpng}/></div>
