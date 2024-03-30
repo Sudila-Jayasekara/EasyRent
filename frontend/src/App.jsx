@@ -10,6 +10,8 @@ import BookingHistory from './pages/Booking And Payment Management/BookingHistor
 import Payment from './pages/Booking And Payment Management/Payment';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import RenterSidebar from './pages/Renter Management/RenterSidebar';
+import Manageprofile from './pages/Renter Management/Manageprofile';
 
 
 
@@ -22,6 +24,8 @@ const App = () => {
       <Route path='/login' element={<Login/>} />
       
       <Route path='/landing'element={<Layout><Landing/></Layout>}/>
+      <Route path='/profile'element={<Layout><Manageprofile/></Layout>}/>
+      <Route path='/Rentersidebar'element={<Layout><RenterSidebar/></Layout>}/>
        
       
        
