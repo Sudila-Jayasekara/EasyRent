@@ -29,7 +29,7 @@ const App = () => {
       <Route path='/profile'element={<Layout><Manageprofile/></Layout>}/>
       <Route path='/Rentersidebar'element={<Layout><RenterSidebar/></Layout>}/>
       <Route path='/homerenter' element={<Layout><RenterHome/></Layout>}/>
-      <Route path='/selectbooking' element={<Layout><SelectBooking/></Layout>}/>
+      <Route path='/selectbooking' title="Select Booking" element={<Layout><SelectBooking/></Layout>}/>
        
        
       <Route path='/booking'>
