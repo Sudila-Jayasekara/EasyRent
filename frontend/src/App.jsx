@@ -12,6 +12,8 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import Manageprofile from './pages/Renter Management/Manageprofile';
+import RenterHome from './pages/Renter Management/RenterHome';
+import SelectBooking from './pages/Renter Management/SelectBooking';
 
 
 
@@ -26,8 +28,8 @@ const App = () => {
       <Route path='/landing'element={<Layout><Landing/></Layout>}/>
       <Route path='/profile'element={<Layout><Manageprofile/></Layout>}/>
       <Route path='/Rentersidebar'element={<Layout><RenterSidebar/></Layout>}/>
-       
-      
+      <Route path='/homerenter' element={<Layout><RenterHome/></Layout>}/>
+      <Route path='/selectbooking' element={<Layout><SelectBooking/></Layout>}/>
        
        
       <Route path='/booking'>

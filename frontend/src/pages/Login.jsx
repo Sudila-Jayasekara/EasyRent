@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
-import carpng from '../assets/carpng2.png';
+import carpng from '../pages/Renter Management/carpng2.png';
 const Login = () => {
   const[data,setData]=useState({
     email:'',

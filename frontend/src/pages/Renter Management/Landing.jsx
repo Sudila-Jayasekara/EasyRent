@@ -1,6 +1,5 @@
 import React from 'react'
-import carpng from '../../assets/carpng.png'
-import carpng2 from '../../assets/carpng2.png'
+
 const Landing = () => {
   return (
     <div className='bg-white  duration-300'>

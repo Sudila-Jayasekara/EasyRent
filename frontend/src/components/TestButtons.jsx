@@ -6,7 +6,7 @@ const TestButtons = () => {
   return (
     <>                
         <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded '>
-        <Link to={'/landing'}>Renter</Link>
+        <Link to={'/homerenter'}>Renter</Link>
         </button>
         <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
         <Link>Vehicle</Link>
