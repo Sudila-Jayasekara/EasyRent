@@ -14,7 +14,7 @@ function Home() {
           <Link to={'/booking'}>Booking</Link>
         </span>
         <span className='bg-gray-200 text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
-          <Link to={'/driverdashboard'}>Driver</Link>
+          <Link to={'/driver'}>Driver</Link>
         </span>
         <span className='bg-gray-200 text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
           <Link>Owner</Link>

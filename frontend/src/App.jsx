@@ -29,9 +29,9 @@ const App = () => {
         <Route path='' element={<Layout><Payment/></Layout>} />
       </Route>
       
-      <Route path='/driver'>
-        <Route path='' element={<Layout><DriverDashboard/></Layout>} />
-      </Route>
+     
+        <Route path='/driver' element={<Layout><DriverDashboard/></Layout>} />
+      
       
 main
     </Routes>
