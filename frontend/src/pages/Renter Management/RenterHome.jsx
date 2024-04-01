@@ -220,7 +220,7 @@ const RenterHome = () => {
                         </li>
                         <li className="flex items-center gap-2">
                             <i className="fas fa-tachometer-alt text-gray-600"></i>
-                            <span className="text-gray-600 truncate" title="Kilometraje ilimitado">Kilometer Limit</span>
+                            <span className="text-gray-600 truncate" title="Kilometer">Kilometer</span>
                         </li>
                         <li className="flex items-center gap-2">
                             <i className="fas fa-user text-gray-600"></i>
