@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios';
 import {Routes, Route} from 'react-router-dom';
 import Layout from './layout/Layout';
 import Home from './pages/Home';
@@ -15,7 +16,8 @@ import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 
-
+axios.defaults.baseURL='http://localhost:5556'
+axios.defaults.withCredentials=true
 
 
 const App = () => {

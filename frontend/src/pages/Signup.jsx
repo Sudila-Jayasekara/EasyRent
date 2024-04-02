@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import {React,useState} from 'react';
+import axios from 'axios'
 
 const Signup = () => {
   const [data,setData]=useState({
@@ -11,6 +12,7 @@ const Signup = () => {
   })
   const registerUser=(e)=>{
     e.preventDefault()
+    axios.get('/')
   }
   return (
     <div>
