@@ -3,10 +3,12 @@ import {Routes, Route} from 'react-router-dom';
 import Layout from './layout/Layout';
 import Home from './pages/Home';
 import Booking from './pages/Booking And Payment Management/Booking';
-import DriverDashboard from './pages/Driver Management/Driverdashboard.jsx';
+
 import BookingHistory from './pages/Booking And Payment Management/BookingHistory';
 import Payment from './pages/Booking And Payment Management/Payment';
-import DriverdashboardSidebar from './pages/Driver Management/DriverdashboardSidebar.jsx';
+import DriverdashboardSidebar from './pages/Driver Management/DriverdashboardSidebar';
+import DriverDashboard from './pages/Driver Management/DriverDashboard';
+import DriverManage from './pages/Driver Management/DriverManage.jsx';
 
 
 
@@ -29,8 +31,8 @@ const App = () => {
         <Route path='' element={<Layout><Payment/></Layout>} />
       </Route>
       
-     
-        <Route path='/driver' element={<Layout><DriverDashboard/></Layout>} />
+      <Route path='/managedriver' element={<Layout><DriverManage/></Layout>}/>
+       <Route path='/driver' element={<Layout><DriverDashboard/></Layout>}/>
       
       
 main

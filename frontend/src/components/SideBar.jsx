@@ -27,6 +27,11 @@ const SideBar = ({children}) => {
               location.pathname === '/driver') && (
                 <DriverdashboardSidebar/>
             )}
+            {(
+              location.pathname==='/managedriver')&&(
+                <DriverdashboardSidebar/>
+              
+            )}
            
             
         </div>
