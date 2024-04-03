@@ -4,13 +4,13 @@ const DriverDashboard = () => {
   return (
     <div>
       <div>
-        <button className='mx-0 bg-black text-white h-16 w-28'  > hiiiiii</button>
+        <button className='mx-0 bg-black text-white h-16 w-60'  > Check Reserved Dates</button>
       </div>
       <div>
-        <button className='mx-28 bg-black text-white h-16 w-28 my-10'  > hiiiiii</button>
+        <button className='mx-40 bg-black text-white h-16 w-60 my-10'  > License Verification</button>
       </div>
       <div>
-        <button className='mx-0 bg-black text-white h-16 w-28'  > hiiiiii</button>
+        <button className='mx-0 bg-black text-white h-16 w-60'  > Ratings and complaints</button>
       </div>
     </div>
   )
