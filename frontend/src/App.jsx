@@ -9,7 +9,7 @@ import Payment from './pages/Booking And Payment Management/Payment';
 import DriverdashboardSidebar from './pages/Driver Management/DriverdashboardSidebar';
 import DriverDashboard from './pages/Driver Management/DriverDashboard';
 import DriverManage from './pages/Driver Management/DriverManage.jsx';
-
+import Driverprofile from './pages/Driver Management/Driverprofile.jsx';
 
 
 
@@ -21,6 +21,9 @@ const App = () => {
 
       <Route path='/booking' element={<Layout><Booking/></Layout>} />
       <Route path='/driverdashboard' element={<Layout><DriverdashboardSidebar/></Layout>}/>
+
+     
+      <Route path='/driverprofile' element={<Layout><Driverprofile/></Layout>}/>
 
       <Route path='/booking'>
         <Route path='' element={<Layout><Booking/></Layout>} />
