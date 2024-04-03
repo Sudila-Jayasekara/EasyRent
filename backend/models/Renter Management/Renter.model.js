@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 const userSchema=new mongoose.Schema({
-    firstname:{
-        type:String,
-        required:true,
-    },
-    lastname:{
+    username:{
         type:String,
         required:true,
     },
@@ -22,12 +18,16 @@ const userSchema=new mongoose.Schema({
         type:Number,
         required:true,
         unique:true,
+    },
+    address:{
+        type:String,
+        required:true,
     }
     
 
 
 },{timestamps:true});
 
-const User=mongoose.model('User',userSchema);
+const RenterModel=mongoose.model("Renter",userSchema)
 
-export default User;
+export  {RenterModel as Renter};

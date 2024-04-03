@@ -1,106 +1,72 @@
-/* eslint-disable no-undef */
-import {React,useState} from 'react';
-import axios from 'axios'
+import React, { useState } from 'react';
+import Axios from 'axios';
 
 const Signup = () => {
-  const [data,setData]=useState({
-    firstname:'',
-    lastname:'',
-    email:'',
-    password:'',
-    phoneno:'',
-  })
-  const registerUser=(e)=>{
+  const [username, setUsername] = useState('');
+  const [email, setemail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const [phoneno, setphoneno] = useState('');
+  const[address,setadress]=useState('');
+ 
+
+  const registerUser = (e) => {
     e.preventDefault()
-    axios.get('/')
-  }
+    Axios.post('http://localhost:5556/auth/signup',{
+      username,
+      email,
+      password, 
+      phoneno,
+      address,
+    }).then(response=>{
+      console.log(response)
+    }).catch(err=>{
+      console.log(err)
+    });
+  };
+
   return (
     <div>
-      <section className="gradient-form h-full bg-neutral-200 dark:bg-neutral-700">
-        <div className="container h-full py-20 px-10">
-          <div className="flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
-            <div className="w-full">
-              <div className="block rounded-lg bg-neutral-800 shadow-lg dark:bg-neutral-800">
-                <div className="lg:flex lg:flex-wrap">
-                  <div className="px-4 md:px-0 lg:w-6/12">
-                    <div className="md:mx-6 md:p-12">
-                      <div className="text-center">
-                        <h4 className="mb-12 mt-1 pb-1 text-5xl lg:text-6xl font-semibold font-serif">
-                          Easy Rent
-                        </h4>
-                      </div>
-
-                      
-
-                      <form onSubmit={registerUser} className="max-w-md mx-auto">
-  <div className="relative z-0 w-full mb-5 group" >
-      <input type="email" value={data.email} onChange={(e)=>setData({...data,email:e.target.value})} name="floating_email" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required autoComplete="off" />
-      <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-sm bg-neutral-800 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
-  </div>
-  <div className="relative z-0 w-full mb-5 group">
-      <input type="password" value={data.password} onChange={(e)=>setData({...data,password:e.target.value})} name="floating_password" id="floating_password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required autoComplete="off"/>
-      <label htmlFor="floating_password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
-  </div>
-  <div className="relative z-0 w-full mb-5 group">
-      <input type="password" value={data.password} onChange={(e)=>setData({...data,password:e.target.value})} name="repeat_password" id="floating_repeat_password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required autoComplete="off"/>
-      <label htmlFor="floating_repeat_password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm password</label>
-  </div>
-  <div className="grid md:grid-cols-2 md:gap-6">
-    <div className="relative z-0 w-full mb-5 group">
-        <input type="text" value={data.firstname} onChange={(e)=>setData({...data,firstname:e.target.value})} name="floating_first_name" id="floating_first_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required autoComplete="off"/>
-        <label htmlFor="floating_first_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First name</label>
-    </div>
-    <div className="relative z-0 w-full mb-5 group">
-        <input type="text" value={data.lastname} onChange={(e)=>setData({...data,lastname:e.target.value})} name="floating_last_name" id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required autoComplete="off"/>
-        <label htmlFor="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last name</label>
-    </div>
-  </div>
-  <div className="grid md:grid-cols-2 md:gap-6">
-    <div className="relative z-0 w-full mb-5 group">
-        <input type="tel" value={data.phoneno} onChange={(e)=>setData({...data,phoneno:e.target.value})} pattern="[0-9]{10}" name="floating_phone" id="floating_phone" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required autoComplete="off"/>
-        <label htmlFor="floating_phone" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone number (123-456-7890)</label>
-    </div>
-   
-  </div>
-  <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-  <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
-              Have an account?
-              <a
-    href="#!"
-    className="text-blue-600 transition duration-150 ease-in-out hover:text-blue-700 focus:text-blue-700 active:text-blue-800"
-    >Login</a
->
-
-            </p>
-</form>
-
+      <form onSubmit={registerUser}>
+      <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-8">
+        <div className="relative py-3 sm:max-w-fit sm:mx-auto">
+          <div className="absolute inset-0 bg-gradient-to-r to-indigo-500 from-indigo-300 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
+          <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+            <div className="max-w-xl mx-auto">
+              <div className="divide-y divide-gray-200">
+                <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                  <h1 style={{marginBottom: "5px"}} className="font-extrabold text-4xl text-center">Login</h1>
+                  <p className="text-center">Text should be in here</p>
+                  
+                  <div className="justify-center flex flex-col py-6 sm-py-12">
+                  <label className='text-black font-extrabold' htmlFor='Username'>Username</label><input name="Username" style={{marginBottom: "10px"}} placeholder="Username" type="text" className="pr-40 pl-2 py-1 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" onChange={(e)=>setUsername(e.target.value)}/>
+                  <label className='text-black font-extrabold' htmlFor='Username'>Email</label> <input name="email" style={{marginBottom: "10px"}} placeholder="Email" type="email" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" onChange={(e)=>setemail(e.target.value)}/>
+                  <label className='text-black font-extrabold' htmlFor='Username'>Password</label>  <input name="password" placeholder="Password" type="password" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" onChange={(e)=>setPassword(e.target.value)} />
+                  <label className='text-black font-extrabold' htmlFor='Username'>Confirm Password</label>  <input name="password" placeholder="Password" type="password" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring"/>
+                  <label className='text-black font-extrabold' htmlFor='Username'>Phone Number</label>  <input name="phoneno" placeholder="phone number" type="tel" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" onChange={(e)=>setphoneno(e.target.value)}/>
+                  <label className='text-black font-extrabold' htmlFor='Username'>Adress</label>  <input name="password" placeholder="adress" type="text" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" onChange={(e)=>setadress(e.target.value)}/>
+                     <div style={{marginTop: "10px"}}>
+                      <label>
+                        <input style={{marginBottom: "5px"}} type="checkbox" className="checkbox" defaultChecked />
+                        <span className="select-none">Remember me</span>
+                      </label>
                     </div>
                   </div>
-
-                  <div className="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-e-lg lg:rounded-bl-none" style={{ background: 'linear-gradient(to right, rgba(255, 215, 0, 0.8), rgba(255, 165, 0, 0.8))' }}>
-
-                    <div className="px-4 py-6 text-black md:mx-6 md:p-12">
-                      <h4 className="mb-6 text-xl font-semibold">
-                        We are here to save your time..
-                      </h4>
-                  <p className="text-sm">
-                    Api thma hodatama kree <br></br>
-                    qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
-                    qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
-                    qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
-                    qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
-                    qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+                </div>
+                <div className="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">
+                  <p className="text-center"> 
+                    <button type="submit" className="transition rounded-lg duration-200 ease-in-out px-4 py-2 bg-indigo-500 text-white focus:ring-indigo-300 focus:ring hover:bg-indigo-600 select-none outline-none">Login</button>
                   </p>
+                  <p style={{marginTop: "5px"}} className="text-center font-normal">No account? <a href="#" className="text-indigo-500 hover:text-indigo-800">Create one!</a></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </form>
     </div>
-  </section>
-  </div>
-  )
-}
+  );
+};
 
 export default Signup;
