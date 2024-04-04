@@ -1,27 +1,23 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+// Header.js
+
+import React from 'react';
 
 const Header = () => {
   return (
-    <div className=' bg-yellow-400 py-4 px-4 flex justify-between items-center '>
-        <div className='w-1/4'>
-            <span className='text-3xl text-white font-bold tracking-tight'>
-                <Link to="/">EasyRent</Link>
-            </span>
-        </div>
-        <div className='w-2/4 text-center'>
-           
-        </div>
-        <div className='w-1/4 space-x-2 text-right'>
-            <span className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
-                <Link>Log in</Link>
-            </span>
-            <span className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
-                <Link>Sign Up</Link>
-            </span>
-        </div>
-    </div>
-  )
-}
+    <header className="bg-yellow-500 text-white py-4">
+      <div className="container mx-auto flex justify-between items-center px-4">
+        <h1 className="text-2xl font-bold">EasyRent</h1>
+        <nav>
+          <ul className="flex space-x-4">
+            <li><a href="#" className="hover:text-gray-200">Home</a></li>
+            <li><a href="#" className="hover:text-gray-200">About</a></li>
+            <li><a href="#" className="hover:text-gray-200">Services</a></li>
+            <li><a href="#" className="hover:text-gray-200">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  );
+};
 
-export default Header
+export default Header;
