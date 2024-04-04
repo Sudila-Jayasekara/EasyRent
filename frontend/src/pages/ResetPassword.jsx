@@ -36,15 +36,12 @@ const ResetPassword = () => {
               <div className="divide-y divide-gray-200">
                 <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                   <h1 style={{marginBottom: "5px"}} className="font-extrabold text-4xl text-center">Reset Password</h1>
-                  <p className="text-center">Text should be in here</p>
+                  <p className="text-center">Enter your new password</p>
                   
                   <div className="justify-center flex flex-col py-6 sm-py-12">
                   <label className='text-black font-extrabold' htmlFor='Username'>Password</label>  <input name="password" placeholder="Password" type="password" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" onChange={(e)=>setPassword(e.target.value)} />
                   <div style={{marginTop: "10px"}}>
-                      <label>
-                        <input style={{marginBottom: "5px"}} type="checkbox" className="checkbox" defaultChecked />
-                        <span className="select-none">Remember me</span>
-                      </label>
+                    
                     </div>
                   </div>
                 </div>

@@ -42,10 +42,7 @@ const ForgotPassword = () => {
                   <div className="justify-center flex flex-col py-6 sm-py-12">
                  <label className='text-black font-extrabold' htmlFor='Username'>Email</label> <input name="email" style={{marginBottom: "10px"}} placeholder="Email" type="email" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" onChange={(e)=>setemail(e.target.value)}/>
                   <div style={{marginTop: "10px"}}>
-                      <label>
-                        
-                        <span className="select-none"><Link to={'/forgotpassword'}>Remember me</Link></span>
-                      </label>
+                     
                     </div>
                   </div>
                 </div>

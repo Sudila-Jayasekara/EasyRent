@@ -1,5 +1,6 @@
 import express from "express";
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt'
 import { KEY } from "../../config.js";
 import { Renter } from "../../models/Renter Management/Renter.model.js";
 import nodemailer from 'nodemailer' 
@@ -14,10 +15,11 @@ router.post('/signup', async (req, res) => {
         if (renter) {
             return res.json({ message: "Renter already registered" });
         }
+        const hashpassword=await bcrypt.hash(password,10)
         const newRenter = new Renter({
             username,
             email,
-            password, 
+            password:hashpassword, 
             phoneno,
             address,
         });
@@ -37,7 +39,8 @@ router.post('/login', async (req, res) => {
         if (!renter) {
             return res.json({ message: "User is not registered" });
         }
-        if (password !== renter.password) { // Direct comparison (not recommended)
+        const validpassword=await bcrypt.compare(password,renter.password)
+        if (!validpassword) { // Direct comparison (not recommended)
             return res.json({ message: "Password is incorrect" });
         }
         const token = jwt.sign({ email: renter.email }, KEY, { expiresIn: '1h' });
