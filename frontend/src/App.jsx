@@ -15,6 +15,7 @@ import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
+import ForgotPassword from './pages/ForgotPassword';
 
 axios.defaults.baseURL='http://localhost:5556'
 axios.defaults.withCredentials=true
@@ -26,6 +27,7 @@ const App = () => {
       <Route path='/' element={<Layout><Home/></Layout>} />
       <Route path='/signup' element={<Signup/>} />
       <Route path='/login' element={<Login/>} />
+      <Route path='/forgotpassword' element={<ForgotPassword/>}/>
       
       <Route path='/landing'element={<Layout><Landing/></Layout>}/>
       <Route path='/profile'element={<Layout><Manageprofile/></Layout>}/>
