@@ -19,6 +19,7 @@ const Signup = () => {
       const response = await Axios.post('http://localhost:5556/auth/signup', {
         username,
         email,
+        confirmPassword,
         password,
         phoneno,
         address,
