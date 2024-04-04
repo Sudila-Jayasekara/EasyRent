@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Axios from 'axios';
+import {useNavigate,Link} from 'react-router-dom'
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -9,6 +11,7 @@ const Signup = () => {
   const [phoneno, setphoneno] = useState('');
   const[address,setadress]=useState('');
  
+  const navigate=useNavigate()
 
   const registerUser = (e) => {
     e.preventDefault()
@@ -19,7 +22,10 @@ const Signup = () => {
       phoneno,
       address,
     }).then(response=>{
-      console.log(response)
+      if(response.data.status){
+        navigate('/login')
+      }
+
     }).catch(err=>{
       console.log(err)
     });
@@ -57,7 +63,7 @@ const Signup = () => {
                   <p className="text-center"> 
                     <button type="submit" className="transition rounded-lg duration-200 ease-in-out px-4 py-2 bg-indigo-500 text-white focus:ring-indigo-300 focus:ring hover:bg-indigo-600 select-none outline-none">Login</button>
                   </p>
-                  <p style={{marginTop: "5px"}} className="text-center font-normal">No account? <a href="#" className="text-indigo-500 hover:text-indigo-800">Create one!</a></p>
+                  <p style={{marginTop: "5px"}} className="text-center font-normal">No account? <Link to='/login' className="text-indigo-500 hover:text-indigo-800">Create one!</Link></p>
                 </div>
               </div>
             </div>

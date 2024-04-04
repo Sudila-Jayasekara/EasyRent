@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser'
 import { PORT, mongoDBURL } from './config.js';
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
 
@@ -14,6 +15,7 @@ app.use(cors({
 
 // Add routes
 app.use(express.json());
+app.use(cookieParser())
 app.use('/auth', RenterRouter);
 
 // Connect to MongoDB and start the server
