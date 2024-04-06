@@ -10,6 +10,7 @@ import DriverdashboardSidebar from './pages/Driver Management/DriverdashboardSid
 import DriverDashboard from './pages/Driver Management/DriverDashboard';
 import DriverManage from './pages/Driver Management/DriverManage.jsx';
 import Driverprofile from './pages/Driver Management/Driverprofile.jsx';
+import License from './pages/Driver Management/License.jsx';
 
 
 
@@ -35,7 +36,8 @@ const App = () => {
       </Route>
       
       <Route path='/managedriver' element={<Layout><DriverManage/></Layout>}/>
-       <Route path='/driver' element={<Layout><DriverDashboard/></Layout>}/>
+      <Route path='/driver' element={<Layout><DriverDashboard/></Layout>}/>
+      <Route path='/license' element={<Layout><License/></Layout>}/>
       
       
 main
