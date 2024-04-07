@@ -28,8 +28,6 @@ router.get('/', async (req, res) => {
 router.get('/:id', getVehicle, (req, res) => {
     res.json(res.vehicle);
 });
-
-// Middleware function to get a specific vehicle by ID
 async function getVehicle(req, res, next) {
     let vehicle;
     try {
@@ -45,4 +43,30 @@ async function getVehicle(req, res, next) {
     next();
 }
 
+// DELETE a specific vehicle by ID
+router.delete('/:id', getVehicle, async (req, res) => {
+    try {
+        await Vehicle.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Vehicle deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// UPDATE a specific vehicle by ID
+router.put('/:id', getVehicle, async (req, res) => {
+    try {
+      const updatedVehicle = await res.vehicle.updateOne({
+        $set: { ...req.body } 
+      });
+      if (!updatedVehicle.matchedCount) {
+        return res.status(404).json({ message: 'No vehicle found with that ID' });
+      }
+      const fetchedVehicle = await Vehicle.findById(req.params.id);
+      res.json(fetchedVehicle || { message: 'Vehicle updated successfully' });
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+  });
 export default router;
