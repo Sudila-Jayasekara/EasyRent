@@ -7,7 +7,7 @@ const VehicleSidebar = () => {
    <Link>Approved Forms</Link>
     </button>
     <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded mb-60 my-60'>
-   <Link to ={'/VehicleDashboard'}>Added Vehicles</Link>
+   <Link to ={'/vehicledashboard'}>Added Vehicles</Link>
     </button>
     <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded mb-60 my-60'>
     <Link>Updated Forms</Link>
