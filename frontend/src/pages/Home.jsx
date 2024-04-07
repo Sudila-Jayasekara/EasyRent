@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
+import Rate from '../components/Rate';
+
 
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <Rate></Rate>
+      
+      
+    </div>
   )
 }
 
-export default Home
+export default Home;
