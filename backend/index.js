@@ -3,7 +3,7 @@ import { PORT,mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from 'cors';
 
-import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
+import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js'
 
 const app = express();
 
@@ -16,7 +16,8 @@ app.get('/',(request, response) =>{
     return response.status(234).send('Welcome to ITP Project')
 })
 
-app.use('/booking', BookingRoute);
+app.use('/vehicle', VehicleRoute);
+
 mongoose
     .connect(mongoDBURL)
     .then(()=>{
