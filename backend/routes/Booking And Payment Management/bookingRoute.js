@@ -3,25 +3,29 @@ import {Booking} from '../../models/Booking And Payment Management/bookingModel.
 
 const router = express.Router();
 
-//Route for Save a new Booking
-router.post('/', async (request,response) => {
-  try{
-    const newBooking = {
-      user: request.body.user, // Replace with actual user data retrieval logic
-      vehicle: request.body.vehicle, // Replace with actual vehicle data retrieval logic
-      serviceType: request.body.serviceType,
-      startDate: request.body.startDate,
-      endDate: request.body.endDate,
-      location: request.body.location,
-      description: request.body.description, 
-    };
-    const booking = await Booking.create(newBooking);
-    return response.status(201).send(booking);
+// Insert a new booking
+router.post('/', async (req, res) => {
+  try {
+    const { user, vehicle, serviceType, startDate, endDate, status, location, description } = req.body;
 
-  }catch (error) {
-    console.log(error.message);
-    response.status(500).send({message:error.message})
+    const newBooking = new Booking({
+      user,
+      vehicle,
+      serviceType,
+      startDate,
+      endDate,
+      status,
+      location,
+      description,
+    });
+
+    const savedBooking = await newBooking.save();
+
+    res.status(201).json(savedBooking);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to insert booking' });
   }
-})
+});
 
 export default router;
+
