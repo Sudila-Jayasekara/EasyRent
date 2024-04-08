@@ -3,17 +3,17 @@ import mongoose from "mongoose";
 const bookingSchema = mongoose.Schema(
     {
         // User details
-        user: {
-            // type: mongoose.Schema.Types.ObjectId,
-            // ref: 'User',
+        renter: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Renter',
             type: String,
             required: true,
           },
 
         // Vehicle information
         vehicle: {
-            // type: mongoose.Schema.Types.ObjectId,
-            // ref: 'Vehicle',
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Vehicle',
             type: String,
             required: true,
         },
