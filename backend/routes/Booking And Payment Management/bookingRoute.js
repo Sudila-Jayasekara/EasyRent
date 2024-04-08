@@ -18,7 +18,11 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const bookings = await Booking.find();
-    res.json(bookings);
+     res.status(200).json({
+      count: bookings.length,
+      data: bookings,
+    });
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
