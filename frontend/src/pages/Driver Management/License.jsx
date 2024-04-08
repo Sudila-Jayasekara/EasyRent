@@ -11,7 +11,13 @@ const License = () => {
 
   return (
     <div>
-      <Menu as="div" className="relative inline-block text-left">
+      <div className="text-center text-4xl style-bold">
+        <h1>License Verification</h1>
+      </div>
+      <div className="text-2xl mt-10">
+        <h2>Select your license type:</h2>
+      </div>
+      <Menu as="div" className="relative inline-block text-left mt-7">
         <div>
           <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-semibold text-gray-900 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-none">
             {selectedItem || "Options"}
@@ -28,19 +34,7 @@ const License = () => {
         >
           <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="py-1">
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    onClick={() => handleItemClick("Account settings")}
-                    className={`${
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700"
-                    } block px-4 py-2 text-sm`}
-                  >
-                    Account settings
-                  </a>
-                )}
-              </Menu.Item>
+              
               <Menu.Item>
                 {({ active }) => (
                   <a
@@ -90,7 +84,7 @@ const License = () => {
       <div className="content-center ml-96">
         
 <label className="block ml-28 mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-<input className="block w-full text-sm text-gray-900 border w-64 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"/>
+<input className="block w-95 text-sm text-gray-900 border w-64 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"/>
 
       </div>
     </div>
