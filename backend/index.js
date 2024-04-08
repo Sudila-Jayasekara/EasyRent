@@ -11,7 +11,10 @@ const app = express();
 
 //middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+  }));
 app.use(cookieParser())
 
 app.get('/',(request, response) =>{
@@ -19,8 +22,10 @@ app.get('/',(request, response) =>{
     return response.status(234).send('Welcome to ITP Project')
 })
 
+
 app.use('/api/booking', BookingRoute);
 app.use('/auth', RenterRouter);
+
 
 mongoose
     .connect(mongoDBURL)

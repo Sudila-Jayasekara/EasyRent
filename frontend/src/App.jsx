@@ -23,7 +23,7 @@ const App = () => {
   return (
     <Routes>
       
-      <Route path='/' element={<Layout><Home/></Layout>} />
+      <Route path='/' element={<Layout />} />
       <Route path='/signup' element={<Signup/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/forgotpassword' element={<ForgotPassword/>}/>
