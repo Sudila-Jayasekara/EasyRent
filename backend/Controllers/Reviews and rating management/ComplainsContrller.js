@@ -10,7 +10,7 @@ export const create =async(req,res)=>{
         res.status(200).json(svedata)
     }
     catch(err){
-        res.status(500).json({error: error});
+        res.status(500).json({error: err});
     }
 }
 
