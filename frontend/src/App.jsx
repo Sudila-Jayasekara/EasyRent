@@ -7,7 +7,7 @@ import BookingHistory from './pages/Booking And Payment Management/BookingHistor
 import Payment from './pages/Booking And Payment Management/Payment';
 import DriverDashboard from './pages/Driver Management/DriverDashboard';
 import Owner from './pages/Vehicle Owner Management/Owner';
-
+import VehicleAdd from './VehicleAdd';
 
 const App = () => {
   return (
@@ -30,6 +30,9 @@ const App = () => {
       <Route path='/owner'>
         <Route path='' element={<Layout><Owner/></Layout>} />
       </Route>
+      <Route path='/vehicleadd' element={<VehicleAdd/>}/>
+
+      
 
       
     </Routes>
