@@ -16,7 +16,8 @@ app.get('/',(request, response) =>{
     return response.status(234).send('Welcome to ITP Project')
 })
 
-app.use('/booking', BookingRoute);
+app.use('/api/booking', BookingRoute);
+
 mongoose
     .connect(mongoDBURL)
     .then(()=>{
