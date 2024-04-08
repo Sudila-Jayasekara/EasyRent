@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const mongoose =require("mongoose");
+const mongoose =require ("mongoose");
 const schema=mongoose.schema;
 
 const ComplainSchema =new schema({

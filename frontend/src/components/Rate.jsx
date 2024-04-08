@@ -20,7 +20,7 @@ function Rate() {
         <div className='vehicleRateForm'><center><RateVehicleForm></RateVehicleForm></center></div>
         <div><button className='subButton_Vehicle'>Submit</button></div>
         <br></br>
-       <center><button class="flex bg-[rgb(250,204,21);] p-4 font-bold rounded-3xl " onClick={()=>navigate('complainsForm')}>Complains to the vehicle</button></center>
+       <center><button class="flex bg-[rgb(250,204,21);] p-4 font-bold rounded-3xl " onClick={()=>navigate('complainsFormVehicle')}>Complains to the vehicle</button></center>
        
       </div>
 
@@ -32,7 +32,7 @@ function Rate() {
        <button onClick={()=>navigate('ComplainsForm')} className='subButton_Driver'>Submit</button>
        <br></br>
        <br></br>
-       <center><button class="flex bg-[rgb(250,204,21);] p-4 font-bold rounded-3xl ">Complains to the vehicle</button></center>
+       <center><button class="flex bg-[rgb(250,204,21);] p-4 font-bold rounded-3xl " onClick={()=>navigate('ComplainsForDriver')}>Complains to the vehicle</button></center>
       </div> 
       
       </div>
