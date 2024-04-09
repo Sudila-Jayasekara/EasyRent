@@ -3,11 +3,9 @@ import { PORT,mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from 'cors';
 import cookieParser from 'cookie-parser'
-
 import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
-
-
+import ComplainsRoute from './routes/Reviews and rating management/ComplainsRoute.js'
 const app = express();
 
 //middleware
@@ -31,6 +29,9 @@ app.get('/',(request, response) =>{
     console.log(request)
     return response.status(234).send('Welcome to ITP Project')
 })
+
+app.use('/api/complains',ComplainsRoute);
+
 
 mongoose
     .connect(mongoDBURL)

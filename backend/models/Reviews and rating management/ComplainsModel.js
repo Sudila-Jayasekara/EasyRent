@@ -1,20 +1,37 @@
 import mongoose from "mongoose";
 
-const ComplainsSchema = new mongoose.Schema({
-    Vehicle_id:{
-        type:String,
-        required:true
-    },
-    Trip_id:{
-        type:String,
-        required:true
-    },
-    Driver_id:{
-        type:String,
-    },
-    Explain:{
-        type:String,
-        required:true
+const ComplainsSchema = mongoose.Schema(
+    {
+        // Vehicle details
+        TripId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'TripId',
+            type: String,
+            required: true,
+          },
+
+        // Vehicle information
+        vehicleId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Vehicle',
+            type: String,
+            required: true,
+        },
+
+        // complains details
+        ComlpainsFor: {
+            type: String,
+            enum: ['Driver', 'Vehicle'],
+            required: true,
+        },
+
+        Description:{
+            type:String,
+            ref:'Description',
+            required:true
+        }
+       
     }
-})
- export default mongoose.model("Complains",ComplainsSchema);
+);
+
+export const Complains = mongoose.model('complains',ComplainsSchema); 
