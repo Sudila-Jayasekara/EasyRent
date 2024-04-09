@@ -6,7 +6,13 @@ export default {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      'serif': ['Times New Roman', 'Times', 'serif'],
+    },
   },
   plugins: [],
-}
 
+
+
+    
+}
