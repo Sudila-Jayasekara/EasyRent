@@ -6,7 +6,9 @@ const DriverDashboard = () => {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <Link to={'/displaydates'}>
         <button className='bg-black text-white h-16 w-60'>Check Reserved Dates</button>
+        </Link>
         <Link to={'/license'}>
           <button className='bg-black text-white h-16 w-60 mx-48 my-10'>License Verification</button>
         </Link>

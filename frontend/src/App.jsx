@@ -8,9 +8,9 @@ import BookingHistory from './pages/Booking And Payment Management/BookingHistor
 import Payment from './pages/Booking And Payment Management/Payment';
 import DriverdashboardSidebar from './pages/Driver Management/DriverdashboardSidebar';
 import DriverDashboard from './pages/Driver Management/DriverDashboard';
-import DriverManage from './pages/Driver Management/DriverManage.jsx';
-import Driverprofile from './pages/Driver Management/Driverprofile.jsx';
-import License from './pages/Driver Management/License.jsx';
+import Displaydates from './pages/Driver Management/Displaydates';
+import Driverprofile from './pages/Driver Management/Driverprofile';
+import License from './pages/Driver Management/License';
 
 
 
@@ -35,9 +35,10 @@ const App = () => {
         <Route path='' element={<Layout><Payment/></Layout>} />
       </Route>
       
-      <Route path='/managedriver' element={<Layout><DriverManage/></Layout>}/>
+      
       <Route path='/driver' element={<Layout><DriverDashboard/></Layout>}/>
       <Route path='/license' element={<Layout><License/></Layout>}/>
+      <Route path='/displaydates' element={<Layout><Displaydates/></Layout>}/>
       
       
 main

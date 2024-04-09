@@ -1,13 +1,13 @@
 import React from 'react'
 import DriverDashboard from './DriverDashboard'
 
-const DriverManage = () => {
+const Displaydates = () => {
   return (
     <div>
         
     </div>
      
-  )
-}
+  );
+};
 
-export default DriverDashboard
+export default Displaydates;
