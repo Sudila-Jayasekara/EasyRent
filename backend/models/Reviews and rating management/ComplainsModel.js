@@ -1,4 +1,4 @@
-import mongoose, { model } from "mongoose";
+import mongoose from "mongoose";
 
 const ComplainsSchema = new mongoose.Schema({
     Vehicle_id:{

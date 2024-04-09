@@ -2,10 +2,15 @@ import express from "express";
 import { PORT,mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import route from "./routes/Reviews and rating management/ComplainsRoute.js";
-
+import cors from "cors"
 const app = express();
 
+app.use(cors());
 
+app.get('/',(request, response) =>{
+    console.log(request)
+    return response.status(234).send('Welcome to ITP Project')
+})
 
 mongoose
     .connect(mongoDBURL)
@@ -19,4 +24,4 @@ mongoose
         console.log(error);
     })
     
-    app.use("/api",route)
+app.use("/api",route)    

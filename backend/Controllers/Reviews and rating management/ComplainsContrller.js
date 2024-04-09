@@ -1,4 +1,4 @@
-import Complains from "../models/Reviews and rating management/ComplainsModel.js";
+import Complains from "../models/Reviews and rating management/ComplainsModel.js"
 
 export const create =async(req,res)=>{
     try{
