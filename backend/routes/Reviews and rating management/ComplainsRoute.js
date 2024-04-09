@@ -4,5 +4,4 @@ const route =express.Router();
 
 route.post("/create",create);
 
-
 export default route;
