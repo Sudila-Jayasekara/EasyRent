@@ -15,6 +15,7 @@ const License = () => {
       <div className="text-center text-4xl style-bold">
         <h1>License Verification</h1>
       </div>
+    <div className="display-flex">
       <div className="text-2xl mt-10">
         <h2>Select your license type:</h2>
       </div>
@@ -89,7 +90,7 @@ const License = () => {
       <div>
            <img className="object-cover w-80 ml-96 h-70 p-2 mt-20 ring-2 ring-indigo-300 dark:ring-indigo-500" src={license} alt="License" />
       </div>
-      
+      </div>
       <div className="content-center ml-96 mt-16">
       <h1>Upload your image here.</h1>
        <label className="block ml-28 mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
