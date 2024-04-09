@@ -23,7 +23,7 @@ const TestButtons = () => {
         <Link to={'/payment'}>Payment</Link>
         </button>
         <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
-        <Link to={'/HR'}>HR</Link>
+        <Link to={'/HR'}>HR</Link> 
         </button>
         <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
         <Link>Maintenance</Link>

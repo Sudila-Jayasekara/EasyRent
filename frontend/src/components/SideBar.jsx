@@ -54,6 +54,7 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import TestButtons from './TestButtons';
 import PaymentSidebar from '../pages/Booking And Payment Management/PaymentSidebar';
+import HRSidebar from '../pages/HR Management/HRSidebar';
 
 const SideBar = ({children , title}) => {
   const location = useLocation();
@@ -70,6 +71,7 @@ const SideBar = ({children , title}) => {
             {(location.pathname=== '/payment') && (
                 <PaymentSidebar/>
             )}
+            {(location.pathname=== '/HR') && (<HRSidebar/>)}
         </div>
         <div className='flex-grow mr-4 my-4'>
           <div className='w-full py-2 px-4 bg-yellow-400 rounded-lg mb-4'>
