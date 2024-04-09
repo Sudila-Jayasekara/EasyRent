@@ -22,7 +22,7 @@ const BookingForm = () => {
         console.log(formData);
 
         //send form data to the server
-        axios.post('http://localhost:5556/api/booking', formData)
+        axios.post('http://localhost:5556/api/booking',formData)
             .then(response => {
             console.log(response.data);
             })
