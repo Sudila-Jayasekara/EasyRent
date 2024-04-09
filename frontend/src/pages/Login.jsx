@@ -12,7 +12,7 @@ const Login = () => {
   Axios.defaults.withCredentials=true;
   const loginUser = (e) => {
     e.preventDefault()
-    Axios.post('http://localhost:5556/auth/login',{
+    Axios.post('api/auth/login',{
  
       email,
       password, 
