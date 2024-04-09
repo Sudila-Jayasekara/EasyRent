@@ -44,7 +44,8 @@ const BookingForm = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto"> 
+        <div className='flex justify-center space-x-5 mt-10 '>
+        <div className="max-w-md"> 
             <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div className="flex justify-between mb-4">
                     <div className="w-1/2 pr-3">
@@ -138,9 +139,9 @@ const BookingForm = () => {
                                 required
                             >
                                 <option value="pending">Pending</option>
-                                <option value="approved">Approved</option>
-                                <option value="rejected">Rejected</option>
-                                <option value="cancelled">Cancelled</option>
+                                <option value="approved" disabled>Approved</option>
+                                <option value="rejected" disabled>Rejected</option>
+                                <option value="cancelled" disabled>Cancelled</option>
                             </select>
                         </div>
                     </div>
@@ -184,6 +185,26 @@ const BookingForm = () => {
                 </div>
             </form>
         </div>
+        <div className="max-w-md">
+            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div className="mb-4">
+                    <span className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                        Required Documents
+                    </span>
+                    <ul className="list-disc pl-5">
+                        <li className='text-red-500'>Driving Licence</li>
+                        <li className='text-red-500'>National Identity Card</li>
+                        <li className='text-red-500'>Any Kind Of Bill</li>
+                    </ul>
+                </div>
+            </div>
+            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <span className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                        Generate Estimate Bill
+                </span>
+            </div>
+        </div>
+    </div>
     );
 };
 
