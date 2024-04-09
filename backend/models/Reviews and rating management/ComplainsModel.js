@@ -3,15 +3,15 @@ import mongoose from "mongoose";
 const ComplainsSchema = mongoose.Schema(
     {
         // Vehicle details
-        TripId: {
+        trip_id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'TripId',
+            ref: 'trip_id',
             type: String,
             required: true,
           },
 
         // Vehicle information
-        vehicleId: {
+        vehicle_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Vehicle',
             type: String,
@@ -19,15 +19,15 @@ const ComplainsSchema = mongoose.Schema(
         },
 
         // complains details
-        ComlpainsFor: {
+        Driver_description: {
             type: String,
-            enum: ['Driver', 'Vehicle'],
+            ref:'DDescription',
             required: true,
         },
 
-        Description:{
+        Vehicle_description:{
             type:String,
-            ref:'Description',
+            ref:'VDescription',
             required:true
         }
        

@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// GET all bookings
+// GET all complains
 router.get('/', async (req, res) => {
   try {
     const complains = await Complains.find();
@@ -28,22 +28,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-/*GET a specific booking by id
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const booking = await Booking.findById(id);
-    if (!booking) {
-      return res.status(404).json({ message: 'Booking not found' });
-    }
-    res.json(booking);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-}); */
 
-// Update a  by id
-router.patch('/:id', async (req, res) => {
+router.patch('/:trip_id', async (req, res) => {
   const { id } = req.params;
   try {
     const complains = await complains.findById(id);
@@ -58,8 +44,8 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
-// Delete a booking by id
-router.delete('/:id', async (req, res) => {
+// Delete a complains by id
+router.delete('/:trip_id', async (req, res) => {
   const { id } = req.params;
   try {
     const complains = await Complains.findById(id);
