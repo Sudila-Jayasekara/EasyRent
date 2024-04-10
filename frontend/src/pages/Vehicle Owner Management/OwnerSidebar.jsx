@@ -6,27 +6,32 @@ const OwnerSidebar = () =>{
     return(
        <>
        <div className="flex flex-col items-center space-y-5">
-          <Link to={'/ownerprofile'}>
-            <img className="object-cover w-40 h-40 mb-36 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500" src= "https://i.pinimg.com/564x/d1/8c/29/d18c29bc0636c509280a896b3dd2bccc.jpg" alt="profile pic" />
-          </Link>
+          
+            <img className="object-cover w-40 h-40 mb-1 p-1 rounded-full ring-2 dark:ring-red-700" src= "https://watermark.lovepik.com/photo/20211202/large/lovepik-private-car-driver-picture_501434302.jpg" alt="profile pic" />
+            <button className='bg-red-700 text-white hover:bg-black hover:text-white font-bold py-2 text-xl   px-10 rounded-3xl  '>
+        <Link to={'/ownerProfile'}>Profile</Link>
+        </button>
         </div>
      
-        <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2   px-4 rounded my-30'>
+
+<div className="container">
+        <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2  mt-12 px-14 rounded my-30 '>
         <Link>Home Page</Link>
         </button>
 
-        <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 mb-5 px-4 rounded my-25'>
+         
+        <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 mt-10  px-16 rounded my-25'>
         <Link>Booking</Link>
         </button>
 
-        <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 mb-5 px-4 rounded my-25'>
-        <Link >View Vehicle</Link>
+        <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 mt-10 px-12 rounded my-25'>
+        <Link to={'/viewvehicle'} >View Vehicle</Link>
         </button>
 
-        <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 mb-5 px-4 rounded my-25'>
+        <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 mt-10 px-14 rounded my-25'>
         <Link>Contact Us</Link>
         </button>
-      
+      </div>
         </>
         
     )

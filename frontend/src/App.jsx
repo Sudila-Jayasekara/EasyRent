@@ -8,6 +8,9 @@ import Payment from './pages/Booking And Payment Management/Payment';
 import DriverDashboard from './pages/Driver Management/DriverDashboard';
 import Owner from './pages/Vehicle Owner Management/Owner';
 import VehicleAdd from './VehicleAdd';
+import DriverAdd from './DriverAdd';
+import OwnerProfile from './pages/Vehicle Owner Management/OwnerProfile';
+import ViewVehicle from './ViewVehicle';
 
 const App = () => {
   return (
@@ -31,9 +34,13 @@ const App = () => {
         <Route path='' element={<Layout><Owner/></Layout>} />
       </Route>
       <Route path='/vehicleadd' element={<VehicleAdd/>}/>
-
+      <Route path='/driveradd' element={<DriverAdd/>}/>
       
-
+      
+      <Route path='/ownerProfile'>
+        <Route path='' element={<Layout><OwnerProfile/></Layout>} />
+      </Route>
+      <Route path='/viewvehicle' element={<ViewVehicle/>}/>
       
     </Routes>
   )
