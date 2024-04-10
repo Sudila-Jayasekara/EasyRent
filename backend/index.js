@@ -28,7 +28,6 @@ app.get('/',(request, response) =>{
 
 
 app.use('/api/booking', BookingRoute);
-app.use('/api/ownertemp', OwnerRouterTemp);
 
 app.use('/api/renter', RenterRouter);
 app.use('/api/auth',authRouter);
