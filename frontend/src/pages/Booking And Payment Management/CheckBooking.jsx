@@ -10,12 +10,13 @@ const ShowBookingO = () => {
     axios.get(`http://localhost:5556/api/booking`)
       .then(response => {
         console.log('Response data:', response.data);
-        setBookings(response.data);
+        
 
         // Filter the bookings based on renter ID
         const filtered = response.data.filter(booking => booking.vehicle_id === vehicleId);
         setFilteredBookings(filtered);
-
+        setBookings(filtered);
+        
         // Fetch renter usernames for filtered bookings
         fetchRenterUsernames(filtered);
       })

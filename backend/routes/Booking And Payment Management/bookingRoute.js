@@ -4,15 +4,15 @@ import {Booking} from '../../models/Booking And Payment Management/bookingModel.
 const router = express.Router();
 
 // Insert a new booking
-router.post('/', async (req, res) => {
-  const booking = new Booking(req.body);
-  try {
-    const newBooking = await booking.save();
-    res.status(201).json(newBooking);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to insert booking' });
-  }
-});
+// router.post('/', async (req, res) => {
+//   const booking = new Booking(req.body);
+//   try {
+//     const newBooking = await booking.save();
+//     res.status(201).json(newBooking);
+//   } catch (error) {
+//     res.status(500).json({ error: 'Failed to insert booking' });
+//   }
+// });
 
 // Insert a new booking with bill image as a string
 router.post('/', async (req, res) => {
