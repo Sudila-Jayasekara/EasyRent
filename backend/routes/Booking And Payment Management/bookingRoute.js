@@ -53,20 +53,6 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-//get all bookings matching to specific renterid
-router.get('/renter/:renterid', async (req, res) => {
-  const { renterid } = req.params;
-  try {
-    const bookings = await Booking.find({ renter: renterid });
-    if (!bookings) {
-      return res.status(404).json({ message: 'Bookings not found' });
-    }
-    res.json(bookings);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-}
-);
 
 
 // GET a specific booking by id
@@ -114,6 +100,20 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+//get all bookings matching to specific renterid
+router.get('/renter/:renterid', async (req, res) => {
+  const { renterid } = req.params;
+  try {
+    const bookings = await Booking.find({ renter: renterid });
+    if (!bookings) {
+      return res.status(404).json({ message: 'Bookings not found' });
+    }
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+);
 
 export default router;
 
