@@ -1,5 +1,7 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+// Header.js
+
+import React from 'react';
+import {Link} from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -10,18 +12,18 @@ const Header = () => {
             </span>
         </div>
         <div className='w-2/4 text-center'>
-           
+            
         </div>
         <div className='w-1/4 space-x-2 text-right'>
             <span className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
-                <Link>Log in</Link>
+                <Link to={'/login'}>Log in</Link>
             </span>
             <span className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
-                <Link>Sign Up</Link>
+                <Link to='/signup'>Sign Up</Link>
             </span>
         </div>
     </div>
   )
 }
 
-export default Header
+export default Header;
