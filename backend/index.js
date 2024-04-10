@@ -6,7 +6,8 @@ import cookieParser from 'cookie-parser'
 import {authRouter} from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
 
-import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
+import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js';
+import DriverRoute from './routes/Driver Management/driverRoute.js';
 
 
 
@@ -28,8 +29,8 @@ app.get('/',(request, response) =>{
 
 
 app.use('/api/booking', BookingRoute);
-
 app.use('/api/renter', RenterRouter);
+app.use('/api/driver', DriverRoute);
 app.use('/api/auth',authRouter);
 
 
