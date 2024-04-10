@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 
 import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
+import {authRouter} from "./routes/auth.route.js";
 
 const app = express();
 
@@ -24,7 +25,8 @@ app.get('/',(request, response) =>{
 
 
 app.use('/api/booking', BookingRoute);
-app.use('/auth', RenterRouter);
+app.use('/api/renter', RenterRouter);
+app.use('/api/auth',authRouter);
 
 
 mongoose

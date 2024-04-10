@@ -15,6 +15,7 @@ import SelectBooking from './pages/Renter Management/SelectBooking';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
 
+
 axios.defaults.baseURL='http://localhost:5556'
 axios.defaults.withCredentials=true
 
@@ -33,7 +34,6 @@ const App = () => {
       <Route path='/Rentersidebar'element={<Layout><RenterSidebar/></Layout>}/>
       <Route path='/homerenter' element={<Layout><RenterHome/></Layout>}/>
       <Route path='/selectbooking' title="Select Booking" element={<Layout><SelectBooking/></Layout>}/>
-       
       <Route path='/booking/create' element={<CreateBooking/>}/>
       <Route path='/booking/details' element={<ShowBooking/>}/>
       
