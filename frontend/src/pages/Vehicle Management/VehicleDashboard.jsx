@@ -1,49 +1,100 @@
-import React from "react";
-import CommonSection from "../Vehicle Management/CommonSection";
-import CarItem from "../Vehicle Management/CarItem";
-import Data from "../Vehicle Management/Data";
+import React from 'react';
+import Card from '../pages/Vehicle Management/Card'
 
-const VehicleDashboard = () => {
-  // Define your Data array here
-  const Data = [
-    { id: 1, /* other properties */ },
-    { id: 2, /* other properties */ },
-    // Add more objects as needed
-  ];
-
-  return (
-    <div>
-      {/* Use { } for JSX comments */}
-      {/* <PageHelmet title="Cars"> */}
-      <CommonSection title="Vehicle Dashboard" />
-
-      <section>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className=" d-flex align-items-center gap-3 mb-5">
-                <span className=" d-flex align-items-center gap-2">
-                  <i className="ri-sort-asc"></i> Sort By
-                </span>
-
-                <select>
-                  <option>Select</option>
-                  <option value="low">Low to High</option>
-                  <option value="high">High to Low</option>
-                </select>
-              </div>
+function VehicleDashboard () {
+    return (
+      <div>
+        <div tabIndex="0" className="focus:outline-none">
+            <div className="mx-auto container py-8">
+                <div className="flex flex-wrap items-center lg:justify-between justify-center">
+                    {/* Card 1 */}
+                    <Card
+                        imageSrc="https://cdn.tuk.dev/assets/templates/classified/Bitmap (1).png"
+                        title="iphone XS"
+                        timeAgo="4 days ago"
+                        description="The Apple iPhone XS is available in 3 colors with 64GB memory. Shoot amazing videos"
+                        additionalInfos={["12 months warranty", "Complete box"]}
+                        location="Bay Area, San Francisco"
+                    />
+                    {/* Card 1 Ends */}
+                    {/* Card 2 */}
+                    <Card
+                        imageSrc="https://cdn.tuk.dev/assets/templates/classified/Bitmap (1).png"
+                        title="iphone XS"
+                        timeAgo="4 days ago"
+                        description="The Apple iPhone XS is available in 3 colors with 64GB memory. Shoot amazing videos"
+                        additionalInfos={["12 months warranty", "Complete box"]}
+                        location="Bay Area, San Francisco"
+                    />
+                    {/* Card 2 Ends */}
+                    {/* Card 3 */}
+                    <Card
+                        imageSrc="https://cdn.tuk.dev/assets/templates/classified/Bitmap (1).png"
+                        title="iphone XS"
+                        timeAgo="4 days ago"
+                        description="The Apple iPhone XS is available in 3 colors with 64GB memory. Shoot amazing videos"
+                        additionalInfos={["12 months warranty", "Complete box"]}
+                        location="Bay Area, San Francisco"
+                    />
+                    {/* Card 3 Ends */}
+                    {/* Card 4 */}
+                    <Card
+                        imageSrc="https://cdn.tuk.dev/assets/templates/classified/Bitmap (1).png"
+                        title="iphone XS"
+                        timeAgo="4 days ago"
+                        description="The Apple iPhone XS is available in 3 colors with 64GB memory. Shoot amazing videos"
+                        additionalInfos={["12 months warranty", "Complete box"]}
+                        location="Bay Area, San Francisco"
+                    />
+                    {/* Card 4 Ends */}
+                </div>
+                <div className="flex flex-wrap items-center lg:justify-between justify-center pb-10 mt-16">
+                    {/* Card 1 */}
+                    <Card
+                        imageSrc="https://cdn.tuk.dev/assets/templates/classified/Bitmap.png"
+                        title="iphone XS"
+                        timeAgo="4 days ago"
+                        description="The Apple iPhone XS is available in 3 colors with 64GB memory. Shoot amazing videos"
+                        additionalInfos={["12 months warranty", "Complete box"]}
+                        location="Bay Area, San Francisco"
+                    />
+                    {/* Card 1 Ends */}
+                    {/* Card 2 */}
+                    <Card
+                        imageSrc="https://cdn.tuk.dev/assets/templates/classified/Bitmap.png"
+                        title="iphone XS"
+                        timeAgo="4 days ago"
+                        description="The Apple iPhone XS is available in 3 colors with 64GB memory. Shoot amazing videos"
+                        additionalInfos={["12 months warranty", "Complete box"]}
+                        location="Bay Area, San Francisco"
+                    />
+                    {/* Card 2 Ends */}
+                    {/* Card 3 */}
+                    <Card
+                        imageSrc="https://cdn.tuk.dev/assets/templates/classified/Bitmap.png"
+                        title="iphone XS"
+                        timeAgo="4 days ago"
+                        description="The Apple iPhone XS is available in 3 colors with 64GB memory. Shoot amazing videos"
+                        additionalInfos={["12 months warranty", "Complete box"]}
+                        location="Bay Area, San Francisco"
+                    />
+                    {/* Card 3 Ends */}
+                    {/* Card 4 */}
+                    <Card
+                        imageSrc="https://cdn.tuk.dev/assets/templates/classified/Bitmap.png"
+                        title="iphone XS"
+                        timeAgo="4 days ago"
+                        description="The Apple iPhone XS is available in 3 colors with 64GB memory. Shoot amazing videos"
+                        additionalInfos={["12 months warranty", "Complete box"]}
+                        location="Bay Area, San Francisco"
+                    />
+                    {/* Card 4 Ends */}
+                </div>
             </div>
-
-            {/* Map over Data array */}
-            {Data.map((item) => (
-              <CarItem item={item} key={item.id} />
-            ))}
-          </div>
+            {/*- more free and premium Tailwind CSS components at https://tailwinduikit.com/ -*/}
         </div>
-      </section>
-      {/* </PageHelmet> */}
-    </div>
-  );
-};
+        </div>
+    );
+}
 
 export default VehicleDashboard;
