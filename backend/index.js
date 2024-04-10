@@ -3,10 +3,14 @@ import { PORT,mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from 'cors';
 import cookieParser from 'cookie-parser'
-
-import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
-import { RenterRouter } from './routes/Renter Management/Renter.route.js';
 import {authRouter} from "./routes/auth.route.js";
+import { RenterRouter } from './routes/Renter Management/Renter.route.js';
+
+//Booking Start
+import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
+import OwnerRouterTemp from './routes/Booking And Payment Management/ownerRouteTemp.js';
+//Booking End
+
 
 const app = express();
 
@@ -25,6 +29,8 @@ app.get('/',(request, response) =>{
 
 
 app.use('/api/booking', BookingRoute);
+app.use('/api/ownertemp', OwnerRouterTemp);
+
 app.use('/api/renter', RenterRouter);
 app.use('/api/auth',authRouter);
 
