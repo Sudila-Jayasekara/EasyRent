@@ -12,16 +12,16 @@ const License = () => {
 
   return (
     <div>
-      <div className="text-center"
-> License Verifications
-  
-  </div>    <div className="grid grid-cols-2 gap-8 justify-center items-center h-auto">
+      <div className="text-center text-4xl"> 
+      License Verification
+    </div>    
+    <div className="grid grid-cols-2 gap-8 justify-center items-center h-auto">
       {/* Left Column */}
       <div className="col-span-1 ">
-        
+        <div>
         <div className="text-2xl">
           <h2>Select your license type:</h2>
-        
+        </div>
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-semibold text-gray-900 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-none">
@@ -88,12 +88,12 @@ const License = () => {
       {/* Right Column */}
       <div className="col-span-1">
         <div>
-          <img className="object-cover w-80 h-70 p-2 mt-20 ring-2 ring-indigo-300 dark:ring-indigo-500" src={license} alt="License" />
+          <img className="object-cover w-80 ml-94 h-75 p-2 mt-20 ring-2 ring-indigo-300 dark:ring-indigo-500" src={license} alt="License" />
         </div>
         
       </div>
       <div className="content-center ml-96">
-    <h1>Upload your image here.</h1>
+    <h1>Upload your document here.</h1>
     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload file</label>
     <input className="block w-64 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
   </div>
