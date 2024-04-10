@@ -14,19 +14,60 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Insert a new booking with bill image as a string
+router.post('/', async (req, res) => {
+  try {
+    const { serviceType, startDate, endDate, status, location, description, renter, vehicle, bill } = req.body;
+    
+    // Create a new booking object
+    const booking = new Booking({
+      serviceType,
+      startDate,
+      endDate,
+      status,
+      location,
+      description,
+      renter,
+      vehicle,
+      bill: bill.toString() // Convert the bill image to a string
+    });
+
+    // Save the booking to the database
+    const newBooking = await booking.save();
+    
+    res.status(201).json(newBooking);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to insert booking' });
+  }
+});
+
+
+
 // GET all bookings
 router.get('/', async (req, res) => {
   try {
     const bookings = await Booking.find();
-     res.status(200).json({
-      count: bookings.length,
-      data: bookings,
-    });
+    res.json(bookings);
 
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+//get all bookings matching to specific renterid
+router.get('/renter/:renterid', async (req, res) => {
+  const { renterid } = req.params;
+  try {
+    const bookings = await Booking.find({ renter: renterid });
+    if (!bookings) {
+      return res.status(404).json({ message: 'Bookings not found' });
+    }
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+);
+
 
 // GET a specific booking by id
 router.get('/:id', async (req, res) => {
@@ -72,6 +113,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
 
 export default router;
 
