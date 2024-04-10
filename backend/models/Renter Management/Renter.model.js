@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const userSchema=new mongoose.Schema({
+const renterSchema=new mongoose.Schema({
     username:{
         type:String,
         required:true,
@@ -14,8 +14,8 @@ const userSchema=new mongoose.Schema({
         required:true,
 
     },
-    phoneno:{
-        type:Number,
+    phoneNumber:{
+        type:String,
         required:true,
         unique:true,
     },
@@ -28,6 +28,6 @@ const userSchema=new mongoose.Schema({
 
 },{timestamps:true});
 
-const RenterModel=mongoose.model("Renter",userSchema)
+const RenterModel=mongoose.model("Renter",renterSchema)
 
 export  {RenterModel as Renter};

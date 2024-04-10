@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser'
 import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
 import ComplainsRoute from './routes/Reviews and rating management/ComplainsRoute.js'
+import {authRouter} from "./routes/auth.route.js";
+
 const app = express();
 
 //middleware
@@ -23,7 +25,8 @@ app.get('/',(request, response) =>{
 
 
 app.use('/api/booking', BookingRoute);
-app.use('/auth', RenterRouter);
+app.use('/api/renter', RenterRouter);
+app.use('/api/auth',authRouter);
 
 app.get('/',(request, response) =>{
     console.log(request)

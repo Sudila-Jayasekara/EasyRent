@@ -3,12 +3,13 @@ import axios from 'axios';
 
 const ShowBooking = () => {
   const [bookings, setBookings] = useState([]);
+  const renterid = "119119119";
 
   useEffect(() => {
-    axios.get('http://localhost:5556/api/booking')
+    axios.get(`http://localhost:5556/api/booking/renter/${renterid}`)
       .then(response => {
-        console.log('Response data:', response.data.data);
-        setBookings(response.data.data);
+        console.log('Response data:', response.data);
+        setBookings(response.data);
       })
       .catch(error => {
         console.error('Error fetching bookings:', error);
