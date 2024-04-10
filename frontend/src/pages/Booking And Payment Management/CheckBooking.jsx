@@ -3,20 +3,48 @@ import axios from 'axios';
 
 const ShowBookingO = () => {
   const [bookings, setBookings] = useState([]);
+  const [filteredBookings, setFilteredBookings] = useState([]);
   const vehicleId = "v001"; // Specify the renter ID you want to filter for
 
   useEffect(() => {
     axios.get(`http://localhost:5556/api/booking`)
       .then(response => {
         console.log('Response data:', response.data);
+        setBookings(response.data);
+
         // Filter the bookings based on renter ID
-        const filteredBookings = response.data.filter(booking => booking.vehicle_id === vehicleId);
-        setBookings(filteredBookings);
+        const filtered = response.data.filter(booking => booking.vehicle_id === vehicleId);
+        setFilteredBookings(filtered);
+
+        // Fetch renter usernames for filtered bookings
+        fetchRenterUsernames(filtered);
       })
       .catch(error => {
         console.error('Error fetching bookings:', error);
       });
-  }, []); 
+  }, [vehicleId]); // Include vehicleId as a dependency to re-run effect when it changes
+
+  const fetchRenterUsernames = (filteredBookings) => {
+    filteredBookings.forEach(booking => {
+      axios.get(`http://localhost:5556/api/renter/${booking.renter_id}`)
+        .then(response => {
+          const updatedBookings = filteredBookings.map(bookingItem => {
+            if (bookingItem.id === booking.id) {
+              return {
+                ...bookingItem,
+                renter_username: response.data.username // Assuming username is in response
+              };
+            }
+            return bookingItem;
+          });
+          setFilteredBookings(updatedBookings);
+        })
+        .catch(error => {
+          console.error(`Error fetching renter details for booking ${booking.id}:`, error);
+        });
+    });
+  };
+
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -61,7 +89,7 @@ const ShowBookingO = () => {
         console.error('Error rejecting booking:', error);
       });
   };
-  
+
   return (
     <div className="container mx-auto">
       <h1 className="text-2xl font-bold mb-4">Booking History</h1>
@@ -112,10 +140,10 @@ const ShowBookingO = () => {
                     <button onClick={() => handleReject(booking._id)} className="bg-red-500 text-white px-3 py-1 rounded-md">Reject</button>
                   </>
                 )} */}
-                  <>
-                    <button onClick={() => handleApprove(booking._id)} className="bg-green-500 text-white px-3 py-1 rounded-md mr-2">Approve</button>
-                    <button onClick={() => handleReject(booking._id)} className="bg-red-500 text-white px-3 py-1 rounded-md">Reject</button>
-                  </>
+                <>
+                  <button onClick={() => handleApprove(booking._id)} className="bg-green-500 text-white px-3 py-1 rounded-md mr-2">Approve</button>
+                  <button onClick={() => handleReject(booking._id)} className="bg-red-500 text-white px-3 py-1 rounded-md">Reject</button>
+                </>
               </td>
             </tr>
           ))}
