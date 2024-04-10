@@ -6,10 +6,9 @@ import cookieParser from 'cookie-parser'
 import {authRouter} from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
 
-//Booking Start
 import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
-import OwnerRouterTemp from './routes/Booking And Payment Management/ownerRouteTemp.js';
-//Booking End
+
+
 
 
 const app = express();
