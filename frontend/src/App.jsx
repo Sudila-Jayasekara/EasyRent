@@ -6,7 +6,8 @@ import CreateBooking from './pages/Booking And Payment Management/CreateBooking'
 import ShowBooking from './pages/Booking And Payment Management/ShowBooking';
 import Layout from './components/Layout';
 import Landing from './pages/Renter Management/Landing';
-import Signup from './pages/Signup';
+// import Signup from './pages/Signup';
+import Signup from './pages/shared/Signup.jsx';
 import Login from './pages/Login';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import Manageprofile from './pages/Renter Management/Manageprofile';
@@ -24,7 +25,7 @@ const App = () => {
     <Routes>
       
       <Route path='/' element={<Layout />} />
-      <Route path='/signup' element={<Signup/>} />
+      {/* <Route path='/signup' element={<Signup/>} /> */}
       <Route path='/login' element={<Login/>} />
       <Route path='/forgotpassword' element={<ForgotPassword/>}/>
       <Route path='/resetPassword' element={<ResetPassword/>}/>
@@ -34,8 +35,9 @@ const App = () => {
       <Route path='/homerenter' element={<Layout><RenterHome/></Layout>}/>
       <Route path='/selectbooking' title="Select Booking" element={<Layout><SelectBooking/></Layout>}/>
        
-      <Route path='/booking/create' element={<CreateBooking/>}/>
+      <Route path='/booking/create' element={<Layout><CreateBooking/></Layout>}/>
       <Route path='/booking/details' element={<ShowBooking/>}/>
+      <Route path='/signup' element={<Signup/>}/>
       
     </Routes>
     

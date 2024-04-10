@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Axios from 'axios';
+import React, { useState } from 'react';import Axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Signup = () => {
