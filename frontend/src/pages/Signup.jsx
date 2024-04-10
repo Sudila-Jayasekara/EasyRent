@@ -93,8 +93,8 @@ const Signup = () => {
 
                     {userRole === 'owner' && (
                         <label>
-                            Additional Field for Owner:
-                            <input type="text" name="additionalField1" value={formData.additionalField1} onChange={handleChange} className="h-7 block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"/>
+                            Owner NIC:
+                            <input type="text" name="nic" value={formData.nic} onChange={handleChange} className="h-7 block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"/>
                         </label>
                     )}
 
@@ -104,10 +104,10 @@ const Signup = () => {
                                 NIC:
                                 <input type="text" name="nic" value={formData.nic} onChange={handleChange} className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"/>
                             </label>
-                            <label>
+                            {/* <label>
                                 Additional Field 2 for Driver:
                                 <input type="text" name="additionalField2" value={formData.additionalField2} onChange={handleChange} className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"/>
-                            </label>
+                            </label> */}
                         </>
                     )}
 

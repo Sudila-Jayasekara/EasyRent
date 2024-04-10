@@ -2,6 +2,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import { Renter } from '../models/Renter Management/Renter.model.js';
 import { Driver } from '../models/Driver Management/Driver.model.js';
+import { Owner } from '../models/Vehicle Owner Management/Owner.model.js';
 import jwt from 'jsonwebtoken'; 
 import { KEY } from '../config.js';
 
@@ -53,43 +54,61 @@ router.post('/signup', async (req, res) => {
             console.error(error);
         }
     };
+
+    if(role==='owner'){
+        const { nic,username, email, password, phoneNumber, address } = req.body;
+        try {
+            const owner = await Owner.findOne({email});
+            if(owner){
+                return res.json({message:"Owner already registered"});
+            }
+            const hashpassword=await bcrypt.hash(password,10)
+            const newOwner=new Owner({
+                username,
+                email,
+                nic,
+                password:hashpassword,
+                phoneNumber,
+                address,
+            });
+            await newOwner.save();
+            return res.json({status:true,message:"User Registered"});
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
 });
 router.post('/login', async (req, res, next) => {
     const { email, password } = req.body;
-    
+
     try {
+        let user;
+
         // Check if the user is a renter
-        const validRenter = await Renter.findOne({ email });
-        
-        if (validRenter) {
-            const validPassword = bcrypt.compareSync(password, validRenter.password);
-            
-            if (validPassword) {
-                const token = jwt.sign({ email: validRenter.email }, KEY, { expiresIn: '1h' });
-                res.cookie('token', token, { httpOnly: true, maxAge: 3600000 });
-                return res.json({ status: true, message: "Login successful" });
-            } else {
-                return res.json({ message: "Wrong Credentials!" });
+        user = await Renter.findOne({ email });
+        if (!user) {
+            // Check if the user is a driver
+            user = await Driver.findOne({ email });
+            if (!user) {
+                // Check if the user is an owner
+                user = await Owner.findOne({ email });
+                if (!user) {
+                    return res.json({ message: "User is not registered" });
+                }
             }
         }
 
-        // Check if the user is a driver
-        const validDriver = await Driver.findOne({ email });
-        
-        if (validDriver) {
-            const validPassword = bcrypt.compareSync(password, validDriver.password);
-            
-            if (validPassword) {
-                const token = jwt.sign({ email: validDriver.email }, KEY, { expiresIn: '1h' });
-                res.cookie('token', token, { httpOnly: true, maxAge: 3600000 });
-                return res.json({ status: true, message: "Login successful" });
-            } else {
-                return res.json({ message: "Wrong Credentials!" });
-            }
+        const validPassword = bcrypt.compareSync(password, user.password);
+
+        if (!validPassword) {
+            return res.json({ message: "Wrong Credentials!" });
         }
 
-        // If the user is neither a renter nor a driver
-        return res.json({ message: "User is not registered" });
+        const token = jwt.sign({ email: user.email }, KEY, { expiresIn: '1h' });
+        res.cookie('token', token, { httpOnly: true, maxAge: 3600000 });
+        return res.json({ status: true, message: "Login successful" });
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal Server Error" });
