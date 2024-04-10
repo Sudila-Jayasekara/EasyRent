@@ -27,21 +27,21 @@ const Driverprofile = () => {
                 <form className='w-96'>
                   <div className="grid gap-6 mb-6 lg:grid-cols-2">
                     <div>
-                      <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900">User name</label>
-                      <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Kaushal Silva" required />
+                      <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900">First name</label>
+                      <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="John" required />
                     </div>
                     <div>
-                      <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900">NIC</label>
-                      <input type="text" id="last_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="XXXXXXXXXXXX" required />
+                      <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900">Last name</label>
+                      <input type="text" id="last_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Doe" required />
                     </div>
                     <div>
                       <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900">Phone number</label>
-                      <input type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="07X-XXXXXXXX" pattern="[0][0-9]{3}[0-9]{3}[0-9]{3}" required />
+                      <input type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" pattern="[0][0-9]{3}[0-9]{3}[0-9]{3}" required />
                     </div>
                   </div>
                   <div className="mb-6">
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">E-mail</label>
-                    <input type="text" id="adress" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter an valid email adress" required />
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">User E-mail</label>
+                    <input type="text" id="adress" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter the adress here" required />
                   </div>
                   
                   <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Update Details</button>
