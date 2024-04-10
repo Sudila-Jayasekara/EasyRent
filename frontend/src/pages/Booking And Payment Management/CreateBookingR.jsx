@@ -62,9 +62,6 @@ const BookingForm = () => {
         }
         return "";
     };
-
-    
-
     return (
         <div>
             <form
@@ -194,7 +191,6 @@ const BookingForm = () => {
                             onChange={handleChange}
                             required
                         />
-                        
                     </div>
                     <div className="mb-4">
                         <label
