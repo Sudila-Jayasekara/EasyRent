@@ -10,8 +10,8 @@ const BookingForm = () => {
         location: "",
         description: "",
     });
-    const [renter, setRenter] = useState("119119119");
-    const [vehicle, setVehicle] = useState("119119119");
+    const [renter_id, setRenterId] = useState("r002");
+    const [vehicle_id, setVehicleId] = useState("v001");
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,8 +28,8 @@ const BookingForm = () => {
         e.preventDefault();
         const updatedFormData = {
             ...formData,
-            renter,
-            vehicle,
+            renter_id,
+            vehicle_id,
         };
         console.log(updatedFormData);
         //send form data to the server

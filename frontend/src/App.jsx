@@ -3,7 +3,9 @@ import axios from 'axios';
 import {Routes, Route} from 'react-router-dom';
 
 import CreateBooking from './pages/Booking And Payment Management/CreateBookingR.jsx';
-import ShowBooking from './pages/Booking And Payment Management/ShowBookingR.jsx';
+import ShowBookingR from './pages/Booking And Payment Management/BookingHistory.jsx';
+import ShowBookingO from './pages/Booking And Payment Management/CheckBooking.jsx';
+
 import Layout from './components/Layout';
 import Landing from './pages/Renter Management/Landing';
 import Signup from './pages/Signup';
@@ -18,6 +20,7 @@ import ResetPassword from './pages/ResetPassword.jsx';
 
 import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx';
 import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';
+
 
 axios.defaults.baseURL='http://localhost:5556'
 axios.defaults.withCredentials=true
@@ -41,7 +44,8 @@ const App = () => {
 
       
       <Route path='/booking/create' element={<Layout><CreateBooking/></Layout>}/>
-      <Route path='/booking/details' element={<ShowBooking/>}/>
+      <Route path='/booking/history' element={<ShowBookingR/>}/>
+      <Route path='/booking/check' element={<ShowBookingO/>}/>
 
       
     </Routes>
