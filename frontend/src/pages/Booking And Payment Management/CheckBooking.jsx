@@ -16,7 +16,7 @@ const ShowBookingO = () => {
       .catch(error => {
         console.error('Error fetching bookings:', error);
       });
-  }, [vehicleId]); // Add renterId to the dependency array
+  }, []); 
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
