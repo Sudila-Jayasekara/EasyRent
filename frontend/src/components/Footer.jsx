@@ -1,22 +1,15 @@
-import React from 'react'
+// Footer.js
+
+import React from 'react';
 
 const Footer = () => {
   return (
-<div className='bg-yellow-400 py-4 px-4 flex justify-between items-center' >
-    <div className='w-1/4'>
-        <span className='text-lg text-white font-bold tracking-tight'>
-            EasyRent
-        </span>
-    </div>
-    <div className='w-1/2 text-center'>
-        <span>© EasyRent.com</span>
-    </div>
-    <div className='w-1/4'>
-        {/* You can put additional content here */}
-    </div>
-</div>
+    <footer className="bg-yellow-500 text-white py-4">
+      <div className="container mx-auto px-4 text-center">
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+      </div>
+    </footer>
+  );
+};
 
-  )
-}
-
-export default Footer
+export default Footer;
