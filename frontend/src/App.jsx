@@ -2,9 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import {Routes, Route} from 'react-router-dom';
 
-import Layout from './layout/Layout';
-import Home from './pages/Home';
-import Booking from './pages/Booking And Payment Management/Booking';
+
 
 import BookingHistory from './pages/Booking And Payment Management/BookingHistory';
 import Payment from './pages/Booking And Payment Management/Payment';
@@ -14,13 +12,13 @@ import Displaydates from './pages/Driver Management/Displaydates';
 import Driverprofile from './pages/Driver Management/Driverprofile';
 import License from './pages/Driver Management/License';
 
- origin/Dev
+
 
 import CreateBooking from './pages/Booking And Payment Management/CreateBookingR.jsx';
 import ShowBookingR from './pages/Booking And Payment Management/BookingHistory.jsx';
 import ShowBookingO from './pages/Booking And Payment Management/CheckBooking.jsx';
 
-import Layout from './components/Layout';
+
 import Landing from './pages/Renter Management/Landing';
 import Signup from './pages/Signup';
 // import Signup from './pages/shared/Signup.jsx';
@@ -78,14 +76,14 @@ const App = () => {
       <Route path='/booking/history' element={<ShowBookingR/>}/>
       <Route path='/booking/check' element={<ShowBookingO/>}/>
 
-origin/Dev
+
       
       <Route path='/driver' element={<Layout><DriverDashboard/></Layout>}/>
       <Route path='/license' element={<Layout><License/></Layout>}/>
       <Route path='/displaydates' element={<Layout><Displaydates/></Layout>}/>
       
       
-main
+
     </Routes>
     
   )
