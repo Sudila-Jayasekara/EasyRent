@@ -1,6 +1,8 @@
 import React from 'react';
+import { useRef } from 'react';
 
 const Manageprofile = () => {
+  const fileRef = useRef(null);
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <main className="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
@@ -9,7 +11,8 @@ const Manageprofile = () => {
             <h2 className="mx-auto pl-6 text-2xl font-bold sm:text-xl">Public Profile</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto mt-8">
               <div className="flex flex-col items-center space-y-5">
-                <img className="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZhY2V8ZW58MHx8MHx8fDA%3D&auto=htmlFormat&fit=crop&w=500&q=60" alt="Bordered avatar" />
+                <input type="file" ref={fileRef} hidden accept='image/*'/>
+                <img className="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500" onClick={()=>fileRef.current.click()}         src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZhY2V8ZW58MHx8MHx8fDA%3D&auto=htmlFormat&fit=crop&w=500&q=60" alt="Bordered avatar" />
                 <div className="flex flex-col space-y-5 sm:ml-8">
                   <button type="button" className="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 ">
                     Change picture
@@ -23,13 +26,10 @@ const Manageprofile = () => {
                 <form className='w-96'>
                   <div className="grid gap-6 mb-6 lg:grid-cols-2">
                     <div>
-                      <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900">First name</label>
+                      <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900">Username</label>
                       <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="John" required />
                     </div>
-                    <div>
-                      <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900">Last name</label>
-                      <input type="text" id="last_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Doe" required />
-                    </div>
+                    
                     <div>
                       <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900">Phone number</label>
                       <input type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" pattern="[0][0-9]{3}[0-9]{3}[0-9]{3}" required />
@@ -40,7 +40,10 @@ const Manageprofile = () => {
                     <input type="text" id="adress" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter the adress here" required />
                   </div>
                
+                  
                   <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Update Details</button>
+                  <button type="submit" className="text-white mt-2 bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Sign Out</button>
+                
                 </form>
    
               </div>
@@ -59,7 +62,8 @@ const Manageprofile = () => {
     <p className="text-sm text-gray-500 px-8">Do you really want to delete your account? This process cannot be undone</p>  
     <div className="p-3 mt-2 text-center space-x-4 md:block">
         
-        <button className="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Delete</button>
+    <button className="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Delete</button>
+    
     </div>  
 </div>
 
