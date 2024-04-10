@@ -6,31 +6,31 @@ const driverSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  
+
   profilePicture: {
     type: String,
-    
+
   },
-  address:{
-    type:String,
-    required:true,
-},
+  address: {
+    type: String,
+    required: true,
+  },
   comment: {
     type: String,
-    
+
   },
   license: {
     type: String,
-    
+
   },
   licenseType: {
     type: String,
-   
+
   },
   nic: {
     type: String,
     required: true,
-    unique:true
+    unique: true
   },
   phoneNumber: {
     type: String,
@@ -40,13 +40,13 @@ const driverSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  password:{
-    type:String,
-    required:true,
+  password: {
+    type: String,
+    required: true,
 
-}
-},{timestamps:true});
-const DriverModel=mongoose.model("Driver",driverSchema)
+  }
+}, { timestamps: true });
+const DriverModel = mongoose.model("Driver", driverSchema)
 
-export  {DriverModel as Driver};
+export { DriverModel as Driver };
 
