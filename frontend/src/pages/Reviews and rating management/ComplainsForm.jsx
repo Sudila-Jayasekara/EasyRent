@@ -70,8 +70,8 @@ const ComplainsForm = () => {
             <div className="flex flex-col justify-between min-h-screen">
                 <div className="flex justify-center">
                   <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                        <span className="block text-gray-700 text-sm font-bold mb-10 text-center ">
-                            Give your ratings and Reviews for us...
+                        <span className="block text-gray-700 text-md font-bold mb-10 text-center ">
+                            Give your ratings & Reviews for us....  
                         </span>
                         <div className='flex flex-row'>
                             <div className="flex items-center">
@@ -147,6 +147,7 @@ const ComplainsForm = () => {
                             <button
                                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                 type="submit"
+                                
                             >
                                 Submit
                             </button>

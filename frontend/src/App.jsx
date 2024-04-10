@@ -17,6 +17,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
 
 import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx';
+import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';
 
 axios.defaults.baseURL='http://localhost:5556'
 axios.defaults.withCredentials=true
@@ -40,6 +41,8 @@ const App = () => {
       <Route path='/booking/details' element={<ShowBooking/>}/>
 
       <Route path='/complains' element={<ComplainsForm/>}/>
+      <Route path='/complains/ShowCompplains' element={<ShowComplains/>}/>
+
       
       
     </Routes>

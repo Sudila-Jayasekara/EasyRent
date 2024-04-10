@@ -3,9 +3,10 @@ import axios from "axios"
 
 const ShowComplains =()=>{
     const[complains,setcomplains]=useState([]);
-}
+    const[loading,setLoading]=useState([]);
+
 useEffect(()=>{
-    axios.get('http://localhost:5556/api/complains')
+    axios.get('http://localhost:5556/api/complains/$trip_id')
     .then(response=>{
         console.log('Response data:',response.data.data)
         setcomplains(response.data.data);
@@ -15,7 +16,7 @@ useEffect(()=>{
     });
 },[]);
 
-function ShowComplains() {
+
   return (
     <div className="container mx-auto">
       <h1 className="text-2xl font-bold mb-4">Complains Details</h1>
@@ -34,7 +35,7 @@ function ShowComplains() {
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
               Vehicle description
             </th>
-            {/* Add more table headers for other booking details */}
+            
           </tr>
         </thead>
         <tbody>
@@ -44,8 +45,8 @@ function ShowComplains() {
               <td className="py-2 px-4">{complanining.vehicle_id}</td>
               <td className="py-2 px-4">{complanining.Driver_description}</td>
               <td className="py-2 px-4">{complanining.Vehicle_description}</td>
-              {/* Add more table cells for other booking details */}
             </tr>
+            
           ))}
         </tbody>
       </table>
@@ -54,4 +55,4 @@ function ShowComplains() {
   )
 }
 
-export default ShowComplains
+export default ShowComplains;

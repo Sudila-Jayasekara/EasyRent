@@ -31,6 +31,7 @@ app.get('/',(request, response) =>{
 })
 
 app.use('/api/complains',ComplainsRoute);
+app.use(cors());
 
 
 mongoose
