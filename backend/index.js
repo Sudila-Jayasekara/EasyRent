@@ -35,13 +35,15 @@ app.use('/api/ownertemp', OwnerRouterTemp);
 app.use('/api/renter', RenterRouter);
 app.use('/api/auth',authRouter);
 
+app.use('/api/complains',ComplainsRoute);
+
 app.get('/',(request, response) =>{
     console.log(request)
     return response.status(234).send('Welcome to ITP Project')
 })
 
-app.use('/api/complains',ComplainsRoute);
-app.use(cors());
+
+
 
 
 mongoose

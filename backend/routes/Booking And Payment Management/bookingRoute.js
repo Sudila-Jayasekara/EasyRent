@@ -116,4 +116,3 @@ router.get('/renter/:renterid', async (req, res) => {
 );
 
 export default router;
-

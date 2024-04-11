@@ -5,7 +5,6 @@ import Footer from '../../components/Footer';
 
 const ComplainsForm = () => {
     const [formData, setFormData] = useState({
-        trip_id:'',
         vehicle_id:'',
         Driver_description: '',
         Vehicle_description:'',
@@ -38,7 +37,7 @@ const ComplainsForm = () => {
 
         const dataToSend = {
          
-          trip_id:formData.trip_id,
+          
           vehicle_id:formData.vehicle_id,
           Driver_description:formData.Driver_description,
           Vehicle_description:formData.Vehicle_description,         
@@ -47,7 +46,7 @@ const ComplainsForm = () => {
       };
 
         //send form data to the server
-        axios.post('http://localhost:5556/api/complains/editcomplains', dataToSend)
+        axios.post('http://localhost:5556/api/complains', dataToSend)
             .then(response => {
                 console.log(response.data);
             })
@@ -57,8 +56,8 @@ const ComplainsForm = () => {
 
         //clear the form after submit
         setFormData({
-                      trip_id:'',
-                      vehicle_id,
+                      
+                      vehicle_id:'',
                       Driver_description: '',
                       Vehicle_description:'',
                     });
@@ -89,19 +88,7 @@ const ComplainsForm = () => {
                             </div>
                             <div className="ml-10 mt-2">{driverRating === 0 ? 'Please rate' : `You rated: ${driverRating} stars`}</div>
                         </div>
-                        <div className="mb-4">
-                          <lable className="block text-gray-700 text-sm font-bold mb-2" htmlFor="trip_id">Trip Id</lable>
-                            <textarea
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                               id='trip_id'
-                               type="text"
-                               placeholder='Trip ID'
-                               name='trip_id'
-                               value={FormData.trip_id}
-                               onChange={handleChange}
-                               required
-                            />
-                            </div>
+                       
                              <div className="mb-4">
                           <lable className="block text-gray-700 text-sm font-bold mb-2" htmlFor="vehicle_id">Vehicle Id</lable>
                             <textarea

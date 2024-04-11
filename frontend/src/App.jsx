@@ -41,11 +41,17 @@ const App = () => {
       <Route path='/homerenter' element={<Layout><RenterHome/></Layout>}/>
       <Route path='/selectbooking' title="Select Booking" element={<Layout><SelectBooking/></Layout>}/>
       <Route path='/signup' element={<Signup/>}/>
+      <Route path='/complainscheck' element={<ShowComplains/>}/>
+      <Route path='/complains/history' element={<ShowComplains/>}/>
+      <Route path='/complainsForm' element={<ComplainsForm/>}/>
+
 
       
+    
       <Route path='/booking/create' element={<Layout><CreateBooking/></Layout>}/>
       <Route path='/booking/history' element={<ShowBookingR/>}/>
       <Route path='/booking/check' element={<ShowBookingO/>}/>
+
 
       
     </Routes>

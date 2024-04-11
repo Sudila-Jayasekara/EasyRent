@@ -2,16 +2,10 @@ import mongoose from "mongoose";
 
 const ComplainsSchema = mongoose.Schema(
     {
-        // Vehicle details
-        trip_id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'trip_id',
-            type: String,
-            required: true,
-          },
+       
 
         // Vehicle information
-        vehicle_id: {
+        vehicle_id:{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Vehicle',
             type: String,
@@ -19,7 +13,7 @@ const ComplainsSchema = mongoose.Schema(
         },
 
         // complains details
-        Driver_description: {
+        Driver_description:{
             type: String,
             ref:'DDescription',
             required: true,
