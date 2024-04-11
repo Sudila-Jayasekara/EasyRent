@@ -22,6 +22,7 @@ import DriverdashboardSidebar from './pages/Driver Management/DriverdashboardSid
 import Driverprofile from './pages/Driver Management/Driverprofile.jsx';
 import License from './pages/Driver Management/License.jsx';
 import DriverDashboard from './pages/Driver Management/Driverdashboard.jsx';
+import DriverDisplay from './pages/Driver Management/DriverDisplay.jsx';
 
 
 axios.defaults.baseURL='http://localhost:5556'
@@ -49,6 +50,7 @@ const App = () => {
       <Route path='/license' element={<Layout><License/></Layout>}/>
       <Route path='/displaydates' element={<Layout><Displaydates/></Layout>}/>
       <Route path='/driverdashboard' element={<Layout><DriverDashboard/></Layout>}/>
+      <Route path='/driverdisplay' element={<Layout><DriverDisplay/></Layout>}/>
 
 
       <Route path='/booking/create' element={<Layout><CreateBooking/></Layout>}/>

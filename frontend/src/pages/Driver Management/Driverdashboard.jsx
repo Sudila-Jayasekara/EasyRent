@@ -12,7 +12,10 @@ const DriverDashboard = () => {
         <Link to={'/license'}>
           <button className='bg-black text-white h-16 w-60 mx-48 my-10'>License Verification</button>
         </Link>
-        <button className='bg-black text-white h-16 w-60'>Ratings and complaints</button>
+        <Link to={'/driverdisplay'}>
+        <button className='bg-black text-white h-16 w-60'>View Drivers</button>
+        </Link>
+        
       </div>
       <div>
         <img className="object-cover w-96 ml-20 h-96 p-1 ring-2 ring-indigo-300 dark:ring-indigo-500" src={thumbnail} alt="Thumbnail" />
