@@ -30,6 +30,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
 import OwnerSidebar from './pages/Vehicle Owner Management/OwnerSidebar.jsx';
 
+import ViewRenter from './pages/Renter Management/ViewRenter';
 
 
 axios.defaults.baseURL='http://localhost:5556'
@@ -57,7 +58,7 @@ const App = () => {
       </Route>
       <Route path='/viewvehicle' element={<ViewVehicle/>}/>
       <Route path='/' element={<Layout />} />
-      {/* <Route path='/signup' element={<Signup/>} /> */}
+      <Route path='/viewRenter' element={<Layout><ViewRenter/></Layout>}/>
       <Route path='/login' element={<Login/>} />
       <Route path='/forgotpassword' element={<ForgotPassword/>}/>
       <Route path='/resetPassword' element={<ResetPassword/>}/>
