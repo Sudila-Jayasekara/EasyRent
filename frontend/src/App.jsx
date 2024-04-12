@@ -18,6 +18,11 @@ import SelectBooking from './pages/Renter Management/SelectBooking';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
 
+import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx'
+import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx'
+import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx'
+import EditComplains from './pages/Reviews and rating management/EditComplains.jsx'
+import Home from './pages/Reviews and rating management/Home.jsx'
 
 
 
@@ -47,7 +52,7 @@ const App = () => {
       <Route path='/booking/check' element={<ShowBookingO/>}/>
 
 
-      <Route path='/' element={<Home/>}/>//complains home
+      <Route path='/complains' element={<Home/>}/>//complains home
       <Route path='/complains/details/:id' element={<ShowComplains/>}/>//show complains
       <Route path='/complains/edit/:id' element={<EditComplains/>}/>//update
       <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>//delete
