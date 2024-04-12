@@ -7,6 +7,10 @@ import {authRouter} from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
 import cookieParser from "cookie-parser";
 import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
+import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js';
+import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
+import DriverRoute from './routes/Driver Management/driverRoute.js';
+import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
 
 
 
@@ -27,11 +31,13 @@ app.get('/',(request, response) =>{
     return response.status(234).send('Welcome to ITP Project')
 })
 
-
-app.use('/api/booking', BookingRoute);
-
-app.use('/api/renter', RenterRouter);
 app.use('/api/auth',authRouter);
+app.use('/api/booking', BookingRoute);
+app.use('/api/vehicle', VehicleRoute);
+app.use('/api/renter', RenterRouter);
+app.use('/api/driver', DriverRoute);
+app.use('/api/owner', OwnerRoute);
+
 
 
 mongoose
