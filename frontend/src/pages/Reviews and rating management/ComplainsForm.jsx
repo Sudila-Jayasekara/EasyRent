@@ -1,155 +1,102 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ComplainsForm = () => {
-    const [formData, setFormData] = useState({
-        vehicle_id:'',
-        Driver_description: '',
-        Vehicle_description:'',
+    const [vehicleid, setVehicleid] = useState('');
+    const [vehicleDescription, setVehicleDescription] = useState('');
+    const [driverDescription, setDriverDescription] = useState('');
+    const [Rating, setRating] = useState(0);
+    const navigate = useNavigate();
 
-    });
-    
-    // State to hold the rating for the driver reviews
-    const [driverRating, setDriverRating] = useState(0);
+    const handleSaveData = () => {
+        const data = {
+            vehicleid,
+            vehicleDescription,
+            driverDescription,
+            Rating
+        };
 
-    // State to hold the rating for the vehicle reviews
-    const [vehicleRating, setVehicleRating] = useState(0);
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-    
-    // Function to handle rating change for the driver reviews
-    const handleDriverRatingChange = (value) => {
-        setDriverRating(value);
-    };
-
-    // Function to handle rating change for the vehicle reviews
-    const handleVehicleRatingChange = (value) => {
-        setVehicleRating(value);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData);
-
-        const dataToSend = {
-         
-          
-          vehicle_id:formData.vehicle_id,
-          Driver_description:formData.Driver_description,
-          Vehicle_description:formData.Vehicle_description,         
-          driverRating: driverRating, // Add driver rating value
-          vehicleRating: vehicleRating // Add vehicle rating value
-      };
-
-        //send form data to the server
-        axios.post('http://localhost:5556/api/complains', dataToSend)
-            .then(response => {
-                console.log(response.data);
+        axios.post('http://localhost:5556/Complains', data)
+            .then(() => {
+                navigate('/');
             })
-            .catch(error => {
-                console.error(error);
+            .catch((err) => {
+                alert('An error occurred. Please check the console for details.');
+                console.log(err);
             });
-
-        //clear the form after submit
-        setFormData({
-                      
-                      vehicle_id:'',
-                      Driver_description: '',
-                      Vehicle_description:'',
-                    });
     };
 
     return (
-        <div>
-            <Header />
-            <div className="flex flex-col justify-between min-h-screen">
-                <div className="flex justify-center">
-                  <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                        <span className="block text-gray-700 text-md font-bold mb-10 text-center ">
-                            Give your ratings & Reviews for us....  
-                        </span>
-                        <div className='flex flex-row'>
-                            <div className="flex items-center">
-                                {[...Array(5)].map((_, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => handleDriverRatingChange(index + 1)}
-                                        className={`text-3xl mx-1 focus:outline-none ${
-                                            index + 1 <= driverRating ? 'text-yellow-500' : 'text-gray-300'
-                                            }`}
-                                    >
-                                        ★
-                                    </button>
-                                ))}
-                            </div>
-                            <div className="ml-10 mt-2">{driverRating === 0 ? 'Please rate' : `You rated: ${driverRating} stars`}</div>
-                        </div>
-                       
-                             <div className="mb-4">
-                          <lable className="block text-gray-700 text-sm font-bold mb-2" htmlFor="vehicle_id">Vehicle Id</lable>
-                            <textarea
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                               id='vehicle_id'
-                               type="text"
-                               placeholder='vehicle ID'
-                               name='trip_id'
-                               value={FormData.vehicle_id}
-                               onChange={handleChange}
-                               required
-                            />
-                        </div>
-                        <div className="mb-4">
-                        <lable className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Driver_description">Vehicle description</lable>
-                            <textarea
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                               id='Driver_description'
-                               type="text"
-                               placeholder='Driver Description'
-                               name='Driver_description'
-                               value={FormData.Driver_description}
-                               onChange={handleChange}
-                               required
-                            />
-                        </div>
-                        <div className="mb-4">
-                        <lable className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Vehicle_description:">Vehicle description</lable>
-                            <textarea
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                               id='Vehicle_description:'
-                               type="text"
-                               placeholder='Vehicle Description'
-                               name='Vehicle_description:'
-                               value={FormData.Vehicle_description}
-                               onChange={handleChange}
-                               required
-                            />
-                        </div>
-
-                        
-                        <div className="flex items-center justify-center">
+        <div className="flex flex-col justify-between min-h-screen">
+            <div className="flex justify-center">
+                <form  className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div className='flex flex-row'>
+                    <div className="flex items-center">
+                        {[...Array(5)].map((_, index) => (
                             <button
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                type="submit"
-                                
+                                key={index}
+                                onClick={() => setRating(index + 1)}
+                                className={`text-3xl mx-1 focus:outline-none ${
+                                    index + 1 <= Rating ? 'text-yellow-500' : 'text-gray-300'
+                                }`}
                             >
-                                Submit
+                                ★
                             </button>
-                        </div>
-                    
-                    </form>
-
-                    
-                       
-                        
+                        ))}
                     </div>
+                    <div className="ml-10 mt-2">{Rating === 0 ? 'Please rate' : `You rated: ${Rating} stars`}</div>
                 </div>
-                <Footer />
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="vehicle_id">Vehicle Id</label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id='vehicle_id'
+                        type="text"
+                        placeholder='vehicle ID'
+                        name='vehicle_id'
+                        value={vehicleid}
+                        onChange={(e) => setVehicleid(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Driver_description">Review for Driver</label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id='Driver_description'
+                        type="text"
+                        placeholder='Review for driver'
+                        name='Driver_description'
+                        value={driverDescription}
+                        onChange={(e) => setDriverDescription(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Vehicle_description">Review for Vehicle</label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id='Vehicle_description'
+                        type="text"
+                        placeholder='Review for Vehicle'
+                        name='Vehicle_description'
+                        value={vehicleDescription}
+                        onChange={(e) => setVehicleDescription(e.target.value)}
+                        required
+                    />
+                </div>
+                <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="button"
+                    onClick={handleSaveData}
+                >
+                    Save
+                </button>
+                </form>
             </div>
-       
+            
+        </div>
     );
 };
 
