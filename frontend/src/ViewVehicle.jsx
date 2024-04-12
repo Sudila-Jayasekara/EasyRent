@@ -13,7 +13,7 @@ const ViewVehicle = () => {
             <h2 className="mx-auto pl-6 text-2xl font-bold text-red-700 sm:text-center ml-96">Vehicle Details </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto mt-8">
               <div className="flex flex-col items-center space-y-5">
-                <img className="object-cover w-full h-80 p-0 ml-44 " src="https://m.atcdn.co.uk/ect/media/w600/1f7b79c7f1c54528a05e2fe338b76ae5.jpg"alt="vehicle image" />
+                <img className="object-fill  w-full h-64 p-0 " src="https://m.atcdn.co.uk/ect/media/w600/1f7b79c7f1c54528a05e2fe338b76ae5.jpg"alt="vehicle image" />
                 <div className="flex flex-col space-y-5 sm:ml-8">
                   <button type="button" className="py-3.5 px-3 ml-18 text-base font-medium text-indigo-100 focus:outline-none bg-black rounded-lg border border-indigo-200 hover:bg-slate-700 focus:z-10 focus:ring-4 focus:ring-indigo-200  ">
                     Change picture

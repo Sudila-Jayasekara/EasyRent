@@ -9,6 +9,7 @@ import BookingRoute from './routes/Booking And Payment Management/bookingRoute.j
 import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
 import DriverRoute from './routes/Driver Management/driverRoute.js';
 import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
+import OwnerVehicleRoute from './routes/Vehicle Owner Management/ownerVehicleRoute.js';
 
 
 
@@ -34,6 +35,7 @@ app.use('/api/vehicle', VehicleRoute);
 app.use('/api/renter', RenterRouter);
 app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
+app.use('/api/ownerVehicle', OwnerVehicleRoute);
 
 
 

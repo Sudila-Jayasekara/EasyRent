@@ -30,6 +30,7 @@ const ownerSchema=new mongoose.Schema({
         unique:true,
     },
     
+    
 
 },{timestamps:true});
 

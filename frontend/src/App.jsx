@@ -28,6 +28,7 @@ import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
+import OwnerSidebar from './pages/Vehicle Owner Management/OwnerSidebar.jsx';
 
 
 
@@ -48,6 +49,7 @@ const App = () => {
       </Route>
       <Route path='/vehicleadd' element={<VehicleAdd/>}/>
       <Route path='/driveradd' element={<DriverAdd/>}/>
+      <Route path='/ownersidebar' element={<Layout><OwnerSidebar/></Layout>}/>
       
       
       <Route path='/ownerProfile'>
