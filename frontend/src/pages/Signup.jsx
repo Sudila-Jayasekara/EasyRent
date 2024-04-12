@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+
   const [userRole, setUserRole] = useState("renter");
   const [formData, setFormData] = useState({
     role: userRole,
@@ -14,6 +15,7 @@ const Signup = () => {
     additionalField1: "",
     additionalField2: "",
   });
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -75,7 +77,7 @@ const Signup = () => {
             Username:
             <input
               type="text"
-              name="username"
+              name="username" 
               value={formData.username}
               onChange={handleChange}
               className="h-7 p-3 w-full block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"

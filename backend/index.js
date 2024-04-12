@@ -8,6 +8,10 @@ import { RenterRouter } from './routes/Renter Management/Renter.route.js';
 import cookieParser from "cookie-parser";
 import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
 
+import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
+import DriverRoute from './routes/Driver Management/driverRoute.js';
+import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
+
 
 
 
