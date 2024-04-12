@@ -18,8 +18,7 @@ import SelectBooking from './pages/Renter Management/SelectBooking';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
 
-import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx';
-import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';
+
 
 
 axios.defaults.baseURL='http://localhost:5556'
@@ -41,17 +40,20 @@ const App = () => {
       <Route path='/homerenter' element={<Layout><RenterHome/></Layout>}/>
       <Route path='/selectbooking' title="Select Booking" element={<Layout><SelectBooking/></Layout>}/>
       <Route path='/signup' element={<Signup/>}/>
-      <Route path='/complainscheck' element={<ShowComplains/>}/>
-      <Route path='/complains/history' element={<ShowComplains/>}/>
-      <Route path='/complainsForm' element={<ComplainsForm/>}/>
-
 
       
-    
       <Route path='/booking/create' element={<Layout><CreateBooking/></Layout>}/>
       <Route path='/booking/history' element={<ShowBookingR/>}/>
       <Route path='/booking/check' element={<ShowBookingO/>}/>
 
+
+      <Route path='/' element={<Home/>}/>//complains home
+      <Route path='/complains/details/:id' element={<ShowComplains/>}/>//show complains
+      <Route path='/complains/edit/:id' element={<EditComplains/>}/>//update
+      <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>//delete
+      <Route path='/complainsForm' element={<ComplainsForm/>}/>// create a book
+      
+    
 
       
     </Routes>
@@ -59,4 +61,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;

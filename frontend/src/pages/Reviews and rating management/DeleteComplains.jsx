@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ShowComplains() {
+function DeleteComplains() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function ShowComplains() {
   )
 }
 
-export default ShowComplains
+export default DeleteComplains
