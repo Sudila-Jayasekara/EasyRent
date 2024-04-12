@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios, { Axios } from 'axios'
 import {Link} from 'react-router-dom';
-
+import { AiOutlineEdit } from 'react-icons/ai';
+import { BsInfoCircle } from 'react-icons/bs';
+import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 
 
 const home =()=> {
@@ -50,12 +52,12 @@ useEffect(()=>{
 
             </Link>
             <Link to={`/complains/edit/${complaint._id}`}>
-            <AiOutLineEdit className='text-2xl text-yellow-600'></AiOutLineEdit>
+            <AiOutlineEdit className='text-2xl text-yellow-600'></AiOutlineEdit>
             </Link>
 
         
             <Link to={`/complains/delete/${complaint._id}`}>
-            <AiOutLineEdit className='text-2xl text-yellow-600'></AiOutLineEdit>
+            <MdOutlineDelete className='text-2xl text-yellow-600'></MdOutlineDelete>
             </Link>
 
             
