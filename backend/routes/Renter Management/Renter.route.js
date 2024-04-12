@@ -36,7 +36,6 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-
 // Update a renter by id
 router.patch('/:id', async (req, res) => {
     const { id } = req.params;
@@ -55,7 +54,6 @@ router.patch('/:id', async (req, res) => {
 });
 
 //Delete a renter by id
-
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     try {

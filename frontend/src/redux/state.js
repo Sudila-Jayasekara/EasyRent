@@ -1,25 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const initialState = {
-  userRole: null,
-  token: null
+  currentUser:null,
+  error: null,
+  loading: false,
 };
 
-export const renterSlice = createSlice({
-  name: "renter",
+const userSlice=createSlice({
+
+  name:"user",
   initialState,
-  reducers: {
-    setLogin: (state, action) => {
-     
-      state.userRole =  action.payload.renter;
-      state.token = action.payloadtoken;
+  reducers:{
+    signInStart:(state)=>{
+      state.loading=true;
     },
-    setLogout: (state) => {
-      state.renter = null;
-      state.token = null;
+    signInSuccess:(state,action)=>{
+      state.loading=false;
+      state.currentUser=action.payload;
+      state.error=null;
     },
-  }
+    signInFailure:(state,action)=>{
+      state.loading=false;
+      state.error=action.payload;
+    },
+  },
 });
 
-export const { setLogin, setLogout } = renterSlice.actions;
-export default renterSlice.reducer;
+export const {signInStart,signInSuccess,signInFailure}=userSlice.actions;
+export default userSlice.reducer;

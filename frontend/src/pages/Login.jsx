@@ -1,34 +1,32 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setLogin } from '../redux/state';
+import { useDispatch,useSelector } from 'react-redux';
+import { signInStart,signInSuccess,signInFailure } from '../redux/state';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
   const dispatch = useDispatch();
+  
   const navigate = useNavigate();
 
   const loginUser = (e) => {
     e.preventDefault();
+    dispatch(signInStart());
     Axios.post('api/auth/login', {
       email,
       password,
     }).then((response) => {
       const loggedIn = response.data.status;
       if (loggedIn) {
-        // Dispatching setLogin action with user data
-        dispatch(
-          setLogin({
-            renter: loggedIn.renter,
-            token: loggedIn.token,
-          })
-    )
+        dispatch(signInSuccess(response.data));
         navigate('/'); // Redirect to home page after successful login
       }
     }).catch(err => {
+      dispatch(signInFailure(err.message));
       console.log("Login Failed", err.message);
     });
   };
