@@ -34,7 +34,7 @@ app.use('/api/ownertemp', OwnerRouterTemp);
 app.use('/api/renter', RenterRouter);
 app.use('/api/auth',authRouter);
 
-app.use('/complains',ComplainsRoute)
+app.use('/Complains',ComplainsRoute)
 
 
 

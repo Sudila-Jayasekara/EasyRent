@@ -1,6 +1,5 @@
 import express, { request } from 'express';
-import { Complains } from '../../models/Reviews and rating management/complainsModel.js';
-
+import { Complains } from '../../models/Reviews and rating management/ComplainsModel';
 const router = express.Router();
 
 
