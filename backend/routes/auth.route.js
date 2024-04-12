@@ -79,6 +79,7 @@ router.post('/signup', async (req, res) => {
         }
     };
 });
+
 router.post('/login', async (req, res, next) => {
     const { email, password } = req.body;
 
@@ -106,14 +107,16 @@ router.post('/login', async (req, res, next) => {
         }
 
         const token = jwt.sign({ email: user.email }, KEY, { expiresIn: '1h' });
-        res.cookie('token', token, { httpOnly: true, maxAge: 3600000 });
-        return res.json({ status: true, message: "Login successful" });
+
+        // Return the user data along with the token
+        return res.json({ status: true, renter: user, token });
 
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
 // router.post('/forgotpassword',async(req,res)=>{
 //     const{email}=req.body
 //     try{
