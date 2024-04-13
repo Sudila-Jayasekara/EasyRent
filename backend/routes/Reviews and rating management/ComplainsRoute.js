@@ -4,29 +4,12 @@ const router = express.Router();
 
 // Insert a new complaint
 router.post('/', async (req, res) => {
+  const complains = new Complains(req.body);
   try {
-    if (
-      !req.body.vehicle_id ||
-      !req.body.Driver_description ||
-      !req.body.Vehicle_description
-    ) {
-      return res.status(400).send({
-        message: 'You must fill all the fields'
-      });
-    }
-
-    const newComplaint = {
-      vehicle_id: req.body.vehicle_id,
-      Driver_description: req.body.Driver_description,
-      Vehicle_description: req.body.Vehicle_description
-    };
-
-    const complaint = await Complains.create(newComplaint);
-    return res.status(201).send(complaint);
-
+    const newComplains = await complains.save();
+    res.status(201).json(newComplains);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send({ message: error.message });
+    res.status(500).json({ error: 'Failed to insert booking' });
   }
 });
 
