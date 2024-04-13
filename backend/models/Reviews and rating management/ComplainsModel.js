@@ -6,8 +6,6 @@ const ComplainsSchema = mongoose.Schema(
 
         // Vehicle information
         vehicle_id:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Vehicle',
             type: String,
             required: true,
         },

@@ -2,20 +2,19 @@ import express from "express";
 import { PORT,mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from 'cors';
-import cookieParser from 'cookie-parser'
+
 import {authRouter} from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
-//Booking Start
+import cookieParser from "cookie-parser";
 import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
-import OwnerRouterTemp from './routes/Booking And Payment Management/ownerRouteTemp.js';
-//Booking End
-import ComplainsRoute from './routes/Reviews and rating management/ComplainsRoute.js';
+import Complains from './routes/Reviews and rating management/ComplainsRoute.js';
+
 
 const app = express();
 
 //middleware
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
@@ -27,15 +26,10 @@ app.get('/',(request, response) =>{
     return response.status(234).send('Welcome to ITP Project')
 })
 
-
-app.use('/api/booking', BookingRoute);
-app.use('/api/ownertemp', OwnerRouterTemp);
-
-app.use('/api/renter', RenterRouter);
 app.use('/api/auth',authRouter);
-
-app.use('/Complains',ComplainsRoute)
-
+app.use('/api/booking', BookingRoute);
+app.use('/api/renter', RenterRouter);
+app.use('/complains',Complains)
 
 
 mongoose
