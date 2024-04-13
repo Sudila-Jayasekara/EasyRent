@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import PopupModal from './ApproveAndReject'; // Import the PopupModal component
+import PopupModal from './ApproveAndReject_Popup'; // Import the PopupModal component
 
 const ShowBookingO = () => {
   const [bookings, setBookings] = useState([]);
@@ -25,9 +25,6 @@ const ShowBookingO = () => {
           vehicle_name: vehicleResponse.data.name
         };
       }));
-      
-      
-
       setBookings(updatedBookings);
     } catch (error) {
       console.error('Error fetching data:', error);

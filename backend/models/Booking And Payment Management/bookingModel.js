@@ -42,8 +42,14 @@ const bookingSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        description: {
+        description: { //reject Reason
             type: String,
+            required: true,
+        },
+
+        //payment detials
+        estimatePrice: {
+            type: Number,
             required: true,
         },
     },
