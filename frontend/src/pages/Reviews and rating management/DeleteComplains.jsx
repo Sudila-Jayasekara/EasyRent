@@ -9,7 +9,7 @@ const DeleteComplains=()=>  {
 
 const handleDeleteComplains=()=>{
   axios
-  .delete(`http://localhost:5555/complains/${id}`)
+  .delete(`http://localhost:5555/complains/${id}`)  
   .then(()=>{
     navigate('/');
 })
