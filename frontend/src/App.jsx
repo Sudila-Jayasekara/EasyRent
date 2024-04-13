@@ -14,6 +14,22 @@ import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
+import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
+import HrPayroll from './pages/HR Management/HrPayroll.jsx';
+import HrDetails from './pages/HR Management/HrDetails.jsx';
+import HrLeave from './pages/HR Management/HrLeave.jsx';
+import HrDashboard from './pages/HR Management/HrDashboard.jsx';
+import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
+import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
+import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
+import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
+
+
+
+
+
+
+
 
 axios.defaults.baseURL='http://localhost:5556'
 axios.defaults.withCredentials=true
@@ -36,6 +52,25 @@ const App = () => {
        
       <Route path='/booking/create' element={<CreateBooking/>}/>
       <Route path='/booking/details' element={<ShowBooking/>}/>
+      <Route path='/empRegister' element={<Layout><HrEmpRegister/></Layout>}/>
+      <Route path='/payroll' element={<Layout><HrPayroll/></Layout>}/>
+      <Route path='/Details' element={<Layout><HrDetails/></Layout>}/>
+      <Route path='/Leave' element={<Layout><HrLeave/></Layout>}/>
+      <Route path='/Dashboard' element={<Layout><HrDashboard/></Layout>}/>
+      <Route path='/SalaryDetails' element={<Layout><HrSalaryDetails/></Layout>}/>
+      <Route path='/EmpLeave' element={<Layout><HrEmpLeave/></Layout>}/>
+      <Route path='/DetailsEdit' element={<Layout><HrDetailsEdit/></Layout>}/>
+      <Route path='/LeaveDetails' element={<Layout><HrLeaveDetails/></Layout>}/>
+      
+     
+     
+
+      
+     
+      
+      
+     
+      
       
     </Routes>
     

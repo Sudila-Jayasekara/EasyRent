@@ -1,14 +1,13 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
-// Create model
-const registrationSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: true
+const employeeSchema = new mongoose.Schema({
+  firstName:{
+    type:String,
+    required:true,
   },
   lastName: {
     type: String,
-    required: true
+    required: true,
   },
   nic: {
     type: String,
@@ -37,4 +36,4 @@ const registrationSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Registration', registrationSchema);
+export const Employee = mongoose.model('Employee', employeeSchema);

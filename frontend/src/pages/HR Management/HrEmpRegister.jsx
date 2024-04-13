@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios'; // Import axios
 
 const HrEmpRegister = () => {
   const [formData, setFormData] = useState({
@@ -23,12 +24,32 @@ const HrEmpRegister = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+
+    axios.post('http://localhost:5556/api/employee', formData)
+      .then(response => {
+        console.log(response.data);
+        alert('Employee data sent successfully!');
+        setFormData({ // Clear form data
+          firstName: '',
+          lastName: '',
+          nic: '',
+          role: '',
+          dateOfBirth: '',
+          gender: 'pending',
+          contactNumber: '',
+          email: ''
+        });
+      })
+      .catch(error => {
+        console.error(error);
+        alert('Error sending data: ' + error.message);
+      });
   };
 
   return (
-    <div className='wrapper flex justify-center items-center h-screen'>
+    <div className='wrapper flex justify-center items-center screen'>
+      <img className='w-500 h-60 ml-9 ' src="https://media.licdn.com/dms/image/D4D12AQH-BMTaUgeNdQ/article-cover_image-shrink_720_1280/0/1707636898642?e=2147483647&v=beta&t=Z_DF7sY4POw6IBImAbPUDhod1ZOJi3wTSAmzMICm6is" alt="car photo" />
+
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h1 className="block flex justify-center text-gray-700 text-xl font-bold mb-2">Employee Registration</h1>
         
@@ -102,7 +123,7 @@ const HrEmpRegister = () => {
           <select
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             name="gender"
-            value={formData.gender}
+            value={formData.gender} 
             onChange={handleChange}
             required
           >
