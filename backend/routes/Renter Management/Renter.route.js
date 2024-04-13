@@ -12,6 +12,20 @@ router.get('/test', (req, res) => {
 });
 
 
+// GET a specific renter by id
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const renter = await Renter.findById(id);
+    if (!renter) {
+      return res.status(404).json({ message: 'Renter not found' });
+    }
+    res.json(renter);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 
 
