@@ -48,8 +48,6 @@ const HrEmpRegister = () => {
 
   return (
     <div className='wrapper flex justify-center items-center screen'>
-      <img className='w-500 h-60 ml-9 ' src="https://media.licdn.com/dms/image/D4D12AQH-BMTaUgeNdQ/article-cover_image-shrink_720_1280/0/1707636898642?e=2147483647&v=beta&t=Z_DF7sY4POw6IBImAbPUDhod1ZOJi3wTSAmzMICm6is" alt="car photo" />
-
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h1 className="block flex justify-center text-gray-700 text-xl font-bold mb-2">Employee Registration</h1>
         

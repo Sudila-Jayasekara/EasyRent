@@ -17,7 +17,6 @@ import ResetPassword from './pages/ResetPassword.jsx';
 import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
 import HrPayroll from './pages/HR Management/HrPayroll.jsx';
 import HrDetails from './pages/HR Management/HrDetails.jsx';
-import HrLeave from './pages/HR Management/HrLeave.jsx';
 import HrDashboard from './pages/HR Management/HrDashboard.jsx';
 import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
 import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
@@ -55,7 +54,6 @@ const App = () => {
       <Route path='/empRegister' element={<Layout><HrEmpRegister/></Layout>}/>
       <Route path='/payroll' element={<Layout><HrPayroll/></Layout>}/>
       <Route path='/Details' element={<Layout><HrDetails/></Layout>}/>
-      <Route path='/Leave' element={<Layout><HrLeave/></Layout>}/>
       <Route path='/Dashboard' element={<Layout><HrDashboard/></Layout>}/>
       <Route path='/SalaryDetails' element={<Layout><HrSalaryDetails/></Layout>}/>
       <Route path='/EmpLeave' element={<Layout><HrEmpLeave/></Layout>}/>
