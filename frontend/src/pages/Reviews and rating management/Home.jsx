@@ -10,7 +10,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5556/complains')
+      .get('http://localhost:5556/Complains')
       .then((response) => {
         setComplains(response.data); // Assuming response.data contains an array of complaints
       })
@@ -23,7 +23,7 @@ const Home = () => {
     <div className='p-4'>
       <div className='flex justify-between items-center'>
         <h1 className='text-3xl my-8'>ComplainList</h1>
-        <Link to='/complains/create'>Create Complain</Link>
+        <Link to='/complainsForm'>Create Complain</Link>
       </div>
       <table> {/* Added table tag for proper structure */}
         <thead>
