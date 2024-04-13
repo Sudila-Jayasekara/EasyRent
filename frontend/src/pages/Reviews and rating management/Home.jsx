@@ -25,38 +25,39 @@ const Home = () => {
         <h1 className='text-3xl my-8'>ComplainList</h1>
         <Link to='/complainsForm'>Create Complain</Link>
       </div>
-      <table> {/* Added table tag for proper structure */}
+     <center><table> {/* Added table tag for proper structure */}
         <thead>
           <tr>
-            <th className='border border-slate-600 rounded-md'>Complain ID</th>
-            <th className='border border-slate-600 rounded-md'>Vehicle ID</th>
-            <th className='border border-slate-600 rounded-md'>Vehicle Description</th>
-            <th className='border border-slate-600 rounded-md'>Driver Description</th>
-            <th className='border border-slate-600 rounded-md'>Actions</th>
+            <th className='border border-slate-600 rounded-md p-2'>Complain ID</th>
+            <th className='border border-slate-600 rounded-md p-2'>Vehicle ID</th>
+            <th className='border border-slate-600 rounded-md p-2'>Vehicle Description</th>
+            <th className='border border-slate-600 rounded-md p-2'>Driver Description</th>
+            <th className='border border-slate-600 rounded-md '>Actions</th>
           </tr>
         </thead>
         <tbody>
           {complains.map((complaint, index) => (
-            <tr key={complaint._id} className='h-8'>
+           <tr key={complaint._id} className='h-8'>
               <td className='border border-slate-700 rounded-md text-center'>{index + 1}</td>
               <td className='border border-slate-700 rounded-md text-center'>{complaint.vehicle_id}</td>
               <td className='border border-slate-700 rounded-md text-center'>{complaint.Vehicle_description}</td>
               <td className='border border-slate-700 rounded-md text-center'>{complaint.Driver_description}</td>
-              <td className='flex justify-center gap-x-4'>
+              <td className='border border-slate-600  text-center flex justify-center gap-x-4'>
                 <Link to={`/complains/details/${complaint._id}`}>
-                  <BsInfoCircle className='text-xl text-green-800' />
+                  <BsInfoCircle className='text-xl text-green-800 mt-2 ml-1 mr-1' />
                 </Link>
+
                 <Link to={`/complains/edit/${complaint._id}`}>
-                  <AiOutlineEdit className='text-xl text-yellow-600' />
+                  <AiOutlineEdit className='text-xl text-yellow-600 mt-2 ml-1 mr-1' />
                 </Link>
                 <Link to={`/complains/delete/${complaint._id}`}>
-                  <MdOutlineDelete className='text-xl text-yellow-600' />
+                  <MdOutlineDelete className='text-xl text-yellow-600 mt-2 ml-1 mr-1' />
                 </Link>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></center> 
     </div>
   );
 };
