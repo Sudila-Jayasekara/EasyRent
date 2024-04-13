@@ -15,13 +15,15 @@ const ComplainsSchema = mongoose.Schema(
         // complains details
         Driver_description:{
             type: String,
-            ref:'DDescription',
             required: true,
         },
 
         Vehicle_description:{
             type:String,
-            ref:'VDescription',
+            required:true
+        },
+        rating:{
+            type:String,
             required:true
         },
        
