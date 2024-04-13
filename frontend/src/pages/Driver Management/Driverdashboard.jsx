@@ -18,7 +18,9 @@ const DriverDashboard = () => {
         
       </div>
       <div>
+       
         <img className="object-cover w-96 ml-20 h-96 p-1 ring-2 ring-indigo-300 dark:ring-indigo-500" src={thumbnail} alt="Thumbnail" />
+      
       </div>
     </div>
   );
