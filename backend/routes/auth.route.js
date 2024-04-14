@@ -109,7 +109,7 @@ router.post('/login', async (req, res, next) => {
         const token = jwt.sign({ email: user.email }, KEY, { expiresIn: '1h' });
 
         // Return the user data along with the token
-        return res.json({ status: true, renter: user, token });
+        return res.json({ status: true, user: user, token });
 
     } catch (error) {
         console.error(error);
