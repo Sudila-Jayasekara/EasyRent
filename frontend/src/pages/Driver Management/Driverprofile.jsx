@@ -3,6 +3,13 @@ import image from '../Driver Management/image.jpeg'
 
 
 const Driverprofile = () => {
+
+  const [details, setDetails] = useState([]);
+  const [formData, setFormData] = useState({
+    username: '',
+    phoneNumber: '',
+    address: ''
+  });
   return (
     <div>
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -27,11 +34,11 @@ const Driverprofile = () => {
                 <form className='w-96'>
                   <div className="grid gap-6 mb-6 lg:grid-cols-2">
                     <div>
-                      <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900">First name</label>
+                      <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900">User Name</label>
                       <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="John" required />
                     </div>
                     <div>
-                      <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900">Last name</label>
+                      <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900">NIC</label>
                       <input type="text" id="last_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Doe" required />
                     </div>
                     <div>
@@ -40,7 +47,7 @@ const Driverprofile = () => {
                     </div>
                   </div>
                   <div className="mb-6">
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">User E-mail</label>
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">E-mail</label>
                     <input type="text" id="adress" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter the adress here" required />
                   </div>
                   
