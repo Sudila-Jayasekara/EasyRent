@@ -44,7 +44,12 @@ const driverSchema = new mongoose.Schema({
     type: String,
     required: true,
 
-  }
+  },
+  userType:{
+    type:String,
+    required:true,
+},
+
 }, { timestamps: true });
 const DriverModel = mongoose.model("Driver", driverSchema)
 
