@@ -24,6 +24,7 @@ router.post('/signup', async (req, res) => {
             password:hashpassword, 
             phoneNumber,
             address,
+            userType:"renter",
         });
         await newRenter.save();
         return res.json({ status: true, message: "User Registered" });
@@ -46,6 +47,7 @@ router.post('/signup', async (req, res) => {
                 password:hashpassword,
                 phoneNumber,
                 address,
+                userType:"driver",
             });
             await newDriver.save();
             return res.json({status:true,message:"User Registered"});
@@ -70,6 +72,7 @@ router.post('/signup', async (req, res) => {
                 password:hashpassword,
                 phoneNumber,
                 address,
+                userType:"owner",
             });
             await newOwner.save();
             return res.json({status:true,message:"User Registered"});
