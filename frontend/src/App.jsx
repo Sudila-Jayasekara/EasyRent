@@ -17,7 +17,8 @@ import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
-
+import ViewRenter from './pages/Renter Management/ViewRenter';
+import Logout from './pages/Logout.jsx';
 
 
 axios.defaults.baseURL='http://localhost:5556'
@@ -29,8 +30,9 @@ const App = () => {
     <Routes>
       
       <Route path='/' element={<Layout />} />
-      {/* <Route path='/signup' element={<Signup/>} /> */}
+      <Route path='/viewRenter' element={<Layout><ViewRenter/></Layout>}/>
       <Route path='/login' element={<Login/>} />
+      <Route path='/logout' element={<Logout/>} />
       <Route path='/forgotpassword' element={<ForgotPassword/>}/>
       <Route path='/resetPassword' element={<ResetPassword/>}/>
       <Route path='/landing'element={<Layout><Landing/></Layout>}/>

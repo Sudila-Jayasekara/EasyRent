@@ -11,6 +11,30 @@ router.get('/test', (req, res) => {
     res.json({ message: "Renter route working" });
 });
 
+// GET all renters
+router.get('/', async (req, res) => {
+    try {
+        const renters = await Renter.find();
+        res.json(renters);
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// GET a specific renter by id  
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const renter = await Renter.findById(id);
+        if (!renter) {
+            return res.status(404).json({ message: 'Renter not found' });
+        }
+        res.json(renter);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 
 // GET a specific renter by id
 router.get('/:id', async (req, res) => {
@@ -27,44 +51,37 @@ router.get('/:id', async (req, res) => {
 });
 
 
-
-
-
-router.post('/forgotpassword',async(req,res)=>{
-    const{email}=req.body
-    try{
-        const renter=await Renter.findOne({email})
-        if(!renter){
-            return res.json({
-                message:"User Not registered"
-            })
+// Update a renter by id
+router.patch('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const renter = await Renter.findById(id);
+        if (!renter) {
+            return res.status(404).json({ message: 'Renter not found' });
         }
-    }catch(err){
-        console.log(err)
+        Object.assign(renter, req.body);
+        const updatedrenter = await renter.save();
+        res.json(updatedrenter);
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
-    const token=jwt.sign({id:Renter._id},KEY,{expiresIn:'5m'})
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'chanukadushan130@gmail.com',
-          pass: 'vsmf xpzq tnwn iipe'
-        }
-      });
-      
-      var mailOptions = {
-        from: 'EasyRent@gmail.com',
-        to: email,
-        subject: 'Reset Password',
-        text: 'http://localhost:5173/resetPassword/${token}'
-      };
-      
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          return res.json({message:"error while sending"})
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
-})
+});
+
+//Delete a renter by id
+
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+      const renter = await Renter.findById(id);
+      if (!renter) {
+        return res.status(404).json({ message: 'Renter not found' });
+      }
+      await Renter.findByIdAndDelete(req.params.id);
+      res.json({ message: 'Rentetr deleted successfully' });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
 
 export { router as RenterRouter };
