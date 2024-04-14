@@ -9,9 +9,9 @@ const DeleteComplains=()=>  {
 
 const handleDeleteComplains=()=>{
   axios
-  .delete(`http://localhost:5555/complains/${id}`)  
+  .delete(`http://localhost:5556/complains/${id}`)  
   .then(()=>{
-    navigate('/');
+    navigate('/complains');
 })
   .catch((err)=>{
     console.log(err);

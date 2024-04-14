@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineDelete } from 'react-icons/md';
+import Header from '../../components/Header';
 
 const Home = () => {
   const [complains, setComplains] = useState([]);
@@ -20,16 +21,19 @@ const Home = () => {
   }, []);
 
   return (
+    <div>
+      <Header></Header>
     <div className='p-4'>
       <div className='flex justify-between items-center'>
         <h1 className='text-3xl my-8'>ComplainList</h1>
-        <Link to='/complainsForm'>Create Complain</Link>
+        <Link to='/complainsForm' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create Complain</Link>
       </div>
      <center><table> {/* Added table tag for proper structure */}
         <thead>
           <tr>
             <th className='border border-slate-600 rounded-md p-2'>Complain ID</th>
             <th className='border border-slate-600 rounded-md p-2'>Vehicle ID</th>
+            <th className='border border-slate-600 rounded-md p-2'>Rating(Stars)</th>
             <th className='border border-slate-600 rounded-md p-2'>Vehicle Description</th>
             <th className='border border-slate-600 rounded-md p-2'>Driver Description</th>
             <th className='border border-slate-600 rounded-md '>Actions</th>
@@ -40,6 +44,7 @@ const Home = () => {
            <tr key={complaint._id} className='h-8'>
               <td className='border border-slate-700 rounded-md text-center'>{index + 1}</td>
               <td className='border border-slate-700 rounded-md text-center'>{complaint.vehicle_id}</td>
+              <td className='border border-slate-700 rounded-md text-center'>{complaint.rating}</td>
               <td className='border border-slate-700 rounded-md text-center'>{complaint.Vehicle_description}</td>
               <td className='border border-slate-700 rounded-md text-center'>{complaint.Driver_description}</td>
               <td className='border border-slate-600  text-center flex justify-center gap-x-4'>
@@ -58,6 +63,7 @@ const Home = () => {
           ))}
         </tbody>
       </table></center> 
+    </div>
     </div>
   );
 };

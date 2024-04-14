@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const ComplainsForm = () => {
     const [formData, setFormData] = useState({
@@ -36,9 +38,11 @@ const ComplainsForm = () => {
     };
 
     return (
+        <div>
+            <Header></Header>
         <div className="flex flex-col justify-between min-h-screen">
             <div className="flex justify-center">
-                <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-9 pt-10 pb-8 mt-10">
                     {/* Rating buttons */}
                     <div className="flex items-center mb-4">
                         {[...Array(5)].map((_, index) => (
@@ -109,6 +113,8 @@ const ComplainsForm = () => {
                     </button>
                 </form>
             </div>
+        </div>
+        <Footer></Footer>
         </div>
     );
 };
