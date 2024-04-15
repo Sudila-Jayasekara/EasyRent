@@ -8,7 +8,11 @@ import ShowBookingO from './pages/Booking And Payment Management/CheckBooking.js
 import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';
 import EditComplains from './pages/Reviews and rating management/EditComplains.jsx';
 import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx';
-import ComplainsEdit from './pages/Reviews and rating management/EditComplains.jsx';
+// Remove unused imports
+// import ComplainsEdit from './pages/Reviews and rating management/EditComplains.jsx';
+// import CommonSection from './pages/Vehicle Management/CommonSection';
+// import Data from './pages/Vehicle Management/Data';
+// import PageHelmet from './pages/Vehicle Management/PageHelmet';
 
 import Layout from './components/Layout';
 import Landing from './pages/Renter Management/Landing';
@@ -28,26 +32,23 @@ import Driverprofile from './pages/Driver Management/Driverprofile';
 import License from './pages/Driver Management/License';
 import DriverDashboard from './pages/Driver Management/Driverdashboard';
 import DriverDisplay from './pages/Driver Management/DriverDisplay';
-import CommonSection from './pages/Vehicle Management/CommonSection';
-import Data from './pages/Vehicle Management/Data';
-import PageHelmet from './pages/Vehicle Management/PageHelmet';
 import ViewRenter from './pages/Renter Management/ViewRenter';
 import Logout from './pages/Logout';
-import Logout from './pages/Logout.jsx';
 import Profile from './pages/Renter Management/Manageprofile.jsx'
 
-import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar.jsx';
-import VehicleManager from './pages/Vehicle Management/VehicleManager.jsx';
+import VehicleSidebar from './pages/Vehicle Management/vehicleSidebar.jsx';
+import VehicleManager from './pages/Vehicle Management/vehicleManager.jsx';
 import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
 import Forms from './pages/Vehicle Management/Forms.jsx';
 import Home from './pages/Reviews and rating management/Home.jsx'
 import Vprofile from './pages/Vehicle Management/Profile.jsx'
 import AddedVehicles from './pages/Vehicle Management/AddedVehicles.jsx'
 
+
 // import Home from './pages/Home';
-import CreateBooking from './pages/Booking And Payment Management/CreateBookingR';
-import ShowBookingR from './pages/Booking And Payment Management/BookingHistory';
-import ShowBookingO from './pages/Booking And Payment Management/CheckBooking';
+// import CreateBooking from './pages/Booking And Payment Management/CreateBookingR';
+//import ShowBookingR from './pages/Booking And Payment Management/BookingHistory';
+//import ShowBookingO from './pages/Booking And Payment Management/CheckBooking';
 
 
 
@@ -83,7 +84,7 @@ const App = () => {
       <Route path="/driver" element={<Layout><DriverDashboard/></Layout>} />
       <Route path="/vehiclemanager" element={<Layout><VehicleManager/></Layout>} />
       <Route path="/VehicleSidebar" element={<Layout><VehicleSidebar/></Layout>} />
-      <Route path="/vehicledashboard" element={<Layout><VehicleDashboard/></Layout>} />
+      
       <Route path="/Profile" element={<Layout><Profile/></Layout>} />
    
   
@@ -106,7 +107,7 @@ const App = () => {
       <Route path='/' element={<Layout />} />
       <Route path='/viewRenter' element={<Layout><ViewRenter/></Layout>}/>
       <Route path='/login' element={<Login/>} />
-      <Route path='/logout' element={<Logout/>} />
+    
       <Route path='/forgotpassword' element={<ForgotPassword/>}/>
       <Route path='/resetPassword' element={<ResetPassword/>}/>
       <Route path='/landing'element={<Layout><Landing/></Layout>}/>
