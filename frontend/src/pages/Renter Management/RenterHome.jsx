@@ -121,7 +121,7 @@ const RenterHome = () => {
                                         <p className="car_name text-gray-600">{detail.model}</p>
                                         <div className="flex justify-between items-center">
                                                 <a href="#" className="car_model_link">
-                                                        <h2 className="car_model text-lg md:text-xl lg:text-2xl font-bold text-gray-800 truncate" title="FOCUS">{detail.name}</h2>
+                                                        <h2 className="car_model text-lg md:text-xl lg:text-2xl font-bold text-gray-800 truncate" title="FOCUS">{detail.brand}</h2>
                                                 </a>
                                                 <p className="car_price text-gray-700">Rs.{detail.price} <span className="car_price_time">/per Week</span></p>
                                         </div>
@@ -134,11 +134,11 @@ const RenterHome = () => {
                                                 </li>
                                                 <li className="flex items-center gap-2">
                                                         <i className="fas fa-tachometer-alt text-gray-600"></i>
-                                                        <span className="text-gray-600 truncate" title="Kilometraje ilimitado">{detail.owner.username}</span>
+                                                        <span className="text-gray-600 truncate" title="Kilometraje ilimitado">{detail.owner}</span>
                                                 </li>
                                                 <li className="flex items-center gap-2">
                                                         <i className="fas fa-user text-gray-600"></i>
-                                                        <span className="text-gray-600">{detail.seats}</span>
+                                                        <span className="text-gray-600">{detail.totalSeats}</span>
                                                 </li>
                                         </ul>
                                 </div>
