@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+//latest booking create
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const BookingForm = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         serviceType: "",
         startDate: "",
@@ -10,8 +14,44 @@ const BookingForm = () => {
         location: "",
         description: "",
     });
-    const [renter_id, setRenterId] = useState("r002");
-    const [vehicle_id, setVehicleId] = useState("v001");
+    const [renter_id, setRenterId] = useState("");
+    const [vehicle_id, setVehicleId] = useState("661ca28129d52f39a6e42e84"); // select a vehicle and get id automatically
+    const [vehicle, setVehicle] = useState([]);
+    const [estimatePrice, setEstimatePrice] = useState(null);
+    const [dateDifference, setDateDifference] = useState(null);
+
+    useEffect(() => {
+        // Extract user details from localStorage
+        const user = JSON.parse(localStorage.getItem('user'));
+        setRenterId(user._id);
+        // Fetch vehicle data
+        axios.get(`http://localhost:5556/api/vehicle/${vehicle_id}`)
+            .then(response => {
+                setVehicle(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching vehicle:', error);
+            });
+    }, [vehicle_id]);
+
+    useEffect(() => {
+        // Calculate date difference
+        const startDate = new Date(formData.startDate);
+        const endDate = new Date(formData.endDate);
+        const differenceInTime = endDate.getTime() - startDate.getTime();
+        const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+        setDateDifference(differenceInDays);
+    }, [formData.startDate, formData.endDate]);
+
+    useEffect(() => {
+        // Calculate estimate price
+        if (dateDifference !== null && vehicle.price) {
+            const price = dateDifference * vehicle.price;
+            setEstimatePrice(price);
+        } else {
+            setEstimatePrice(null);
+        }
+    }, [dateDifference, vehicle.price]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,46 +61,41 @@ const BookingForm = () => {
             alert("End date cannot be less than start date");
             return; // Exit early if validation fails
         }
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const updatedFormData = {
-            ...formData,
-            renter_id,
-            vehicle_id,
-        };
-        console.log(updatedFormData);
-        //send form data to the server
-        axios
-            .post("http://localhost:5556/api/booking", updatedFormData)
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
+        try {
+            // Send form data to the server to create a booking
+            const bookingResponse = await axios.post("http://localhost:5556/api/booking", {
+                ...formData,
+                renter_id,
+                vehicle_id,
             });
-
-        //clear the form after submit
-        setFormData({
-            serviceType: "",
-            startDate: "",
-            endDate: "",
-            status: "pending",
-            location: "",
-            description: "",
-        });
-    };
-    const calculateDaysDifference = () => {
-        if (formData.startDate && formData.endDate) {
-            const startDate = new Date(formData.startDate);
-            const endDate = new Date(formData.endDate);
-            const differenceInTime = endDate.getTime() - startDate.getTime();
-            const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
-            return differenceInDays;
+            const booking_id = bookingResponse.data._id;
+            // Create a payment object with the booking ID and estimate price
+            const paymentData = {
+                booking_id,
+                estimatePrice,
+            };
+            // Send payment data to the server
+            const paymentResponse = await axios.post("http://localhost:5556/api/payment", paymentData);
+            console.log(paymentResponse.data);
+            // Clear the form after submit
+            setFormData({
+                serviceType: "",
+                startDate: "",
+                endDate: "",
+                status: "pending",
+                location: "",
+                description: "",
+            });
+            // Navigate to booking history or any other desired page
+            navigate('/booking/history');
+        } catch (error) {
+            console.error("Error:", error);
         }
-        return "";
     };
     return (
         <div>
@@ -82,8 +117,9 @@ const BookingForm = () => {
                             />
                         </div>
                         <div className="w-2/4">
-                            <p className="text-gray-700 mb-2">Name: Toyota Prius</p>
-                            <p className="text-gray-700 ">Price: $25,000</p>
+                            <p className="text-gray-700 mb-2">Brand: {vehicle.brand}</p>
+                            <p className="text-gray-700 mb-2">Model: {vehicle.model}</p>
+                            <p className="text-gray-700 ">Price for a day: Rs.{vehicle.price}</p>
                         </div>
                     </div>
 
@@ -161,7 +197,7 @@ const BookingForm = () => {
                                     required
                                 >
                                     <option value="pending">Pending</option>
-                                    <option value="approved" disabled>
+                                    {/* <option value="approved" disabled>
                                         Approved
                                     </option>
                                     <option value="rejected" disabled>
@@ -169,7 +205,7 @@ const BookingForm = () => {
                                     </option>
                                     <option value="cancelled" disabled>
                                         Cancelled
-                                    </option>
+                                    </option> */}
                                 </select>
                             </div>
                         </div>
@@ -206,7 +242,7 @@ const BookingForm = () => {
                             placeholder="Description"
                             value={formData.description}
                             onChange={handleChange}
-                            required
+
                         />
                     </div>
                     <div className="flex items-center justify-between">
@@ -223,7 +259,7 @@ const BookingForm = () => {
                         <div className="mb-4 space-y-3">
                             <div>
                                 <span
-                                    className="block text-gray-700 text-sm font-bold"
+                                    className="block text-gray-700 text-sm font-bold mt-10"
                                     htmlFor="description"
                                 >
                                     Approved Documents
@@ -244,21 +280,26 @@ const BookingForm = () => {
                                     name="bill"
                                     onChange={handleChange}
                                     accept="image/*" // Allow only image files
-                                    required
+                                    //required
                                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
                         </div>
                     </div>
                     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                        <span
-                            className="block text-gray-700 text-sm font-bold mb-2"
-                            htmlFor="description"
-                        >
+                        <span className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
                             Generate Estimate Bill
                         </span>
-                        Date Range: {calculateDaysDifference()}
+                        Date Range: {dateDifference !== null ? dateDifference : 'N/A'} <br />
+                        {estimatePrice !== null ? (
+                            <p>
+                                Estimate Price for Trip: Rs.{estimatePrice}
+                            </p>
+                        ) : (
+                            <p>Please select start and end dates to calculate estimate price.</p>
+                        )}
                     </div>
+
                 </div>
             </form>
         </div>
