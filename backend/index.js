@@ -11,6 +11,7 @@ import BookingRoute from './routes/Booking And Payment Management/bookingRoute.j
 import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
 import DriverRoute from './routes/Driver Management/driverRoute.js';
 import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
+import bodyParser from "body-parser";
 
 
 
