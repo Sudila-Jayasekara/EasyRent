@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ComplainsForm = () => {
     const [formData, setFormData] = useState({
@@ -10,7 +12,11 @@ const ComplainsForm = () => {
         Vehicle_description: "",
         rating: "",
     });
-
+    
+        const navigate = useNavigate();
+        const handleButtonClick = () => {
+            navigate('/complains');
+        };
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -23,6 +29,7 @@ const ComplainsForm = () => {
             .post("http://localhost:5556/complains", formData)
             .then((response) => {
                 console.log(response.data);
+                alert('Thanks for your Reviews...!')
             })
             .catch((error) => {
                 console.error(error);
@@ -106,10 +113,17 @@ const ComplainsForm = () => {
 
                     {/* Submit button */}
                     <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
                         type="submit"
                     >
                         Save
+                    </button>
+                    <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
+                        type="submit"
+                        onClick={handleButtonClick}
+                    >
+                       View your complains
                     </button>
                 </form>
             </div>
