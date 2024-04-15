@@ -11,8 +11,7 @@ router.post('/', async (req, res) => {
     } catch (error) {
       res.status(500).json({ error: 'Failed to insert Vehicle' });
     } 
-    }
-  );
+  });
   
   // GET all Vehicles
   router.get('/', async (req, res) => {

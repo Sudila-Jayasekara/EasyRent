@@ -32,13 +32,15 @@ app.get('/', (request, response) => {
     return response.status(234).send('Welcome to ITP Project')
 })
 
-app.use('/api/auth', authRouter);
+
+app.use('/api/auth',authRouter);
 app.use('/api/booking', BookingRoute);
 app.use('/api/vehicle', VehicleRoute);
 app.use('/api/renter', RenterRouter);
 app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
-app.use('/vehicle', VehicleRoute);
+
+
 
 mongoose
     .connect(mongoDBURL)

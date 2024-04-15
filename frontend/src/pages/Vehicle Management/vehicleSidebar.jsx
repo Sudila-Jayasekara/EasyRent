@@ -4,18 +4,20 @@ const VehicleSidebar = () => {
   return (
     <>
       <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded mb-60 my-70'>
-   <Link>Approved Forms</Link>
+   <Link to ={'/ApprovedF'}>Approved Forms</Link>
     </button>
     <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded mb-60 my-60'>
-   <Link to ={'/vehicledashboard'}>Added Vehicles</Link>
+   <Link to ={'/AddedVehicles'}>Added Vehicles</Link>
     </button>
     <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded mb-60 my-60'>
-    <Link>Updated Forms</Link>
+    <Link to = {'/Forms'}>Updated Forms</Link>
     </button>
     <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded mb-60 my-60'>
     <Link to ={'/Profile'}>Profile</Link>
     </button>
-    </> 
+   
+
+    </>
   )
 }
 
