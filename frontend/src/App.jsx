@@ -66,11 +66,11 @@ const App = () => {
       <Route path='/booking/check' element={<ShowBookingO/>}/>
 
 
-      <Route path='/complains' element={<Home/>}/>//complains home
+      {/* <Route path='/complains' element={<Home/>}/>
       <Route path='/complains/details/:id' element={<ShowComplains/>}/>//show complains
       <Route path='/complains/edit/:id' element={<EditComplains/>}/>//update
       <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>//delete
-      <Route path='/complainsForm' element={<ComplainsForm/>}/>// create a book
+      <Route path='/complainsForm' element={<ComplainsForm/>}/>// create a book */}
       
     
 

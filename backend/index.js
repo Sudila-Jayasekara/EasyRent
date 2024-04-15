@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import cors from 'cors';
 
 import path from 'path';
-import bodyParser from 'body-parser';
+
 
 import {authRouter} from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
