@@ -1,7 +1,30 @@
 import express from 'express';
-import {Vehicle} from '../../models/Vehicle Management/vehicleModel.js'
+import {Vehicle} from '../../models/Vehicle Management/vehicleModel.js';
+
+
+
 
 const router = express.Router();
+router.post('/vehicleadd', async (req, res) => {
+  const { brand, model,modelYear,engineCapacity, mileage,totalSeats,vehicleImage } = req.body;
+  try {
+   
+      const newVehicle = new Vehicle({
+          brand,
+          model,
+          modelYear, 
+          engineCapacity,
+          mileage,
+          totalSeats,
+          vehicleImage,
+      });
+      await newVehicle.save();
+      return res.json({ status: true, message: "Vehicle Added" });
+  } catch (error) {
+      console.error(error);
+     }
+});
+
 // Insert a new Vehicle
 router.post('/', async (req, res) => {
     const vehicle = new Vehicle(req.body);
@@ -12,7 +35,7 @@ router.post('/', async (req, res) => {
       res.status(500).json({ error: 'Failed to insert Vehicle' });
     }
   });
-  
+
   // GET all Vehicles
   router.get('/', async (req, res) => {
     try {
@@ -36,6 +59,7 @@ router.post('/', async (req, res) => {
       res.status(500).json({ message: err.message });
     }
   });
+
   
   // Update a Vehicle by id
   router.patch('/:id', async (req, res) => {
@@ -52,6 +76,7 @@ router.post('/', async (req, res) => {
       res.status(500).json({ message: err.message });
     }
   });
+
   
   // Delete a Vehicle by id
   router.delete('/:id', async (req, res) => {

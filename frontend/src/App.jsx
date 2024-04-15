@@ -12,6 +12,7 @@ import VehicleAdd from './VehicleAdd';
 import DriverAdd from './DriverAdd';
 import OwnerProfile from './pages/Vehicle Owner Management/OwnerProfile';
 import ViewVehicle from './ViewVehicle';
+import DataVehicle from './pages/Vehicle Owner Management/DataVehicle';
 
 import CreateBooking from './pages/Booking And Payment Management/CreateBookingR.jsx';
 import ShowBookingR from './pages/Booking And Payment Management/BookingHistory.jsx';
@@ -51,7 +52,7 @@ const App = () => {
       <Route path='/vehicleadd' element={<VehicleAdd/>}/>
       <Route path='/driveradd' element={<DriverAdd/>}/>
       <Route path='/ownersidebar' element={<Layout><OwnerSidebar/></Layout>}/>
-      
+      <Route path='/dataVehicle' element={<Layout><DataVehicle/></Layout>}/>
       
       <Route path='/ownerProfile'>
         <Route path='' element={<Layout><OwnerProfile/></Layout>} />

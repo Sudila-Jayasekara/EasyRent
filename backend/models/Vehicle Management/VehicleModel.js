@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const vehicleSchema = mongoose.Schema({
-    name: {
+    brand: {
         type: String,
         required: true
     },
@@ -28,15 +28,34 @@ const vehicleSchema = mongoose.Schema({
         enum: ['auto', 'manual'],
         required: true
     },
-    seats: {
-        type: Number,
-        required: true
-    },
+   
     createdAt: {
         type: Date,
         default: Date.now
-    }
-});
+    },
+    modelYear:{
+        type: String,
+        required: true
+      },
+      engineCapacity:{
+        type: String,
+        required: true
+      },
+     mileage:{
+        type: String,
+        required: true
+      },
+    
+     totalSeats: {
+        type: Number,
+        required: true
+      },
+      vehicleImage: {
+        type: String,
+    
+      },
 
+
+},{timestamps:true});
 export const Vehicle = mongoose.model('Vehicle',vehicleSchema);
 
