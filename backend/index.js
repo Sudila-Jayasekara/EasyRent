@@ -19,6 +19,7 @@ import bodyParser from "body-parser";
 
 
 
+import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js'
 
 const app = express();
 const __dirname = path.resolve();
@@ -36,6 +37,10 @@ app.use(cors({
   }));
 app.use(cookieParser())
 
+//middleware
+app.use(express.json());
+app.use(cors());
+
 app.get('/',(request, response) =>{
     console.log(request)
     return response.status(234).send('Welcome to ITP Project')
@@ -49,6 +54,7 @@ app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
 
 
+app.use('/vehicle', VehicleRoute);
 
 mongoose
     .connect(mongoDBURL)

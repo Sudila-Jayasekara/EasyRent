@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@mui/icons-material": "^5.15.14"
+    "@mui/icons-material": "^5.15.14",
+    "reactstrap": "^9.2.2"
   }
 }
