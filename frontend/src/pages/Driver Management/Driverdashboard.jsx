@@ -7,20 +7,20 @@ const DriverDashboard = () => {
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <Link to={'/displaydates'}>
-        <button className='bg-black text-white h-16 w-60'>Check Reserved Dates</button>
+        <button className='bg-black text-white ml-10 h-16 w-60 mt-9'>Check Reserved Dates</button>
         </Link>
         <Link to={'/license'}>
-          <button className='bg-black text-white h-16 w-60 mx-48 my-10'>License Verification</button>
+          <button className='bg-black text-white h-16 ml-65 w-60 mx-48 my-10'>License Verification</button>
         </Link>
         <Link to={'/driverdisplay'}>
-        <button className='bg-black text-white h-16 w-60'>View Drivers</button>
+        <button className='bg-black text-white ml-10 h-16 w-60'>View Drivers</button>
         </Link>
         
       </div>
      
       <div>
        
-        <img className="object-cover w-96 ml-20 h-96 p-1 ring-2 ring-indigo-300 dark:ring-indigo-500" src={thumbnail} alt="Thumbnail" />
+        <img className="object-cover w-90  mt-10 ml-50  h-80 p-1 ring-2 ring-indigo-300 dark:ring-indigo-500" src={thumbnail} alt="Thumbnail" />
       
       </div>
     </div>
