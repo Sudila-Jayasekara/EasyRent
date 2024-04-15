@@ -10,7 +10,7 @@ const RenterHome = () => {
                 axios.get('http://localhost:5556/api/vehicle/')
                     .then(response => {
                         console.log('Response data:', response.data);
-                        setDetails(response.data); // Assuming response.data is an array of renter details
+                        setDetails(response.data);
                     })
                     .catch(error => {
                         console.error('Error fetching Renters:', error);
