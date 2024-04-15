@@ -6,23 +6,23 @@ const ViewRenter = () => {
   const [details, setDetails] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5556/api/driver/')
+    axios.get('http://localhost:5556/api/renter/')
       .then(response => {
         console.log('Response data:', response.data);
         setDetails(response.data); // Assuming response.data is an array of renter details
       })
       .catch(error => {
-        console.error('Error fetching Drivers:', error);
+        console.error('Error fetching Renters:', error);
       });
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:5556/api/driver/${id}`)
+    axios.delete(`http://localhost:5556/api/renter/${id}`)
       .then(() => {
         setDetails(details.filter(detail => detail._id !== id));
       })
       .catch(error => {
-        console.error('Error deleting the driver:', error);
+        console.error('Error deleting the renter:', error);
       });
   };
 
