@@ -12,6 +12,7 @@ import DriverRoute from './routes/Driver Management/driverRoute.js';
 import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
 import bodyParser from "body-parser";
 
+
 const app = express();
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, 'public')));
@@ -39,6 +40,7 @@ app.use('/api/vehicle', VehicleRoute);
 app.use('/api/renter', RenterRouter);
 app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
+
 
 
 
