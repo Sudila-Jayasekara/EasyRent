@@ -11,7 +11,7 @@ import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
 import DriverRoute from './routes/Driver Management/driverRoute.js';
 import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
 import bodyParser from "body-parser";
-import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js';
+
 import EmployeeRoute from './routes/HR Management/employeeRoute.js'; 
 import PayrollRoute from './routes/HR Management/payrollRoute.js'; 
 import LeaveRequestRoute from './routes/HR Management/leaveRequestRoute.js'; 
