@@ -1,37 +1,58 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
+import multer from 'multer';
+import path from 'path';
 import { Renter } from '../models/Renter Management/Renter.model.js';
 import { Driver } from '../models/Driver Management/Driver.model.js';
 import { Owner } from '../models/Vehicle Owner Management/Owner.model.js';
-import jwt from 'jsonwebtoken'; 
+import jwt from 'jsonwebtoken';
 import { KEY } from '../config.js';
 
 const router = express.Router();
 
-router.post('/signup', async (req, res) => {
-    const { role} = req.body;
-    if(role==='renter'){
-    const { username, email, password, phoneNumber, address } = req.body;
+// Set storage engine for multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/uploads'); // Specify the upload directory
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname); // Add a timestamp to the filename to ensure uniqueness
+    }
+  });
+  
+  // Init multer
+  const upload = multer({ storage: storage });
+  
+  router.post('/signup', upload.single('profilePicture'), async (req, res) => {
+    const { role, username, email, password, phoneNumber, address, nic } = req.body;
+  
     try {
-        const renter = await Renter.findOne({ email });
-        if (renter) {
-            return res.json({ message: "Renter already registered" });
-        }
-        const hashpassword=await bcrypt.hash(password,10)
-        const newRenter = new Renter({
-            username,
-            email,
-            password:hashpassword, 
-            phoneNumber,
-            address,
-            userType:"renter",
-        });
-        await newRenter.save();
-        return res.json({ status: true, message: "User Registered" });
+      const renter = await Renter.findOne({ email });
+      if (renter) {
+        return res.json({ message: "Renter already registered" });
+      }
+  
+      const hashpassword = await bcrypt.hash(password, 10);
+      const profilePicturePath = req.file ? req.file.filename : null;
+  
+      const newRenter = new Renter({
+        username,
+        email,
+        password: hashpassword,
+        phoneNumber,
+        address,
+        nic,
+        userType: role,
+        profilePicturePath
+      });
+  
+      await newRenter.save();
+      return res.json({ status: true, message: "User Registered" });
     } catch (error) {
-        console.error(error);
-       
-    }};
+      console.error(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  
     if(role==='driver'){
         const { nic,username, email, password, phoneNumber, address } = req.body;
         try {

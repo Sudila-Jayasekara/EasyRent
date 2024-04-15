@@ -41,7 +41,7 @@ const Manageprofile = () => {
       .then(response => {
         console.log('Updated successfully:', response);
         localStorage.setItem('user', JSON.stringify(response.data));
-        // Assuming the response.data contains updated user information, update local state
+       
         setFormData(response.data);
       })
       .catch(error => {
