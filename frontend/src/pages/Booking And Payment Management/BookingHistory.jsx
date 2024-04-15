@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const BookingHistory = () => {
   const [bookings, setBookings] = useState([]);
-  const renterId = "r001";
+  const renterId = "6618f9b8c9b5f40d7a2e1201";
 
   useEffect(() => {
     axios.get(`http://localhost:5556/api/booking`)

@@ -29,7 +29,7 @@ import DriverdashboardSidebar from './pages/Driver Management/DriverdashboardSid
 
 
 import ViewRenter from './pages/Renter Management/ViewRenter';
- 
+import Logout from './pages/Logout.jsx';
 
 
 axios.defaults.baseURL='http://localhost:5556'
@@ -43,6 +43,7 @@ const App = () => {
       <Route path='/' element={<Layout />} />
       <Route path='/viewRenter' element={<Layout><ViewRenter/></Layout>}/>
       <Route path='/login' element={<Login/>} />
+      <Route path='/logout' element={<Logout/>} />
       <Route path='/forgotpassword' element={<ForgotPassword/>}/>
       <Route path='/resetPassword' element={<ResetPassword/>}/>
       <Route path='/landing'element={<Layout><Landing/></Layout>}/>
@@ -64,10 +65,19 @@ const App = () => {
       <Route path='/booking/history' element={<ShowBookingR/>}/>
       <Route path='/booking/check' element={<ShowBookingO/>}/>
 
+
+      <Route path='/complains' element={<Home/>}/>//complains home
+      <Route path='/complains/details/:id' element={<ShowComplains/>}/>//show complains
+      <Route path='/complains/edit/:id' element={<EditComplains/>}/>//update
+      <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>//delete
+      <Route path='/complainsForm' element={<ComplainsForm/>}/>// create a book
+      
+    
+
       
     </Routes>
     
   )
 }
 
-export default App
+export default App;
