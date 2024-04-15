@@ -2,165 +2,34 @@ import React from 'react';
 
 const Forms = () => {
 
-
-return (
-    <div className="py-6 bg-amber-300">
-      <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
-        <div
-          className="hidden lg:block lg:w-1/2 bg-cover"
-          style={{ backgroundImage: "url('https://wallpapercave.com/wp/wp4848993.jpg')" }}
-        ></div>
-        <div className="w-full p-8 lg:w-1/2">
-          <h2 className="text-2xl font-semibold text-black text-center">EasyRent</h2>
-          <div className="mt-4 flex items-center justify-between">
-            <span className="border-b w-1/5 lg:w-1/4"></span>
-            <a href="#" className="text-xs text-center text-red-600 font-bold uppercase mt-4 mb-5">
-              Welcome
-            </a>
-            <span className="border-b w-1/5 lg:w-1/4"></span>
+    return (
+      <div className="flex h-screen flex-col items-center justify-center space-y-6 bg-gray-100 px-4 sm:flex-row sm:space-x-6 sm:space-y-0">
+        <div className="w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
+          <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto mt-8 h-16 w-16 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          </svg>
+          <h1 className="mt-2 text-center text-2xl font-bold text-gray-500">Success</h1>
+          <p className="my-4 text-center text-sm text-gray-500">Woah, successfully completed 3/5 Tasks</p>
+          <div className="space-x-4 bg-gray-100 py-4 text-center">
+            <button className="inline-block rounded-md bg-red-500 px-10 py-2 font-semibold text-red-100 shadow-md duration-75 hover:bg-red-400">Cancel</button>
+            <button className="inline-block rounded-md bg-green-500 px-6 py-2 font-semibold text-green-100 shadow-md duration-75 hover:bg-green-400">Dashboard</button>
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="mt-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Brand</label>
-              <input
-                value={formData.brand}
-                onChange={handleChange}
-                name="brand"
-                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="text"
-              />
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Model</label>
-              <input
-                value={formData.model}
-                onChange={handleChange}
-                name="model"
-                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="text"
-              />
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Model Year</label>
-              <input
-                value={formData.modelYear}
-                onChange={handleChange}
-                name="modelYear"
-                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="text"
-              />
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Engine Capacity</label>
-              <input
-                value={formData.engineCapacity}
-                onChange={handleChange}
-                name="engineCapacity"
-                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="text"
-              />
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Mileage</label>
-              <input
-                value={formData.mileage}
-                onChange={handleChange}
-                name="mileage"
-                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="text"
-              />
-            </div>
-            <div className="mt-4">
-              <div className="flex justify-between">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Total seats</label>
-              </div>
-              <input
-                value={formData.totalSeats}
-                onChange={handleChange}
-                name="totalSeats"
-                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="Number"
-              />
-            </div>
-            <div className="mt-4">
-              <div className="flex justify-between">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Transmission</label>
-              </div>
-              <input
-                value={formData.transmission}
-                onChange={handleChange}
-                name="transmission"
-                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="String"
-              />
-            </div>
-            <div className="mt-4">
-              <div className="flex justify-between">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Price</label>
-              </div>
-              <input
-                value={formData.price}
-                onChange={handleChange}
-                name="price"
-                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="Number"
-              />
-            </div>
-            <div className="mt-4">
-              <label htmlFor="cover-photo" className="block text-sm font-bold leading-6 text-gray-700">
-                {' '}
-                Add Image 1
-              </label>
-              <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                <div className="text-center mb-1/2">
-                  <svg
-                    className="mx-auto h-6 w-12 text-gray-300"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                    <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                    >
-                      <span>Upload a file</span>
-                      <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                    </label>
-                    <p className="pl-1">or drag and drop</p>
-                  </div>
-                  <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8">
-              <button
-                type="submit"
-                className="bg-black text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600"
-              >
-                Submit
-              </button>
-            </div>
-            <div className="mt-4 flex items-center justify-between">
-              <span className="border-b w-1/5 md:w-1/4"></span>
-              <Link to="/owner">
-                <a href="#" className="text-xs text-black uppercase">
-                  Back
-                </a>
-              </Link>
-              <span className="border-b w-1/5 md:w-1/4"></span>
-            </div>
-          </form>
+        </div>
+        <div className="w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
+          <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto mt-8 h-16 w-16 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+          </svg>
+          <h1 className="mt-2 text-center text-2xl font-bold text-gray-500">Cancel</h1>
+          <p className="my-4 text-center text-sm text-gray-500">Just a small miss, 2/5 Tasks</p>
+          <div className="space-x-4 bg-gray-100 py-4 text-center">
+            <button className="inline-block rounded-md bg-red-500 px-10 py-2 font-semibold text-red-100 shadow-md duration-75 hover:bg-red-400">Cancel</button>
+            <button className="inline-block rounded-md bg-green-500 px-6 py-2 font-semibold text-green-100 shadow-md duration-75 hover:bg-green-400">Try Again</button>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    );
+  }
+  
+  
+  
   export default Forms;

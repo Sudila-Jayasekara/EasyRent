@@ -13,6 +13,7 @@ import ComplainsEdit from './pages/Reviews and rating management/EditComplains.j
 import Layout from './components/Layout';
 import Landing from './pages/Renter Management/Landing';
 import Signup from './pages/Signup';
+import VehicleLand from './pages/Landing';
 // import Signup from './pages/shared/Signup.jsx';
 import Login from './pages/Login';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
@@ -57,7 +58,7 @@ const App = () => {
       
 
 
- 
+      <Route path='/landing'element={<Layout><VehicleLand/></Layout>}/>
       <Route path='/' element={<Layout />} />
       <Route path='/viewRenter' element={<Layout><ViewRenter/></Layout>}/>
       <Route path='/login' element={<Login/>} />
