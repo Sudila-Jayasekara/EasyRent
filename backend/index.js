@@ -2,10 +2,13 @@ import express from "express";
 import { PORT,mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from 'cors';
-import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser';
+
 import {authRouter} from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
-import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js';
+import cookieParser from "cookie-parser";
+import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
+
 import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
 import DriverRoute from './routes/Driver Management/driverRoute.js';
 import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
@@ -14,9 +17,11 @@ import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
 
 
 const app = express();
+app.use(bodyParser.json({ limit: '10mb' }));
 
 //middleware
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
