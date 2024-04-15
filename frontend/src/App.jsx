@@ -26,7 +26,29 @@ import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 import ForgotPassword from './pages/ForgotPassword';
+<<<<<<< HEAD
 import ResetPassword from './pages/ResetPassword';
+=======
+import ResetPassword from './pages/ResetPassword.jsx';
+import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
+import HrPayroll from './pages/HR Management/HrPayroll.jsx';
+import HrDetails from './pages/HR Management/HrDetails.jsx';
+import HrDashboard from './pages/HR Management/HrDashboard.jsx';
+import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
+import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
+import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
+import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
+import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
+
+
+
+
+
+
+
+
+
+>>>>>>> Human-Resources-Management
 
 import Displaydates from './pages/Driver Management/Displaydates';
 import Driverprofile from './pages/Driver Management/Driverprofile';
@@ -126,6 +148,28 @@ const App = () => {
       <Route path='/complains/details/:id' element={<ShowComplains/>}/>
       <Route path='/complains/edit/:id' element={<EditComplains/>}/>
       <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>
+       
+      <Route path='/booking/create' element={<CreateBooking/>}/>
+      <Route path='/booking/details' element={<ShowBooking/>}/>
+      <Route path='/empRegister' element={<Layout><HrEmpRegister/></Layout>}/>
+      <Route path='/payroll' element={<Layout><HrPayroll/></Layout>}/>
+      <Route path='/Details' element={<Layout><HrDetails/></Layout>}/>
+      <Route path='/Dashboard' element={<Layout><HrDashboard/></Layout>}/>
+      <Route path='/SalaryDetails' element={<Layout><HrSalaryDetails/></Layout>}/>
+      <Route path='/EmpLeave' element={<Layout><HrEmpLeave/></Layout>}/>
+      <Route path='/DetailsEdit/:id' element={<Layout><HrDetailsEdit/></Layout>} />
+      <Route path='/LeaveDetails' element={<Layout><HrLeaveDetails/></Layout>}/>
+      <Route path='/SalaryEdit/:id' element={<Layout><HrSalaryEdit/></Layout>}/>
+      
+
+      
+     
+      
+      
+     
+      
+      
+    </Routes>
     
     </Routes>
   )

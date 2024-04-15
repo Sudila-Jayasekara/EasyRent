@@ -11,7 +11,10 @@ import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
 import DriverRoute from './routes/Driver Management/driverRoute.js';
 import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
 import bodyParser from "body-parser";
-
+import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js';
+import EmployeeRoute from './routes/HR Management/employeeRoute.js'; 
+import PayrollRoute from './routes/HR Management/payrollRoute.js'; 
+import LeaveRequestRoute from './routes/HR Management/leaveRequestRoute.js'; 
 
 const app = express();
 const __dirname = path.resolve();
@@ -33,16 +36,22 @@ app.get('/', (request, response) => {
     return response.status(234).send('Welcome to ITP Project')
 })
 
+app.get('/', (req, res) =>{
+    console.log('Root route accessed');
+    return res.status(200).send('Welcome to ITP Project');
+});
 
 app.use('/api/auth',authRouter);
 app.use('/api/booking', BookingRoute);
-app.use('/api/vehicle', VehicleRoute);
-app.use('/api/renter', RenterRouter);
-app.use('/api/driver', DriverRoute);
-app.use('/api/owner', OwnerRoute);
+app.use('/api/employee', EmployeeRoute);
+app.use('/api/payroll', PayrollRoute);
+app.use('/api/leaverequest', LeaveRequestRoute);
 
-
-
+// Global error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Internal Server Error' });
+});
 
 mongoose
     .connect(mongoDBURL)
@@ -50,7 +59,7 @@ mongoose
         console.log('App connected to the database')
         app.listen(PORT, () => {
             console.log(`App is listening to port: ${PORT}`);
-        })
+        });
     })
     .catch((error) => {
         console.log(error);
