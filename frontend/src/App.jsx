@@ -66,10 +66,19 @@ const App = () => {
       <Route path='/booking/history' element={<ShowBookingR/>}/>
       <Route path='/booking/check' element={<ShowBookingO/>}/>
 
+
+      <Route path='/complains' element={<Home/>}/>//complains home
+      <Route path='/complains/details/:id' element={<ShowComplains/>}/>//show complains
+      <Route path='/complains/edit/:id' element={<EditComplains/>}/>//update
+      <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>//delete
+      <Route path='/complainsForm' element={<ComplainsForm/>}/>// create a book
+      
+    
+
       
     </Routes>
     
   )
 }
 
-export default App
+export default App;
