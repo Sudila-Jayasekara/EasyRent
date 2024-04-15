@@ -19,6 +19,11 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
 import ViewRenter from './pages/Renter Management/ViewRenter';
 import Logout from './pages/Logout.jsx';
+import Home from './pages/Reviews and rating management/Home.jsx'
+import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx'
+import EditComplains from './pages/Reviews and rating management/EditComplains.jsx'
+import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx'
+import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx'
 
 
 axios.defaults.baseURL='http://localhost:5556'
