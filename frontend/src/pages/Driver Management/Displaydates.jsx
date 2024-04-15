@@ -1,6 +1,19 @@
 import React from 'react';
 
 const Displaydates = () => {
+    const [details, setDetails] = useState([]);
+
+    useEffect(() => {
+      axios.get('http://localhost:5556/api/driver/')
+        .then(response => {
+          console.log('Response data:', response.data);
+          setDetails(response.data); // Assuming response.data is an array of renter details
+        })
+        .catch(error => {
+          console.error('Error fetching Drivers:', error);
+        });
+    }, []);
+    
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-9 ml-9 mr-9">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
