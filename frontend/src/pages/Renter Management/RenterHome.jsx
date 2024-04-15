@@ -3,18 +3,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const RenterHome = () => {
-    // Check if user exists in localStorage before parsing
-const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
-// Extract renterId if user exists
-const renterId = user ? user._id : null; // Check if user exists before accessing _id
+    const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+    const renterId = user ? user._id : null;
     const [details, setDetails] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const handleLike = async (renterId, vehicleId) => {
         try {
             const response = await axios.patch(`http://localhost:5556/api/renters/${renterId}/favorite/${vehicleId}`);
-            // Handle successful response
             console.log('Response:', response.data);
-            // Update state or perform any other action if needed
         } catch (error) {
             console.error('Error liking item:', error);
         }
@@ -57,15 +54,21 @@ const renterId = user ? user._id : null; // Check if user exists before accessin
             });
         };
     }, [renterId]);
-        
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredDetails = details.filter(detail => {
+        return detail.brand.toLowerCase().includes(searchTerm.toLowerCase());
+    });
 
     return (
         <div>
             <header className="border-b md:flex md:items-center md:justify-between p-4 pb-0 shadow-lg md:pb-4">
-                {/* Logo text or image */}
                 <div className="flex items-center justify-between mb-4 md:mb-0">
                     <h1 className="leading-none text-2xl text-grey-darkest">
-                        <a className="no-underline text-grey-darkest hover:text-black" href="#">
+                        <a className="no-underline text-grey-darkest hover:text-black" href="/">
                             Easy Rent
                         </a>
                     </h1>
@@ -73,18 +76,18 @@ const renterId = user ? user._id : null; // Check if user exists before accessin
                         <i className="fa fa-2x fa-bars"></i>
                     </a>
                 </div>
-                {/* END Logo text or image */}
-
-                {/* Search field */}
                 <form className="mb-4 w-full md:mb-0 md:w-1/4">
                     <label className="hidden" htmlFor="search-form">Search</label>
-                    <input className="bg-grey-lightest border-2 focus:border-orange p-2 rounded-lg shadow-inner w-full" placeholder="Search" type="text" />
+                    <input
+                        className="bg-grey-lightest border-2 focus:border-orange p-2 rounded-lg shadow-inner w-full"
+                        placeholder="Search by category"
+                        type="text"
+                        value={searchTerm}
+                        onChange={handleSearch}
+                    />
                     <button className="hidden">Submit</button>
                 </form>
-                {/* END Search field */}
-
-                {/* Global navigation */}
-                <nav>
+                {/* <nav>
                     <ul className="list-reset  md:flex md:items-center">
                         <li className="md:ml-4">
                             <a className="block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0" href="#">
@@ -102,14 +105,14 @@ const renterId = user ? user._id : null; // Check if user exists before accessin
                             </a>
                         </li>
                     </ul>
-                </nav>
+                </nav> */}
             </header>
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
             <main className="main">
                 <div className="container bg-white">
                     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {details.map((detail, index) => (
-                            <div  key={index} className="card_ui bg-gray-200 m-4 rounded-lg p-6 transition duration-300 ease-in-out transform hover:shadow-lg hover:-translate-y-2">
+                        {filteredDetails.map((detail, index) => (
+                            <div key={index} className="card_ui bg-gray-200 m-4 rounded-lg p-6 transition duration-300 ease-in-out transform hover:shadow-lg hover:-translate-y-2">
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-2">
                                         <a href="#" className="border-2 border-gray-200 rounded-lg p-1 flex items-center">
