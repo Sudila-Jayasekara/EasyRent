@@ -53,7 +53,11 @@ const vehicleSchema = mongoose.Schema({
         type: String,
         default: 'Available',
         enum: ['Available', 'Booked'],
-      }
+      },
+      category: {
+        type: String,
+        required: true
+      },
      
 
 

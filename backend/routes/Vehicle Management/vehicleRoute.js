@@ -6,7 +6,7 @@ import {Vehicle} from '../../models/Vehicle Management/vehicleModel.js';
 
 const router = express.Router();
 router.post('/vehicleadd', async (req, res) => {
-  const { brand, model,modelYear,engineCapacity, mileage,totalSeats,photos,transmission,price } = req.body;
+  const { brand, model,modelYear,engineCapacity, mileage,totalSeats,photos,transmission,price,status } = req.body;
   try {
    
       const newVehicle = new Vehicle({
@@ -19,6 +19,9 @@ router.post('/vehicleadd', async (req, res) => {
           photos,
           transmission,
           price,
+          status,
+          category,
+
       });
       await newVehicle.save();
       return res.json({ status: true, message: "Vehicle Added" });
