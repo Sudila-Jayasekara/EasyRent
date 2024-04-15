@@ -3,7 +3,7 @@ import React from 'react';
 const ApprovedF = () => {
 
       return (
-        <div className="h-screen max-w-2xl mx-6 mt-6 space-y-6 mr-72">
+        <div className="h-screen max-w-screen-lg mx-6 mt-6 space-y-6 mr-72">
            <div className="max-w-screen-md md:w-3/4 mx-auto">
             <div className="inline-flex flex-col space-y-2 items-center justify-end flex-1 h-full p-4 bg-gray-700 rounded-xl">
                 <div className="inline-flex space-x-10">
