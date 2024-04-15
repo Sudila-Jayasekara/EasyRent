@@ -3,6 +3,9 @@ import { PORT,mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from 'cors';
 
+import path from 'path';
+import bodyParser from 'body-parser';
+
 import {authRouter} from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
 import cookieParser from "cookie-parser";
@@ -16,7 +19,10 @@ import bodyParser from "body-parser";
 
 
 
+
 const app = express();
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json({ limit: '10mb' }));
 
 //middleware
