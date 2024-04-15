@@ -5,6 +5,10 @@ import {Routes, Route} from 'react-router-dom';
 import CreateBooking from './pages/Booking And Payment Management/CreateBookingR.jsx';
 import ShowBookingR from './pages/Booking And Payment Management/BookingHistory.jsx';
 import ShowBookingO from './pages/Booking And Payment Management/CheckBooking.jsx';
+import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';
+import EditComplains from './pages/Reviews and rating management/EditComplains.jsx';
+import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx';
+import ComplainsEdit from './pages/Reviews and rating management/EditComplains.jsx';
 
 import Layout from './components/Layout';
 import Landing from './pages/Renter Management/Landing';
@@ -22,6 +26,7 @@ import Logout from './pages/Logout.jsx';
 import Profile from './pages/Renter Management/Manageprofile.jsx'
 import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
 import Forms from './pages/Vehicle Management/Forms.jsx';
+import Home from './pages/Reviews and rating management/Home.jsx'
 
 
 axios.defaults.baseURL='http://localhost:5556'
@@ -71,7 +76,7 @@ const App = () => {
       <Route path='/complains/details/:id' element={<ShowComplains/>}/>//show complains
       <Route path='/complains/edit/:id' element={<EditComplains/>}/>//update
       <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>//delete
-      <Route path='/complainsForm' element={<ComplainsForm/>}/>// create a book
+      {/* <Route path='/complainsForm' element={<ComplainsForm/>}/>// create a book */}
       
     
 
