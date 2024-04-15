@@ -10,11 +10,11 @@ import Payment from './pages/Booking And Payment Management/Payment';
 import DriverDashboard from './pages/Driver Management/DriverDashboard';
 
 import VehicleManager from './pages/Vehicle Management/VehicleManager';
-
-import VehicleDashboard from './pages/Vehicle Management/VehicleDashboard';
 import Profile from './pages/Vehicle Management/Profile';
 import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar';
-
+import AddedVehicles from './pages/Vehicle Management/AddedVehicles';
+import ApprovedF from './pages/Vehicle Management/ApprovedF';
+import Forms from './pages/Vehicle Management/Forms';
 
 
 const App = () => {
@@ -39,8 +39,10 @@ const App = () => {
         <Route path='' element={<Layout><VehicleManager/></Layout>} />
       </Route>
       <Route path='/VehicleSidebar' element={<Layout><VehicleSidebar/></Layout>}/>
-      <Route path='/VehicleDashboard' element={<Layout><VehicleDashboard/></Layout>}/>
+      <Route path='/AddedVehicles' element={<Layout><AddedVehicles/></Layout>}/>
       <Route path='/Profile' element={<Layout><Profile/></Layout>}/>
+      <Route path='/ApprovedF' element={<Layout><ApprovedF/></Layout>}/>
+      <Route path='/Forms' element={<Layout><Forms/></Layout>}/>
       
 
 
