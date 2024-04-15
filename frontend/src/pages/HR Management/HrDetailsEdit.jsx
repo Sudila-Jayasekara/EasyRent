@@ -17,9 +17,11 @@ export default function HrDetailsEdit() {
   });
 
   useEffect(() => {
+    console.log('ID:', id); // Log the ID parameter
     axios.get(`http://localhost:5556/api/employee/${id}`)
       .then(res => {
         const employeeData = res.data.employee;
+        console.log('Employee Data:', employeeData); // Log the fetched employee data
         setValues({
           firstName: employeeData.firstName,
           lastName: employeeData.lastName,
@@ -118,8 +120,7 @@ export default function HrDetailsEdit() {
               type="date"
               id="dateOfBirth"
               name="dateOfBirth"
-              placeholder='Date of Birth'
-              value={values.dateOfBirth}
+              value={values.dateOfBirth ? values.dateOfBirth.slice(0, 10) : ''} // Format date to YYYY-MM-DD
               onChange={handleInputChange}
               required
             />

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const HrSalaryDetails = () => {
   const [payrollEntries, setPayrollEntries] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchPayrollEntries = async () => {
       try {
         const response = await axios.get('http://localhost:5556/api/payroll');
+        
         setPayrollEntries(response.data.data);
       } catch (error) {
         console.error('Error fetching payroll entries:', error);
@@ -17,16 +19,23 @@ const HrSalaryDetails = () => {
     fetchPayrollEntries();
   }, []);
 
-  const handleDelete = async (entry) => {
+  const handleEdit = (payroll) => {
+    
+    navigate(`/SalaryEdit/${payroll._id}`);
+  };
+
+  const handleDelete = async (payroll) => {
     try {
-      await axios.delete(`http://localhost:5556/api/payroll/${entry._id}`);
-      setPayrollEntries(payrollEntries.filter(item => item._id !== entry._id));
+      await axios.delete(`http://localhost:5556/api/payroll/${payroll._id}`); // Corrected URL
+      setPayrollEntries(payrollEntries.filter(item => item._id !== payroll._id));
       alert('Payroll entry deleted successfully');
     } catch (error) {
       console.error('Error deleting payroll entry:', error);
       alert('Failed to delete payroll entry');
     }
   };
+  
+  
 
   return (
     <div className="container mx-auto p-4">
@@ -43,18 +52,18 @@ const HrSalaryDetails = () => {
             </tr>
           </thead>
           <tbody>
-            {payrollEntries.map((entry) => (
-              <tr key={entry._id} className="border-b">
-                <td className="px-4 py-2">{entry.employeeName}</td>
-                <td className="px-4 py-2">{entry.hoursworked}</td>
-                <td className="px-4 py-2">{entry.hourlyrate}</td>
-                <td className="px-4 py-2">{entry.total}</td>
+            {payrollEntries.map((payroll) => (
+              <tr key={payroll._id} className="border-b">
+                <td className="px-4 py-2">{payroll.employeeName}</td>
+                <td className="px-4 py-2">{payroll.hoursworked}</td>
+                <td className="px-4 py-2">{payroll.hourlyrate}</td>
+                <td className="px-4 py-2">{payroll.total}</td>
                 <td className="action-button">
-                <button className="bg-yellow-400 hover:bg-yellow-700 text-white font-bold py-1 px-1 rounded mr-2" onClick={() => handleEdit(employee)}>
+                <button className="bg-yellow-400 hover:bg-yellow-700 text-white font-bold py-1 px-1 rounded mr-2" onClick={() => handleEdit(payroll)}>
                 Update
                 </button>
 
-               <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" onClick={() => handleDelete(employee)}>
+               <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" onClick={() => handleDelete(payroll)}>
                Delete
                </button>
                 </td>

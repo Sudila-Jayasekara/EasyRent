@@ -33,15 +33,20 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
+    console.log('Fetching employee with ID:', id);
     const employee = await Employee.findById(id);
     if (!employee) {
+      console.log('Employee not found for ID:', id);
       return res.status(404).json({ message: 'Employee not found' });
     }
-    res.json(employee);
+    console.log('Employee found:', employee);
+    res.json({ employee });
   } catch (err) {
+    console.error('Error fetching employee:', err);
     res.status(500).json({ message: err.message });
   }
 });
+
 
 // Update an employee by id
 router.patch('/:id', async (req, res) => {

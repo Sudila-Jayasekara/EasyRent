@@ -11,6 +11,7 @@ const HrEmpLeave = () => {
 
   const handleLeaveRequest = async () => {
     setError(''); // Clear any previous error messages
+    
 
     // Basic form validation
     if (!employeeName || !leaveType || !leaveFrom || !leaveTo) {
@@ -19,7 +20,7 @@ const HrEmpLeave = () => {
     }
 
     try {
-      // Assuming you have an API endpoint for leave requests
+      // Make a POST request to your backend API endpoint
       const response = await axios.post('http://localhost:5556/api/leaverequest', {
         employeeName,
         leaveType,
@@ -27,6 +28,7 @@ const HrEmpLeave = () => {
         leaveTo,
         actionPlan,
       });
+      
 
       if (response.status === 200) {
         // Show success message or redirect to a confirmation page
@@ -35,6 +37,7 @@ const HrEmpLeave = () => {
     } catch (error) {
       // Handle error (e.g., display an error message)
       console.error('Error submitting leave request:', error.message);
+      setError('Error submitting leave request. Please try again.');
     }
   };
 

@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 const HrLeaveDetails = () => {
   const [leaveRequests, setLeaveRequests] = useState([]);
+  const [selectedLeaveRequest, setSelectedLeaveRequest] = useState(null); // New state for selected leave request
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLeaveRequests = async () => {
       try {
-        const response = await axios.get('http://localhost:5556/api/leave-request');
+        const response = await axios.get('http://localhost:5556/api/leaverequest');
         setLeaveRequests(response.data.data);
       } catch (error) {
         console.error('Error fetching leave requests:', error);
@@ -25,7 +26,7 @@ const HrLeaveDetails = () => {
 
   const handleDelete = async (request) => {
     try {
-      await axios.delete(`http://localhost:5556/api/leave-request/${request._id}`);
+      await axios.delete(`http://localhost:5556/api/leaverequest/${request._id}`);
       setLeaveRequests(leaveRequests.filter(req => req._id !== request._id));
       alert('Leave request deleted successfully');
     } catch (error) {
@@ -35,7 +36,11 @@ const HrLeaveDetails = () => {
   };
 
   const handleView = (request) => {
-    // Handle view action
+    setSelectedLeaveRequest(request); // Set the selected leave request when "View" button is clicked
+  };
+
+  const handleCloseModal = () => {
+    setSelectedLeaveRequest(null); // Clear the selected leave request when closing the modal
   };
 
   return (
@@ -62,10 +67,10 @@ const HrLeaveDetails = () => {
                 <td className="px-4 py-2">{new Date(request.leaveTo).toLocaleDateString()}</td>
                 <td className="px-4 py-2">{request.actionPlan}</td>
                 <td className="action-button">
-                  <button className="bg-yellow-400 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleEdit(request)}>
+                  <button className="bg-yellow-400 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded mr-2" onClick={() => handleEdit(request)}>
                     Edit
                   </button>
-                  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleDelete(request)}>
+                  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded mr-2" onClick={() => handleDelete(request)}>
                     Delete
                   </button>
                   <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-1 px-2 rounded" onClick={() => handleView(request)}>

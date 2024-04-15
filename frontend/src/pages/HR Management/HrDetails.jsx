@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const HrDetails = () => {
   const [employees, setEmployees] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState(null); // State variable to hold selected employee data
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const HrDetails = () => {
   }, []);
 
   const handleEdit = (employee) => {
-    navigate(`/DetailsEdit/`);
+    navigate(`/DetailsEdit/${employee._id}`);
   };
 
   const handleDelete = async (employee) => {
@@ -35,7 +36,11 @@ const HrDetails = () => {
   };
 
   const handleView = (employee) => {
-    // Handle view action
+    setSelectedEmployee(employee); // Set the selected employee for viewing
+  };
+
+  const handleCloseModal = () => {
+    setSelectedEmployee(null); // Clear the selected employee when closing the modal
   };
 
   return (
@@ -68,25 +73,37 @@ const HrDetails = () => {
                 <td className="px-4 py-2">{employee.contactNumber}</td>
                 <td className="px-4 py-2">{employee.email}</td>
                 <td className="action-button">
-
-
-                <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-1 px-3 rounded mr-2" onClick={() => handleView(employee)}>
-                Read
-                </button>
-
-                <button className="bg-yellow-400 hover:bg-yellow-700 text-white font-bold py-1 px-1 rounded mr-2" onClick={() => handleEdit(employee)}>
-                Update
-                </button>
-
-               <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" onClick={() => handleDelete(employee)}>
-               Delete
-               </button>
+                  <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleView(employee)}>
+                    Read
+                  </button>
+                  <button className="bg-yellow-400 hover:bg-yellow-600 text-white font-bold py-1 px-0 rounded mr-2" onClick={() => handleEdit(employee)}>
+                    Update
+                  </button>
+                  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded" onClick={() => handleDelete(employee)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {selectedEmployee && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={handleCloseModal}>&times;</span>
+            <h2>Employee Details</h2>
+            <p><strong>First Name:</strong> {selectedEmployee.firstName}</p>
+            <p><strong>Last Name:</strong> {selectedEmployee.lastName}</p>
+            <p><strong>NIC:</strong> {selectedEmployee.nic}</p>
+            <p><strong>Role:</strong> {selectedEmployee.role}</p>
+            <p><strong>Date of Birth:</strong> {new Date(selectedEmployee.dateOfBirth).toLocaleDateString()}</p>
+            <p><strong>Gender:</strong> {selectedEmployee.gender}</p>
+            <p><strong>Contact Number:</strong> {selectedEmployee.contactNumber}</p>
+            <p><strong>Email:</strong> {selectedEmployee.email}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

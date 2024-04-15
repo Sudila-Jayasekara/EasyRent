@@ -22,6 +22,9 @@ import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
 import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
 import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
 import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
+import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
+
+
 
 
 
@@ -57,11 +60,10 @@ const App = () => {
       <Route path='/Dashboard' element={<Layout><HrDashboard/></Layout>}/>
       <Route path='/SalaryDetails' element={<Layout><HrSalaryDetails/></Layout>}/>
       <Route path='/EmpLeave' element={<Layout><HrEmpLeave/></Layout>}/>
-      <Route path='/DetailsEdit' element={<Layout><HrDetailsEdit/></Layout>}/>
+      <Route path='/DetailsEdit/:id' element={<Layout><HrDetailsEdit/></Layout>} />
       <Route path='/LeaveDetails' element={<Layout><HrLeaveDetails/></Layout>}/>
+      <Route path='/SalaryEdit/:id' element={<Layout><HrSalaryEdit/></Layout>}/>
       
-     
-     
 
       
      

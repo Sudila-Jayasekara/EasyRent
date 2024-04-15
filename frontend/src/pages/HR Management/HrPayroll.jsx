@@ -2,33 +2,49 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const HrPayroll = () => {
-  const [employeeName, setEmployeeName] = useState('');
-  const [hoursWorked, setHoursWorked] = useState(0);
-  const [hourlyRate, setHourlyRate] = useState(10); 
+  const [formData, setFormData] = useState({
+    employeeName: '',
+    hoursworked: '',
+    hourlyrate: '',
+  });
+  const [totalSalary, setTotalSalary] = useState(0);
 
-  const calculateSalary = () => {
-    return hoursWorked * hourlyRate;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
-  const handleSubmit = async (e) => {
+  const calculateSalary = () => {
+    const { hoursworked, hourlyrate } = formData;
+    return hoursworked * hourlyrate;
+  };
+
+  const handleCalculateSalary = () => {
+    const total = calculateSalary();
+    setTotalSalary(total);
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post('http://localhost:5556/api/payroll', {
-        employeeName,
-        hoursWorked,
-        hourlyRate,
-        total: calculateSalary()
+    axios.post('http://localhost:5556/api/payroll', { ...formData, total: totalSalary })
+      .then(response => {
+        console.log(response.data);
+        alert('Employee data sent successfully!');
+        setFormData({
+          employeeName: '',
+          hoursworked: '',
+          hourlyrate: '',
+        });
+        setTotalSalary(0);
+      })
+      .catch(error => {
+        console.error(error);
+        alert('Error sending data: ' + error.message);
       });
-      console.log(response.data);
-      alert('Payroll data submitted successfully!');
-      setEmployeeName('');
-      setHoursWorked(0);
-      setHourlyRate(10);
-    } catch (error) {
-      console.error('Error submitting payroll data:', error);
-      alert('Error submitting payroll data: ' + error.message);
-    }
   };
 
   return (
@@ -43,38 +59,44 @@ const HrPayroll = () => {
             className="w-full border rounded p-2"
             type="text"
             id="employeeName"
-            value={employeeName}
-            onChange={(e) => setEmployeeName(e.target.value)}
+            name="employeeName"
+            value={formData.employeeName}
+            onChange={handleChange}
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-2 font-semibold" htmlFor="hoursWorked">
+          <label className="block mb-2 font-semibold" htmlFor="hoursworked">
             Hours Worked:
           </label>
           <input
             className="w-full border rounded p-2"
             type="number"
-            id="hoursWorked"
-            value={hoursWorked}
-            onChange={(e) => setHoursWorked(parseInt(e.target.value))}
+            id="hoursworked"
+            name="hoursworked"
+            value={formData.hoursworked}
+            onChange={handleChange}
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-2 font-semibold" htmlFor="hourlyRate">
+          <label className="block mb-2 font-semibold" htmlFor="hourlyrate">
             Hourly Rate ($):
           </label>
           <input
             className="w-full border rounded p-2"
             type="number"
-            id="hourlyRate"
-            value={hourlyRate}
-            onChange={(e) => setHourlyRate(parseInt(e.target.value))}
+            id="hourlyrate"
+            name="hourlyrate"
+            value={formData.hourlyrate}
+            onChange={handleChange}
           />
         </div>
         <div className="mb-4">
           <label className="block mb-2 font-semibold">Total Salary:</label>
-          <p className="text-xl">{`$${calculateSalary().toFixed(2)}`}</p>
+          <p className="text-xl">{`$${totalSalary.toFixed(2)}`}</p>
         </div>
+        <button type="button" onClick={handleCalculateSalary} className="bg-blue-500 m-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Calculate Salary
+        </button>
         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Submit
         </button>
