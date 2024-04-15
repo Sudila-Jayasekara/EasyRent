@@ -19,6 +19,9 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
 import ViewRenter from './pages/Renter Management/ViewRenter';
 import Logout from './pages/Logout.jsx';
+import Profile from './pages/Renter Management/Manageprofile.jsx'
+import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
+import Forms from './pages/Vehicle Management/Forms.jsx';
 
 
 axios.defaults.baseURL='http://localhost:5556'
@@ -29,15 +32,15 @@ const App = () => {
   return (
     <Routes>
       
-      <Route path='/driver'>
+      {/* <Route path='/driver'>
         <Route path='' element={<Layout><DriverDashboard/></Layout>} />
-      </Route>
+      </Route> */}
 
-      <Route path='/VehicleManager'>
+      {/* <Route path='/VehicleManager'>
         <Route path='' element={<Layout><VehicleManager/></Layout>} />
-      </Route>
-      <Route path='/VehicleSidebar' element={<Layout><VehicleSidebar/></Layout>}/>
-      <Route path='/AddedVehicles' element={<Layout><AddedVehicles/></Layout>}/>
+      </Route> */}
+      {/* <Route path='/VehicleSidebar' element={<Layout><VehicleSidebar/></Layout>}/> */}
+      {/* <Route path='/AddedVehicles' element={<Layout><AddedVehicles/></Layout>}/> */}
       <Route path='/Profile' element={<Layout><Profile/></Layout>}/>
       <Route path='/ApprovedF' element={<Layout><ApprovedF/></Layout>}/>
       <Route path='/Forms' element={<Layout><Forms/></Layout>}/>
