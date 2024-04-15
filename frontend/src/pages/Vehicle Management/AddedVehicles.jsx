@@ -30,9 +30,28 @@ const AddedVehicles = () => {
     };
 
     const handleUpdate = (id) => {
-        // Redirect or open a modal for updating the vehicle with the given id
-        // Implement your update functionality here
+        // Find the vehicle object by id
+        const vehicleToUpdate = vehicles.find(vehicle => vehicle._id === id);
+    
+        // Update the status (for demonstration, let's assume toggling between 'active' and 'inactive')
+        const updatedStatus = vehicleToUpdate.status === 'active' ? 'inactive' : 'active';
+    
+        // Send a PUT request to update the status
+        axios.patch(`http://localhost:5556/api/vehicle/${id}`, { status: updatedStatus })
+            .then(response => {
+                // Update the status in the local state
+                setVehicles(vehicles.map(vehicle => {
+                    if (vehicle._id === id) {
+                        return { ...vehicle, status: updatedStatus };
+                    }
+                    return vehicle;
+                }));
+            })
+            .catch(error => {
+                console.error('Error updating vehicle status:', error);
+            });
     };
+    
 
     return (
         <div tabIndex="0" className="focus:outline-none">
