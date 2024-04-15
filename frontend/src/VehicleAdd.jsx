@@ -9,7 +9,9 @@ const VehicleAdd = () => {
     engineCapacity: '',
     mileage: '',
     totalSeats: '',
-    vehicleImage: '',
+    photos: '',
+    transmission:'',
+    price:'',
   });
 
   const handleChange = (e) => {
@@ -28,7 +30,7 @@ const VehicleAdd = () => {
     console.log('Form data submitted:', updatedFormData);
 
     try {
-      const res = await fetch('api/ownerVehicle/vehicleadd', {
+      const res = await fetch('api/vehicle/vehicleadd', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -122,6 +124,30 @@ const VehicleAdd = () => {
                 value={formData.totalSeats}
                 onChange={handleChange}
                 name="totalSeats"
+                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                type="Number"
+              />
+            </div>
+            <div className="mt-4">
+              <div className="flex justify-between">
+                <label className="block text-gray-700 text-sm font-bold mb-2">Transmission</label>
+              </div>
+              <input
+                value={formData.transmission}
+                onChange={handleChange}
+                name="transmission"
+                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                type="String"
+              />
+            </div>
+            <div className="mt-4">
+              <div className="flex justify-between">
+                <label className="block text-gray-700 text-sm font-bold mb-2">Price</label>
+              </div>
+              <input
+                value={formData.price}
+                onChange={handleChange}
+                name="price"
                 className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
                 type="Number"
               />

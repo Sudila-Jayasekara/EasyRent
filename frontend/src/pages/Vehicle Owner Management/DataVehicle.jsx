@@ -6,7 +6,7 @@ const DataVehicle = () => {
     const [details, setDetails] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5556/api/ownerVehicle/')
+        axios.get('http://localhost:5556/api/vehicle/')
           .then(response => {
             console.log('Response data:', response.data);
             setDetails(response.data); // Assuming response.data is an array of vehicle details
@@ -17,7 +17,7 @@ const DataVehicle = () => {
       }, []);
 
       const handleDelete = (id) => {
-        axios.delete(`http://localhost:5556/api/ownerVehicle/${id}`)
+        axios.delete(`http://localhost:5556/api/vehicle/${id}`)
           .then(() => {
             setDetails(details.filter(detail => detail._id !== id));
           })

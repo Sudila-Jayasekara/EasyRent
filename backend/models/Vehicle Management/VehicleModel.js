@@ -13,11 +13,10 @@ const vehicleSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Owner',
         type: String,
-        required: true,
     },
     photos: {
         type: [String],
-        required: true
+    
     },
     price: {
         type: Number,
@@ -50,10 +49,7 @@ const vehicleSchema = mongoose.Schema({
         type: Number,
         required: true
       },
-      vehicleImage: {
-        type: String,
-    
-      },
+     
 
 
 },{timestamps:true});
