@@ -2,6 +2,7 @@ import express from "express";
 import { PORT,mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from 'cors';
+
 import path from 'path';
 import bodyParser from 'body-parser';
 
@@ -13,6 +14,7 @@ import BookingRoute from './routes/Booking And Payment Management/bookingRoute.j
 import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
 import DriverRoute from './routes/Driver Management/driverRoute.js';
 import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
+import bodyParser from "body-parser";
 
 
 
@@ -28,6 +30,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
     origin: 'http://localhost:5173',
+    methods:['GET','POST','PUT','DELETE'],
     credentials: true
   }));
 app.use(cookieParser())
