@@ -18,26 +18,28 @@ import Driverprofile from './pages/Driver Management/Driverprofile';
 import License from './pages/Driver Management/License';
 import DriverDashboard from './pages/Driver Management/Driverdashboard';
 import DriverDisplay from './pages/Driver Management/DriverDisplay';
-
+import CommonSection from './pages/Vehicle Management/CommonSection';
+import Data from './pages/Vehicle Management/Data';
+import PageHelmet from './pages/Vehicle Management/PageHelmet';
 import ViewRenter from './pages/Renter Management/ViewRenter';
 import Logout from './pages/Logout';
 
-import Home from './pages/Home';
+// import Home from './pages/Home';
 import CreateBooking from './pages/Booking And Payment Management/CreateBookingR';
 import ShowBookingR from './pages/Booking And Payment Management/BookingHistory';
 import ShowBookingO from './pages/Booking And Payment Management/CheckBooking';
 
-import VehicleManager from './pages/Vehicle Management/VehicleManager';
+import VehicleManager from './pages/Vehicle Management/vehicleManager';
 import VehicleDashboard from './pages/Vehicle Management/VehicleDashboard';
 import Profile from './pages/Vehicle Management/Profile';
-import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar';
+import VehicleSidebar from './pages/Vehicle Management/vehicleSidebar';
 
 axios.defaults.baseURL = 'http://localhost:5556';
 axios.defaults.withCredentials = true;
 
 const App = () => {
   return (
-    <Routes>
+    <Routes> 
       <Route path="/" element={<Layout />} />
       <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
       <Route path="/login" element={<Login />} />
@@ -45,7 +47,7 @@ const App = () => {
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/landing" element={<Layout><Landing/></Layout>} />
-      <Route path="/profile" element={<Layout><Manageprofile/></Layout>} />
+      <Route path="/renterprofile" element={<Layout><Manageprofile/></Layout>} />
       <Route path="/Rentersidebar" element={<Layout><RenterSidebar/></Layout>} />
       <Route path="/homerenter" element={<Layout><RenterHome/></Layout>} />
       <Route path="/selectbooking" element={<Layout><SelectBooking/></Layout>} />
@@ -62,7 +64,7 @@ const App = () => {
       <Route path="/booking/check" element={<ShowBookingO />} />
 
       <Route path="/driver" element={<Layout><DriverDashboard/></Layout>} />
-      <Route path="/VehicleManager" element={<Layout><VehicleManager/></Layout>} />
+      <Route path="/vehiclemanager" element={<Layout><VehicleManager/></Layout>} />
       <Route path="/VehicleSidebar" element={<Layout><VehicleSidebar/></Layout>} />
       <Route path="/vehicledashboard" element={<Layout><VehicleDashboard/></Layout>} />
       <Route path="/Profile" element={<Layout><Profile/></Layout>} />

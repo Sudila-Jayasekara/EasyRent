@@ -1,7 +1,7 @@
 import React from 'react'
 import Profilepic from '../Vehicle Management/Profilepic.jpg'
 
-
+ 
 const Profile = () => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>

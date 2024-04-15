@@ -19,7 +19,6 @@ import bodyParser from "body-parser";
 
 
 
-import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js'
 
 const app = express();
 const __dirname = path.resolve();

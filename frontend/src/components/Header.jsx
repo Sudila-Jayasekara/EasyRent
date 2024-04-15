@@ -65,7 +65,7 @@ const Header = () => {
                                 {({ active }) => (
                                     <Link
                                     to={
-                                        userrole === 'renter' ? '/profile' :
+                                        userrole === 'renter' ? '/renterprofile' :
                                         userrole === 'driver' ? '/driverprofile' :
                                         userrole === 'owner' ? '/owner-profile' :
                                         '/'

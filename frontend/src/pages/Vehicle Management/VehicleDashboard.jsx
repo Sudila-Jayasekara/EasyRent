@@ -5,7 +5,7 @@ import Data from "../Vehicle Management/Data";
 
 const VehicleDashboard = () => {
   // Define your Data array here
-  const Data = [
+  const Data = [ 
     { id: 1, /* other properties */ },
     { id: 2, /* other properties */ },
     // Add more objects as needed

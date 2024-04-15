@@ -1,6 +1,6 @@
 import React from "react";
 
-const CommonSection = ({ title }) => {
+const CommonSection = ({ title }) => { 
   return (
     <section
       className="common__section mb-5"

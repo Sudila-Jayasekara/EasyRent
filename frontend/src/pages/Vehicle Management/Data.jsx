@@ -5,7 +5,7 @@ import img04 from "../Vehicle Management/images/nissan.png";
 import img05 from "../Vehicle Management/images/offer-toyota.png";
 import img06 from "../Vehicle Management/images/mercedes-offer.png";
 import img07 from "../Vehicle Management/images/toyota-offer-2.png";
-import img08 from "../Vehicle Management/images/mercedes-offer.png";
+import img08 from "../Vehicle Management/images/mercedes-offer.png"; 
 
 const Data = [
   {
