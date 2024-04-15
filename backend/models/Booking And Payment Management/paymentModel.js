@@ -5,8 +5,7 @@ const paymentSchema = mongoose.Schema(
         // Booking details
         booking_id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Renter',
-            type: String,
+            ref: 'booking_id',
             required: true,
           },
 

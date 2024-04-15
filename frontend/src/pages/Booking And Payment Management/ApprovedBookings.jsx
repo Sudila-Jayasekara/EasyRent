@@ -60,7 +60,7 @@ const ShowBooking = () => {
   
   return (
     <div className="container mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Booking For Your Vehicles</h1>
+      <h1 className="text-2xl font-bold mb-4">Track Your Approved Bookings</h1>
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
           <tr>
@@ -91,25 +91,27 @@ const ShowBooking = () => {
           </tr>
         </thead>
         <tbody>
-          {bookings.map((booking, index) => (
-            <tr key={index} className="hover:bg-gray-100">
-              <td className="py-2 px-4">{index + 1}</td>
-              <td className="py-2 px-4">{booking.renter_username}</td>
-              <td className="py-2 px-4">{booking.vehicle_model}</td>
-              <td className="py-2 px-4">{booking.serviceType}</td>
-              <td className="py-2 px-4">{booking.location}</td>
-              <td className="py-2 px-4">{formatDate(booking.startDate)}</td>
-              <td className="py-2 px-4">{formatDate(booking.endDate)}</td>
-              <td className="py-2 px-4">
-                <button 
-                  className={`px-3 py-1 rounded-md ${booking.status === 'pending' ? 'bg-blue-500 text-white' : booking.status === 'approved' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}
-                  onClick={() => handleCheckButtonClick(booking)}
-                >
-                  {booking.status}
-                </button>
-              </td>
-            </tr>
-          ))}
+          {bookings
+            .filter(booking => booking.status === 'approved') // Filter only approved bookings
+            .map((booking, index) => (
+              <tr key={index} className="hover:bg-gray-100">
+                <td className="py-2 px-4">{index + 1}</td>
+                <td className="py-2 px-4">{booking.renter_username}</td>
+                <td className="py-2 px-4">{booking.vehicle_model}</td>
+                <td className="py-2 px-4">{booking.serviceType}</td>
+                <td className="py-2 px-4">{booking.location}</td>
+                <td className="py-2 px-4">{formatDate(booking.startDate)}</td>
+                <td className="py-2 px-4">{formatDate(booking.endDate)}</td>
+                <td className="py-2 px-4">
+                  <button 
+                    className={`px-3 py-1 rounded-md ${booking.status === 'pending' ? 'bg-blue-500 text-white' : booking.status === 'approved' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}
+                    onClick={() => handleCheckButtonClick(booking)}
+                  >
+                    {booking.status}
+                  </button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
       {showModal && (
