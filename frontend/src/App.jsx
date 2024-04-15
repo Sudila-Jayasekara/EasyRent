@@ -26,9 +26,6 @@ import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 import ForgotPassword from './pages/ForgotPassword';
-<<<<<<< HEAD
-import ResetPassword from './pages/ResetPassword';
-=======
 import ResetPassword from './pages/ResetPassword.jsx';
 import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
 import HrPayroll from './pages/HR Management/HrPayroll.jsx';
@@ -48,7 +45,6 @@ import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
 
 
 
->>>>>>> Human-Resources-Management
 
 import Displaydates from './pages/Driver Management/Displaydates';
 import Driverprofile from './pages/Driver Management/Driverprofile';
@@ -150,7 +146,7 @@ const App = () => {
       <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>
        
       <Route path='/booking/create' element={<CreateBooking/>}/>
-      <Route path='/booking/details' element={<ShowBooking/>}/>
+      <Route path='/booking/details' element={<ShowBookingR/>}/>
       <Route path='/empRegister' element={<Layout><HrEmpRegister/></Layout>}/>
       <Route path='/payroll' element={<Layout><HrPayroll/></Layout>}/>
       <Route path='/Details' element={<Layout><HrDetails/></Layout>}/>
@@ -171,7 +167,7 @@ const App = () => {
       
     </Routes>
     
-    </Routes>
+   
   )
 }
 
