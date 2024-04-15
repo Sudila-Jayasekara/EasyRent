@@ -24,9 +24,14 @@ import ResetPassword from './pages/ResetPassword.jsx';
 import ViewRenter from './pages/Renter Management/ViewRenter';
 import Logout from './pages/Logout.jsx';
 import Profile from './pages/Renter Management/Manageprofile.jsx'
+
+import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar.jsx';
+import VehicleManager from './pages/Vehicle Management/VehicleManager.jsx';
 import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
 import Forms from './pages/Vehicle Management/Forms.jsx';
 import Home from './pages/Reviews and rating management/Home.jsx'
+import Vprofile from './pages/Vehicle Management/Profile.jsx'
+import AddedVehicles from './pages/Vehicle Management/AddedVehicles.jsx'
 
 
 axios.defaults.baseURL='http://localhost:5556'
@@ -41,12 +46,12 @@ const App = () => {
         <Route path='' element={<Layout><DriverDashboard/></Layout>} />
       </Route> */}
 
-      {/* <Route path='/VehicleManager'>
+      <Route path='/VehicleManager'>
         <Route path='' element={<Layout><VehicleManager/></Layout>} />
-      </Route> */}
-      {/* <Route path='/VehicleSidebar' element={<Layout><VehicleSidebar/></Layout>}/> */}
-      {/* <Route path='/AddedVehicles' element={<Layout><AddedVehicles/></Layout>}/> */}
-      <Route path='/Profile' element={<Layout><Profile/></Layout>}/>
+      </Route> 
+       <Route path='/VehicleSidebar' element={<Layout><VehicleSidebar/></Layout>}/> 
+      <Route path='/AddedVehicles' element={<Layout><AddedVehicles/></Layout>}/> 
+      <Route path='/Profile' element={<Layout><Vprofile/></Layout>}/>
       <Route path='/ApprovedF' element={<Layout><ApprovedF/></Layout>}/>
       <Route path='/Forms' element={<Layout><Forms/></Layout>}/>
       
