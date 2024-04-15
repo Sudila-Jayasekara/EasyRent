@@ -1,75 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const DriverDisplay = () => {
+    const [drivers, setDrivers] = useState([]);
+
+    useEffect(() => {
+        const fetchDrivers = async () => {
+            try {
+                const response = await axios.get('http://localhost:5556/api/driver');
+                setDrivers(response.data);
+            } catch (error) {
+                console.error('Error fetching drivers:', error);
+            }
+        };
+
+        fetchDrivers();
+    }, []);
+
+    const handleRemoveDriver = async (driverId) => {
+        try {
+            await axios.delete(`http://localhost:5556/api/driver/${driverId}`);
+            setDrivers(drivers.filter(driver => driver._id !== driverId));
+        } catch (error) {
+            console.error('Error removing driver:', error);
+        }
+    };
+
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-9 ml-9 mr-9">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" className="px-6 py-3">
-                            Driver ID
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Driver name
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Type
-                        </th>
-                        
-                        <th scope="col" className="px-6 py-3">
-                            <span className="sr-only">Remove</span>
-                        </th>
+        <div className="container mx-auto">
+            <table className="w-full border-collapse table-fixed">
+                <thead>
+                    <tr className="bg-gray-200">
+                        <th className="px-4 py-2">Driver Name</th>
+                        <th className="px-4 py-2">Adsress</th>
+                        <th className="px-4 py-2">NIC</th>
+                        <th className="px-4 py-2">Phone Number</th>
+                        <th className="px-4 py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            
-                        </th>
-                        <td className="px-6 py-4">
-                            
-                        </td>
-                        <td className="px-6 py-4">
-                            
-                        </td>
-                        
-                        <td className="px-6 py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Remove</a>
-                        </td>
-                    </tr>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                           
-                        </th>
-                        <td className="px-6 py-4">
-                           
-                        </td>
-                        <td className="px-6 py-4">
-                            
-                        </td>
-                        
-                        <td className="px-6 py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Remove</a>
-                        </td>
-                    </tr>
-                    <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                           
-                        </th>
-                        <td className="px-6 py-4">
-                           
-                        </td>
-                        <td className="px-6 py-4">
-                           
-                        </td>
-                        
-                        <td className="px-6 py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Remove</a>
-                        </td>
-                    </tr>
+                    {drivers.map(driver => (
+                        <tr key={driver._id} className="border-b">
+                            <td className="px-4 py-2">{driver.username}</td>
+                            <td className="px-4 py-2">{driver.address}</td>
+                            <td className="px-4 py-2">{driver.nic}</td>
+                            <td className="px-4 py-2">{driver.phoneNumber}</td>
+                            <td className="px-4 py-2">
+                                <button
+                                    onClick={() => handleRemoveDriver(driver._id)}
+                                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                                >
+                                    Remove
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
-            <button className="mt-4 ml-96 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Add Drivers</button>
+            
+
+            <Link to={'/signup'}><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                Add Driver
+                </button> </Link>
         </div>
     );
 };
