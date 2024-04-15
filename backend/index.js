@@ -1,68 +1,53 @@
 import express from "express";
-import { PORT,mongoDBURL } from "./config.js";
+import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
-import cors from 'cors';
-
+import cors from 'cors'; // Importing cors middleware correctly
 import path from 'path';
-
-
-import {authRouter} from "./routes/auth.route.js";
+import { authRouter } from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
 import cookieParser from "cookie-parser";
 import BookingRoute from './routes/Booking And Payment Management/bookingRoute.js'
-
 import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
 import DriverRoute from './routes/Driver Management/driverRoute.js';
 import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
 import bodyParser from "body-parser";
-
-
-
-
 
 const app = express();
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json({ limit: '10mb' }));
 
-//middleware
-app.use(express.json());
-app.use(cookieParser());
+// Set up CORS middleware
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:5173', // Replace with your React app's origin
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials:true,
-  }));
-app.use(cookieParser())
+    credentials: true // Allow credentials (cookies)
+}));
 
-//middleware
-app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
 
-app.get('/',(request, response) =>{
+app.get('/', (request, response) => {
     console.log(request)
     return response.status(234).send('Welcome to ITP Project')
 })
 
-app.use('/api/auth',authRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/booking', BookingRoute);
 app.use('/api/vehicle', VehicleRoute);
 app.use('/api/renter', RenterRouter);
 app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
-
-
 app.use('/vehicle', VehicleRoute);
 
 mongoose
     .connect(mongoDBURL)
-    .then(()=>{
+    .then(() => {
         console.log('App connected to the database')
-        app.listen(PORT,() =>{
+        app.listen(PORT, () => {
             console.log(`App is listening to port: ${PORT}`);
         })
     })
-    .catch((error)=>{
+    .catch((error) => {
         console.log(error);
-    })
+    });
