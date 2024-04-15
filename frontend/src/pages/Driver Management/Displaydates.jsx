@@ -1,28 +1,7 @@
 import React from 'react';
 
 const Displaydates = () => {
-    const [details, setDetails] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:5556/api/driver/')
-      .then(response => {
-        console.log('Response data:', response.data);
-        setDetails(response.data); // Assuming response.data is an array of renter details
-      })
-      .catch(error => {
-        console.error('Error fetching Drivers:', error);
-      });
-  }, []);
-
-  const handleDelete = (id) => {
-    axios.delete(`http://localhost:5556/api/driver/${id}`)
-      .then(() => {
-        setDetails(details.filter(detail => detail._id !== id));
-      })
-      .catch(error => {
-        console.error('Error deleting the driver:', error);
-      });
-  };
+   
                                                                                                 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-9 ml-9 mr-9">
