@@ -2,7 +2,6 @@ import express from "express";
 import { PORT,mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from 'cors';
-import bodyParser from 'body-parser';
 
 import {authRouter} from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
@@ -24,6 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
     origin: 'http://localhost:5173',
+    methods:['GET','POST','PUT','DELETE'],
     credentials: true
   }));
 app.use(cookieParser())
