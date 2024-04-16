@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
 import { KEY } from "../../config.js";
 import { Renter } from "../../models/Renter Management/Renter.model.js";
+// import {Favlist} from '../../models/Renter Management/favList.js'
 import nodemailer from 'nodemailer' 
 
 const router = express.Router();
@@ -36,6 +37,20 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// GET a specific renter by id
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const renter = await Renter.findById(id);
+    if (!renter) {
+      return res.status(404).json({ message: 'Renter not found' });
+    }
+    res.json(renter);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 // Update a renter by id
 router.patch('/:id', async (req, res) => {
@@ -55,7 +70,6 @@ router.patch('/:id', async (req, res) => {
 });
 
 //Delete a renter by id
-
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -68,6 +82,25 @@ router.delete('/:id', async (req, res) => {
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
+  });
+
+  //add a vehicle to favourite list
+  router.patch('/:id/favId', async (req, res) => {
+    const { id,favId } = req.params;
+    try {
+        const renter = await Renter.findById(id);
+        const listning=await Favlist.findOne(favId)
+        const favListning=renter.favourite.find
+        if (!renter) {
+            return res.status(404).json({ message: 'Renter not found' });
+        }
+        renter.favourite.push(req.body.vehicleID);
+        const updatedrenter = await renter.save();
+        res.json(updatedrenter);
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    } 
   });
 
 export { router as RenterRouter };

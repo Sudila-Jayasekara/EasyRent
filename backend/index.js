@@ -2,6 +2,7 @@ import express from "express";
 import { PORT,mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from 'cors';
+import bodyParser from 'body-parser';
 
 import {authRouter} from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
@@ -17,6 +18,7 @@ import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
 
 
 const app = express();
+app.use(bodyParser.json({ limit: '10mb' }));
 
 //middleware
 app.use(express.json());
