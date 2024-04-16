@@ -25,7 +25,7 @@ const OwnerSidebar = () =>{
         </button>
 
         <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 mt-10 px-12 rounded my-25'>
-        <Link to={'/viewvehicle'} >View Vehicle</Link>
+        <Link to={'/dataVehicle'} >View Vehicle</Link>
         </button>
 
         <button className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 mt-10 px-14 rounded my-25'>

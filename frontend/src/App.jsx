@@ -58,7 +58,7 @@ const App = () => {
       <Route path='/ownerProfile'>
         <Route path='' element={<Layout><OwnerProfile/></Layout>} />
       </Route>
-      <Route path='/viewvehicle' element={<ViewVehicle/>}/>
+      <Route path="/viewvehicle/:id" element={<Layout><ViewVehicle/></Layout>}/>
       <Route path='/' element={<Layout />} />
       <Route path='/viewRenter' element={<Layout><ViewRenter/></Layout>}/>
       <Route path='/login' element={<Login/>} />
