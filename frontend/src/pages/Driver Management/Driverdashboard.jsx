@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import thumbnail from '../Driver Management/thumbnail.jpeg';
+import driver from '../Driver Management/driver.jpeg';
 
 const DriverDashboard = () => {
   return (
@@ -20,7 +20,7 @@ const DriverDashboard = () => {
      
       <div>
        
-        <img className="object-cover w-90  mt-10 ml-50  h-80 p-1 ring-2 ring-indigo-300 dark:ring-indigo-500" src={thumbnail} alt="Thumbnail" />
+        <img className="object-cover w-90  mt-10 ml-50  h-80 p-1 ring-2 ring-indigo-300 dark:ring-indigo-500" src={driver} alt="Thumbnail" />
       
       </div>
     </div>
