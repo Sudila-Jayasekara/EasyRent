@@ -15,11 +15,18 @@ import ShowBookingO from './pages/Booking And Payment Management/CheckBooking.js
 import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';
 import EditComplains from './pages/Reviews and rating management/EditComplains.jsx';
 import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx';
+import ShowBooking from './pages/Booking And Payment Management/BookingHistory.jsx';
+import CheckBooking from './pages/Booking And Payment Management/CheckBooking.jsx';
+import UpdateBooking from './pages/Booking And Payment Management/UpdateBooking.jsx';
+import ApprovedBookings from './pages/Booking And Payment Management/ApprovedBookings.jsx';
+import RejectBookings from './pages/Booking And Payment Management/RejectedBookings.jsx';
+import PendingBookings from './pages/Booking And Payment Management/PendingBookings.jsx';
 
 import Layout from './components/Layout';
 import Landing from './pages/Renter Management/Landing';
 import Signup from './pages/Signup';
-import VehicleLand from './pages/Landing';
+// import Signup from './pages/shared/Signup.jsx';
+
 import Login from './pages/Login';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import Manageprofile from './pages/Renter Management/Manageprofile';
@@ -55,14 +62,18 @@ import DriverDisplay from './pages/Driver Management/DriverDisplay';
 import OwnerSidebar from './pages/Vehicle Owner Management/OwnerSidebar.jsx';
 
 import ViewRenter from './pages/Renter Management/ViewRenter';
-import Logout from './pages/Logout';
-import Profile from './pages/Renter Management/Manageprofile.jsx'
+import Logout from './pages/Logout.jsx';
+import Home from './pages/Reviews and rating management/Home.jsx'
+
+
+
+import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx'
 
 import VehicleSidebar from './pages/Vehicle Management/vehicleSidebar.jsx';
 import VehicleManager from './pages/Vehicle Management/vehicleManager.jsx';
 import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
 import Forms from './pages/Vehicle Management/Forms.jsx';
-import Home from './pages/Reviews and rating management/Home.jsx'
+
 import Vprofile from './pages/Vehicle Management/Profile.jsx'
 import AddedVehicles from './pages/Vehicle Management/AddedVehicles.jsx'
 
@@ -137,26 +148,20 @@ const App = () => {
       <Route path='/signup' element={<Signup/>}/>
 
       <Route path='/booking/create' element={<Layout><CreateBooking/></Layout>}/>
-      <Route path='/booking/history' element={<ShowBookingR/>}/>
-      <Route path='/booking/check' element={<ShowBookingO/>}/>
+      <Route path='/booking/update/:bookingId' element={<Layout><UpdateBooking/></Layout>}/>
+      <Route path='/booking/history' element={<Layout><ShowBooking/></Layout>}/>
+      <Route path='/booking/check' element={<Layout><CheckBooking/></Layout>}/>
+      <Route path='/booking/approved' element={<Layout><ApprovedBookings/></Layout>}/>
+      <Route path='/booking/rejected' element={<Layout><RejectBookings/></Layout>}/>
+      <Route path='/booking/pending' element={<Layout><PendingBookings/></Layout>}/>
 
       <Route path='/complains' element={<Home/>}/>
       <Route path='/complains/details/:id' element={<ShowComplains/>}/>
       <Route path='/complains/edit/:id' element={<EditComplains/>}/>
       <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>
-       
-      <Route path='/booking/create' element={<CreateBooking/>}/>
-      <Route path='/booking/details' element={<ShowBookingR/>}/>
-      <Route path='/empRegister' element={<Layout><HrEmpRegister/></Layout>}/>
-      <Route path='/payroll' element={<Layout><HrPayroll/></Layout>}/>
-      <Route path='/Details' element={<Layout><HrDetails/></Layout>}/>
-      <Route path='/Dashboard' element={<Layout><HrDashboard/></Layout>}/>
-      <Route path='/SalaryDetails' element={<Layout><HrSalaryDetails/></Layout>}/>
-      <Route path='/EmpLeave' element={<Layout><HrEmpLeave/></Layout>}/>
-      <Route path='/DetailsEdit/:id' element={<Layout><HrDetailsEdit/></Layout>} />
-      <Route path='/LeaveDetails' element={<Layout><HrLeaveDetails/></Layout>}/>
-      <Route path='/SalaryEdit/:id' element={<Layout><HrSalaryEdit/></Layout>}/>
+      <Route path='/complainsForm' element={<ComplainsForm/>}/>
       
+
 
       
      
