@@ -18,6 +18,7 @@ import ComplainsRoute from'./routes/Reviews and rating management/ComplainsRoute
 import EmployeeRoute from './routes/HR Management/employeeRoute.js'; 
 import PayrollRoute from './routes/HR Management/payrollRoute.js'; 
 import LeaveRequestRoute from './routes/HR Management/leaveRequestRoute.js'; 
+import bodyParser from 'body-parser';
 
 const app = express();
 const __dirname = path.resolve();
