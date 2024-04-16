@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 import Owner from './pages/Vehicle Owner Management/Owner';
 import VehicleAdd from './VehicleAdd';
@@ -62,6 +63,7 @@ import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
+import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 
 
 
@@ -72,6 +74,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="*" element={<Layout><ErrorPage /></Layout>} />
+      <Route path="/favlist" element={<Layout><FavouriteList/></Layout>} />
       <Route path="/" element={<Layout><Landing/></Layout> } />
       <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
       <Route path="/login" element={<Login />} />

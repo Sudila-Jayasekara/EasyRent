@@ -7,16 +7,16 @@ import { setLogin } from '../redux/state';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const loginUser = (e) => {
+  const loginUser = async (e) => {
     e.preventDefault();
-    Axios.post('api/auth/login', {
-      email,
-      password,
-    }).then((response) => {
+    try {
+      const response = await Axios.post('api/auth/login', {
+        email,
+        password,
+      });
       const loggedIn = response.data;
       if (loggedIn.status) {
         // Dispatching setLogin action with user data
@@ -24,15 +24,15 @@ const Login = () => {
         localStorage.setItem('token', loggedIn.token);
         dispatch(
           setLogin({
-            renter: loggedIn.user, // Change loggedIn.renter to loggedIn.user
+            user: loggedIn.user, // Changed from loggedIn.renter to loggedIn.user
             token: loggedIn.token,
           })
         );
         navigate('/'); // Redirect to home page after successful login
       }
-    }).catch(err => {
+    } catch (err) {
       console.log("Login Failed", err.message);
-    });
+    }
   };
 
   return (

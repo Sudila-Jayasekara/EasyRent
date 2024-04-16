@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
@@ -9,54 +9,72 @@ const Signup = () => {
     email: "",
     nic: "",
     password: "",
+    confirmPassword: "",
     address: "",
     phoneNumber: "",
     additionalField1: "",
     additionalField2: "",
-    profilePicture: null,
+    profilePicture:"",
   });
+
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value, type } = e.target;
-    let inputValue = value;
-
-    // Apply specific validation rules
-    if (type === "tel") {
-      inputValue = value.replace(/\D/g, "");
-    }
-
+    const { name, value,files } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: inputValue,
+      [name]: value,
+      [name]: name  === "profilePicture" ? files[0] : value,
     }));
+
+    let newErrors = { ...errors };
+
+    if (name === "username" && !value.trim()) {
+      newErrors.username = "Username is required";
+    } else {
+      delete newErrors.username;
+    }
+
+    if (name === "email" && !value.trim()) {
+      newErrors.email = "Email is required";
+    } else if (name === "email" && !/^\S+@\S+\.\S+$/.test(value)) {
+      newErrors.email = "Email is invalid";
+    } else {
+      delete newErrors.email;
+    }
+
+    if (name === "password" && !value.trim()) {
+      newErrors.password = "Password is required";
+    } else if (name === "password" && !/^(?=.*[A-Z]).{8,}$/.test(value)) {
+      newErrors.password = "Password must contain at least one uppercase letter and be at least 8 characters long";
+    } else {
+      delete newErrors.password;
+    }
+
+    if (name === "confirmPassword" && !value.trim()) {
+      newErrors.confirmPassword = "Confirm Password is required";
+    } else if (name === "confirmPassword" && value !== formData.password) {
+      newErrors.confirmPassword = "Passwords do not match";
+    } else {
+      delete newErrors.confirmPassword;
+    }
+
+    if (name === "phoneNumber" && !value.trim()) {
+      newErrors.phoneNumber = "Phone Number is required";
+    } else if (name === "phoneNumber" && !/^\d{10}$/.test(value)) {
+      newErrors.phoneNumber = "Phone Number must be 10 digits";
+    } else {
+      delete newErrors.phoneNumber;
+    }
+
+    setErrors(newErrors);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic form validation
-    const newErrors = {};
-    if (!formData.username) {
-      newErrors.username = "Username is required";
-    }
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    }
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    }
-    if (!formData.address) {
-      newErrors.address = "Address is required";
-    }
-    if (!formData.phoneNumber) {
-      newErrors.phoneNumber = "Phone Number is required";
-    }
-    setErrors(newErrors);
-
-    // If there are errors, prevent form submission
-    if (Object.keys(newErrors).length > 0) {
+    if (Object.keys(errors).length > 0) {
       return;
     }
 
@@ -65,34 +83,19 @@ const Signup = () => {
       role: userRole,
     };
 
-    // Perform form submission
-    console.log("Form data submitted:", updatedFormData);
+    const res = await fetch("api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedFormData),
+    });
 
-    try {
-      const res = await fetch("api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedFormData),
-      });
-
-      const data = await res.json();
-      console.log(data);
-      if (data.status) {
-        alert(`${userRole} Registered Successfully`);
-        navigate("/login");
-      } else {
-        // Handle error responses
-        console.error("Registration failed:", data.error);
-        if (data.error && data.error.includes("duplicate key")) {
-          // Handle duplicate key error
-          setErrors({ message: data.message });
-        }
-      }
-    } catch (error) {
-      // Handle fetch error
-      console.error("Error occurred during registration:", error);
+    const data = await res.json();
+    console.log(data);
+    if (data.status) {
+      alert("Renter Registered");
+      navigate("/login");
     }
   };
 
@@ -103,12 +106,6 @@ const Signup = () => {
           className="bg-gray-100 shadow-md rounded px-8 pt-6 mt-4 pb-8 mb-4 border border-slate-900 w-full sm:w-96"
           onSubmit={handleSubmit}
         >
-          {/* Error message */}
-          {errors.message && (
-            <div className="text-red-500 mb-4">{errors.message}</div>
-          )}
-
-          {/* Role selection */}
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Are You:
             <select
@@ -124,22 +121,18 @@ const Signup = () => {
             </select>
           </label>
 
-          {/* Username */}
           <label>
             Username:
             <input
               type="text"
-              name="username"
+              name="username" 
               value={formData.username}
               onChange={handleChange}
               className="h-7 p-3 w-full block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.username && (
-              <div className="text-red-500">{errors.username}</div>
-            )}
+            {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
           </label>
 
-          {/* Email */}
           <label>
             Email:
             <input
@@ -149,12 +142,9 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.email && (
-              <div className="text-red-500">{errors.email}</div>
-            )}
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           </label>
 
-          {/* Password */}
           <label>
             Password:
             <input
@@ -164,12 +154,21 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.password && (
-              <div className="text-red-500">{errors.password}</div>
-            )}
+            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           </label>
 
-          {/* Address */}
+          <label>
+            Confirm Password:
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            />
+            {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+          </label>
+
           <label>
             Address:
             <input
@@ -179,12 +178,8 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.address && (
-              <div className="text-red-500">{errors.address}</div>
-            )}
           </label>
 
-          {/* Phone Number */}
           <label>
             Phone Number:
             <input
@@ -192,15 +187,11 @@ const Signup = () => {
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
-              pattern="[0-9]{10}"
-              className="h-7  p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 "
+              className="h-7  p-3 block w-full mb-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.phoneNumber && (
-              <div className="text-red-500">{errors.phoneNumber}</div>
-            )}
+            {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
           </label>
 
-          {/* Additional fields based on role */}
           {userRole === "owner" && (
             <label>
               Owner NIC:
@@ -215,16 +206,18 @@ const Signup = () => {
           )}
 
           {userRole === "driver" && (
-            <label>
-              NIC:
-              <input
-                type="text"
-                name="nic"
-                value={formData.nic}
-                onChange={handleChange}
-                className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-              />
-            </label>
+            <>
+              <label>
+                NIC:
+                <input
+                  type="text"
+                  name="nic"
+                  value={formData.nic}
+                  onChange={handleChange}
+                  className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                />
+              </label>
+            </>
           )}
 
           {userRole === "employee" && (
@@ -251,31 +244,33 @@ const Signup = () => {
               </label>
             </>
           )}
-
-          {/* Profile Picture Input */}
-          <label>
-            Profile Picture:
+          {/* <label>
+            Profile picture:
             <input
+              className="mb-4 mt-2"
               type="file"
               name="profilePicture"
-              onChange={handleChange}
-              className="h-7 pb-10 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              accept="image/*"
+              onChange={handleChange} // Add onChange handler
             />
           </label>
-
-          {/* Submit button */}
+          {formData.profilePicture && (
+            <img
+              src={URL.createObjectURL(formData.profilePicture)}
+              alt="profile"
+              className="mb-4 mt-2 rounded-full h-20 w-20"
+            />
+          )} */}
           <button
             className="relative h-10 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-200 via-red-300 to-yellow-200 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 w-full"
             type="submit"
           >
             Register
           </button>
-
-          {/* Already have an account link */}
           <span className="text-xs text-gray-500">
             Already have an account?{" "}
             <Link to={"/login"} className="text-blue-500">
-              Login
+              Sign In
             </Link>
           </span>
         </form>
@@ -283,5 +278,4 @@ const Signup = () => {
     </div>
   );
 };
-
 export default Signup;
