@@ -9,7 +9,7 @@ import OwnerProfile from './pages/Vehicle Owner Management/OwnerProfile';
 import ViewVehicle from './ViewVehicle';
 import DataVehicle from './pages/Vehicle Owner Management/DataVehicle';
 
-import CreateBooking from './pages/Booking And Payment Management/CreateBookingR.jsx';
+// import CreateBooking from './pages/Booking And Payment Management/CreateBookingR.jsx';
 import ShowBookingR from './pages/Booking And Payment Management/BookingHistory.jsx';
 import ShowBookingO from './pages/Booking And Payment Management/CheckBooking.jsx';
 import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';
@@ -21,7 +21,8 @@ import RejectBookings from './pages/Booking And Payment Management/RejectedBooki
 import PendingBookings from './pages/Booking And Payment Management/PendingBookings.jsx';
 
 import Layout from './components/Layout';
-import Landing from './pages/Renter Management/Landing';
+import Landing from './pages/Landing.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Logout from './pages/Logout.jsx';
@@ -51,6 +52,12 @@ import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
 import Forms from './pages/Vehicle Management/Forms.jsx';
 import Vprofile from './pages/Vehicle Management/Profile.jsx';
 import AddedVehicles from './pages/Vehicle Management/AddedVehicles.jsx';
+import Manageprofile from './pages/Renter Management/Manageprofile';
+import RenterSidebar from './pages/Renter Management/RenterSidebar';
+import RenterHome from './pages/Renter Management/RenterHome';
+import SelectBooking from './pages/Renter Management/SelectBooking';
+
+
 
 axios.defaults.baseURL = 'http://localhost:5556';
 axios.defaults.withCredentials = true;
@@ -58,7 +65,8 @@ axios.defaults.withCredentials = true;
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Layout />} />
+      <Route path="*" element={<Layout><ErrorPage /></Layout>} />
+      <Route path="/" element={<Layout><Landing/></Layout> } />
       <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
@@ -77,7 +85,7 @@ const App = () => {
       <Route path="/driverdashboard" element={<Layout><DriverDashboard/></Layout>} />
       <Route path="/driverdisplay" element={<Layout><DriverDisplay/></Layout>} />
 
-      <Route path="/booking/create" element={<Layout><CreateBooking/></Layout>} />
+      {/* <Route path="/booking/create" element={<Layout><CreateBooking/></Layout>} /> */}
       <Route path="/booking/history" element={<ShowBookingR />} />
       <Route path="/booking/check" element={<ShowBookingO />} />
       <Route path="/booking/update/:bookingId" element={<Layout><UpdateBooking/></Layout>} />
