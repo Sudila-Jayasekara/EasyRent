@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
 import { KEY } from "../../config.js";
 import { Renter } from "../../models/Renter Management/Renter.model.js";
+import { Vehicle } from "../../models/Vehicle Management/vehicleModel.js";
+// import {Favlist} from '../../models/Renter Management/favList.js'
 import nodemailer from 'nodemailer' 
 
 const router = express.Router();
@@ -69,7 +71,6 @@ router.patch('/:id', async (req, res) => {
 });
 
 //Delete a renter by id
-
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -83,5 +84,33 @@ router.delete('/:id', async (req, res) => {
       res.status(500).json({ message: err.message });
     }
   });
+
+  
+  // Add a vehicle to the favorite list
+  router.patch('/:renterId/favorite/:vehicleId', async (req, res) => {
+    const { renterId, vehicleId } = req.params;
+    try {
+        const renter = await Renter.findById(renterId);
+        const vehicle = await Vehicle.findById(vehicleId);
+        if (!renter || !vehicle) {
+            return res.status(404).json({ message: 'Renter or vehicle not found' });
+        }
+        // Check if the vehicle is already in the favorite list
+        const index = renter.favorites.indexOf(vehicleId);
+        if (index === -1) {
+            // If not, add it
+            renter.favorites.push(vehicleId);
+        } else {
+            // If yes, remove it
+            renter.favorites.splice(index, 1);
+        }
+        await renter.save();
+        res.json({ message: 'Favorite list updated successfully' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
 
 export { router as RenterRouter };

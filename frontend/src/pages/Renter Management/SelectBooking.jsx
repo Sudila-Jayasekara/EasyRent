@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 // Import car images
 import car1 from '../Renter Management/carpng.png';
@@ -10,6 +11,7 @@ import car5 from '../Renter Management/carpng.png';
 const carImages = [car1, car2, car3, car4, car5];
 
 const SelectBooking = () => {
+  const { vehicleId } = useParams();
   const [activeSlide, setActiveSlide] = useState(0); // Change activeSlide to start from 0
   const totalSlides = carImages.length; // Total number of slides
 
@@ -96,7 +98,7 @@ const SelectBooking = () => {
 
             </ul>
             <div className="mt-6 py-4">
-              <button className="bg-indigo-600 text-xl text-white py-2 px-6 rounded hover:bg-indigo-700 transition-colors duration-300">Get Started</button>
+            <Link to={`/booking/create/${vehicleId}`} className="bg-indigo-600 text-xl text-white py-2 px-6 rounded hover:bg-indigo-700 transition-colors duration-300">Get Started</Link>
             </div>
           </div>
         </div>
@@ -120,7 +122,7 @@ const SelectBooking = () => {
               <li>Email Support</li>
             </ul>
             <div className="mt-6 py-4">
-              <button className="bg-indigo-600 text-xl text-white py-2 px-6 rounded hover:bg-indigo-700 transition-colors duration-300">Get Started</button>
+            <Link to={`/booking/create/${vehicleId}`} className="bg-indigo-600 text-xl text-white py-2 px-6 rounded hover:bg-indigo-700 transition-colors duration-300">Get Started</Link>
             </div>
           </div>
         </div>
@@ -144,7 +146,7 @@ const SelectBooking = () => {
               <li>Email &amp; Phone Support</li>
             </ul>
             <div className="mt-6 py-4">
-              <button className="bg-indigo-600 text-xl text-white py-2 px-6 rounded hover:bg-indigo-700 transition-colors duration-300">Get Started</button>
+              <Link to={`/booking/create/${vehicleId}`} className="bg-indigo-600 text-xl text-white py-2 px-6 rounded hover:bg-indigo-700 transition-colors duration-300">Get Started</Link>
             </div>
           </div>
         </div>

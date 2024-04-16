@@ -3,6 +3,7 @@ import { Owner } from '../../models/Vehicle Owner Management/Owner.model.js';
 
 const router = express.Router();
 
+
 //Insert a new owner
 router.post('/', async (req, res) => {
     const owner = new Owner(req.body);

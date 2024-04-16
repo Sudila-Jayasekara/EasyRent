@@ -1,77 +1,69 @@
-import React from 'react';
 import axios from 'axios';
-import { useRef } from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Manageprofile = () => {
-
-  const [details, setDetails] = useState([]);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     phoneNumber: '',
     address: ''
   });
 
-  
+  const user = JSON.parse(localStorage.getItem('user'));
+  const id = user ? user._id : '';
+  const userName = user ? user.username : '';
+  const phoneNumber = user ? user.phoneNumber : '';
+  const address = user ? user.address : '';
+
   useEffect(() => {
-    axios.get('http://localhost:5556/api/renter')
-      .then(response => {
-        console.log('Response data:', response.data);
-        setDetails(response.data);
-        if (response.data.length > 0) {
-          const details = response.data[0]; 
-          setFormData({
-            username: details.username,
-            phoneNumber: details.phoneNumber,
-            address: details.address
-          });
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching Renters:', error);
-      });
-  }, []);
+    setFormData({
+      username: userName,
+      phoneNumber: phoneNumber,
+      address: address
+    });
+  }, [userName, phoneNumber, address]);
 
   const handleDelete = (id) => {
     axios.delete(`http://localhost:5556/api/renter/${id}`)
       .then(() => {
-        setDetails(details.filter(detail => detail._id !== id));
+        localStorage.removeItem('user');
+        navigate('/logout');
       })
       .catch(error => {
         console.error('Error deleting the renter:', error);
       });
   };
 
-  function handleInputChange(event) {
-    const { name, value } = event.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  }
-
   const handleUpdate = (event) => {
     event.preventDefault();
-    const id = details[0]._id; // Assuming you want to update the first fetched user
     axios.patch(`http://localhost:5556/api/renter/${id}`, formData)
       .then(response => {
         console.log('Updated successfully:', response);
-        // Optionally refresh the list or indicate success to the user
+        localStorage.setItem('user', JSON.stringify(response.data));
+       
+        setFormData(response.data);
       })
       .catch(error => {
         console.error('Error updating the renter:', error);
       });
   };
 
-
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   const fileRef = useRef(null);
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <main className="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
         <div className="p-2 md:p-4  justifyContent: 'center'">
           <div className="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg">
-            <h2 className="mx-auto pl-6 text-2xl font-bold sm:text-xl">Public Profile</h2>
+            <h2 className="mx-auto pl-6 text-2xl font-bold sm:text-xl"></h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto mt-8">
               <div className="flex flex-col items-center space-y-5">
                 <input type="file" ref={fileRef} hidden accept='image/*' />
@@ -90,23 +82,19 @@ const Manageprofile = () => {
                   <div className="grid gap-6 mb-6 lg:grid-cols-2">
                     <div>
                       <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900">Username</label>
-                      <input type="text" id="username" name="username" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="John" value={formData.username} onChange={handleInputChange} required />
+                      <input type="text" id="username" name="username" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="John" value={formData.username} onChange={handleChange} required />
                     </div>
-
                     <div>
                       <label htmlFor="phoneNumber" className="block mb-2 text-sm font-medium text-gray-900">Phone number</label>
-                      <input type="tel" id="phoneNumber" name="phoneNumber" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" pattern="[0-9]{10}" value={formData.phoneNumber} onChange={handleInputChange} required />
+                      <input type="tel" id="phoneNumber" name="phoneNumber" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" pattern="[0-9]{10}" value={formData.phoneNumber} onChange={handleChange} required />
                     </div>
                   </div>
                   <div className="mb-6">
                     <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                    <input type="text" id="address" name="address" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter the address here" value={formData.address} onChange={handleInputChange} required />
+                    <input type="text" id="address" name="address" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter the address here" value={formData.address} onChange={handleChange} required />
                   </div>
-
                   <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Update Details</button>
                 </form>
-
-
               </div>
             </div>
           </div>
@@ -122,17 +110,15 @@ const Manageprofile = () => {
               <h2 className="text-xl font-bold py-4">Are you sure?</h2>
               <p className="text-sm text-gray-500 px-8">Do you really want to delete your account? This process cannot be undone</p>
               <div className="p-3 mt-2 text-center space-x-4 md:block">
-
-                <button className="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600" onClick={() => handleDelete(details._id)}>Delete</button>
-
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                  onClick={() => handleDelete(id)}
+                >
+                  Delete
+                </button>
               </div>
             </div>
-
-
-
           </div>
-
-
         </div>
       </main>
     </div>

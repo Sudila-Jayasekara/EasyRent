@@ -27,6 +27,14 @@ const renterSchema=new mongoose.Schema({
         type:String,
         required:true,
     },
+    profilePicturePath:{
+        type:String,
+        default:""
+    },
+    wishList: {
+        type: Array,
+        default: [],
+      },
     
 
 
