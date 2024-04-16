@@ -24,12 +24,12 @@ const AddedVehicles = () => {
                                         <path d="M9 4h6a2 2 0 0 1 2 2v14l-5-3l-5 3v-14a2 2 0 0 1 2 -2"></path>
                                     </svg>
                                 </div>
-                                <div className="bg-red-300 py-1.5 px-6 rounded-full">
-                                    <p tabIndex="0" className="focus:outline-none text-xs text-black">Delete</p>
-                                </div>
-                                <div className="bg-yellow-200 py-1.5 px-6 rounded-full">
-                                    <p tabIndex="0" className="focus:outline-none text-xs text-yellow-700">Update</p>
-                                </div>
+                                <button className="bg-red-300 py-1.5 px-6 rounded-full focus:outline-none">
+                                        <p className="text-xs text-black">Delete</p> </button>
+                                   
+                                        <button className="bg-yellow-200 py-1.5 px-6 rounded-full focus:outline-none">
+                                        <p className="text-xs text-black">Update</p> </button>
+                                   
                             </div>
                             <div className="p-4">
                                 <div className="flex items-center">
@@ -70,16 +70,16 @@ const AddedVehicles = () => {
                                         <path d="M9 4h6a2 2 0 0 1 2 2v14l-5-3l-5 3v-14a2 2 0 0 1 2 -2"></path>
                                     </svg>
                                 </div>
-                                <div className="bg-red-300 py-1.5 px-6 rounded-full">
-                                    <p tabIndex="0" className="focus:outline-none text-xs text-black">Delete</p>
-                                </div>
-                                <div className="bg-yellow-200 py-1.5 px-6 rounded-full">
-                                    <p tabIndex="0" className="focus:outline-none text-xs text-yellow-700">Update</p>
-                                </div>
+                                <button className="bg-red-300 py-1.5 px-6 rounded-full focus:outline-none">
+                                        <p className="text-xs text-black">Delete</p> </button>
+                                   
+                                        <button className="bg-yellow-200 py-1.5 px-6 rounded-full focus:outline-none">
+                                        <p className="text-xs text-black">Update</p> </button>
                             </div>
                             <div className="p-4">
                                 <div className="flex items-center">
                                     <h2 tabIndex="0" className="focus:outline-none text-lg font-semibold">Vezel</h2>
+                                    
                                     <p tabIndex="0" className="focus:outline-none text-xs text-gray-600 pl-5">Posted on 12th April 3.14pm,Ratmalana,Colombo</p>
                                 </div>
                                 <p tabIndex="0" className="focus:outline-double text-wrap text-gray-600 mt-1">Rs 10,000</p>
@@ -120,12 +120,11 @@ const AddedVehicles = () => {
                                         <path d="M9 4h6a2 2 0 0 1 2 2v14l-5-3l-5 3v-14a2 2 0 0 1 2 -2"></path>
                                     </svg>
                                 </div>
-                                <div className="bg-red-300 py-1.5 px-6 rounded-full">
-                                    <p tabIndex="0" className="focus:outline-none text-xs text-black">Delete</p>
-                                </div>
-                                <div className="bg-yellow-200 py-1.5 px-6 rounded-full">
-                                    <p tabIndex="0" className="focus:outline-none text-xs text-yellow-700">Update</p>
-                                </div>
+                                <button className="bg-red-300 py-1.5 px-6 rounded-full focus:outline-none">
+                                        <p className="text-xs text-black">Delete</p> </button>
+                                   
+                                        <button className="bg-yellow-200 py-1.5 px-6 rounded-full focus:outline-none">
+                                        <p className="text-xs text-black">Update</p> </button>
                             </div>
                             <div className="p-4">
                                 <div className="flex items-center">
@@ -165,12 +164,11 @@ const AddedVehicles = () => {
                                         <path d="M9 4h6a2 2 0 0 1 2 2v14l-5-3l-5 3v-14a2 2 0 0 1 2 -2"></path>
                                     </svg>
                                 </div>
-                                <div className="bg-red-300 py-1.5 px-6 rounded-full">
-                                    <p tabIndex="0" className="focus:outline-none text-xs text-black">Delete</p>
-                                </div>
-                                <div className="bg-yellow-200 py-1.5 px-6 rounded-full">
-                                    <p tabIndex="0" className="focus:outline-none text-xs text-yellow-700">Update</p>
-                                </div>
+                                <button className="bg-red-300 py-1.5 px-6 rounded-full focus:outline-none">
+                                        <p className="text-xs text-black">Delete</p> </button>
+                                   
+                                        <button className="bg-yellow-200 py-1.5 px-6 rounded-full focus:outline-none">
+                                        <p className="text-xs text-black">Update</p> </button>
                             </div>
                             <div className="p-4">
                                 <div className="flex items-center">
