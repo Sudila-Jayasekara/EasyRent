@@ -5,10 +5,48 @@ import {Link} from 'react-router-dom'
 const Owner = () =>{
   
     return (
+      
       <div>
+       <div>
+  <nav className="flex flex-col bg-black w-60 h-32 px-4 tex-gray-900 border border-purple-900">
+    <div className="flex flex-wrap mt-8">
+      <div className="w-1/2">
+        <img src="https://watermark.lovepik.com/photo/20211202/large/lovepik-private-car-driver-picture_501434302.jpg " className="mx-auto w-20 h-20 rounded-full" alt="Profile" />
+      </div>
+      <div className="w-1/2 mt-5">
+        
+        <button className="bg-yellow-300 text-black font-bold px-4 py-2 rounded-md border border-blue-500 hover:bg-white hover:text-green-500">
+      <Link to={'/ownerProfile'}>Profile</Link>
+        </button>
+      </div>
+    </div>
+    <div className="mt-10 mb-4">
+      <ul className="ml-4">
        
+          <a href="#">
+            <button className="ml-2 bg-black text-white rounded px-12 mt-10  hover:bg-yellow-300">Home Page</button>
+          </a>
+        
+        
+          <a href="#">
+          <button className="ml-2 bg-black text-white rounded px-11 mt-10   hover:bg-yellow-300">
+            <Link to={'/datavehicle'}>View Vehicle</Link></button>
+          </a>
 
-      <div className="grid grid-cols-1 gap-4 mt-8 md:grid-cols-2 lg:grid-cols-3 ">
+          <a href="#">
+          <button className="ml-2 bg-black text-white rounded px-14 mt-10   hover:bg-yellow-300">Booking</button>
+          </a>
+        
+          <a href="#">
+          <button className="ml-2 bg-black text-white rounded px-16 mt-10  hover:bg-yellow-300 ">Rating</button>
+          </a>
+        {/* Repeat the structure for other list items */}
+      </ul>
+    </div>
+  </nav>
+</div>
+
+      <div className="grid grid-cols-1 gap-4 mt-8 md:grid-cols-2 lg:grid-cols-3 ml-72 mb-96">
   
 
 
@@ -37,8 +75,8 @@ const Owner = () =>{
 
     
       </div>
-      <div className='bg-slate-500'>
-        <img className='w-full h-40 mt-20' src="https://www.pngitem.com/pimgs/m/200-2008635_car-footer-png-transparent-png.png" alt="car image"/>
+      <div className='bg-slate-500 '>
+        <img className='w-full h-40 ' src="https://www.pngitem.com/pimgs/m/200-2008635_car-footer-png-transparent-png.png" alt="car image"/>
       </div>
 
       </div>

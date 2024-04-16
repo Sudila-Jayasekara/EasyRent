@@ -56,6 +56,15 @@ const ViewVehicle = () => {
                     <label htmlFor="mileage" className="block mb-2 text-sm font-medium text-gray-900"> Mileage</label>
                     <input type="text" id="mileage" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
                   </div>
+                  <div className="mb-6">
+                    <label htmlFor="mileage" className="block mb-2 text-sm font-medium text-gray-900"> Transmission</label>
+                    <input type="text" id="mileage" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
+                  </div>
+                  <div className="mb-6">
+                    <label htmlFor="mileage" className="block mb-2 text-sm font-medium text-gray-900">Price</label>
+                    <input type="text" id="mileage" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
+                  </div>
+                 
                  
                   
                   <button type="submit" className="text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Update Vehicle</button>
