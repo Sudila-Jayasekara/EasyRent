@@ -12,6 +12,7 @@ const vehicleSchema = mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Owner',
+        type: String,
     },
     photos: {
         type: [String],
