@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
 
+import Layout from './components/Layout';
+
 import Owner from './pages/Vehicle Owner Management/Owner';
 import VehicleAdd from './VehicleAdd';
 import DriverAdd from './DriverAdd';
@@ -13,6 +15,7 @@ import ShowComplains from './pages/Reviews and rating management/ShowComplains.j
 import EditComplains from './pages/Reviews and rating management/EditComplains.jsx';
 import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx';
 
+//Booking  imports
 import Booking from './pages/Booking And Payment Management/Booking.jsx';
 import CreateBooking from './pages/Booking And Payment Management/CreateBooking.jsx';
 import ShowBooking from './pages/Booking And Payment Management/BookingHistory.jsx';
@@ -22,11 +25,12 @@ import ApprovedBookings from './pages/Booking And Payment Management/ApprovedBoo
 import RejectBookings from './pages/Booking And Payment Management/RejectedBookings.jsx';
 import PendingBookings from './pages/Booking And Payment Management/PendingBookings.jsx';
 
+//Payment imports
 import Payment from './pages/Booking And Payment Management/Payment.jsx';
 import GenerateBill from './pages/Booking And Payment Management/GenerateBill.jsx'; 
 import DisplayBill from './pages/Booking And Payment Management/DisplayBill.jsx';
 
-import Layout from './components/Layout';
+
 import Landing from './pages/Landing.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import Signup from './pages/Signup';
@@ -34,6 +38,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout.jsx';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
+
 import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
 import HrPayroll from './pages/HR Management/HrPayroll.jsx';
 import HrDetails from './pages/HR Management/HrDetails.jsx';
@@ -43,6 +48,7 @@ import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
 import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
 import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
 import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
+
 import Displaydates from './pages/Driver Management/Displaydates';
 import Driverprofile from './pages/Driver Management/Driverprofile';
 import License from './pages/Driver Management/License';
