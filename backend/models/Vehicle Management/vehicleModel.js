@@ -50,6 +50,8 @@ const vehicleSchema = mongoose.Schema({
         required: true
       },
      
+
+
 },{timestamps:true});
 export const Vehicle = mongoose.model('Vehicle',vehicleSchema);
 
