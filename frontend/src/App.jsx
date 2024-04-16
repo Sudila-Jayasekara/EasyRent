@@ -76,7 +76,7 @@ const App = () => {
       <Route path="/renterprofile" element={<Layout><Manageprofile/></Layout>} />
       <Route path="/Rentersidebar" element={<Layout><RenterSidebar/></Layout>} />
       <Route path="/homerenter" element={<Layout><RenterHome/></Layout>} />
-      <Route path="/selectbooking" element={<Layout><SelectBooking/></Layout>} />
+      <Route path="/selectbooking/:vehicleId" element={<Layout><SelectBooking/></Layout>} />
       <Route path="/signup" element={<Signup />} />
 
       <Route path="/displaydate" element={<Layout><Displaydates/></Layout>} />
@@ -85,7 +85,7 @@ const App = () => {
       <Route path="/driverdashboard" element={<Layout><DriverDashboard/></Layout>} />
       <Route path="/driverdisplay" element={<Layout><DriverDisplay/></Layout>} />
 
-      {/* <Route path="/booking/create" element={<Layout><CreateBooking/></Layout>} /> */}
+      <Route path="/booking/create" element={<Layout><CreateBooking/></Layout>} />
       <Route path="/booking/history" element={<ShowBookingR />} />
       <Route path="/booking/check" element={<ShowBookingO />} />
       <Route path="/booking/update/:bookingId" element={<Layout><UpdateBooking/></Layout>} />

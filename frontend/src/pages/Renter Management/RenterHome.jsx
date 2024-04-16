@@ -131,7 +131,7 @@ const RenterHome = () => {
                                     </div>
                                 </div>
                                 <div className="flex items-center py-8">
-                                    <Link to={'/selectbooking'} className="car_img_content_link">
+                                    <Link to={`/selectbooking/${detail._id}`} className="car_img_content_link">
                                         <figure className="car_img_content">
                                             <img src="https://raw.githubusercontent.com/emmywebgiart/card_ui_vehicle_rent/master/img/ford_focus.png" alt="Ford Focus" className="w-4/5 md:w-full transition duration-300 ease-in-out transform hover:scale-110" />
                                         </figure>
