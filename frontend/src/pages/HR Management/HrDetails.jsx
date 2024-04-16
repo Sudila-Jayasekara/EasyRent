@@ -36,8 +36,9 @@ const HrDetails = () => {
   };
 
   const handleView = (employee) => {
-    setSelectedEmployee(employee); // Set the selected employee for viewing
+    navigate(`/DetailsRead/${employee._id}`);
   };
+  
 
   const handleCloseModal = () => {
     setSelectedEmployee(null); // Clear the selected employee when closing the modal

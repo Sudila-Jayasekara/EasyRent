@@ -23,6 +23,7 @@ import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
 import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
 import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
 import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
+import HrDetailsRead from './pages/HR Management/HrDetailsRead.jsx';
 
 
 
@@ -63,6 +64,7 @@ const App = () => {
       <Route path='/DetailsEdit/:id' element={<Layout><HrDetailsEdit/></Layout>} />
       <Route path='/LeaveDetails' element={<Layout><HrLeaveDetails/></Layout>}/>
       <Route path='/SalaryEdit/:id' element={<Layout><HrSalaryEdit/></Layout>}/>
+      <Route path='/DetailsRead/:id' element={<Layout><HrDetailsRead/></Layout>}/>
       
 
       

@@ -20,9 +20,7 @@ const HrLeaveDetails = () => {
     fetchLeaveRequests();
   }, []);
 
-  const handleEdit = (request) => {
-    navigate(`/LeaveEdit/${request._id}`);
-  };
+  
 
   const handleDelete = async (request) => {
     try {
@@ -37,6 +35,20 @@ const HrLeaveDetails = () => {
 
   const handleView = (request) => {
     setSelectedLeaveRequest(request); // Set the selected leave request when "View" button is clicked
+  };
+
+  const handleAccept = async (request) => {
+    try {
+      // Implement your leave acceptance logic here
+      // For example, send a request to your backend to update the leave request status to "Accepted"
+      await axios.put(`http://localhost:5556/api/leaverequest/${request._id}`, { status: 'Accepted' });
+      // Assuming your backend updates the status of the leave request, you can then remove it from the UI
+      setLeaveRequests(leaveRequests.filter(req => req._id !== request._id));
+      alert('Leave request accepted successfully');
+    } catch (error) {
+      console.error('Error accepting leave request:', error);
+      alert('Failed to accept leave request');
+    }
   };
 
   const handleCloseModal = () => {
@@ -67,14 +79,12 @@ const HrLeaveDetails = () => {
                 <td className="px-4 py-2">{new Date(request.leaveTo).toLocaleDateString()}</td>
                 <td className="px-4 py-2">{request.actionPlan}</td>
                 <td className="action-button">
-                  <button className="bg-yellow-400 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded mr-2" onClick={() => handleEdit(request)}>
-                    Edit
-                  </button>
                   <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded mr-2" onClick={() => handleDelete(request)}>
                     Delete
                   </button>
-                  <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-1 px-2 rounded" onClick={() => handleView(request)}>
-                    View
+                  
+                  <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-1 px-2 rounded" onClick={() => handleAccept(request)}>
+                    Accept
                   </button>
                 </td>
               </tr>

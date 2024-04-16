@@ -1,26 +1,44 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // You'll need to install axios if not already done
+import axios from 'axios';
 
 const HrEmpLeave = () => {
   const [employeeName, setEmployeeName] = useState('');
   const [leaveType, setLeaveType] = useState('');
   const [leaveFrom, setLeaveFrom] = useState('');
   const [leaveTo, setLeaveTo] = useState('');
-  const [actionPlan, setActionPlan] = useState('Active'); // Default to Active
-  const [error, setError] = useState('');
+  const [actionPlan, setActionPlan] = useState('Active');
+  const [errors, setErrors] = useState({
+    employeeName: '',
+    leaveType: '',
+    leaveFrom: '',
+    leaveTo: '',
+  });
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleLeaveRequest = async () => {
-    setError(''); // Clear any previous error messages
-    
+    setSuccessMessage('');
 
     // Basic form validation
-    if (!employeeName || !leaveType || !leaveFrom || !leaveTo) {
-      setError('Please fill in all required fields.');
+    const newErrors = {};
+    if (!employeeName.trim()) {
+      newErrors.employeeName = 'Employee name is required';
+    }
+    if (!leaveType.trim()) {
+      newErrors.leaveType = 'Leave type is required';
+    }
+    if (!leaveFrom.trim()) {
+      newErrors.leaveFrom = 'Leave from date is required';
+    }
+    if (!leaveTo.trim()) {
+      newErrors.leaveTo = 'Leave to date is required';
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
     try {
-      // Make a POST request to your backend API endpoint
       const response = await axios.post('http://localhost:5556/api/leaverequest', {
         employeeName,
         leaveType,
@@ -28,16 +46,23 @@ const HrEmpLeave = () => {
         leaveTo,
         actionPlan,
       });
-      
 
       if (response.status === 200) {
-        // Show success message or redirect to a confirmation page
-        console.log('Leave request submitted successfully!');
+        setSuccessMessage('Leave request submitted successfully!');
+        setEmployeeName('');
+        setLeaveType('');
+        setLeaveFrom('');
+        setLeaveTo('');
+        setActionPlan('Active');
+        setErrors({
+          employeeName: '',
+          leaveType: '',
+          leaveFrom: '',
+          leaveTo: '',
+        });
       }
     } catch (error) {
-      // Handle error (e.g., display an error message)
       console.error('Error submitting leave request:', error.message);
-      setError('Error submitting leave request. Please try again.');
     }
   };
 
@@ -45,9 +70,7 @@ const HrEmpLeave = () => {
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h1 className="text-2xl font-semibold mb-4">Leave Request</h1>
-        {error && (
-          <p className="text-red-500 mb-2">{error}</p>
-        )}
+        {successMessage && <p className="text-green-500 mb-2">{successMessage}</p>}
         <div className="mb-4">
           <label htmlFor="employeeName" className="block text-sm font-medium text-gray-700">
             Employee Name
@@ -59,6 +82,7 @@ const HrEmpLeave = () => {
             value={employeeName}
             onChange={(e) => setEmployeeName(e.target.value)}
           />
+          {errors.employeeName && <p className="text-red-500 mt-1">{errors.employeeName}</p>}
         </div>
         <div className="mb-4">
           <label htmlFor="leaveType" className="block text-sm font-medium text-gray-700">
@@ -71,6 +95,7 @@ const HrEmpLeave = () => {
             value={leaveType}
             onChange={(e) => setLeaveType(e.target.value)}
           />
+          {errors.leaveType && <p className="text-red-500 mt-1">{errors.leaveType}</p>}
         </div>
         <div className="mb-4">
           <label htmlFor="leaveFrom" className="block text-sm font-medium text-gray-700">
@@ -83,6 +108,7 @@ const HrEmpLeave = () => {
             value={leaveFrom}
             onChange={(e) => setLeaveFrom(e.target.value)}
           />
+          {errors.leaveFrom && <p className="text-red-500 mt-1">{errors.leaveFrom}</p>}
         </div>
         <div className="mb-4">
           <label htmlFor="leaveTo" className="block text-sm font-medium text-gray-700">
@@ -95,6 +121,7 @@ const HrEmpLeave = () => {
             value={leaveTo}
             onChange={(e) => setLeaveTo(e.target.value)}
           />
+          {errors.leaveTo && <p className="text-red-500 mt-1">{errors.leaveTo}</p>}
         </div>
         <div className="mb-4">
           <label htmlFor="actionPlan" className="block text-sm font-medium text-gray-700">
