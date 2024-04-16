@@ -9,16 +9,22 @@ import OwnerProfile from './pages/Vehicle Owner Management/OwnerProfile';
 import ViewVehicle from './ViewVehicle';
 import DataVehicle from './pages/Vehicle Owner Management/DataVehicle';
 
-// import CreateBooking from './pages/Booking And Payment Management/CreateBookingR.jsx';
-import ShowBookingR from './pages/Booking And Payment Management/BookingHistory.jsx';
-import ShowBookingO from './pages/Booking And Payment Management/CheckBooking.jsx';
 import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';
 import EditComplains from './pages/Reviews and rating management/EditComplains.jsx';
 import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx';
+
+import Booking from './pages/Booking And Payment Management/Booking.jsx';
+import CreateBooking from './pages/Booking And Payment Management/CreateBooking.jsx';
+import ShowBooking from './pages/Booking And Payment Management/BookingHistory.jsx';
+import CheckBooking from './pages/Booking And Payment Management/CheckBooking.jsx';
 import UpdateBooking from './pages/Booking And Payment Management/UpdateBooking.jsx';
 import ApprovedBookings from './pages/Booking And Payment Management/ApprovedBookings.jsx';
 import RejectBookings from './pages/Booking And Payment Management/RejectedBookings.jsx';
 import PendingBookings from './pages/Booking And Payment Management/PendingBookings.jsx';
+
+import Payment from './pages/Booking And Payment Management/Payment.jsx';
+import GenerateBill from './pages/Booking And Payment Management/GenerateBill.jsx'; 
+import DisplayBill from './pages/Booking And Payment Management/DisplayBill.jsx';
 
 import Layout from './components/Layout';
 import Landing from './pages/Landing.jsx';
@@ -85,14 +91,6 @@ const App = () => {
       <Route path="/driverdashboard" element={<Layout><DriverDashboard/></Layout>} />
       <Route path="/driverdisplay" element={<Layout><DriverDisplay/></Layout>} />
 
-      <Route path="/booking/create" element={<Layout><CreateBooking/></Layout>} />
-      <Route path="/booking/history" element={<ShowBookingR />} />
-      <Route path="/booking/check" element={<ShowBookingO />} />
-      <Route path="/booking/update/:bookingId" element={<Layout><UpdateBooking/></Layout>} />
-      <Route path="/booking/approved" element={<Layout><ApprovedBookings/></Layout>} />
-      <Route path="/booking/rejected" element={<Layout><RejectBookings/></Layout>} />
-      <Route path="/booking/pending" element={<Layout><PendingBookings/></Layout>} />
-
       <Route path="/complains" element={<Home/>}/>
       <Route path="/complains/details/:id" element={<ShowComplains/>}/>
       <Route path="/complains/edit/:id" element={<EditComplains/>}/>
@@ -113,6 +111,21 @@ const App = () => {
       <Route path="/VehicleSidebar" element={<Layout><VehicleSidebar/></Layout>}/>
       <Route path="/ApprovedF" element={<Layout><ApprovedF/></Layout>}/>
       <Route path="/Forms" element={<Layout><Forms/></Layout>}/>
+
+
+      <Route path='/booking' element={<Layout><Booking/></Layout>}/>
+      <Route path='/booking/create/:vehicleId' element={<Layout><CreateBooking/></Layout>}/>
+      <Route path='/booking/update/:bookingId' element={<Layout><UpdateBooking/></Layout>}/>
+      <Route path='/booking/history' element={<Layout><ShowBooking/></Layout>}/>
+      <Route path='/booking/check' element={<Layout><CheckBooking/></Layout>}/>
+      <Route path='/booking/approved' element={<Layout><ApprovedBookings/></Layout>}/>
+      <Route path='/booking/rejected' element={<Layout><RejectBookings/></Layout>}/>
+      <Route path='/booking/pending' element={<Layout><PendingBookings/></Layout>}/>
+
+      <Route path='/payment' element={<Layout><Payment/></Layout>}/>
+      <Route path='/payment/generateBill/:bookingId' element={<Layout><GenerateBill/></Layout>}/>
+      <Route path='/payment/displayBill/:bookingId' element={<Layout><DisplayBill/></Layout>}/>
+      
     </Routes>
   );
 }

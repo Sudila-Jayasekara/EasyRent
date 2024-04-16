@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {useNavigate } from 'react-router-dom';
+import {Link, useNavigate } from 'react-router-dom';
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -110,6 +110,9 @@ const BookingHistory = () => {
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
               Actions
             </th>
+            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
+              Display Bill
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -137,6 +140,13 @@ const BookingHistory = () => {
                   onClick={() => handleDelete(booking._id)}
                 />
               </td>
+              <td className="py-2 px-4">
+                        {booking.status === 'approved' && (
+                            <Link to={`/payment/displayBill/${booking._id}`} className="px-3 py-1 rounded-md bg-blue-500 text-white">
+                                Display Bill
+                            </Link>
+                        )}
+                    </td>
             </tr>
           ))}
         </tbody>
