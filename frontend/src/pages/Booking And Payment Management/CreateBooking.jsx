@@ -1,10 +1,11 @@
 //latest booking create
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 
 const BookingForm = () => {
     const navigate = useNavigate();
+    const { vehicleId } = useParams(); 
 
     const [formData, setFormData] = useState({
         serviceType: "",
@@ -15,7 +16,7 @@ const BookingForm = () => {
         description: "",
     });
     const [renter_id, setRenterId] = useState("");
-    const [vehicle_id, setVehicleId] = useState("661ca28129d52f39a6e42e84"); // select a vehicle and get id automatically
+    const [vehicle_id, setVehicleId] = useState(vehicleId); 
     const [vehicle, setVehicle] = useState([]);
     const [estimatePrice, setEstimatePrice] = useState(null);
     const [dateDifference, setDateDifference] = useState(null);

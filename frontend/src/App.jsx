@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import {Routes, Route} from 'react-router-dom';
 
+import Booking from './pages/Booking And Payment Management/Booking.jsx';
 import CreateBooking from './pages/Booking And Payment Management/CreateBooking.jsx';
 import ShowBooking from './pages/Booking And Payment Management/BookingHistory.jsx';
 import CheckBooking from './pages/Booking And Payment Management/CheckBooking.jsx';
@@ -10,10 +11,13 @@ import ApprovedBookings from './pages/Booking And Payment Management/ApprovedBoo
 import RejectBookings from './pages/Booking And Payment Management/RejectedBookings.jsx';
 import PendingBookings from './pages/Booking And Payment Management/PendingBookings.jsx';
 
+import Payment from './pages/Booking And Payment Management/Payment.jsx';
+import GenerateBill from './pages/Booking And Payment Management/GenerateBill.jsx'; 
+import DisplayBill from './pages/Booking And Payment Management/DisplayBill.jsx';
+
 import Layout from './components/Layout';
 import Landing from './pages/Renter Management/Landing';
 import Signup from './pages/Signup';
-// import Signup from './pages/shared/Signup.jsx';
 
 import Login from './pages/Login';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
@@ -47,13 +51,18 @@ const App = () => {
       <Route path='/selectbooking' title="Select Booking" element={<Layout><SelectBooking/></Layout>}/>
       <Route path='/signup' element={<Signup/>}/>
 
-      <Route path='/booking/create' element={<Layout><CreateBooking/></Layout>}/>
+      <Route path='/booking' element={<Layout><Booking/></Layout>}/>
+      <Route path='/booking/create/:vehicleId' element={<Layout><CreateBooking/></Layout>}/>
       <Route path='/booking/update/:bookingId' element={<Layout><UpdateBooking/></Layout>}/>
       <Route path='/booking/history' element={<Layout><ShowBooking/></Layout>}/>
       <Route path='/booking/check' element={<Layout><CheckBooking/></Layout>}/>
       <Route path='/booking/approved' element={<Layout><ApprovedBookings/></Layout>}/>
       <Route path='/booking/rejected' element={<Layout><RejectBookings/></Layout>}/>
       <Route path='/booking/pending' element={<Layout><PendingBookings/></Layout>}/>
+
+      <Route path='/payment' element={<Layout><Payment/></Layout>}/>
+      <Route path='/payment/generateBill/:bookingId' element={<Layout><GenerateBill/></Layout>}/>
+      <Route path='/payment/displayBill/:bookingId' element={<Layout><DisplayBill/></Layout>}/>
       
     </Routes>
     

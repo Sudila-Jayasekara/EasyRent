@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import PopupModal from './ApproveAndReject_Popup'; // Import the PopupModal component
+import ApproveAndReject_Popup from './ApproveAndReject_Popup'; // Import the PopupModal component
 
 const ShowBooking = () => {
   const [bookings, setBookings] = useState([]);
@@ -115,7 +115,7 @@ const ShowBooking = () => {
         </tbody>
       </table>
       {showModal && (
-            <PopupModal
+            <ApproveAndReject_Popup
               booking={selectedBooking}
               onApprove={() => handleStatusClick(selectedBooking._id, 'approved')}
               onReject={() => handleStatusClick(selectedBooking._id, 'rejected')}

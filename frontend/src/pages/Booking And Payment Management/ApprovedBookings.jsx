@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import PopupModal from './ApproveAndReject_Popup'; // Import the PopupModal component
+import { Link } from 'react-router-dom';
+import ApproveAndReject_Popup from './ApproveAndReject_Popup'; // Import the ApproveAndReject_Popup component
 
 const ShowBooking = () => {
   const [bookings, setBookings] = useState([]);
@@ -12,13 +13,13 @@ const ShowBooking = () => {
     try {
       const response = await axios.get(`http://localhost:5556/api/booking/vehicle/${vehicleId}`);
       const booking = response.data;
-      
+
       const updatedBookings = await Promise.all(booking.map(async (booking) => {
         const [renterResponse, vehicleResponse] = await Promise.all([
           axios.get(`http://localhost:5556/api/renter/${booking.renter_id}`),
           axios.get(`http://localhost:5556/api/vehicle/${booking.vehicle_id}`)
         ]);
-      
+
         return {
           ...booking,
           renter_username: renterResponse.data.username,
@@ -43,7 +44,7 @@ const ShowBooking = () => {
 
   const handleStatusClick = async (bookingId, newStatus) => {
     try {
-      await axios.patch(`http://localhost:5556/api/booking/${bookingId}`, { 
+      await axios.patch(`http://localhost:5556/api/booking/${bookingId}`, {
         status: newStatus
       });
       fetchBookings();
@@ -57,7 +58,7 @@ const ShowBooking = () => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
   };
-  
+
   return (
     <div className="container mx-auto">
       <h1 className="text-2xl font-bold mb-4">Track Your Approved Bookings</h1>
@@ -88,6 +89,9 @@ const ShowBooking = () => {
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
               Status
             </th>
+            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
+              Generate Bill
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -103,25 +107,30 @@ const ShowBooking = () => {
                 <td className="py-2 px-4">{formatDate(booking.startDate)}</td>
                 <td className="py-2 px-4">{formatDate(booking.endDate)}</td>
                 <td className="py-2 px-4">
-                  <button 
+                  <button
                     className={`px-3 py-1 rounded-md ${booking.status === 'pending' ? 'bg-blue-500 text-white' : booking.status === 'approved' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}
                     onClick={() => handleCheckButtonClick(booking)}
                   >
                     {booking.status}
                   </button>
                 </td>
+                <td className="py-2 px-4">
+                  <Link to={`/payment/generateBill/${booking._id}`} className="px-3 py-1 rounded-md bg-blue-500 text-white">
+                    Generate Bill
+                  </Link>
+                </td>
               </tr>
             ))}
         </tbody>
       </table>
       {showModal && (
-            <PopupModal
-              booking={selectedBooking}
-              onApprove={() => handleStatusClick(selectedBooking._id, 'approved')}
-              onReject={() => handleStatusClick(selectedBooking._id, 'rejected')}
-              onClose={() => setShowModal(false)}
-            />
-          )}
+        <ApproveAndReject_Popup
+          booking={selectedBooking}
+          onApprove={() => handleStatusClick(selectedBooking._id, 'approved')}
+          onReject={() => handleStatusClick(selectedBooking._id, 'rejected')}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 };
