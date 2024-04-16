@@ -12,7 +12,6 @@ const vehicleSchema = mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Owner',
-        type: String,
     },
     photos: {
         type: [String],
@@ -50,8 +49,6 @@ const vehicleSchema = mongoose.Schema({
         required: true
       },
      
-
-
 },{timestamps:true});
 export const Vehicle = mongoose.model('Vehicle',vehicleSchema);
 

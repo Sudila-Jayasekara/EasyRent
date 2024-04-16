@@ -130,7 +130,7 @@ const BookingForm = () => {
                 <div className="max-w-md bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <span className="text-3xl font-bold mb-6 block">
                         {" "}
-                        Place your <span className="text-yellow-400">Bookings</span>
+                        Update <span className="text-yellow-400">Bookings</span>
                     </span>
                     <div className="flex justify-between shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
                         <div className="w-1/4">
@@ -238,7 +238,7 @@ const BookingForm = () => {
                             className="block text-gray-700 text-sm font-bold mb-2"
                             htmlFor="location"
                         >
-                            Location
+                            Location (where do you want to travel)
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -269,10 +269,10 @@ const BookingForm = () => {
                     </div>
                     <div className="flex items-center justify-between">
                         <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             type="submit"
                         >
-                            Submit
+                            Update
                         </button>
                     </div>
                 </div>
@@ -281,7 +281,7 @@ const BookingForm = () => {
                         <div className="mb-4 space-y-3">
                             <div>
                                 <span
-                                    className="block text-gray-700 text-sm font-bold"
+                                    className="block text-gray-700 text-sm font-bold mt-10"
                                     htmlFor="description"
                                 >
                                     Approved Documents
@@ -292,7 +292,7 @@ const BookingForm = () => {
                                     <li className="text-red-500">Any Kind Of Bill</li>
                                 </ul>
                             </div>
-                            <div>
+                            {/* <div>
                                 <label htmlFor="billImage" className="block text-gray-700 text-sm font-bold mb-2">
                                     Bill Image
                                 </label>
@@ -305,7 +305,7 @@ const BookingForm = () => {
                                     //required
                                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

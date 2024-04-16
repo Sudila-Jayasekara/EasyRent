@@ -8,8 +8,6 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 const BookingHistory = () => {
   const navigate = useNavigate();
 
-  
-
   const [bookings, setBookings] = useState([]);
   const [renterId, setRenterId] = useState("");
 
@@ -40,8 +38,17 @@ const BookingHistory = () => {
             return booking;
           }
         }));
-  
-        setBookings(bookingsWithEstimatePrice);
+        
+        // get vehicle details for each booking
+        const updatedBookings = await Promise.all(bookingsWithEstimatePrice.map(async (booking) => {
+          const vehicleResponse = await axios.get(`http://localhost:5556/api/vehicle/${booking.vehicle_id}`);
+          return {
+            ...booking,
+            vehicle_model: vehicleResponse.data.model
+          };
+        }));
+
+        setBookings(updatedBookings);
   
         // Log the bookings array immediately after setting the state
         console.log('Bookings after setting state:', bookingsWithEstimatePrice);
@@ -57,21 +64,24 @@ const BookingHistory = () => {
   };
 
   const handleDelete = async (bookingId) => {
-    try {
-      // First, delete the payment associated with the booking
-      await axios.delete(`http://localhost:5556/api/payment/booking/${bookingId}`);
-  
-      // Then, delete the booking
-      await axios.delete(`http://localhost:5556/api/booking/${bookingId}`);
-  
-      // Update the state to remove the deleted booking
-      setBookings(prevBookings => prevBookings.filter(booking => booking._id !== bookingId));
-  
-      console.log("Booking and associated payment deleted successfully");
-    } catch (error) {
-      console.error('Error deleting booking and payment:', error);
+    const confirmed = window.confirm("Are you sure you want to delete this booking?");
+    if (confirmed) {
+        try {
+            // First, delete the payment associated with the booking
+            await axios.delete(`http://localhost:5556/api/payment/booking/${bookingId}`);
+
+            // Then, delete the booking
+            await axios.delete(`http://localhost:5556/api/booking/${bookingId}`);
+
+            // Update the state to remove the deleted booking
+            setBookings(prevBookings => prevBookings.filter(booking => booking._id !== bookingId));
+
+            console.log("Booking and associated payment deleted successfully");
+        } catch (error) {
+            console.error('Error deleting booking and payment:', error);
+        }
     }
-  };
+};
 
   const handleEdit = (bookingId) => {
     navigate(`/booking/update/${bookingId}`);
@@ -119,7 +129,7 @@ const BookingHistory = () => {
           {bookings.map((booking,index) => (
             <tr key={booking._id} className="hover:bg-gray-100">
               <td className="py-2 px-4">{index + 1}</td>
-              <td className="py-2 px-4">{booking.vehicle_id}</td>
+              <td className="py-2 px-4">{booking.vehicle_model}</td>
               <td className="py-2 px-4">{booking.serviceType}</td>
               <td className="py-2 px-4">{formatDate(booking.startDate)}</td>
               <td className="py-2 px-4">{formatDate(booking.endDate)}</td>
