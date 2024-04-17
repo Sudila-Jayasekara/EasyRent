@@ -18,6 +18,11 @@ const bookingSchema = mongoose.Schema(
             required: true,
         },
 
+        driver_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Driver',
+            type: String,
+        },
         // Booking details
         serviceType: {
             type: String,
@@ -42,9 +47,8 @@ const bookingSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        description: {
+        description: { //reject Reason
             type: String,
-            required: true,
         },
     },
     {

@@ -6,7 +6,7 @@ const VehicleManager = () => {
     <div>
       <div >
         <img src={carwall}/>
-      </div>
+      </div> 
     </div>
   )
 }

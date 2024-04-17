@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import PopupModal from './ApproveAndReject'; // Import the PopupModal component
+import ApproveAndReject_Popup from './ApproveAndReject_Popup'; // Import the PopupModal component
 
-const ShowBookingO = () => {
+const ShowBooking = () => {
   const [bookings, setBookings] = useState([]);
-  const vehicleId = "6612773159f97d687eaa12bc"; // Specify the renter ID you want to filter for
+  const vehicleId = "661ca28129d52f39a6e42e84"; // Specify the renter ID you want to filter for
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get(`http://localhost:5556/api/booking`);
-      const filteredBookings = response.data.filter(booking => booking.vehicle_id === vehicleId);
-
-      const updatedBookings = await Promise.all(filteredBookings.map(async (booking) => {
+      const response = await axios.get(`http://localhost:5556/api/booking/vehicle/${vehicleId}`);
+      const booking = response.data;
+      
+      const updatedBookings = await Promise.all(booking.map(async (booking) => {
         const [renterResponse, vehicleResponse] = await Promise.all([
           axios.get(`http://localhost:5556/api/renter/${booking.renter_id}`),
           axios.get(`http://localhost:5556/api/vehicle/${booking.vehicle_id}`)
@@ -22,12 +22,10 @@ const ShowBookingO = () => {
         return {
           ...booking,
           renter_username: renterResponse.data.username,
-          vehicle_name: vehicleResponse.data.name
+          vehicle_brand: vehicleResponse.data.brand,
+          vehicle_model: vehicleResponse.data.model
         };
       }));
-      
-      
-
       setBookings(updatedBookings);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -36,34 +34,20 @@ const ShowBookingO = () => {
 
   useEffect(() => {
     fetchBookings();
-  }, [vehicleId]);
+  }, []);
 
   const handleCheckButtonClick = (booking) => {
     setSelectedBooking(booking);
     setShowModal(true);
   };
 
-  const handleApprove = async (description) => {
+  const handleStatusClick = async (bookingId, newStatus) => {
     try {
-      await axios.patch(`http://localhost:5556/api/booking/${selectedBooking._id}`, { 
-        status: 'approved',
-        description: description
+      await axios.patch(`http://localhost:5556/api/booking/${bookingId}`, { 
+        status: newStatus
       });
       fetchBookings();
-      setShowModal(false);
-    } catch (error) {
-      console.error('Error updating booking:', error);
-    }
-  };
-  
-  const handleReject = async (description) => {
-    try {
-      await axios.patch(`http://localhost:5556/api/booking/${selectedBooking._id}`, { 
-        status: 'rejected',
-        description: description
-      });
-      fetchBookings();
-      setShowModal(false);
+      setShowModal(false); // Close the modal after status update
     } catch (error) {
       console.error('Error updating booking:', error);
     }
@@ -76,7 +60,7 @@ const ShowBookingO = () => {
   
   return (
     <div className="container mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Booking History</h1>
+      <h1 className="text-2xl font-bold mb-4">Booking For Your Vehicles</h1>
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
           <tr>
@@ -87,7 +71,7 @@ const ShowBookingO = () => {
               Customer
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
-              Vehicle
+              Model
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
               Service Type
@@ -96,16 +80,13 @@ const ShowBookingO = () => {
               Location
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
-              Start Date
+              Es. Start Date
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
-              End Date
+              Es. End Date
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
               Status
-            </th>
-            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
-              Actions
             </th>
           </tr>
         </thead>
@@ -114,29 +95,28 @@ const ShowBookingO = () => {
             <tr key={index} className="hover:bg-gray-100">
               <td className="py-2 px-4">{index + 1}</td>
               <td className="py-2 px-4">{booking.renter_username}</td>
-              <td className="py-2 px-4">{booking.vehicle_name}</td>
+              <td className="py-2 px-4">{booking.vehicle_model}</td>
               <td className="py-2 px-4">{booking.serviceType}</td>
               <td className="py-2 px-4">{booking.location}</td>
               <td className="py-2 px-4">{formatDate(booking.startDate)}</td>
               <td className="py-2 px-4">{formatDate(booking.endDate)}</td>
-              <td className="py-2 px-4">{booking.status}</td>
               <td className="py-2 px-4">
-                {/*}
-                <>
-                  <button onClick={() => handleApprove(booking._id)} className="bg-green-500 text-white px-3 py-1 rounded-md mr-2">Approve</button>
-                  <button onClick={() => handleReject(booking._id)} className="bg-red-500 text-white px-3 py-1 rounded-md">Reject</button>
-          </>*/}
-                <button onClick={() => handleCheckButtonClick(booking)} className="bg-green-500 text-white px-3 py-1 rounded-md mr-2">Check</button>
+                <button 
+                  className={`px-3 py-1 rounded-md ${booking.status === 'pending' ? 'bg-blue-500 text-white' : booking.status === 'approved' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}
+                  onClick={() => handleCheckButtonClick(booking)}
+                >
+                  {booking.status}
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
       {showModal && (
-            <PopupModal
+            <ApproveAndReject_Popup
               booking={selectedBooking}
-              onApprove={handleApprove}
-              onReject={handleReject}
+              onApprove={() => handleStatusClick(selectedBooking._id, 'approved')}
+              onReject={() => handleStatusClick(selectedBooking._id, 'rejected')}
               onClose={() => setShowModal(false)}
             />
           )}
@@ -144,4 +124,4 @@ const ShowBookingO = () => {
   );
 };
 
-export default ShowBookingO;
+export default ShowBooking;

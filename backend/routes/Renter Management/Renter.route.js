@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
 import { KEY } from "../../config.js";
 import { Renter } from "../../models/Renter Management/Renter.model.js";
+import { Vehicle } from "../../models/Vehicle Management/vehicleModel.js";
 // import {Favlist} from '../../models/Renter Management/favList.js'
 import nodemailer from 'nodemailer' 
 
@@ -84,23 +85,32 @@ router.delete('/:id', async (req, res) => {
     }
   });
 
-  //add a vehicle to favourite list
-  router.patch('/:id/favId', async (req, res) => {
-    const { id,favId } = req.params;
+  
+  // Add a vehicle to the favorite list
+  router.patch('/:renterId/favorite/:vehicleId', async (req, res) => {
+    const { renterId, vehicleId } = req.params;
     try {
-        const renter = await Renter.findById(id);
-        const listning=await Favlist.findOne(favId)
-        const favListning=renter.favourite.find
-        if (!renter) {
-            return res.status(404).json({ message: 'Renter not found' });
+        const renter = await Renter.findById(renterId);
+        const vehicle = await Vehicle.findById(vehicleId);
+        if (!renter || !vehicle) {
+            return res.status(404).json({ message: 'Renter or vehicle not found' });
         }
-        renter.favourite.push(req.body.vehicleID);
-        const updatedrenter = await renter.save();
-        res.json(updatedrenter);
-
+        // Check if the vehicle is already in the favorite list
+        const index = renter.favorites.indexOf(vehicleId);
+        if (index === -1) {
+            // If not, add it
+            renter.favorites.push(vehicleId);
+        } else {
+            // If yes, remove it
+            renter.favorites.splice(index, 1);
+        }
+        await renter.save();
+        res.json({ message: 'Favorite list updated successfully' });
     } catch (err) {
         res.status(500).json({ message: err.message });
-    } 
-  });
+    }
+});
+
+
 
 export { router as RenterRouter };
