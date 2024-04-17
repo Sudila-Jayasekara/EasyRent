@@ -26,8 +26,8 @@ import ViewRenter from './pages/Renter Management/ViewRenter';
 import Logout from './pages/Logout.jsx';
 import Profile from './pages/Renter Management/Manageprofile.jsx'
 
-import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar.jsx';
-import VehicleManager from './pages/Vehicle Management/VehicleManager.jsx';
+import VehicleSidebar from './pages/Vehicle Management/vehicleSidebar.jsx';
+import VehicleManager from './pages/Vehicle Management/vehicleManager.jsx';
 import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
 import Forms from './pages/Vehicle Management/Forms.jsx';
 import Home from './pages/Reviews and rating management/Home.jsx'
@@ -79,10 +79,10 @@ const App = () => {
       <Route path='/booking/check' element={<ShowBookingO/>}/>
 
 
-      <Route path='/complains' element={<Home/>}/>//complains home
-      <Route path='/complains/details/:id' element={<ShowComplains/>}/>//show complains
-      <Route path='/complains/edit/:id' element={<EditComplains/>}/>//update
-      <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>//delete
+      <Route path='/complains' element={<Home/>}/>
+      <Route path='/complains/details/:id' element={<ShowComplains/>}/>
+      <Route path='/complains/edit/:id' element={<EditComplains/>}/>
+      <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>
       {/* <Route path='/complainsForm' element={<ComplainsForm/>}/>// create a book */}
       
     
