@@ -22,7 +22,15 @@ const renterSchema=new mongoose.Schema({
     address:{
         type:String,
         required:true,
-    }
+    },
+    userType:{
+        type:String,
+        required:true,
+    },
+    profilePicturePath:{
+        type:String,
+        default:""
+    },
     
 
 
