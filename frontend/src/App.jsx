@@ -32,7 +32,8 @@ import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
 import Forms from './pages/Vehicle Management/Forms.jsx';
 import Home from './pages/Reviews and rating management/Home.jsx'
 import Vprofile from './pages/Vehicle Management/Profile.jsx'
-import Manage from './pages/Vehicle Management/Manage.jsx'
+
+
 import AddedVehicles from './pages/Vehicle Management/AddedVehicles.jsx'
 
 
@@ -56,7 +57,7 @@ const App = () => {
       <Route path='/Profile' element={<Layout><Vprofile/></Layout>}/>
       <Route path='/ApprovedF' element={<Layout><ApprovedF/></Layout>}/>
       <Route path='/Forms' element={<Layout><Forms/></Layout>}/>
-      <Route path='/Manage' element={<Layout><Manage/></Layout>}/>
+     
 
 
       <Route path='/landing'element={<Layout><VehicleLand/></Layout>}/>
