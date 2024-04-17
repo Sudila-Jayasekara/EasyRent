@@ -22,12 +22,13 @@ app.use(bodyParser.json({ limit: '10mb' }));
 //middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-    origin: 'http://localhost:5173',
-    methods:['GET','POST','PUT','DELETE'],
-    credentials: true
-  }));
-app.use(cookieParser())
+// app.use(cors({
+//     origin: 'http://localhost:5173',
+//     methods:['GET','POST','PATCH','PUT','DELETE'],
+//     credentials: true
+//   }));
+app.use(cors());
+
 
 //middleware
 app.use(express.json());
