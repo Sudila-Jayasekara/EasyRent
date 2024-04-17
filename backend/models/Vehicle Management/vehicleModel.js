@@ -49,7 +49,12 @@ const vehicleSchema = mongoose.Schema({
         type: Number,
         required: true
       },
-     
+     status:{
+        type: String,
+        enum: ['available', 'unavailable'],
+        required: true
+      },
+    
 
 
 },{timestamps:true});
