@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +26,7 @@ const BookingHistory = () => {
       if (userId) {
         const response = await axios.get(`http://localhost:5556/api/booking/renter/${userId}`);
         const booking = response.data;
-  
+
         // Fetch estimatePrice for each booking
         const bookingsWithEstimatePrice = await Promise.all(booking.map(async (booking) => {
           try {
@@ -38,18 +38,19 @@ const BookingHistory = () => {
             return booking;
           }
         }));
-        
+
         // get vehicle details for each booking
         const updatedBookings = await Promise.all(bookingsWithEstimatePrice.map(async (booking) => {
           const vehicleResponse = await axios.get(`http://localhost:5556/api/vehicle/${booking.vehicle_id}`);
           return {
             ...booking,
-            vehicle_model: vehicleResponse.data.model
+            vehicle_model: vehicleResponse.data.model,
+            vehicle_brand: vehicleResponse.data.brand
           };
         }));
 
         setBookings(updatedBookings);
-  
+
         // Log the bookings array immediately after setting the state
         console.log('Bookings after setting state:', bookingsWithEstimatePrice);
       }
@@ -66,28 +67,28 @@ const BookingHistory = () => {
   const handleDelete = async (bookingId) => {
     const confirmed = window.confirm("Are you sure you want to delete this booking?");
     if (confirmed) {
-        try {
-            // First, delete the payment associated with the booking
-            await axios.delete(`http://localhost:5556/api/payment/booking/${bookingId}`);
+      try {
+        // First, delete the payment associated with the booking
+        await axios.delete(`http://localhost:5556/api/payment/booking/${bookingId}`);
 
-            // Then, delete the booking
-            await axios.delete(`http://localhost:5556/api/booking/${bookingId}`);
+        // Then, delete the booking
+        await axios.delete(`http://localhost:5556/api/booking/${bookingId}`);
 
-            // Update the state to remove the deleted booking
-            setBookings(prevBookings => prevBookings.filter(booking => booking._id !== bookingId));
+        // Update the state to remove the deleted booking
+        setBookings(prevBookings => prevBookings.filter(booking => booking._id !== bookingId));
 
-            console.log("Booking and associated payment deleted successfully");
-        } catch (error) {
-            console.error('Error deleting booking and payment:', error);
-        }
+        console.log("Booking and associated payment deleted successfully");
+      } catch (error) {
+        console.error('Error deleting booking and payment:', error);
+      }
     }
-};
+  };
 
   const handleEdit = (bookingId) => {
     navigate(`/booking/update/${bookingId}`);
   };
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-4">
       <h1 className="text-2xl font-bold mb-4">Booking History</h1>
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
@@ -97,6 +98,9 @@ const BookingHistory = () => {
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
               Model
+            </th>
+            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
+              Brand
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
               Service Type
@@ -126,10 +130,11 @@ const BookingHistory = () => {
           </tr>
         </thead>
         <tbody>
-          {bookings.map((booking,index) => (
+          {bookings.map((booking, index) => (
             <tr key={booking._id} className="hover:bg-gray-100">
               <td className="py-2 px-4">{index + 1}</td>
               <td className="py-2 px-4">{booking.vehicle_model}</td>
+              <td className="py-2 px-4">{booking.vehicle_brand}</td>
               <td className="py-2 px-4">{booking.serviceType}</td>
               <td className="py-2 px-4">{formatDate(booking.startDate)}</td>
               <td className="py-2 px-4">{formatDate(booking.endDate)}</td>
@@ -151,12 +156,14 @@ const BookingHistory = () => {
                 />
               </td>
               <td className="py-2 px-4">
-                        {booking.status === 'approved' && (
-                            <Link to={`/payment/displayBill/${booking._id}`} className="px-3 py-1 rounded-md bg-blue-500 text-white">
-                                Display Bill
-                            </Link>
-                        )}
-                    </td>
+                {booking.status === 'approved' ? (
+                  <Link to={`/payment/displayBill/${booking._id}`} className="px-3 py-1 rounded-md bg-blue-500 text-white">
+                    Display Bill
+                  </Link>
+                ) : (
+                  "----"
+                )}
+              </td>
             </tr>
           ))}
         </tbody>

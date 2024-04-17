@@ -16,7 +16,7 @@ import EditComplains from './pages/Reviews and rating management/EditComplains.j
 import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx';
 
 //Booking  imports
-import Booking from './pages/Booking And Payment Management/Booking.jsx';
+import BookingAndPayment from './pages/Booking And Payment Management/BookingAndPayment.jsx';
 import CreateBooking from './pages/Booking And Payment Management/CreateBooking.jsx';
 import ShowBooking from './pages/Booking And Payment Management/BookingHistory.jsx';
 import CheckBooking from './pages/Booking And Payment Management/CheckBooking.jsx';
@@ -119,7 +119,7 @@ const App = () => {
       <Route path="/Forms" element={<Layout><Forms/></Layout>}/>
 
 
-      <Route path='/booking' element={<Layout><Booking/></Layout>}/>
+      <Route path='/bp' element={<Layout><BookingAndPayment/></Layout>}/>
       <Route path='/booking/create/:vehicleId' element={<Layout><CreateBooking/></Layout>}/>
       <Route path='/booking/update/:bookingId' element={<Layout><UpdateBooking/></Layout>}/>
       <Route path='/booking/history' element={<Layout><ShowBooking/></Layout>}/>

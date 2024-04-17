@@ -14,6 +14,24 @@ const paymentSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
+        tirpStart: {
+            type: Date,
+        },
+        tripEnd: {
+            type: Date,
+        }
+        // actualPrice: {
+        //     type: Number,
+        //     required: true,
+        // },
+        // paymentMethod: {
+        //     type: String,
+        //     required: true,
+        // },
+        // paymentStatus: {
+        //     type: String,
+        //     required: true,
+        // },
     },
     {
         timestamps: true,

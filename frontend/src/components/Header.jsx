@@ -20,9 +20,9 @@ const Header = () => {
                     <Link to="/">EasyRent</Link>
                 </span>
             </div>
-            <div className='w-2/4 text-center'>
+            <div className='w-2/4 text-center text-xl text-white'>
                 {/* Display user name if available */}
-                {userName ? `${userrole} profile , Hello, ${userName}` : 'Hello, Guest'}
+                {userName ? `${userrole} profile ` : 'guest profile'}
             </div>
 
             <div className='w-1/4 space-x-2 text-right'>
