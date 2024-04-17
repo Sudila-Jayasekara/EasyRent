@@ -35,12 +35,7 @@ const vehicleSchema = mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    },
-    // status: {
-    //     type: String,
-    //     enum: ['available', 'Not available'],
-    //     default: 'available'
-    // },
+    }
 });
 
 export const Vehicle = mongoose.model('Vehicle',vehicleSchema);
