@@ -55,6 +55,7 @@ const ComplainsEdit = () => {
                     <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-9 pt-10 pb-8 mt-2">
                         {/* Rating buttons */}
                         <center><b>Edit Rating & Reviews</b></center>
+                        <br></br>
                         <div className="flex items-center mb-4 mt-3">
                             {[...Array(5)].map((_, index) => (
                                 <button

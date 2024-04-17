@@ -51,6 +51,8 @@ const ComplainsForm = () => {
             <div className="flex justify-center">
                 <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-9 pt-10 pb-8 mt-10">
                     {/* Rating buttons */}
+                    <center><b>Give your Ratings & Reviews......</b></center>
+                    <br></br>
                     <div className="flex items-center mb-4">
                         {[...Array(5)].map((_, index) => (
                             <button
