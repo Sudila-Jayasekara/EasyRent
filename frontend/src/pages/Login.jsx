@@ -28,7 +28,7 @@ const Login = () => {
             token: loggedIn.token,
           })
         );
-        navigate('/'); // Redirect to home page after successful login
+        navigate('/homerenter'); // Redirect to home page after successful login
       }
     }).catch(err => {
       console.log("Login Failed", err.message);
