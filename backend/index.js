@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import cors from 'cors';
 
 import path from 'path';
-
+import bodyParser from 'body-parser';
 
 import {authRouter} from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
@@ -14,7 +14,8 @@ import BookingRoute from './routes/Booking And Payment Management/bookingRoute.j
 import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
 import DriverRoute from './routes/Driver Management/driverRoute.js';
 import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
-import bodyParser from "body-parser";
+import ComplainsRoute from'./routes/Reviews and rating management/ComplainsRoute.js'
+
 
 
 
@@ -46,6 +47,8 @@ app.use('/api/vehicle', VehicleRoute);
 app.use('/api/renter', RenterRouter);
 app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
+app.use('/Complains',ComplainsRoute)
+
 
 
 

@@ -17,19 +17,13 @@ import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
-
-import Displaydates from './pages/Driver Management/Displaydates.jsx';
-
-import Driverprofile from './pages/Driver Management/Driverprofile.jsx';
-import License from './pages/Driver Management/License.jsx';
-import DriverDashboard from './pages/Driver Management/Driverdashboard.jsx';
-import DriverDisplay from './pages/Driver Management/DriverDisplay.jsx';
-
-import DriverdashboardSidebar from './pages/Driver Management/DriverdashboardSidebar.jsx';
-
-
 import ViewRenter from './pages/Renter Management/ViewRenter';
 import Logout from './pages/Logout.jsx';
+import Home from './pages/Reviews and rating management/Home.jsx'
+import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx'
+import EditComplains from './pages/Reviews and rating management/EditComplains.jsx'
+import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx'
+import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx'
 
 
 axios.defaults.baseURL='http://localhost:5556'
@@ -52,25 +46,18 @@ const App = () => {
       <Route path='/homerenter' element={<Layout><RenterHome/></Layout>}/>
       <Route path='/selectbooking' title="Select Booking" element={<Layout><SelectBooking/></Layout>}/>
       <Route path='/signup' element={<Signup/>}/>
+
       
-      <Route path='/displaydate' element={<Layout><Displaydates/></Layout>}/>
-      <Route path='/driverprofile' element={<Layout><Driverprofile/></Layout>}/>
-      <Route path='/license' element={<Layout><License/></Layout>}/>
-      <Route path='/displaydates' element={<Layout><Displaydates/></Layout>}/>
-      <Route path='/driverdashboard' element={<Layout><DriverDashboard/></Layout>}/>
-      <Route path='/driverdisplay' element={<Layout><DriverDisplay/></Layout>}/>
-
-
       <Route path='/booking/create' element={<Layout><CreateBooking/></Layout>}/>
       <Route path='/booking/history' element={<ShowBookingR/>}/>
       <Route path='/booking/check' element={<ShowBookingO/>}/>
 
 
-      {/* <Route path='/complains' element={<Home/>}/>
+      <Route path='/complains' element={<Home/>}/>//complains home
       <Route path='/complains/details/:id' element={<ShowComplains/>}/>//show complains
       <Route path='/complains/edit/:id' element={<EditComplains/>}/>//update
       <Route path='/complains/delete/:id' element={<DeleteComplains/>}/>//delete
-      <Route path='/complainsForm' element={<ComplainsForm/>}/>// create a book */}
+      <Route path='/complainsForm' element={<ComplainsForm/>}/>// create a book
       
     
 
