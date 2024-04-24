@@ -4,46 +4,35 @@ import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 
 const Header = () => {
-    const location = useLocation(); // Use the useLocation hook to get the current route
-
-    // Retrieve user details from local storage
+    const location = useLocation();
     const user = JSON.parse(localStorage.getItem('user'));
     const userName = user ? user.username : '';
-    const userrole = user ? user.userType : ''; // Extract user name
+    const userrole = user ? user.userType : '';
+
+    const isLandingPage = location.pathname === '/';
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ');
     }
 
-    // Check if the current route is the landing page
-    const isLandingPage = location.pathname === '/';
-
-    return (
-        <div className={`bg-yellow-400 py-4 px-4 ${isLandingPage ? '' : 'mb-10'} flex justify-between items-center`}>
-            <div className='w-1/4'>
-                <span className='text-3xl text-white font-bold tracking-tight'>
-                    <Link to="/">EasyRent</Link>
-                </span>
-            </div>
-            <div className='w-2/4 text-center text-xl text-white'>
-                {/* Display user name if available */}
-                {userName ? `${userrole} profile ` : 'guest profile'}
-            </div>
-
-            <div className='w-1/4 space-x-2 text-right'>
-                {/* Conditionally render login button based on user authentication */}
-                {!user && (
+    const renderAuthLinks = () => {
+        if (!user) {
+            return (
+                <Fragment>
                     <span className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
                         <Link to={'/login'}>Log in</Link>
                     </span>
-                )}
+                    <span className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
+                        <Link to='/signup'>Sign Up</Link>
+                    </span>
+                </Fragment>
+            );
+        }
+    };
 
-                {/* Uncomment to enable sign-up link */}
-                {/* <span className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
-                    <Link to='/signup'>Sign Up</Link>
-                </span> */}
-            </div>
-            {user && (
+    const renderUserMenu = () => {
+        if (user) {
+            return (
                 <Menu as="div" className="relative ml-3">
                     <div>
                         <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -69,16 +58,16 @@ const Header = () => {
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link
-                                    to={
-                                        userrole === 'renter' ? '/renterprofile' :
-                                        userrole === 'driver' ? '/driverprofile' :
-                                        userrole === 'owner' ? '/owner-profile' :
-                                        '/'
-                                    }
-                                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                >
-                                    Your Profile
-                                </Link>
+                                        to={
+                                            userrole === 'renter' ? '/renterprofile' :
+                                                userrole === 'driver' ? '/driverprofile' :
+                                                    userrole === 'owner' ? '/owner-profile' :
+                                                        '/'
+                                        }
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                    >
+                                        Your Profile
+                                    </Link>
                                 )}
                             </Menu.Item>
                             <Menu.Item>
@@ -104,7 +93,33 @@ const Header = () => {
                         </Menu.Items>
                     </Transition>
                 </Menu>
-            )}
+            );
+        }
+    };
+    const renderNavigationLinks = () => {
+        return (
+            <>
+                <Link to="/booking/history" className='text-white font-bold '> Bookings </Link>
+                <Link to="#" className='text-white font-bold '> Payments </Link>
+            </>
+
+        );
+    };
+
+    return (
+        <div className={`bg-yellow-400 py-4 px-4 ${isLandingPage ? '' : 'mb-10'} flex justify-between items-center`}>
+            <div className='w-1/4'>
+                <span className='text-3xl text-white font-bold tracking-tight'>
+                    <Link to="/homerenter">EasyRent</Link>
+                </span>
+            </div>
+
+            <div className='w-3/4 space-x-2 text-right'>
+                {renderNavigationLinks()}
+                {renderAuthLinks()}
+            </div>
+
+            {renderUserMenu()}
         </div>
     );
 };

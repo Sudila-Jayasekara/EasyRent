@@ -102,7 +102,7 @@ const BookingForm = () => {
                 description: "",
             });
             // Navigate to booking history or any other desired page
-           // navigate('/booking/history');
+            navigate('/booking/history');
         } catch (error) {
             console.error("Error:", error);
         }
