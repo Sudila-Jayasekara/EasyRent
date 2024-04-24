@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 
 const Header = () => {
+    const location = useLocation(); // Use the useLocation hook to get the current route
+
     // Retrieve user details from local storage
     const user = JSON.parse(localStorage.getItem('user'));
     const userName = user ? user.username : '';
@@ -13,8 +15,11 @@ const Header = () => {
         return classes.filter(Boolean).join(' ');
     }
 
+    // Check if the current route is the landing page
+    const isLandingPage = location.pathname === '/';
+
     return (
-        <div className='bg-yellow-400 py-4 px-4 mb-6 flex justify-between items-center'>
+        <div className={`bg-yellow-400 py-4 px-4 ${isLandingPage ? '' : 'mb-10'} flex justify-between items-center`}>
             <div className='w-1/4'>
                 <span className='text-3xl text-white font-bold tracking-tight'>
                     <Link to="/">EasyRent</Link>

@@ -16,6 +16,7 @@ const BookingForm = () => {
         description: "",
     });
     const [renter_id, setRenterId] = useState("");
+    const [renter_nic, setRenterNIC] = useState("");
     const [vehicle_id, setVehicleId] = useState(vehicleId); 
     const [vehicle, setVehicle] = useState([]);
     const [estimatePrice, setEstimatePrice] = useState(null);
@@ -25,6 +26,13 @@ const BookingForm = () => {
         // Extract user details from localStorage
         const user = JSON.parse(localStorage.getItem('user'));
         setRenterId(user._id);
+        setRenterNIC(user.nic);
+
+        // Display user ID and NIC
+        console.log("User ID:", user._id);
+        console.log("User NIC:", user.nic);
+        console.log("User",user);
+
         // Fetch vehicle data
         axios.get(`http://localhost:5556/api/vehicle/${vehicle_id}`)
             .then(response => {
@@ -73,6 +81,7 @@ const BookingForm = () => {
                 ...formData,
                 renter_id,
                 vehicle_id,
+                renter_nic,
             });
             const booking_id = bookingResponse.data._id;
             // Create a payment object with the booking ID and estimate price
@@ -93,7 +102,7 @@ const BookingForm = () => {
                 description: "",
             });
             // Navigate to booking history or any other desired page
-            navigate('/booking/history');
+           // navigate('/booking/history');
         } catch (error) {
             console.error("Error:", error);
         }

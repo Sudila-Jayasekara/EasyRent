@@ -10,6 +10,8 @@ const BookingHistory = () => {
 
   const [bookings, setBookings] = useState([]);
   const [renterId, setRenterId] = useState("");
+  const [renter_nic, setRenterNIC] = useState("");
+
 
   useEffect(() => {
     console.log('Location changed, fetching bookings...');
@@ -20,11 +22,12 @@ const BookingHistory = () => {
     try {
       const user = JSON.parse(localStorage.getItem('user'));
       console.log('User:', user);
-      const userId = user ? user._id : '';
-      setRenterId(userId);
+      const userNIC = user ? user._id : '';
+      setRenterNIC(userNIC);
+
       
-      if (userId) {
-        const response = await axios.get(`http://localhost:5556/api/booking/renter/${userId}`);
+      if (userNIC) {
+        const response = await axios.get(`http://localhost:5556/api/booking/renter/${userNIC}`);
         const booking = response.data;
 
         // Fetch estimatePrice for each booking
