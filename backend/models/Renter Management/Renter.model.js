@@ -35,6 +35,11 @@ const renterSchema=new mongoose.Schema({
         type: Array,
         default: [],
       },
+    nic:{
+        type:String,
+        required:true,
+        unique:true,
+    },
     
 
 
