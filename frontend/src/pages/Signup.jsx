@@ -192,9 +192,9 @@ const Signup = () => {
             {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
           </label>
 
-          {userRole === "owner" && (
+        
             <label>
-              Owner NIC:
+              NIC:
               <input
                 type="text"
                 name="nic"
@@ -203,22 +203,7 @@ const Signup = () => {
                 className="h-7 block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
               />
             </label>
-          )}
-
-          {userRole === "driver" && (
-            <>
-              <label>
-                NIC:
-                <input
-                  type="text"
-                  name="nic"
-                  value={formData.nic}
-                  onChange={handleChange}
-                  className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                />
-              </label>
-            </>
-          )}
+ 
 
           {userRole === "employee" && (
             <>

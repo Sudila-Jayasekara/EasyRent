@@ -37,7 +37,9 @@ const renterSchema=new mongoose.Schema({
       },
     nic:{
         type:String,
-    }
+        required:true,
+        unique:true,
+    },
     
 
 },{timestamps:true});

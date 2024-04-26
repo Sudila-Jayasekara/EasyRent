@@ -11,7 +11,7 @@ const router = express.Router();
 router.post('/signup', async (req, res) => {
     const { role} = req.body;
     if(role==='renter'){
-    const { username, email, password, phoneNumber, address } = req.body;
+    const { nic,username, email, password, phoneNumber, address } = req.body;
     try {
         const renter = await Renter.findOne({ email });
         if (renter) {
@@ -25,6 +25,7 @@ router.post('/signup', async (req, res) => {
             phoneNumber,
             address,
             userType:"renter",
+            nic,
         });
         await newRenter.save();
         return res.json({ status: true, message: "User Registered" });
