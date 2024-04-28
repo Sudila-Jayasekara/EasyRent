@@ -5,10 +5,10 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 
 import Owner from './pages/Vehicle Owner Management/Owner';
-import VehicleAdd from './VehicleAdd';
-import DriverAdd from './DriverAdd';
+import VehicleAdd from './pages/Vehicle Management/VehicleAdd.jsx';
+import DriverAdd from './pages/Driver Management/DriverAdd.jsx';
 import OwnerProfile from './pages/Vehicle Owner Management/OwnerProfile';
-import ViewVehicle from './ViewVehicle';
+import ViewVehicle from './pages/Vehicle Management/ViewVehicle.jsx';
 import DataVehicle from './pages/Vehicle Owner Management/DataVehicle';
 
 import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';

@@ -10,7 +10,9 @@ const Header = () => {
     const userrole = user ? user.userType : '';
 
     const isLandingPage = location.pathname === '/';
-
+    if (location.pathname === '/landing') {
+        return null; // Don't render anything if the pathname is '/landing'
+    }
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ');
     }
@@ -98,23 +100,25 @@ const Header = () => {
     };
     const renderNavigationLinks = () => {
         return (
-            <>
-                <Link to="/booking/history" className='text-white font-bold '> Bookings </Link>
-                <Link to="#" className='text-white font-bold '> Payments </Link>
-            </>
-
+            <Fragment>
+                    <Link to={'/contact'} className='text-white font-bold mr-5'>Contact Us</Link>
+            </Fragment>
         );
     };
+    
+    if (isLandingPage) {
+        return null; // Don't render the header on the landing page
+    }
 
     return (
         <div className={`bg-yellow-400 py-4 px-4 ${isLandingPage ? '' : 'mb-10'} flex justify-between items-center`}>
-            <div className='w-1/4'>
+            <div className='w-1/3'>
                 <span className='text-3xl text-white font-bold tracking-tight'>
                     <Link to="/homerenter">EasyRent</Link>
                 </span>
             </div>
 
-            <div className='w-3/4 space-x-2 text-right'>
+            <div className='w-2/3 space-x-2 text-right'>
                 {renderNavigationLinks()}
                 {renderAuthLinks()}
             </div>

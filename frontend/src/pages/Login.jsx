@@ -28,13 +28,13 @@ const Login = () => {
             navigate('/homerenter');
             break;
           case 'owner':
-            navigate('/ownerdashboard');
+            navigate('/ownerprofile');
             break;
           case 'driver':
-            navigate('/driverdashboard');
+            navigate('/driverprofile');
             break;
           case 'hr':
-            navigate('/hrdashboard');
+            navigate('/homerenter');
             break;
           default:
             // Handle other user types or unexpected cases
