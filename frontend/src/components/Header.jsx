@@ -10,7 +10,7 @@ const Header = () => {
     const userrole = user ? user.userType : '';
 
     const isLandingPage = location.pathname === '/';
-    if (location.pathname === '/landing') {
+    if (location.pathname === '/landing' || location.pathname === '/') {
         return null; // Don't render anything if the pathname is '/landing'
     }
     function classNames(...classes) {

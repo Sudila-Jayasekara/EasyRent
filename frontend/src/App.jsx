@@ -79,12 +79,12 @@ const App = () => {
     <Routes>
       <Route path="*" element={<Layout><ErrorPage /></Layout>} />
       <Route path="/" element={<Layout><Landing/></Layout> } />
+      <Route path="/landing" element={<Layout><Landing/></Layout>} />
       <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/resetPassword" element={<ResetPassword />} />
-      <Route path="/landing" element={<Layout><Landing/></Layout>} />
       <Route path="/renterprofile" element={<Layout><Manageprofile/></Layout>} />
       <Route path="/Rentersidebar" element={<Layout><RenterSidebar/></Layout>} />
       <Route path="/homerenter" element={<Layout><RenterHome/></Layout>} />

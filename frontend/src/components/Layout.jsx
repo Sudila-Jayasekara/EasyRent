@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Sidebar from './Sidebar';
+import SideBar from './SideBar';
 
 const Layout = ({ children }) => {
   return (
     <div className="flex min-h-screen">
       {/* Render the Sidebar component */}
-      <Sidebar />
+      <SideBar />
       <div className="flex flex-col flex-grow">
         <Header />
         <div className="flex-grow">

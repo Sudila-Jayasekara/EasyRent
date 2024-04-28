@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-const Sidebar = () => {
+const SideBar = () => {
 
     const location = useLocation();
 
     // Check if the current pathname is '/landing'
-    if (location.pathname === '/landing' || location.pathname === '/logout' || location.pathname === '/login' || location.pathname === '/signup') {
+    if (location.pathname === '/' || location.pathname === '/landing' || location.pathname === '/logout' || location.pathname === '/login' || location.pathname === '/signup') {
         return null; // Don't render anything if the pathname is '/landing'
     }
 
@@ -89,4 +89,4 @@ const Sidebar = () => {
 
 };
 
-export default Sidebar;
+export default SideBar;
