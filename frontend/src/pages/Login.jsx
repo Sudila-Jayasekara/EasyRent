@@ -7,32 +7,44 @@ import { setLogin } from '../redux/state';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const loginUser = (e) => {
+  const loginUser = async (e) => {
     e.preventDefault();
-    Axios.post('api/auth/login', {
-      email,
-      password,
-    }).then((response) => {
-      const loggedIn = response.data;
-      if (loggedIn.status) {
-        // Dispatching setLogin action with user data
-        localStorage.setItem('user', JSON.stringify(loggedIn.user));
-        localStorage.setItem('token', loggedIn.token);
-        dispatch(
-          setLogin({
-            renter: loggedIn.user, // Change loggedIn.renter to loggedIn.user
-            token: loggedIn.token,
-          })
-        );
-        navigate('/'); // Redirect to home page after successful login
+    try {
+      const response = await Axios.post('api/auth/login', {
+        email,
+        password,
+      });
+      const { status, user, token } = response.data;
+      if (status) {
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);
+        dispatch(setLogin({ user, token })); // Dispatching user data without specifying renter
+        // Check user type and navigate accordingly
+        switch (user.userType) {
+          case 'renter':
+            navigate('/homerenter');
+            break;
+          case 'owner':
+            navigate('/ownerprofile');
+            break;
+          case 'driver':
+            navigate('/driverprofile');
+            break;
+          case 'hr':
+            navigate('/homerenter');
+            break;
+          default:
+            // Handle other user types or unexpected cases
+            break;
+        }
       }
-    }).catch(err => {
-      console.log("Login Failed", err.message);
-    });
+    } catch (error) {
+      console.error('Login failed:', error.message);
+      // Handle error (e.g., show error message to user)
+    }
   };
 
   return (

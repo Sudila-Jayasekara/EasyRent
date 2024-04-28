@@ -35,8 +35,10 @@ const renterSchema=new mongoose.Schema({
         type: Array,
         default: [],
       },
+    nic:{
+        type:String,
+    }
     
-
 
 },{timestamps:true});
 
