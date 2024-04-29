@@ -12,6 +12,7 @@ const handleDeleteComplains=()=>{
   .delete(`http://localhost:5556/complains/${id}`)  
   .then(()=>{
     navigate('/complains');
+    alert('deleted Sucessfully...');
 })
   .catch((err)=>{
     console.log(err);
@@ -38,4 +39,4 @@ const handleDeleteComplains=()=>{
   )
 }
 
-export default DeleteComplains
+export default DeleteComplains;

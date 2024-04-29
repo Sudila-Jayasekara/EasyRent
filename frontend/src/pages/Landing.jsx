@@ -11,7 +11,6 @@ const Landing = () => {
           <p className="mt-6 text-2xl text-blue-600 font-normal">Unlock the Road to Freedom with Our Vehicle Rental Platform!</p>
           <div className="mt-8 flex flex-col space-y-3 sm:flex-row sm:justify-center sm:space-y-0">
         <Link to={'/login'} >  <button className="rounded-md bg-blue-700 px-8 py-2 text-sm font-medium capitalize tracking-wide text-white transition-colors duration-200 hover:bg-blue-600 focus:bg-blue-600 focus:outline-none sm:mx-2">LOG IN</button></Link> 
-        <Link to={'/homerenter'} ><button className="rounded-md bg-blue-700 px-8 py-2 text-sm font-medium capitalize tracking-wide text-white transition-colors duration-200 hover:bg-blue-600 focus:bg-blue-600 focus:outline-none sm:mx-2">GET STARTED</button></Link> 
           </div>
         </div>
       </div>

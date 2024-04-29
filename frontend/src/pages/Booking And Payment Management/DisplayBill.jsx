@@ -17,7 +17,7 @@ function DisplayBill() {
                 console.error('Error fetching booking details:', error);
             }
         };
-    
+
         const fetchPaymentDetails = async () => {
             try {
                 const response = await axios.get(`http://localhost:5556/api/payment/booking/${bookingId}`);
@@ -27,10 +27,10 @@ function DisplayBill() {
                 console.error('Error fetching payment details:', error);
             }
         };
-    
+
         fetchBookingDetails();
         fetchPaymentDetails();
-    
+
     }, [bookingId]);
 
 
@@ -45,13 +45,21 @@ function DisplayBill() {
                             <DetailLabel label="Booking ID" value={bookingDetails._id} />
                             <DetailLabel label="Renter ID" value={bookingDetails.renter_id} />
                             <DetailLabel label="Vehicle ID" value={bookingDetails.vehicle_id} />
-                            <DetailLabel label="Driver ID" value={bookingDetails.driver_id} />
+                            {bookingDetails.driver_id ? (
+                                <DetailLabel label="Driver ID" value={bookingDetails.driver_id} />
+                            ) : (
+                                <DetailLabel label="Driver ID" value="No driver selected" />
+                            )}
                             <DetailLabel label="Service Type" value={bookingDetails.serviceType} />
                             <DetailLabel label="Start Date" value={bookingDetails.startDate} />
                             <DetailLabel label="End Date" value={bookingDetails.endDate} />
                             <DetailLabel label="Status" value={bookingDetails.status} />
                             <DetailLabel label="Location" value={bookingDetails.location} />
-                            <DetailLabel label="Description" value={bookingDetails.description} />
+                            {bookingDetails.description ? (
+                                <DetailLabel label="Description" value={bookingDetails.description} />
+                            ) : (
+                                <DetailLabel label="Description" value="No description available" />
+                            )}
                         </div>
                     </div>
                     <div className="border border-gray-300 rounded-lg p-6 flex-1">

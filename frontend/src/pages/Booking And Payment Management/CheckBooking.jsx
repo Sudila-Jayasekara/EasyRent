@@ -4,33 +4,59 @@ import ApproveAndReject_Popup from './ApproveAndReject_Popup'; // Import the Pop
 
 const ShowBooking = () => {
   const [bookings, setBookings] = useState([]);
-  const vehicleId = "661ca28129d52f39a6e42e84"; // Specify the renter ID you want to filter for
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get(`http://localhost:5556/api/booking/vehicle/${vehicleId}`);
-      const booking = response.data;
-      
-      const updatedBookings = await Promise.all(booking.map(async (booking) => {
-        const [renterResponse, vehicleResponse] = await Promise.all([
-          axios.get(`http://localhost:5556/api/renter/${booking.renter_id}`),
-          axios.get(`http://localhost:5556/api/vehicle/${booking.vehicle_id}`)
-        ]);
-      
-        return {
-          ...booking,
-          renter_username: renterResponse.data.username,
-          vehicle_brand: vehicleResponse.data.brand,
-          vehicle_model: vehicleResponse.data.model
-        };
-      }));
-      setBookings(updatedBookings);
+      const user = JSON.parse(localStorage.getItem('user')); // Get the logged-in user
+      console.log('User:', user);
+      const userId = user ? user._id : '';
+
+      if (userId) {
+        // Get all vehicles owned by the user
+        const response = await axios.get(`http://localhost:5556/api/vehicle/owner/${user._id}`);
+        const vehicles = response.data;
+
+        // Fetch bookings for each vehicle
+        const updatedBookings = await Promise.all(vehicles.map(async (vehicle) => {
+          try {
+            // Get bookings for the current vehicle
+            const bookingResponse = await axios.get(`http://localhost:5556/api/booking/vehicle/${vehicle._id}`);
+            const vehicleBookings = bookingResponse.data;
+
+            // Process each booking for the current vehicle
+            const processedBookings = await Promise.all(vehicleBookings.map(async (booking) => {
+              // Fetch renter details
+              const renterResponse = await axios.get(`http://localhost:5556/api/renter/${booking.renter_id}`);
+              const renterUsername = renterResponse.data.username;
+
+              // Return processed booking details
+              return {
+                ...booking,
+                renter_username: renterUsername,
+                vehicle_brand: vehicle.brand,
+                vehicle_model: vehicle.model
+              };
+            }));
+
+            return processedBookings;
+          } catch (error) {
+            console.error('Error fetching bookings for vehicle:', vehicle._id, error);
+            return [];
+          }
+        }));
+
+        // Flatten the array of arrays into a single array of bookings
+        const flattenedBookings = updatedBookings.flat();
+        
+        // Set the state with the fetched and processed bookings
+        setBookings(flattenedBookings);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  };
+};
 
   useEffect(() => {
     fetchBookings();
@@ -59,7 +85,7 @@ const ShowBooking = () => {
   };
   
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-4">
       <h1 className="text-2xl font-bold mb-4">Booking For Your Vehicles</h1>
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
@@ -72,6 +98,9 @@ const ShowBooking = () => {
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
               Model
+            </th>
+            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
+              Brand
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
               Service Type
@@ -96,6 +125,7 @@ const ShowBooking = () => {
               <td className="py-2 px-4">{index + 1}</td>
               <td className="py-2 px-4">{booking.renter_username}</td>
               <td className="py-2 px-4">{booking.vehicle_model}</td>
+              <td className="py-2 px-4">{booking.vehicle_brand}</td>
               <td className="py-2 px-4">{booking.serviceType}</td>
               <td className="py-2 px-4">{booking.location}</td>
               <td className="py-2 px-4">{formatDate(booking.startDate)}</td>

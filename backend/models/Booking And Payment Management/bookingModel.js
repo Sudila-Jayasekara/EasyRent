@@ -9,7 +9,9 @@ const bookingSchema = mongoose.Schema(
             type: String,
             required: true,
           },
-
+        renter_nic: {
+            type:String,
+        },
         // Vehicle information
         vehicle_id: {
             type: mongoose.Schema.Types.ObjectId,
