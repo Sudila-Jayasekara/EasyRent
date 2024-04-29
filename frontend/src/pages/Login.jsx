@@ -42,6 +42,7 @@ const Login = () => {
             break;
         }
       }
+<<<<<<< HEAD
     } catch (error) {
       console.error('Login failed:', error.message);
       // Handle error (e.g., show error message to user)
@@ -63,6 +64,10 @@ const Login = () => {
       console.log("Login Failed", err.message);
 >>>>>>> 2968197 (Added 80% page)
     }
+=======
+      }
+   
+>>>>>>> f7c2d04 (Update Login.jsx)
   };
 
   return (
