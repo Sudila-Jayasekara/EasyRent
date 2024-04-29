@@ -9,7 +9,9 @@ const bookingSchema = mongoose.Schema(
             type: String,
             required: true,
           },
-
+        renter_nic: {
+            type:String,
+        },
         // Vehicle information
         vehicle_id: {
             type: mongoose.Schema.Types.ObjectId,
@@ -18,6 +20,11 @@ const bookingSchema = mongoose.Schema(
             required: true,
         },
 
+        driver_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Driver',
+            type: String,
+        },
         // Booking details
         serviceType: {
             type: String,
@@ -42,9 +49,8 @@ const bookingSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        description: {
+        description: { //reject Reason
             type: String,
-            required: true,
         },
     },
     {
