@@ -50,10 +50,13 @@ const ComplainsEdit = () => {
         <div>
             <Header />
             <div className="flex flex-col justify-between min-h-screen">
+                
                 <div className="flex justify-center">
-                    <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-9 pt-10 pb-8 mt-10">
+                    <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-9 pt-10 pb-8 mt-2">
                         {/* Rating buttons */}
-                        <div className="flex items-center mb-4">
+                        <center><b>Edit Rating & Reviews</b></center>
+                        <br></br>
+                        <div className="flex items-center mb-4 mt-3">
                             {[...Array(5)].map((_, index) => (
                                 <button
                                     key={index}

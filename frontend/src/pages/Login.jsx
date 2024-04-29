@@ -32,7 +32,31 @@ const Login = () => {
       }
     } catch (err) {
       console.log("Login Failed", err.message);
-    }
+      const { status, user, token } = response.data;
+      if (status) {
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);
+        dispatch(setLogin({ user, token })); // Dispatching user data without specifying renter
+        // Check user type and navigate accordingly
+        switch (user.userType) {
+          case 'renter':
+            navigate('/homerenter');
+            break;
+          case 'owner':
+            navigate('/ownerprofile');
+            break;
+          case 'driver':
+            navigate('/driverprofile');
+            break;
+          case 'hr':
+            navigate('/homerenter');
+            break;
+          default:
+            // Handle other user types or unexpected cases
+            break;
+        }
+      }
+   
   };
 
   return (

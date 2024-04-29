@@ -42,7 +42,6 @@ const renterSchema=new mongoose.Schema({
     },
     
 
-
 },{timestamps:true});
 
 const RenterModel=mongoose.model("Renter",renterSchema)

@@ -1,44 +1,40 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 
 const Header = () => {
-    // Retrieve user details from local storage
+    const location = useLocation();
     const user = JSON.parse(localStorage.getItem('user'));
     const userName = user ? user.username : '';
-    const userrole = user ? user.userType : ''; // Extract user name
+    const userrole = user ? user.userType : '';
 
+    const isLandingPage = location.pathname === '/';
+    if (location.pathname === '/landing' || location.pathname === '/') {
+        return null; // Don't render anything if the pathname is '/landing'
+    }
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ');
     }
 
-    return (
-        <div className='bg-yellow-400 py-4 px-4 flex justify-between items-center'>
-            <div className='w-1/4'>
-                <span className='text-3xl text-white font-bold tracking-tight'>
-                    <Link to="/">EasyRent</Link>
-                </span>
-            </div>
-            <div className='w-2/4 text-center'>
-                {/* Display user name if available */}
-                {userName ? `${userrole} profile , Hello, ${userName}` : 'Hello, Guest'}
-            </div>
-
-            <div className='w-1/4 space-x-2 text-right'>
-                {/* Conditionally render login button based on user authentication */}
-                {!user && (
+    const renderAuthLinks = () => {
+        if (!user) {
+            return (
+                <Fragment>
                     <span className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
                         <Link to={'/login'}>Log in</Link>
                     </span>
-                )}
+                    <span className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
+                        <Link to='/signup'>Sign Up</Link>
+                    </span>
+                </Fragment>
+            );
+        }
+    };
 
-                {/* Uncomment to enable sign-up link */}
-                {/* <span className='bg-white text-black hover:bg-black hover:text-white font-bold py-2 px-4 rounded'>
-                    <Link to='/signup'>Sign Up</Link>
-                </span> */}
-            </div>
-            {user && (
+    const renderUserMenu = () => {
+        if (user) {
+            return (
                 <Menu as="div" className="relative ml-3">
                     <div>
                         <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -64,16 +60,16 @@ const Header = () => {
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link
-                                    to={
-                                        userrole === 'renter' ? '/renterprofile' :
-                                        userrole === 'driver' ? '/driverprofile' :
-                                        userrole === 'owner' ? '/owner-profile' :
-                                        '/'
-                                    }
-                                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                >
-                                    Your Profile
-                                </Link>
+                                        to={
+                                            userrole === 'renter' ? '/renterprofile' :
+                                                userrole === 'driver' ? '/driverprofile' :
+                                                    userrole === 'owner' ? '/owner-profile' :
+                                                        '/'
+                                        }
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                    >
+                                        Your Profile
+                                    </Link>
                                 )}
                             </Menu.Item>
                             <Menu.Item>
@@ -99,7 +95,35 @@ const Header = () => {
                         </Menu.Items>
                     </Transition>
                 </Menu>
-            )}
+            );
+        }
+    };
+    const renderNavigationLinks = () => {
+        return (
+            <Fragment>
+                    <Link to={'/contact'} className='text-white font-bold mr-5'>Contact Us</Link>
+            </Fragment>
+        );
+    };
+    
+    if (isLandingPage) {
+        return null; // Don't render the header on the landing page
+    }
+
+    return (
+        <div className={`bg-yellow-400 py-4 px-4 ${isLandingPage ? '' : 'mb-10'} flex justify-between items-center`}>
+            <div className='w-1/3'>
+                <span className='text-3xl text-white font-bold tracking-tight'>
+                    <Link to="/homerenter">EasyRent</Link>
+                </span>
+            </div>
+
+            <div className='w-2/3 space-x-2 text-right'>
+                {renderNavigationLinks()}
+                {renderAuthLinks()}
+            </div>
+
+            {renderUserMenu()}
         </div>
     );
 };
