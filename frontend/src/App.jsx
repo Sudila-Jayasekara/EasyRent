@@ -50,16 +50,16 @@ import DriverDashboard from './pages/Driver Management/Driverdashboard';
 import DriverDisplay from './pages/Driver Management/DriverDisplay';
 import OwnerSidebar from './pages/Vehicle Owner Management/OwnerSidebar.jsx';
 import ViewRenter from './pages/Renter Management/ViewRenter';
-import Logout from './pages/Logout.jsx';
+
 import Profile from './pages/Renter Management/Manageprofile.jsx'
 
 import Home from './pages/Reviews and rating management/Home.jsx';
 import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx';
-import VehicleSidebar from './pages/Vehicle Management/vehicleSidebar.jsx';
+import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar.jsx';
 import VehicleManager from './pages/Vehicle Management/vehicleManager.jsx';
 import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
 import Forms from './pages/Vehicle Management/Forms.jsx';
-import Home from './pages/Reviews and rating management/Home.jsx'
+
 import Vprofile from './pages/Vehicle Management/Profile.jsx'
 
 
@@ -147,10 +147,9 @@ const App = () => {
       <Route path="/viewvehicle" element={<ViewVehicle/>}/>
       <Route path="/profile" element={<Layout><Vprofile/></Layout>}/>
       <Route path="/AddedVehicles" element={<Layout><AddedVehicles/></Layout>}/>
-      <Route path="/VehicleManager" element={<Layout><VehicleManager/></Layout>}/>
-      <Route path="/VehicleSidebar" element={<Layout><VehicleSidebar/></Layout>}/>
-      <Route path="/ApprovedF" element={<Layout><ApprovedF/></Layout>}/>
-      <Route path="/Forms" element={<Layout><Forms/></Layout>}/>
+      
+      
+      
 
 
       <Route path='/booking' element={<Layout><Booking/></Layout>}/>
