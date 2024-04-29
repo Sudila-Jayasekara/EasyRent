@@ -3,9 +3,8 @@ import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from 'cors'; // Importing cors middleware correctly
 import path from 'path';
-import bodyParser from 'body-parser';
 
-import {authRouter} from "./routes/auth.route.js";
+
 import { authRouter } from "./routes/auth.route.js";
 import { RenterRouter } from './routes/Renter Management/Renter.route.js';
 import cookieParser from "cookie-parser";

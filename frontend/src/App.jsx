@@ -51,7 +51,7 @@ import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
 
 import Displaydates from './pages/Driver Management/Displaydates';
 import Driverprofile from './pages/Driver Management/Driverprofile';
-import License from './pages/Driver Management/License';
+// import License from './pages/Driver Management/License';
 import DriverDashboard from './pages/Driver Management/Driverdashboard';
 import DriverDisplay from './pages/Driver Management/DriverDisplay';
 import OwnerSidebar from './pages/Vehicle Owner Management/OwnerSidebar.jsx';
@@ -93,8 +93,8 @@ const App = () => {
 
       
       <Route path='/booking/create' element={<Layout><CreateBooking/></Layout>}/>
-      <Route path='/booking/history' element={<ShowBookingR/>}/>
-      <Route path='/booking/check' element={<ShowBookingO/>}/>
+     
+      
 
 
       <Route path='/complains' element={<Home/>}/>//complains home
@@ -120,7 +120,7 @@ const App = () => {
 
       <Route path="/displaydate" element={<Layout><Displaydates/></Layout>} />
       <Route path="/driverprofile" element={<Layout><Driverprofile/></Layout>} />
-      <Route path="/license" element={<Layout><License/></Layout>} />
+      {/* <Route path="/license" element={<Layout><License/></Layout>} /> */}
       <Route path="/driverdashboard" element={<Layout><DriverDashboard/></Layout>} />
       <Route path="/driverdisplay" element={<Layout><DriverDisplay/></Layout>} />
 

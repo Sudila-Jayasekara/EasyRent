@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import thumbnail from '../Driver Management/thumbnail.jpeg';
+//import thumbnail from '../Driver Management/thumbnail.jpeg';
 
 const DriverDashboard = () => {
   return (
