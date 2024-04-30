@@ -49,6 +49,16 @@ const vehicleSchema = mongoose.Schema({
         type: Number,
         required: true
       },
+
+      vehicleId:{
+       type:String,
+       required:true
+      },
+
+      startDate:{
+        type:Date,
+        required:true
+      },
      
 
 

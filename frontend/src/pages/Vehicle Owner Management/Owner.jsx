@@ -8,7 +8,7 @@ const Owner = () =>{
       
       <div>
        <div>
-  <nav className="flex flex-col bg-black w-60 h-32 px-4 tex-gray-900 border border-purple-900">
+  <nav className="flex flex-col bg-black w-60 h-28 px-4 tex-gray-900 border border-purple-900">
     <div className="flex flex-wrap mt-8">
       <div className="w-1/2">
         <img src="https://watermark.lovepik.com/photo/20211202/large/lovepik-private-car-driver-picture_501434302.jpg " className="mx-auto w-20 h-20 rounded-full" alt="Profile" />
@@ -38,7 +38,7 @@ const Owner = () =>{
           </a>
         
           <a href="#">
-          <button className="ml-2 bg-black text-white rounded px-16 mt-10  hover:bg-yellow-300 ">Rating</button>
+          <button className="ml-2 bg-black text-white rounded px-12 mt-10  hover:bg-yellow-300 ">Contact us</button>
           </a>
         {/* Repeat the structure for other list items */}
       </ul>
@@ -46,7 +46,7 @@ const Owner = () =>{
   </nav>
 </div>
 
-      <div className="grid grid-cols-1 gap-4 mt-8 md:grid-cols-2 lg:grid-cols-3 ml-72 mb-96">
+      <div className="grid grid-cols-1 gap-4 mt-3 md:grid-cols-2 lg:grid-cols-3 ml-72 mb-40">
   
 
 
@@ -75,8 +75,8 @@ const Owner = () =>{
 
     
       </div>
-      <div className='bg-slate-500 '>
-        <img className='w-full h-40 ' src="https://www.pngitem.com/pimgs/m/200-2008635_car-footer-png-transparent-png.png" alt="car image"/>
+      <div className='bg-slate-500'>
+        <img className='w-full h-40 mb-40' src="https://www.pngitem.com/pimgs/m/200-2008635_car-footer-png-transparent-png.png" alt="car image"/>
       </div>
 
       </div>

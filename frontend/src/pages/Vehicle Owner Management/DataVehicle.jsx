@@ -26,6 +26,12 @@ const DataVehicle = () => {
           });
       };
       return (
+        <div>
+        <form className="mb-4 w-full md:mb-0 md:w-1/4">
+        <label className="hidden" htmlFor="search-form">Search</label>
+        <input className="bg-grey-lightest border-2 focus:border-orange p-2 rounded-lg shadow-inner w-full" placeholder="Search" type="text" />
+        <button className="hidden">Submit</button>
+        </form>
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {details.map((detail, index) => (
             <div key={index} className="bg-white p-4 rounded shadow-md">
@@ -35,6 +41,8 @@ const DataVehicle = () => {
               <p className="text-gray-600">{detail.engineCapacity}</p>
               <p className="text-gray-600">{detail.mileage}</p>
               <p className="text-gray-600">{detail.totalSeats}</p>
+              <p className="text-gray-600">{detail.vehicleId}</p>
+              <p className="text-gray-600">{detail.startDate}</p>
 
               <div className="flex justify-between mt-4">
               <Link to={{ pathname: '/viewvehicle/:id', state: { detail: detail } }}>
@@ -51,7 +59,9 @@ const DataVehicle = () => {
                 </button>
               </div>
             </div>
+          
           ))}
+        </div>
         </div>
       );
     };

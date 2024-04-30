@@ -141,6 +141,19 @@ const VehicleAdd = () => {
     />
     {formErrors.model && <p className="text-red-500 text-xs mt-1">{formErrors.model}</p>}
   </div>
+
+  <div className="mt-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2">Vehicle Id</label>
+    <input
+      value={formData.vehicleId}
+      onChange={handleChange}
+      name="vehicleid"
+      className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+      type="text"
+    />
+    {formErrors.vehicleId && <p className="text-red-500 text-xs mt-1">{formErrors.vehicleId}</p>}
+  </div>
+
   <div className="mt-4">
     <label className="block text-gray-700 text-sm font-bold mb-2">Model Year</label>
     <input
@@ -213,7 +226,21 @@ const VehicleAdd = () => {
     />
     {formErrors.price && <p className="text-red-500 text-xs mt-1">{formErrors.price}</p>}
   </div>
-  
+  <div className="mt-4">
+    <div className="flex justify-between">
+      <label className="block text-gray-700 text-sm font-bold mb-2">Start Date</label>
+    </div>
+    <input
+      value={formData.startDate}
+      onChange={handleChange}
+      name="startDate"
+      className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+      type="date"
+      required
+    />
+    {formErrors.startDate && <p className="text-red-500 text-xs mt-1">{formErrors.startDate}</p>}
+  </div>
+
   {/* Add Image Input field and button */}
   
   <div className="mt-8">
