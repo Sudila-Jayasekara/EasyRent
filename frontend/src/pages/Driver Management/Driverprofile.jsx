@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import image from './image.jpeg';
+import image from './image.jpeg';
 
 const Driverprofile = () => {
   const navigate = useNavigate();
