@@ -54,7 +54,6 @@ import Driverprofile from './pages/Driver Management/Driverprofile';
 import License from './pages/Driver Management/License';
 import DriverDashboard from './pages/Driver Management/Driverdashboard';
 import DriverDisplay from './pages/Driver Management/DriverDisplay';
-import OwnerSidebar from './pages/Vehicle Owner Management/OwnerSidebar.jsx';
 import ViewRenter from './pages/Renter Management/ViewRenter';
 import Home from './pages/Reviews and rating management/Home.jsx';
 import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx';
@@ -96,7 +95,6 @@ const App = () => {
       </Route>
       <Route path='/vehicleadd' element={<VehicleAdd/>}/>
       <Route path='/driveradd' element={<DriverAdd/>}/>
-      <Route path='/ownersidebar' element={<Layout><OwnerSidebar/></Layout>}/>
       <Route path='/dataVehicle' element={<Layout><DataVehicle/></Layout>}/>
       
       <Route path='/ownerProfile'>
@@ -130,7 +128,7 @@ const App = () => {
       <Route path="/owner" element={<Layout><Owner/></Layout>} />
       <Route path="/vehicleadd" element={<VehicleAdd/>}/>
       <Route path="/driveradd" element={<DriverAdd/>}/>
-      <Route path="/ownersidebar" element={<Layout><OwnerSidebar/></Layout>}/>
+
       <Route path="/dataVehicle" element={<Layout><DataVehicle/></Layout>}/>
 
       <Route path="/ownerProfile" element={<Layout><OwnerProfile/></Layout>} />

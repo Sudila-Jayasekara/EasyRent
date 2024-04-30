@@ -19,11 +19,10 @@ const SideBar = () => {
             dashboardLink = '/ownerdashboard';
             additionalLinks = (
                 <>
-                    <li><Link to="/viewvehicle" className="block py-2 px-4 hover:bg-yellow-400">view vehicle</Link></li>
-                    <li><Link to="/AddedVehicles" className="block py-2 px-4 hover:bg-yellow-400">Added Vehicles</Link></li>
-                    <li><Link to="/VehicleManager" className="block py-2 px-4 hover:bg-yellow-400">VehicleManager</Link></li>
-                    <li><Link to="/ApprovedF" className="block py-2 px-4 hover:bg-yellow-400">Approved Forms</Link></li>
-                    <li><Link to="/Forms" className="block py-2 px-4 hover:bg-yellow-400">Forms</Link></li>
+                    <li><Link to="/owner" className="block py-2 px-4 hover:bg-yellow-400">Dashboard</Link></li>
+                    <li><Link to="/booking/history" className="block py-2 px-4 hover:bg-yellow-400">Bookings</Link></li>
+                    <li><Link to="/dataVehicle" className="block py-2 px-4 hover:bg-yellow-400">View Vehicle</Link></li>
+               
                 </>
             );
             break;

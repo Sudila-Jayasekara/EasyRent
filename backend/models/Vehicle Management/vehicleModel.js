@@ -48,9 +48,7 @@ const vehicleSchema = mongoose.Schema({
      totalSeats: {
         type: Number,
         required: true
-      },
-     
-
+      }     
 
 },{timestamps:true});
 export const Vehicle = mongoose.model('Vehicle',vehicleSchema);
