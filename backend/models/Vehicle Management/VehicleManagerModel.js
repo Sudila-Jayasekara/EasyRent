@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const renterSchema=new mongoose.Schema({
+const vehiclemanagerSchema=new mongoose.Schema({
     username:{
         type:String,
         required:true,
@@ -31,10 +31,7 @@ const renterSchema=new mongoose.Schema({
         type:String,
         default:"",
     },
-    wishList: {
-        type: Array,
-        default: [],
-      },
+   
     nic:{
         type:String,
         required:true,
@@ -44,6 +41,6 @@ const renterSchema=new mongoose.Schema({
 
 },{timestamps:true});
 
-const RenterModel=mongoose.model("Renter",renterSchema)
+const VehiclemanagerModel=mongoose.model("Vehiclemanager",vehiclemanagerSchema)
 
-export  {RenterModel as Renter};
+export  {VehiclemanagerModel as Vehiclemanager};
