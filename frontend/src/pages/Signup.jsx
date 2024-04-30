@@ -118,6 +118,7 @@ const Signup = () => {
               <option value="owner">Owner</option>
               <option value="driver">Driver</option>
               <option value="employee">Employee</option>
+              <option value="vehiclemanager">Vehicle Manager</option>
             </select>
           </label>
 

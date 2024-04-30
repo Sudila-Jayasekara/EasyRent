@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { Renter } from '../models/Renter Management/Renter.model.js';
 import { Driver } from '../models/Driver Management/Driver.model.js';
 import { Owner } from '../models/Vehicle Owner Management/Owner.model.js';
+import { Vehiclemanager } from '../models/Vehicle Management/VehicleManagerModel.js';
 import jwt from 'jsonwebtoken'; 
 import { KEY } from '../config.js';
 
@@ -33,6 +34,29 @@ router.post('/signup', async (req, res) => {
         console.error(error);
        
     }};
+    if(role==='vehiclemanager'){
+        const { nic,username, email, password, phoneNumber, address } = req.body;
+        try {
+            const vehiclemanager = await Vehiclemanager.findOne({ email });
+            if (vehiclemanager) {
+                return res.json({ message: "Vehiclemanager already registered" });
+            }
+            const hashpassword=await bcrypt.hash(password,10)
+            const newVehiclemanager = new Vehiclemanager({
+                username,
+                email,
+                password:hashpassword, 
+                phoneNumber,
+                address,
+                userType:"vehiclemanager",
+                nic,
+            });
+            await newVehiclemanager.save();
+            return res.json({ status: true, message: "User Registered" });
+        } catch (error) {
+            console.error(error);
+        }
+    }
     if(role==='driver'){
         const { nic,username, email, password, phoneNumber, address } = req.body;
         try {
@@ -95,7 +119,10 @@ router.post('/login', async (req, res, next) => {
         if (!user) {
             // Check if the user is a driver
             user = await Driver.findOne({ email });
-            if (!user) {
+            if(!user){
+                user = await Vehiclemanager.findOne({ email });
+
+                 if (!user) {
                 // Check if the user is an owner
                 user = await Owner.findOne({ email });
                 if (!user) {
@@ -103,6 +130,7 @@ router.post('/login', async (req, res, next) => {
                 }
             }
         }
+    }
 
         const validPassword = bcrypt.compareSync(password, user.password);
 

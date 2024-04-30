@@ -9,35 +9,17 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const loginUser = async (e) => {
     e.preventDefault();
     try {
-      const response = await Axios.post('api/auth/login', {
-        email,
-        password,
-      });
-      const loggedIn = response.data;
-      if (loggedIn.status) {
-        // Dispatching setLogin action with user data
-        localStorage.setItem('user', JSON.stringify(loggedIn.user));
-        localStorage.setItem('token', loggedIn.token);
-        dispatch(
-          setLogin({
-            user: loggedIn.user, // Changed from loggedIn.renter to loggedIn.user
-            token: loggedIn.token,
-          })
-        );
-        navigate('/'); // Redirect to home page after successful login
-      }
-    } catch (err) {
-      console.log("Login Failed", err.message);
+      const response = await Axios.post('api/auth/login', { email, password });
       const { status, user, token } = response.data;
       if (status) {
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('token', token);
-        dispatch(setLogin({ user, token })); // Dispatching user data without specifying renter
-        // Check user type and navigate accordingly
+        dispatch(setLogin({ user, token }));
         switch (user.userType) {
           case 'renter':
             navigate('/homerenter');
@@ -51,13 +33,21 @@ const Login = () => {
           case 'hr':
             navigate('/homerenter');
             break;
+          case 'vehiclemanager':
+            navigate('/VehicleManager');
+            break;
           default:
-            // Handle other user types or unexpected cases
+            // Handle unexpected userType
+            setError('Invalid user type');
             break;
         }
+      } else {
+        setError('Invalid email or password');
       }
-      }
-   
+    } catch (err) {
+      setError('Login failed. Please try again later.');
+      console.error('Login Failed', err.message);
+    }
   };
 
   return (
@@ -74,13 +64,13 @@ const Login = () => {
                     <p className="text-center">Text should be in here</p>
                     <div className="justify-center flex flex-col py-6 sm-py-12">
                       <label className='text-black font-extrabold' htmlFor='Username'>Email</label>
-                      <input name="email" style={{ marginBottom: "10px" }} placeholder="Email" type="email" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" onChange={(e) => setEmail(e.target.value)} />
+                      <input name="email" style={{ marginBottom: "10px" }} placeholder="Email" type="email" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" value={email} onChange={(e) => setEmail(e.target.value)} />
                       <label className='text-black font-extrabold' htmlFor='Username'>Password</label>
-                      <input name="password" placeholder="Password" type="password" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" onChange={(e) => setPassword(e.target.value)} />
+                      <input name="password" placeholder="Password" type="password" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" value={password} onChange={(e) => setPassword(e.target.value)} />
                       <div style={{ marginTop: "10px" }}>
                         <label>
                           <span className="select-none">
-                            <Link to={'/forgotpassword'}>Remember me</Link>
+                            <Link to={'/forgotpassword'}>Forgot password?</Link>
                           </span>
                         </label>
                       </div>
@@ -98,6 +88,7 @@ const Login = () => {
           </div>
         </div>
       </form>
+      {error && <div className="text-red-500 text-center mt-4">{error}</div>}
     </div>
   );
 };
