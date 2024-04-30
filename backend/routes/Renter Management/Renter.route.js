@@ -64,6 +64,7 @@ router.patch('/:id', async (req, res) => {
         Object.assign(renter, req.body);
         const updatedrenter = await renter.save();
         res.json(updatedrenter);
+         alert: 'Renter updated successfully';
 
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -79,37 +80,49 @@ router.delete('/:id', async (req, res) => {
         return res.status(404).json({ message: 'Renter not found' });
       }
       await Renter.findByIdAndDelete(req.params.id);
-      res.json({ message: 'Rentetr deleted successfully' });
+      res.json({ alert: 'Rentetr deleted successfully' });
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
   });
 
   
-  // Add a vehicle to the favorite list
-  router.patch('/:renterId/favorite/:vehicleId', async (req, res) => {
-    const { renterId, vehicleId } = req.params;
+  
+  router.patch('/:renterId/:vehicleId', async (req, res) => {
     try {
+        const { renterId, vehicleId } = req.params;
+        console.log('Received renterId:', renterId);
+        console.log('Received vehicleId:', vehicleId);
+
         const renter = await Renter.findById(renterId);
+        console.log('Found renter:', renter);
+
         const vehicle = await Vehicle.findById(vehicleId);
+        console.log('Found vehicle:', vehicle);
+
         if (!renter || !vehicle) {
-            return res.status(404).json({ message: 'Renter or vehicle not found' });
+            return res.status(404).json({ message: 'Renter or Vehicle not found' });
         }
-        // Check if the vehicle is already in the favorite list
-        const index = renter.favorites.indexOf(vehicleId);
-        if (index === -1) {
-            // If not, add it
-            renter.favorites.push(vehicleId);
+        
+        const isVehicleInWishlist = renter.wishList.includes(vehicleId);
+
+        if (isVehicleInWishlist) {
+            renter.wishList = renter.wishList.filter(id => id !== vehicleId);
+            await renter.save();
+            console.log('Vehicle removed from wishlist. Updated renter:', renter);
+            return res.status(200).json({ message: 'Vehicle removed from wishlist', updatedWishlist: renter.wishList });
         } else {
-            // If yes, remove it
-            renter.favorites.splice(index, 1);
+            renter.wishList.push(vehicleId);
+            await renter.save();
+            console.log('Vehicle added to wishlist. Updated renter:', renter);
+            return res.status(200).json({ message: 'Vehicle added to wishlist', updatedWishlist: renter.wishList });
         }
-        await renter.save();
-        res.json({ message: 'Favorite list updated successfully' });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 
 

@@ -15,7 +15,7 @@ const License = () => {
       <div className="text-center text-4xl"> 
       License Verification
     </div>    
-    <div className="grid grid-cols-2 gap-8 justify-center items-center h-auto">
+    <div className="grid grid-cols-2 gap-8  ml-40 justify-center items-center h-auto">
       {/* Left Column */}
       <div className="col-span-1 ">
         <div>
@@ -37,7 +37,7 @@ const License = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Items className="absolute right-0 ml-8 z-10 mt-2 w-56 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
