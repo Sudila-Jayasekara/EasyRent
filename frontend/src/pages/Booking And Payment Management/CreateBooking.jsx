@@ -64,14 +64,26 @@ const BookingForm = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-
+      
+        // Get today's date
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0 for accurate comparison
+      
         // Validate if end date is less than start date
         if (name === "endDate" && new Date(value) <= new Date(formData.startDate)) {
-            alert("End date cannot be less than start date");
-            return; // Exit early if validation fails
+          alert("End date cannot be less than or equal to start date");
+          return; // Exit early if validation fails
         }
+      
+        // Validate if start date is less than today's date
+        if (name === "startDate" && new Date(value) < today) {
+          alert("Start date cannot be less than today's date");
+          return; // Exit early if validation fails
+        }
+      
         setFormData({ ...formData, [name]: value });
-    };
+      };
+      
 
     const handleSubmit = async (e) => {
         e.preventDefault();
