@@ -16,11 +16,11 @@ const SideBar = () => {
 
     switch (userType) {
         case 'owner':
-            dashboardLink = '/ownerdashboard';
+            dashboardLink = '/ownerprofile';
             additionalLinks = (
                 <>
                     <li><Link to="/owner" className="block py-2 px-4 hover:bg-yellow-400">Dashboard</Link></li>
-                    <li><Link to="/booking/history" className="block py-2 px-4 hover:bg-yellow-400">Bookings</Link></li>
+                    <li><Link to="/booking/check" className="block py-2 px-4 hover:bg-yellow-400">Bookings</Link></li>
                     <li><Link to="/dataVehicle" className="block py-2 px-4 hover:bg-yellow-400">View Vehicle</Link></li>
                
                 </>
