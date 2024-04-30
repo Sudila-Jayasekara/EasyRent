@@ -23,7 +23,7 @@ const ComplainsForm = () => {
         // Validate the field
         const regex = /^[a-zA-Z0-9\s]*$/;  // Regular expression to allow only letters and spaces
         if (!regex.test(value)) {
-            setErrors({ ...errors, [name]: "Special characters and numbers are not allowed" });
+            setErrors({ ...errors, [name]: "Special characters are not allowed" });
         } else {
             setErrors({ ...errors, [name]: "" });
             setFormData({ ...formData, [name]: value });
@@ -79,7 +79,27 @@ const ComplainsForm = () => {
                                     ★
                                 </button>
                             ))}
-                            <div className="ml-10 mt-2">{formData.rating === 0 ? 'Please rate' : `You rated: ${formData.rating} stars`}</div>
+                           <div className="ml-10 mt-2">
+    {formData.rating === ''? 'Please rate' :
+        (() => {
+            switch (formData.rating) {
+                case 1:
+                    return 'Bad';
+                case 2:
+                    return 'Average';
+                case 3:
+                    return 'Good';
+                case 4:
+                    return 'Best';
+                case 5:
+                    return 'Excellent';
+                default:
+                    return '';
+            }
+        })()
+    }
+</div>
+
                         </div>
 
                         {/* Vehicle ID input */}
