@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ComplainsForm = () => {
+    const { vehicleId } = useParams();
     const [formData, setFormData] = useState({
         vehicle_id: "",
         Driver_description: "",
@@ -13,6 +14,21 @@ const ComplainsForm = () => {
     });
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
+    const [vehicle_id, setVehicleId] = useState(vehicleId);
+
+    useEffect(() => {
+        // Extract user details from localStorage
+        const user = JSON.parse(localStorage.getItem('user'));
+        setRenterId(user._id);
+        // Fetch vehicle data
+        axios.get(`http://localhost:5556/api/vehicle/${vehicle_id}`)
+            .then(response => {
+                setVehicle(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching vehicle:', error);
+            });
+    }, [vehicle_id]);
 
     const handleButtonClick = () => {
         navigate('/complains');
@@ -79,27 +95,26 @@ const ComplainsForm = () => {
                                     ★
                                 </button>
                             ))}
-                           <div className="ml-10 mt-2">
-    {formData.rating === ''? 'Please rate' :
-        (() => {
-            switch (formData.rating) {
-                case 1:
-                    return 'Bad';
-                case 2:
-                    return 'Average';
-                case 3:
-                    return 'Good';
-                case 4:
-                    return 'Best';
-                case 5:
-                    return 'Excellent';
-                default:
-                    return '';
-            }
-        })()
-    }
-</div>
-
+                            <div className="ml-10 mt-2">
+                                {formData.rating === '' ? 'Please rate' :
+                                    (() => {
+                                        switch (formData.rating) {
+                                            case 1:
+                                                return 'Bad';
+                                            case 2:
+                                                return 'Average';
+                                            case 3:
+                                                return 'Good';
+                                            case 4:
+                                                return 'Best';
+                                            case 5:
+                                                return 'Excellent';
+                                            default:
+                                                return '';
+                                        }
+                                    })()
+                                }
+                            </div>
                         </div>
 
                         {/* Vehicle ID input */}
