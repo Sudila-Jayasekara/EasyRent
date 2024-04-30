@@ -14,15 +14,7 @@ const Login = () => {
   const loginUser = async (e) => {
     e.preventDefault();
     try {
-<<<<<<< HEAD
-      const response = await Axios.post('api/auth/login', {
-        email,
-        password,
-      });
-<<<<<<< HEAD
-=======
       const response = await Axios.post('api/auth/login', { email, password });
->>>>>>> 1a94406 (update vehicle  manager login)
       const { status, user, token } = response.data;
       if (status) {
         localStorage.setItem('user', JSON.stringify(user));
@@ -52,39 +44,10 @@ const Login = () => {
       } else {
         setError('Invalid email or password');
       }
-<<<<<<< HEAD
-<<<<<<< HEAD
-    } catch (error) {
-      console.error('Login failed:', error.message);
-      // Handle error (e.g., show error message to user)
-=======
-      const loggedIn = response.data;
-      if (loggedIn.status) {
-        // Dispatching setLogin action with user data
-        localStorage.setItem('user', JSON.stringify(loggedIn.user));
-        localStorage.setItem('token', loggedIn.token);
-        dispatch(
-          setLogin({
-            user: loggedIn.user, // Changed from loggedIn.renter to loggedIn.user
-            token: loggedIn.token,
-          })
-        );
-        navigate('/'); // Redirect to home page after successful login
-      }
-    } catch (err) {
-      console.log("Login Failed", err.message);
->>>>>>> 2968197 (Added 80% page)
-    }
-=======
-      }
-   
->>>>>>> f7c2d04 (Update Login.jsx)
-=======
     } catch (err) {
       setError('Login failed. Please try again later.');
       console.error('Login Failed', err.message);
     }
->>>>>>> 1a94406 (update vehicle  manager login)
   };
 
   return (
