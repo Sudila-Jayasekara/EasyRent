@@ -25,16 +25,6 @@ const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json({ limit: '10mb' }));
 
-//middleware
-app.use(express.json());
-app.use(cookieParser());
-// app.use(cors({
-//     origin: 'http://localhost:5173',
-//     methods:['GET','POST','PATCH','PUT','DELETE'],
-//     credentials: true
-//   }));
-app.use(cors());
-
 // Set up CORS middleware
 app.use(cors({
     origin: 'http://localhost:5173', // Replace with your React app's origin

@@ -59,8 +59,8 @@ import OwnerSidebar from './pages/Vehicle Owner Management/OwnerSidebar.jsx';
 import ViewRenter from './pages/Renter Management/ViewRenter';
 import Home from './pages/Reviews and rating management/Home.jsx';
 import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx';
-import VehicleSidebar from './pages/Vehicle Management/vehicleSidebar.jsx';
-import VehicleManager from './pages/Vehicle Management/vehicleManager.jsx';
+// import VehicleSidebar from './pages/Vehicle Management/vehicleSidebar.jsx';
+// import VehicleManager from './pages/Vehicle Management/vehicleManager.jsx';
 import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
 import Forms from './pages/Vehicle Management/Forms.jsx';
 import Vprofile from './pages/Vehicle Management/Profile.jsx';
@@ -69,7 +69,7 @@ import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
-import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
+// import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 
 
 
@@ -80,7 +80,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="*" element={<Layout><ErrorPage /></Layout>} />
-      <Route path="/favlist" element={<Layout><FavouriteList/></Layout>} />
+      {/* <Route path="/favlist" element={<Layout><FavouriteList/></Layout>} /> */}
       <Route path="/" element={<Layout><Landing/></Layout> } />
       <Route path="/landing" element={<Layout><Landing/></Layout>} />
       <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
@@ -116,8 +116,8 @@ const App = () => {
       <Route path="/viewvehicle" element={<ViewVehicle/>}/>
       <Route path="/profile" element={<Layout><Vprofile/></Layout>}/>
       <Route path="/AddedVehicles" element={<Layout><AddedVehicles/></Layout>}/>
-      <Route path="/VehicleManager" element={<Layout><VehicleManager/></Layout>}/>
-      <Route path="/VehicleSidebar" element={<Layout><VehicleSidebar/></Layout>}/>
+      {/* <Route path="/VehicleManager" element={<Layout><VehicleManager/></Layout>}/> */}
+      {/* <Route path="/VehicleSidebar" element={<Layout><VehicleSidebar/></Layout>}/> */}
       <Route path="/ApprovedF" element={<Layout><ApprovedF/></Layout>}/>
       <Route path="/Forms" element={<Layout><Forms/></Layout>}/>
 
