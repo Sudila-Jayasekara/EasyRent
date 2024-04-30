@@ -34,10 +34,17 @@ const ViewRenter = () => {
           <p className="text-gray-600">{detail.email}</p>
           <p className="text-gray-600">{detail.address}</p>
           <p className="text-gray-600">{detail.phoneNumber}</p>
+          <p className='text-gray-600'>{detail.nic}</p>
           <div className="flex justify-between mt-4">
-            <Link to={'/profile'}>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
-                Update
+          <Link to={`/renterdetail/${detail.nic}`} state={{ renterDetail: detail }}>
+           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+             View Details
+           </button>
+          </Link>
+
+            <Link to={`/risknote/${detail.nic}`} state={{renterDetail:detail}}>
+              <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded">
+                Risk Note
               </button>
             </Link>
             <button
