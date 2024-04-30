@@ -59,7 +59,7 @@ import ViewRenter from './pages/Renter Management/ViewRenter';
 import Home from './pages/Reviews and rating management/Home.jsx';
 import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx';
 import VehicleSidebar from './pages/Vehicle Management/vehicleSidebar.jsx';
-import VehicleManager from './pages/Vehicle Management/vehicleManager.jsx';
+import VehicleManager from './pages/Vehicle Management/VehicleManager.jsx';
 import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
 import Forms from './pages/Vehicle Management/Forms.jsx';
 import Vprofile from './pages/Vehicle Management/Profile.jsx';
