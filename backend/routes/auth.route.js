@@ -1,86 +1,105 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
+import multer from 'multer';
 import { Renter } from '../models/Renter Management/Renter.model.js';
 import { Driver } from '../models/Driver Management/Driver.model.js';
 import { Owner } from '../models/Vehicle Owner Management/Owner.model.js';
-import jwt from 'jsonwebtoken'; 
+import jwt from 'jsonwebtoken';
 import { KEY } from '../config.js';
 
 const router = express.Router();
 
-router.post('/signup', async (req, res) => {
-    const { role} = req.body;
-    if(role==='renter'){
-    const { username, email, password, phoneNumber, address } = req.body;
-    try {
-        const renter = await Renter.findOne({ email });
-        if (renter) {
-            return res.json({ message: "Renter already registered" });
+// Set storage engine for multer
+const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'public/uploads'); // Specify the upload directory
+        },
+        filename: function (req, file, cb) {
+            cb(null, Date.now() + '-' + file.originalname); // Add a timestamp to the filename to ensure uniqueness
         }
-        const hashpassword=await bcrypt.hash(password,10)
-        const newRenter = new Renter({
-            username,
-            email,
-            password:hashpassword, 
-            phoneNumber,
-            address,
-            userType:"renter",
-        });
-        await newRenter.save();
-        return res.json({ status: true, message: "User Registered" });
-    } catch (error) {
-        console.error(error);
-       
-    }};
-    if(role==='driver'){
-        const { nic,username, email, password, phoneNumber, address } = req.body;
+    });
+    
+    // Init multer
+    const upload = multer({ storage: storage });
+    
+    router.post('/signup', upload.single('profilePicture'), async (req, res) => {
+        const { role, username, email, password, phoneNumber, address, nic } = req.body;
+    
         try {
-            const driver = await Driver.findOne({email});
-            if(driver){
-                return res.json({message:"Driver already registered"});
+            const renter = await Renter.findOne({ email });
+            if (role==='renter') {
+                return res.json({ message: "Renter already registered" });
             }
-            const hashpassword=await bcrypt.hash(password,10)
-            const newDriver=new Driver({
+    
+            const hashpassword = await bcrypt.hash(password, 10);
+            const profilePicturePath = req.file ? req.file.filename : null;
+    
+            const newRenter = new Renter({
                 username,
                 email,
-                nic,
-                password:hashpassword,
+                password: hashpassword,
                 phoneNumber,
                 address,
-                userType:"driver",
-            });
-            await newDriver.save();
-            return res.json({status:true,message:"User Registered"});
-
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    if(role==='owner'){
-        const { nic,username, email, password, phoneNumber, address } = req.body;
-        try {
-            const owner = await Owner.findOne({email});
-            if(owner){
-                return res.json({message:"Owner already registered"});
-            }
-            const hashpassword=await bcrypt.hash(password,10)
-            const newOwner=new Owner({
-                username,
-                email,
                 nic,
-                password:hashpassword,
-                phoneNumber,
-                address,
-                userType:"owner",
+                userType: role,
+                profilePicturePath
             });
-            await newOwner.save();
-            return res.json({status:true,message:"User Registered"});
-
+    
+            await newRenter.save();
+            return res.json({ status: true, message: "User Registered" });
         } catch (error) {
             console.error(error);
+            return res.status(500).json({ message: "Internal Server Error" });
         }
-    };
+        if(role==='driver'){
+                const { nic,username, email, password, phoneNumber, address } = req.body;
+                try {
+                        const driver = await Driver.findOne({email});
+                        if(driver){
+                                return res.json({message:"Driver already registered"});
+                        }
+                        const hashpassword=await bcrypt.hash(password,10)
+                        const newDriver=new Driver({
+                                username,
+                                email,
+                                nic,
+                                password:hashpassword,
+                                phoneNumber,
+                                address,
+                                userType:"driver",
+                        });
+                        await newDriver.save();
+                        return res.json({status:true,message:"User Registered"});
+
+                } catch (error) {
+                        console.error(error);
+                }
+        };
+
+        if(role==='owner'){
+                const { nic,username, email, password, phoneNumber, address } = req.body;
+                try {
+                        const owner = await Owner.findOne({email});
+                        if(owner){
+                                return res.json({message:"Owner already registered"});
+                        }
+                        const hashpassword=await bcrypt.hash(password,10)
+                        const newOwner=new Owner({
+                                username,
+                                email,
+                                nic,
+                                password:hashpassword,
+                                phoneNumber,
+                                address,
+                                userType:"owner",
+                        });
+                        await newOwner.save();
+                        return res.json({status:true,message:"User Registered"});
+
+                } catch (error) {
+                        console.error(error);
+                }
+        }
 });
 
 router.post('/login', async (req, res, next) => {
@@ -88,6 +107,11 @@ router.post('/login', async (req, res, next) => {
 
     try {
         let user;
+
+        // Check if the user is the admin
+        if (email === "admin@gmail.com" && password === "admin1234") {
+            return res.json({ status: true, user: { email: "admin@gmail.com", user: "admin" }, token: "admin_token" });
+        }
 
         // Check if the user is a renter
         user = await Renter.findOne({ email });
@@ -119,6 +143,8 @@ router.post('/login', async (req, res, next) => {
         return res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
+
 
 // router.post('/forgotpassword',async(req,res)=>{
 //     const{email}=req.body

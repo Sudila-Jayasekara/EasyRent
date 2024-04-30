@@ -31,8 +31,14 @@ const renterSchema=new mongoose.Schema({
         type:String,
         default:""
     },
+    wishList: {
+        type: Array,
+        default: [],
+      },
+    nic:{
+        type:String,
+    }
     
-
 
 },{timestamps:true});
 

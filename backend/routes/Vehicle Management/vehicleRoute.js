@@ -64,6 +64,20 @@ router.post('/', async (req, res) => {
     }
   });
 
+  //fetch vehicle details by owner id
+  router.get('/owner/:ownerId', async (req, res) => {
+    const { ownerId } = req.params;
+    try {
+      const vehicles = await Vehicle.find({ owner_id: ownerId });
+      if (!vehicles || vehicles.length === 0) {
+        return res.status(404).json({ error: 'Vehicles not found for the specified owner_id' });
+      }
+      res.status(200).json(vehicles);
+    } catch (error) {
+      console.error('Error fetching Vehicle details:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
   
   // Update a Vehicle by id
   router.patch('/:id', async (req, res) => {
