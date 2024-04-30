@@ -7,15 +7,7 @@ const RenterHome = () => {
     const renterId = user ? user._id : null;
     const [details, setDetails] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-
-    const handleLike = async (renterId, vehicleId) => {
-        try {
-            const response = await axios.patch(`http://localhost:5556/api/renters/${renterId}/favorite/${vehicleId}`);
-            console.log('Response:', response.data);
-        } catch (error) {
-            console.error('Error liking item:', error);
-        }
-    };
+    const [likedItems, setLikedItems] = useState([]);
 
     useEffect(() => {
         axios.get('http://localhost:5556/api/vehicle/')
@@ -24,39 +16,26 @@ const RenterHome = () => {
                 setDetails(response.data);
             })
             .catch(error => {
-                console.error('Error fetching Renters:', error);
+                console.error('Error fetching Vehicles:', error);
             });
     }, []);
 
-    useEffect(() => {
-        const buttonsLike = document.querySelectorAll(".button_like");
-        buttonsLike.forEach(item => {
-            item.addEventListener('click', () => {
-                const buttonIcon = item.querySelector('i');
-                if (buttonIcon.classList.contains("far")) {
-                    buttonIcon.classList.remove("far");
-                    buttonIcon.classList.add("fas", "like_icon");
-                } else {
-                    buttonIcon.classList.add("far");
-                    buttonIcon.classList.remove("fas", "like_icon");
-                }
-                const vehicleId = item.dataset.vehicleId;
-                handleLike(renterId, vehicleId);
-            });
-        });
-
-        return () => {
-            buttonsLike.forEach(item => {
-                item.removeEventListener('click', () => {
-                    const vehicleId = item.dataset.vehicleId;
-                    handleLike(renterId, vehicleId);
-                });
-            });
-        };
-    }, [renterId]);
-
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
+    };
+
+    const handleLike = async (vehicleId) => {
+        try {
+            const response = await axios.patch(`http://localhost:5556/api/renter/${renterId}/${vehicleId}`);
+            console.log(response.data.message);
+            if (likedItems.includes(vehicleId)) {
+                setLikedItems(likedItems.filter(item => item !== vehicleId));
+            } else {
+                setLikedItems([...likedItems, vehicleId]);
+            }
+        } catch (error) {
+            console.error('Error toggling vehicle like:', error);
+        }
     };
 
     const filteredDetails = details.filter(detail => {
@@ -87,27 +66,7 @@ const RenterHome = () => {
                     />
                     <button className="hidden">Submit</button>
                 </form>
-                <nav>
-                    <ul className="list-reset  md:flex md:items-center">
-                        <li className="md:ml-4">
-                            <a className="block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0" href="#">
-                                Products
-                            </a>
-                        </li>
-                        <li className="md:ml-4">
-                            <a className="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0" href="#">
-                                About
-                            </a>
-                        </li>
-                        <li className="md:ml-4">
-                            <a className="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0" href="#">
-                                Contact
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </header>
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
             <main className="main">
                 <div className="container bg-white">
                     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -125,13 +84,13 @@ const RenterHome = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <button className="button_like" onClick={() => handleLike(renterId, detail._id)} data-vehicle-id={detail._id}>
-                                            Add to wish list <i className="far fa-heart text-red-500"></i>
+                                        <button className="button_like" onClick={() => handleLike(detail._id)} data-vehicle-id={detail._id}>
+                                             <i className={`far fa-heart ${likedItems.includes(detail._id) ? 'text-red-500' : ''}`}></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div className="flex items-center py-8">
-                                    <Link to={`/selectbooking/${detail._id}`} className="car_img_content_link">
+                                    <Link to={`/booking/create/${detail._id}`} className="car_img_content_link">
                                         <figure className="car_img_content">
                                             <img src="https://raw.githubusercontent.com/emmywebgiart/card_ui_vehicle_rent/master/img/ford_focus.png" alt="Ford Focus" className="w-4/5 md:w-full transition duration-300 ease-in-out transform hover:scale-110" />
                                         </figure>

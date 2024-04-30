@@ -9,7 +9,7 @@ const Logout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     // Redirect to the login page
-    navigate('/');
+    navigate('/login');
   }, [navigate]);
 
   return (

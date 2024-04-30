@@ -1,19 +1,23 @@
 import React from 'react';
 import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
+import '@fortawesome/fontawesome-free/css/all.css';
+
+import Layout from './components/Layout';
 
 import Owner from './pages/Vehicle Owner Management/Owner';
-import VehicleAdd from './VehicleAdd';
-import DriverAdd from './DriverAdd';
+import VehicleAdd from './pages/Vehicle Management/VehicleAdd.jsx';
+import DriverAdd from './pages/Driver Management/DriverAdd.jsx';
 import OwnerProfile from './pages/Vehicle Owner Management/OwnerProfile';
-import ViewVehicle from './ViewVehicle';
+import ViewVehicle from './pages/Vehicle Management/ViewVehicle.jsx';
 import DataVehicle from './pages/Vehicle Owner Management/DataVehicle';
 
 import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';
 import EditComplains from './pages/Reviews and rating management/EditComplains.jsx';
 import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx';
 
-import Booking from './pages/Booking And Payment Management/Booking.jsx';
+//Booking  imports
+import BookingAndPayment from './pages/Booking And Payment Management/BookingAndPayment.jsx';
 import CreateBooking from './pages/Booking And Payment Management/CreateBooking.jsx';
 import ShowBooking from './pages/Booking And Payment Management/BookingHistory.jsx';
 import CheckBooking from './pages/Booking And Payment Management/CheckBooking.jsx';
@@ -22,11 +26,12 @@ import ApprovedBookings from './pages/Booking And Payment Management/ApprovedBoo
 import RejectBookings from './pages/Booking And Payment Management/RejectedBookings.jsx';
 import PendingBookings from './pages/Booking And Payment Management/PendingBookings.jsx';
 
+//Payment imports
 import Payment from './pages/Booking And Payment Management/Payment.jsx';
 import GenerateBill from './pages/Booking And Payment Management/GenerateBill.jsx'; 
 import DisplayBill from './pages/Booking And Payment Management/DisplayBill.jsx';
 
-import Layout from './components/Layout';
+
 import Landing from './pages/Landing.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import Signup from './pages/Signup';
@@ -34,15 +39,18 @@ import Login from './pages/Login';
 import Logout from './pages/Logout.jsx';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
-import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
-import HrPayroll from './pages/HR Management/HrPayroll.jsx';
-import HrDetails from './pages/HR Management/HrDetails.jsx';
-import HrDashboard from './pages/HR Management/HrDashboard.jsx';
-import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
-import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
-import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
-import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
-import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
+import RiskNote from './pages/Renter Management/RiskNote.jsx';
+
+// import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
+// import HrPayroll from './pages/HR Management/HrPayroll.jsx';
+// import HrDetails from './pages/HR Management/HrDetails.jsx';
+// import HrDashboard from './pages/HR Management/HrDashboard.jsx';
+// import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
+// import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
+// import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
+// import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
+// import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
+
 import Displaydates from './pages/Driver Management/Displaydates';
 import Driverprofile from './pages/Driver Management/Driverprofile';
 import License from './pages/Driver Management/License';
@@ -62,6 +70,8 @@ import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
+import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
+import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
 
 
 
@@ -72,16 +82,19 @@ const App = () => {
   return (
     <Routes>
       <Route path="*" element={<Layout><ErrorPage /></Layout>} />
+      <Route path="/favlist" element={<Layout><FavouriteList/></Layout>} />
       <Route path="/" element={<Layout><Landing/></Layout> } />
+      <Route path="/landing" element={<Layout><Landing/></Layout>} />
       <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/resetPassword" element={<ResetPassword />} />
-      <Route path="/landing" element={<Layout><Landing/></Layout>} />
       <Route path="/renterprofile" element={<Layout><Manageprofile/></Layout>} />
       <Route path="/Rentersidebar" element={<Layout><RenterSidebar/></Layout>} />
       <Route path="/homerenter" element={<Layout><RenterHome/></Layout>} />
+      <Route path="/renterdetail/:nic" element={<Layout><ViewRenterDetails/></Layout>} />
+      <Route path="/risknote/:nic" element={<Layout><RiskNote/></Layout>} />
       <Route path="/selectbooking/:vehicleId" element={<Layout><SelectBooking/></Layout>} />
       <Route path="/signup" element={<Signup />} />
 
@@ -113,7 +126,7 @@ const App = () => {
       <Route path="/Forms" element={<Layout><Forms/></Layout>}/>
 
 
-      <Route path='/booking' element={<Layout><Booking/></Layout>}/>
+      <Route path='/bp' element={<Layout><BookingAndPayment/></Layout>}/>
       <Route path='/booking/create/:vehicleId' element={<Layout><CreateBooking/></Layout>}/>
       <Route path='/booking/update/:bookingId' element={<Layout><UpdateBooking/></Layout>}/>
       <Route path='/booking/history' element={<Layout><ShowBooking/></Layout>}/>

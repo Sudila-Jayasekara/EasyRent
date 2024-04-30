@@ -29,14 +29,18 @@ const renterSchema=new mongoose.Schema({
     },
     profilePicturePath:{
         type:String,
-        default:""
+        default:"",
     },
     wishList: {
         type: Array,
         default: [],
       },
+    nic:{
+        type:String,
+        required:true,
+        unique:true,
+    },
     
-
 
 },{timestamps:true});
 

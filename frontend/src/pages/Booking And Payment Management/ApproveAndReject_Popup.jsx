@@ -19,7 +19,7 @@ const PopupModal = ({ booking, onApprove, onReject, onClose }) => {
         <h2 className="text-lg font-semibold mb-4">Confirm Booking</h2>
         <p className="mb-4">Approve or reject the booking for {booking.vehicle_name} by {booking.renter_username}?</p>
         <div className="mb-4">
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Message:</label>
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Reason For Reject:</label>
           <textarea id="description" className="w-full border rounded-md p-2" value={description} onChange={handleDescriptionChange}></textarea>
         </div>
         <div className="flex justify-between">

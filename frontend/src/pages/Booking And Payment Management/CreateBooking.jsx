@@ -16,6 +16,7 @@ const BookingForm = () => {
         description: "",
     });
     const [renter_id, setRenterId] = useState("");
+    const [renter_nic, setRenterNIC] = useState("");
     const [vehicle_id, setVehicleId] = useState(vehicleId); 
     const [vehicle, setVehicle] = useState([]);
     const [estimatePrice, setEstimatePrice] = useState(null);
@@ -25,6 +26,13 @@ const BookingForm = () => {
         // Extract user details from localStorage
         const user = JSON.parse(localStorage.getItem('user'));
         setRenterId(user._id);
+        setRenterNIC(user.nic);
+
+        // Display user ID and NIC
+        console.log("User ID:", user._id);
+        console.log("User NIC:", user.nic);
+        console.log("User",user);
+
         // Fetch vehicle data
         axios.get(`http://localhost:5556/api/vehicle/${vehicle_id}`)
             .then(response => {
@@ -56,14 +64,26 @@ const BookingForm = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-
+      
+        // Get today's date
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0 for accurate comparison
+      
         // Validate if end date is less than start date
         if (name === "endDate" && new Date(value) <= new Date(formData.startDate)) {
-            alert("End date cannot be less than start date");
-            return; // Exit early if validation fails
+          alert("End date cannot be less than or equal to start date");
+          return; // Exit early if validation fails
         }
+      
+        // Validate if start date is less than today's date
+        if (name === "startDate" && new Date(value) < today) {
+          alert("Start date cannot be less than today's date");
+          return; // Exit early if validation fails
+        }
+      
         setFormData({ ...formData, [name]: value });
-    };
+      };
+      
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -73,6 +93,7 @@ const BookingForm = () => {
                 ...formData,
                 renter_id,
                 vehicle_id,
+                renter_nic,
             });
             const booking_id = bookingResponse.data._id;
             // Create a payment object with the booking ID and estimate price
@@ -214,9 +235,9 @@ const BookingForm = () => {
                     <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
-                            htmlFor="location"
+                            htmlFor="location" 
                         >
-                            Location
+                            Location (where do you want to travel)
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -271,7 +292,7 @@ const BookingForm = () => {
                                     <li className="text-red-500">Any Kind Of Bill</li>
                                 </ul>
                             </div>
-                            <div>
+                            {/* <div>
                                 <label htmlFor="billImage" className="block text-gray-700 text-sm font-bold mb-2">
                                     Bill Image
                                 </label>
@@ -284,7 +305,7 @@ const BookingForm = () => {
                                     //required
                                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
