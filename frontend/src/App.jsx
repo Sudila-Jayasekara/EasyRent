@@ -61,14 +61,14 @@ import Home from './pages/Reviews and rating management/Home.jsx';
 import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.jsx';
 
 
-import ApprovedF from './pages/Vehicle Management/ApprovedF.jsx';
-import Forms from './pages/Vehicle Management/Forms.jsx';
+
 import Vprofile from './pages/Vehicle Management/Profile.jsx';
-import AddedVehicles from './pages/Vehicle Management/AddedVehicles.jsx';
 import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
+import VehicleDetails from './pages/Vehicle Management/VehicleDetails';
+import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar.jsx';
 // import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 
 
@@ -115,11 +115,8 @@ const App = () => {
       <Route path="/ownerProfile" element={<Layout><OwnerProfile/></Layout>} />
       <Route path="/viewvehicle" element={<ViewVehicle/>}/>
       <Route path="/profile" element={<Layout><Vprofile/></Layout>}/>
-      <Route path="/AddedVehicles" element={<Layout><AddedVehicles/></Layout>}/>
-      {/* <Route path="/VehicleManager" element={<Layout><VehicleManager/></Layout>}/> */}
-      {/* <Route path="/VehicleSidebar" element={<Layout><VehicleSidebar/></Layout>}/> */}
-      <Route path="/ApprovedF" element={<Layout><ApprovedF/></Layout>}/>
-      <Route path="/Forms" element={<Layout><Forms/></Layout>}/>
+      <Route path="/VehicleDetails" element={<Layout><VehicleDetails/></Layout>}/>
+      <Route path="/VehicleSideBar" element={<Layout><VehicleSidebar/></Layout>}/>
 
 
       <Route path='/bp' element={<Layout><BookingAndPayment/></Layout>}/>

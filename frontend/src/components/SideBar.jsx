@@ -56,6 +56,7 @@ const SideBar = () => {
                     </li>
                 </>
             );
+            
             break;
         default:
             dashboardLink = '/dashboard'; // Default dashboard for unknown roles
