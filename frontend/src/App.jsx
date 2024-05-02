@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 import Layout from './components/Layout';
 
@@ -38,16 +39,17 @@ import Login from './pages/Login';
 import Logout from './pages/Logout.jsx';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
+import RiskNote from './pages/Renter Management/RiskNote.jsx';
 
-import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
-import HrPayroll from './pages/HR Management/HrPayroll.jsx';
-import HrDetails from './pages/HR Management/HrDetails.jsx';
-import HrDashboard from './pages/HR Management/HrDashboard.jsx';
-import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
-import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
-import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
-import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
-import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
+// import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
+// import HrPayroll from './pages/HR Management/HrPayroll.jsx';
+// import HrDetails from './pages/HR Management/HrDetails.jsx';
+// import HrDashboard from './pages/HR Management/HrDashboard.jsx';
+// import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
+// import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
+// import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
+// import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
+// import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
 
 import Displaydates from './pages/Driver Management/Displaydates';
 import Driverprofile from './pages/Driver Management/Driverprofile';
@@ -68,6 +70,8 @@ import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
+import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
+import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
 
 
 
@@ -78,6 +82,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="*" element={<Layout><ErrorPage /></Layout>} />
+      <Route path="/favlist" element={<Layout><FavouriteList/></Layout>} />
       <Route path="/" element={<Layout><Landing/></Layout> } />
       <Route path="/landing" element={<Layout><Landing/></Layout>} />
       <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
@@ -88,6 +93,8 @@ const App = () => {
       <Route path="/renterprofile" element={<Layout><Manageprofile/></Layout>} />
       <Route path="/Rentersidebar" element={<Layout><RenterSidebar/></Layout>} />
       <Route path="/homerenter" element={<Layout><RenterHome/></Layout>} />
+      <Route path="/renterdetail/:nic" element={<Layout><ViewRenterDetails/></Layout>} />
+      <Route path="/risknote/:nic" element={<Layout><RiskNote/></Layout>} />
       <Route path="/selectbooking/:vehicleId" element={<Layout><SelectBooking/></Layout>} />
       <Route path="/signup" element={<Signup />} />
 

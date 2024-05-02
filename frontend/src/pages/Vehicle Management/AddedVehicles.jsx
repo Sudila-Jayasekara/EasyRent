@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import bmwoffer from '../Vehicle Management/images/bmwoffer.png';
-import prius from '../Vehicle Management/images/prius.jpeg';
-import Hondavezel from '../Vehicle Management/images/Hondavezel.jpeg';
 
 const AddedVehicles = () => {
     const [vehicles, setVehicles] = useState([]);
@@ -28,17 +26,20 @@ const AddedVehicles = () => {
                 console.error('Error deleting vehicle:', error);
             });
     };
-
     const handleUpdate = (id) => {
         // Find the vehicle object by id
         const vehicleToUpdate = vehicles.find(vehicle => vehicle._id === id);
-    
-        // Update the status (for demonstration, let's assume toggling between 'active' and 'inactive')
+        
+        // Update the status (toggle between 'active' and 'inactive')
         const updatedStatus = vehicleToUpdate.status === 'active' ? 'inactive' : 'active';
+        
+        console.log('Updating status to:', updatedStatus);
     
-        // Send a PUT request to update the status
+        // Send a PATCH request to update the status in the database
         axios.patch(`http://localhost:5556/api/vehicle/${id}`, { status: updatedStatus })
             .then(response => {
+                console.log('Status updated successfully in the database:', response.data);
+    
                 // Update the status in the local state
                 setVehicles(vehicles.map(vehicle => {
                     if (vehicle._id === id) {
@@ -52,19 +53,17 @@ const AddedVehicles = () => {
             });
     };
     
-
     return (
         <div tabIndex="0" className="focus:outline-none">
-            <div className="mx-auto container py-4"> {/* Increased top and bottom padding */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> {/* Using CSS grid for responsive layout */}
-                    {/* Render vehicle cards with fetched data */}
+            <div className="mx-auto container py-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {vehicles.map(vehicle => (
                         <div key={vehicle._id} tabIndex="0" className="focus:outline-dotted border border-gray-200 rounded-lg p-4">
                             <div>
                                 <p tabIndex="0" className="focus:outline-none text-xs text-gray-600 px-2 bg-red-200 py-1">Vehicle ID: {vehicle._id}</p>
                             </div>
                             <div>
-                                <img src={bmwoffer} alt="Vehicle" /> {/* Use appropriate image based on vehicle make */}
+                                <img src={bmwoffer} alt="Vehicle" />
                             </div>
                             <div className="bg-white mt-2">
                                 <div className="flex items-center justify-between px-2 pt-2">

@@ -32,7 +32,7 @@ function ShowComplains() {
           <span className='text-xl mr-4 text-gray-500'>Rating(stars) :</span>
           <span>{complains.rating}</span>
         </div>
-        <div className='my-4'>    
+        <div className='my-4'>
           <span className='text-xl mr-4 text-gray-500'>Vehicle Description :</span>
           <span>{complains.Vehicle_description}</span>
         </div>
