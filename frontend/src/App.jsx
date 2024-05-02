@@ -39,6 +39,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout.jsx';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword.jsx';
+import RiskNote from './pages/Renter Management/RiskNote.jsx';
 
 // import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
 // import HrPayroll from './pages/HR Management/HrPayroll.jsx';
@@ -70,6 +71,8 @@ import SelectBooking from './pages/Renter Management/SelectBooking';
 import VehicleDetails from './pages/Vehicle Management/VehicleDetails';
 import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar.jsx';
 // import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
+import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
+import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
 
 
 
@@ -80,7 +83,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="*" element={<Layout><ErrorPage /></Layout>} />
-      {/* <Route path="/favlist" element={<Layout><FavouriteList/></Layout>} /> */}
+      <Route path="/favlist" element={<Layout><FavouriteList/></Layout>} />
       <Route path="/" element={<Layout><Landing/></Layout> } />
       <Route path="/landing" element={<Layout><Landing/></Layout>} />
       <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
@@ -91,6 +94,8 @@ const App = () => {
       <Route path="/renterprofile" element={<Layout><Manageprofile/></Layout>} />
       <Route path="/Rentersidebar" element={<Layout><RenterSidebar/></Layout>} />
       <Route path="/homerenter" element={<Layout><RenterHome/></Layout>} />
+      <Route path="/renterdetail/:nic" element={<Layout><ViewRenterDetails/></Layout>} />
+      <Route path="/risknote/:nic" element={<Layout><RiskNote/></Layout>} />
       <Route path="/selectbooking/:vehicleId" element={<Layout><SelectBooking/></Layout>} />
       <Route path="/signup" element={<Signup />} />
 

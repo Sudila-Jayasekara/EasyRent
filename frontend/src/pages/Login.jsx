@@ -33,6 +33,9 @@ const Login = () => {
           case 'hr':
             navigate('/homerenter');
             break;
+          case 'vehiclemanager':
+            navigate('/VehicleManager');
+            break;
           default:
             // Handle unexpected userType
             setError('Invalid user type');
