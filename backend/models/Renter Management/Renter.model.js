@@ -27,7 +27,7 @@ const renterSchema=new mongoose.Schema({
         type:String,
         required:true,
     },
-    profilePicturePath:{
+    profilePicture:{
         type:String,
         default:"",
     },
