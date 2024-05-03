@@ -52,6 +52,7 @@ import RiskNote from './pages/Renter Management/RiskNote.jsx';
 // import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
 
 import Displaydates from './pages/Driver Management/Displaydates';
+import DriverReport from './pages/Driver Management/DriverReport.jsx';
 import Driverprofile from './pages/Driver Management/Driverprofile';
 // import License from './pages/Driver Management/License';
 import DriverDashboard from './pages/Driver Management/Driverdashboard';
@@ -102,6 +103,7 @@ const App = () => {
       <Route path="/driverprofile" element={<Layout><Driverprofile/></Layout>} />
       {/* <Route path="/license" element={<Layout><License/></Layout>} /> */}
       <Route path="/driverdashboard" element={<Layout><DriverDashboard/></Layout>} />
+      <Route path="/driverreport" element={<Layout><DriverReport/></Layout>} />
       <Route path="/driverdisplay" element={<Layout><DriverDisplay/></Layout>} />
 
       <Route path="/complains" element={<Home/>}/>

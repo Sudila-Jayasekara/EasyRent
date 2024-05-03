@@ -65,7 +65,7 @@ const DriverDisplay = () => {
 
             </div>
 
-            <div className='mt-9'>
+         <div className='mt-9'>
             <table className="w-full border-collapse table-fixed">
                 {/* Table headers */}
                 <thead>
@@ -98,7 +98,7 @@ const DriverDisplay = () => {
                 </tbody>
             </table>
 
-            </div>
+         </div>
             
             <Link to="/signup">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
