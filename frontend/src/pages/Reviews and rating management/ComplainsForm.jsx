@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ComplainsForm = () => {
+    const { vehicleId } = useParams();
     const [formData, setFormData] = useState({
         vehicle_id: "",
         Driver_description: "",
@@ -13,6 +14,21 @@ const ComplainsForm = () => {
     });
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
+    const [vehicle_id, setVehicleId] = useState(vehicleId);
+
+    useEffect(() => {
+        // Extract user details from localStorage
+        const user = JSON.parse(localStorage.getItem('user'));
+        setRenterId(user._id);
+        // Fetch vehicle data
+        axios.get(`http://localhost:5556/api/vehicle/${vehicle_id}`)
+            .then(response => {
+                setVehicle(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching vehicle:', error);
+            });
+    }, [vehicle_id]);
 
     const handleButtonClick = () => {
         navigate('/complains');
@@ -21,42 +37,18 @@ const ComplainsForm = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         // Validate the field
-        const regex = /^[a-zA-Z\s]*$/; // Regular expression to allow only letters and spaces
+        const regex = /^[a-zA-Z0-9\s]*$/;  // Regular expression to allow only letters and spaces
         if (!regex.test(value)) {
-            setErrors({ ...errors, [name]: `Special characters and numbers are not allowed` });
+            setErrors({ ...errors, [name]: "Special characters are not allowed" });
         } else {
             setErrors({ ...errors, [name]: "" });
             setFormData({ ...formData, [name]: value });
         }
     };
 
-    // Separate handleChangeid function for the "vehicle_id" field
-    const handleChangeid = (e) => {
-        const { name, value } = e.target;
-        let errorMessage = "";
-
-        // Validate the field based on the name
-        if (name === "vehicle_id") {
-            // Regular expression to allow only alphanumeric characters and spaces
-            const regex = /^[a-zA-Z0-9\s]*$/;
-            if (!regex.test(value)) {
-                errorMessage = "Special characters are not allowed";
-            }
-        }
-        
-
-        // Update the errors state based on the validation result
-        setErrors({ ...errors, [name]: errorMessage });
-
-        // Update form data only if there's no error
-        if (!errorMessage) {
-            setFormData({ ...formData, [name]: value });
-        }
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Check if there are any 
+        // Check if there are any errors
         const hasErrors = Object.values(errors).some((error) => error !== "");
         if (hasErrors) {
             return;
@@ -103,26 +95,39 @@ const ComplainsForm = () => {
                                     ★
                                 </button>
                             ))}
-                            <div className="ml-10 mt-2">{formData.rating === 0 ? 'Please rate':
-                                                        formData.rating === 1 ? 'Very Bad' :
-                                                        formData.rating === 2 ? 'Bad' :
-                                                        formData.rating === 3 ? 'Average' :
-                                                        formData.rating === 4 ? 'Good' :
-                                                        formData.rating === 5 ? 'Excellent' :
-                                                        ''}</div>
+                            <div className="ml-10 mt-2">
+                                {formData.rating === '' ? 'Please rate' :
+                                    (() => {
+                                        switch (formData.rating) {
+                                            case 1:
+                                                return 'Bad';
+                                            case 2:
+                                                return 'Average';
+                                            case 3:
+                                                return 'Good';
+                                            case 4:
+                                                return 'Best';
+                                            case 5:
+                                                return 'Excellent';
+                                            default:
+                                                return '';
+                                        }
+                                    })()
+                                }
+                            </div>
                         </div>
 
                         {/* Vehicle ID input */}
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="vehicle_id">Vehicle Id</label>
                             <input
-                                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.vehicle_id ? 'border-red-500' : ''}`}
                                 id="vehicle_id"
                                 type="text"
                                 placeholder="Vehicle ID"
                                 name="vehicle_id"
                                 value={formData.vehicle_id}
-                                onChange={handleChangeid} // Use handleChangeid for "vehicle_id" field
+                                onChange={handleChange}
                                 required
                             />
                             {errors.vehicle_id && <p className="text-red-500 text-xs italic">{errors.vehicle_id}</p>}
