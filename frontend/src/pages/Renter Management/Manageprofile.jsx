@@ -106,7 +106,7 @@ const Manageprofile = () => {
                 />
                 <img
                   className="mb-4"
-                  src={previewProfilePicture ? previewProfilePicture : ""}
+                  src={`http://localhost:5556/${user.profilePicture.replace("public", "")}`}
                   alt="Profile"
                 />
 

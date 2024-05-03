@@ -49,6 +49,16 @@ const driverSchema = new mongoose.Schema({
     type:String,
     required:true,
 },
+  licensePhoto: {
+    type: String,
+    default: "",
+
+  },
+  profilePicture: {
+    type: String,
+    default: "",
+
+  },
 
 }, { timestamps: true });
 const DriverModel = mongoose.model("Driver", driverSchema)

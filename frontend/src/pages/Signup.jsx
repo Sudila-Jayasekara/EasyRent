@@ -15,6 +15,7 @@ const Signup = () => {
     additionalField1: "",
     additionalField2: "",
     profilePicture:null,
+    licensePhoto:null,
   });
 
   const [errors, setErrors] = useState({});
@@ -66,7 +67,9 @@ const Signup = () => {
   
     setFormData((prevState) => ({
       ...prevState,
-      [name]: name === "profilePicture" ? files[0] : value,
+      [name]: name === "profilePicture" || name === "licensePhoto" ? files[0] : value,
+
+      
     }));
   };
   
@@ -246,6 +249,28 @@ const Signup = () => {
               alt="Profile"
               style={{ width: "100px" }}
             />
+          )}
+          {userRole === "driver" && (
+            <>
+            <label>
+              License photo:
+              <input
+                className="mb-4 mt-2"
+                type="file"
+                name="licensePhoto"
+                accept="image/*"
+                onChange={handleChange}
+              />
+            </label>
+            {formData.licensePhoto && (
+              <img
+                className="mb-4"
+                src={URL.createObjectURL(formData.licensePhoto)}
+                alt="License"
+                style={{ width: "100px" }}
+              />
+            )}
+            </>
           )}
 
           <button
