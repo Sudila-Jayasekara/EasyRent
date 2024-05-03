@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useReactToPrint } from 'react-to-print'; // Import useReactToPrint hook
 
 const HrDetails = () => {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null); // State variable to hold selected employee data
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const componentPDF = useRef(); // Create a ref for the component you want to print
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -19,6 +22,13 @@ const HrDetails = () => {
 
     fetchEmployees();
   }, []);
+
+  // PDF generation function
+  const generatePDF = useReactToPrint({
+    content: () => componentPDF.current, // Pass the ref of the component to print
+    documentTitle: 'EmployeeDetailsPDF', // Title of the generated PDF
+    onAfterPrint: () => alert('Employee details saved in PDF'), // Optional callback after printing
+  });
 
   const handleEdit = (employee) => {
     navigate(`/DetailsEdit/${employee._id}`);
@@ -38,16 +48,39 @@ const HrDetails = () => {
   const handleView = (employee) => {
     navigate(`/DetailsRead/${employee._id}`);
   };
-  
 
   const handleCloseModal = () => {
     setSelectedEmployee(null); // Clear the selected employee when closing the modal
   };
 
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredEmployees = employees.filter((employee) => {
+    return (
+      employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.nic.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Employee Details</h2>
-      <div className="employee-container">
+      <div className="flex items-center mb-4">
+        <input
+          type="text"
+          placeholder="Search"
+          className="border border-gray-400 rounded px-4 py-2 mr-2"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+        <button className="button" onClick={generatePDF}>Get PDF</button>
+      </div>
+      <div className="employee-container" ref={componentPDF}>
         <table className="table-auto w-full border border-collapse">
           <thead>
             <tr className="bg-gray-200 text-left">
@@ -63,7 +96,7 @@ const HrDetails = () => {
             </tr>
           </thead>
           <tbody>
-            {employees.map((employee) => (
+            {filteredEmployees.map((employee) => (
               <tr key={employee._id} className="border-b">
                 <td className="px-4 py-2">{employee.firstName}</td>
                 <td className="px-4 py-2">{employee.lastName}</td>
@@ -89,6 +122,7 @@ const HrDetails = () => {
           </tbody>
         </table>
       </div>
+      {/* Modal content */}
       {selectedEmployee && (
         <div className="modal">
           <div className="modal-content">

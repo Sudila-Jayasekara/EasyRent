@@ -8,9 +8,26 @@ function HrDashboard() {
   const [signOutTime, setSignOutTime] = useState('');
   const [workingHours, setWorkingHours] = useState(0);
   const [errors, setErrors] = useState({});
+  
 
   const handleEmployeeNameChange = (event) => {
-    setEmployeeName(event.target.value);
+    const { value } = event.target;
+
+    // Validate input for employee name
+    if (!/^[A-Za-z\s]*$/.test(value)) {
+      setErrors((prevState) => ({
+        ...prevState,
+        employeeName: 'Only alphabets and spaces are allowed',
+      }));
+      // If non-alphabetic characters are present, clean the value
+      setEmployeeName(value.replace(/[^A-Za-z\s]/g, ''));
+    } else {
+      setErrors((prevState) => ({
+        ...prevState,
+        employeeName: '',
+      }));
+      setEmployeeName(value);
+    }
   };
 
   const handleDateChange = (event) => {
@@ -23,6 +40,34 @@ function HrDashboard() {
 
   const handleSignOutTimeChange = (event) => {
     setSignOutTime(event.target.value);
+  };
+
+  const validateInputs = () => {
+    let valid = true;
+    const newErrors = {};
+
+    if (!employeeName.trim()) {
+      newErrors.employeeName = 'Employee name is required';
+      valid = false;
+    }
+
+    if (!selectedDate.trim()) {
+      newErrors.selectedDate = 'Date is required';
+      valid = false;
+    }
+
+    if (!signInTime.trim()) {
+      newErrors.signInTime = 'Sign in time is required';
+      valid = false;
+    }
+
+    if (!signOutTime.trim()) {
+      newErrors.signOutTime = 'Sign out time is required';
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
   };
 
   const calculateWorkingHours = () => {
@@ -59,114 +104,91 @@ function HrDashboard() {
     }
   };
 
-  const validateInputs = () => {
-    let errors = {};
-    let isValid = true;
-
-    if (!employeeName.trim()) {
-      errors.employeeName = 'Employee name is required';
-      isValid = false;
-    }
-
-    if (!selectedDate) {
-      errors.selectedDate = 'Date is required';
-      isValid = false;
-    }
-
-    if (!signInTime) {
-      errors.signInTime = 'Sign in time is required';
-      isValid = false;
-    }
-
-    if (!signOutTime) {
-      errors.signOutTime = 'Sign out time is required';
-      isValid = false;
-    }
-
-    setErrors(errors);
-    return isValid;
-  };
-
   return (
-    <div className="container mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-8">Attendance Form</h1>
-      <div className="grid grid-cols-1 gap-4">
-        <div>
-          <label className="block mb-2 text-sm font-medium" htmlFor="employeeName">
-            Employee Name:
-          </label>
-          <input
-            className={`shadow-sm bg-gray-50 border focus:ring-indigo-500 focus:border-indigo-500 rounded-md w-full py-2 px-3 text-sm ${errors.employeeName ? 'border-red-500' : ''}`}
-            id="employeeName"
-            type="text"
-            value={employeeName}
-            onChange={handleEmployeeNameChange}
-          />
-          {errors.employeeName && <p className="text-red-500 text-xs italic">{errors.employeeName}</p>}
+    <div className="container mx-auto flex justify-center items-center h-screen">
+      <div className="max-w-md w-full">
+        <h1 className="text-3xl font-bold mb-8 text-center">Attendance Form</h1>
+        <div className="grid grid-cols-1 gap-4">
+          <div>
+            <label className="block mb-2 text-sm font-medium" htmlFor="employeeName">
+              Employee Name:
+            </label>
+            <input
+              className={`shadow-sm bg-gray-50 border focus:ring-indigo-500 focus:border-indigo-500 rounded-md w-full py-2 px-3 text-sm ${errors.employeeName ? 'border-red-500' : ''}`}
+              id="employeeName"
+              type="text"
+              value={employeeName}
+              onChange={handleEmployeeNameChange}
+            />
+            {errors.employeeName && <p className="text-red-500 text-xs italic">{errors.employeeName}</p>}
+          </div>
+          <div>
+            <label className="block mb-2 text-sm font-medium" htmlFor="date">
+              Select Date:
+            </label>
+            <input
+              className={`shadow-sm bg-gray-50 border focus:ring-indigo-500 focus:border-indigo-500 rounded-md w-full py-2 px-3 text-sm ${errors.selectedDate ? 'border-red-500' : ''}`}
+              id="date"
+              type="date"
+              value={selectedDate}
+              onChange={handleDateChange}
+            />
+            {errors.selectedDate && <p className="text-red-500 text-xs italic">{errors.selectedDate}</p>}
+          </div>
+          <div>
+            <label className="block mb-2 text-sm font-medium" htmlFor="signInTime">
+              Sign In Time:
+            </label>
+            <input
+              className={`shadow-sm bg-gray-50 border focus:ring-indigo-500 focus:border-indigo-500 rounded-md w-full py-2 px-3 text-sm ${errors.signInTime ? 'border-red-500' : ''}`}
+              id="signInTime"
+              type="time"
+              value={signInTime}
+              onChange={handleSignInTimeChange}
+            />
+            {errors.signInTime && <p className="text-red-500 text-xs italic">{errors.signInTime}</p>}
+          </div>
+          <div>
+            <label className="block mb-2 text-sm font-medium" htmlFor="signOutTime">
+              Sign Out Time:
+            </label>
+            <input
+              className={`shadow-sm bg-gray-50 border focus:ring-indigo-500 focus:border-indigo-500 rounded-md w-full py-2 px-3 text-sm ${errors.signOutTime ? 'border-red-500' : ''}`}
+              id="signOutTime"
+              type="time"
+              value={signOutTime}
+              onChange={handleSignOutTimeChange}
+            />
+            {errors.signOutTime && <p className="text-red-500 text-xs italic">{errors.signOutTime}</p>}
+          </div>
         </div>
-        <div>
-          <label className="block mb-2 text-sm font-medium" htmlFor="date">
-            Select Date:
-          </label>
-          <input
-            className={`shadow-sm bg-gray-50 border focus:ring-indigo-500 focus:border-indigo-500 rounded-md w-full py-2 px-3 text-sm ${errors.selectedDate ? 'border-red-500' : ''}`}
-            id="date"
-            type="date"
-            value={selectedDate}
-            onChange={handleDateChange}
-          />
-          {errors.selectedDate && <p className="text-red-500 text-xs italic">{errors.selectedDate}</p>}
-        </div>
-        <div>
-          <label className="block mb-2 text-sm font-medium" htmlFor="signInTime">
-            Sign In Time:
-          </label>
-          <input
-            className={`shadow-sm bg-gray-50 border focus:ring-indigo-500 focus:border-indigo-500 rounded-md w-full py-2 px-3 text-sm ${errors.signInTime ? 'border-red-500' : ''}`}
-            id="signInTime"
-            type="time"
-            value={signInTime}
-            onChange={handleSignInTimeChange}
-          />
-          {errors.signInTime && <p className="text-red-500 text-xs italic">{errors.signInTime}</p>}
-        </div>
-        <div>
-          <label className="block mb-2 text-sm font-medium" htmlFor="signOutTime">
-            Sign Out Time:
-          </label>
-          <input
-            className={`shadow-sm bg-gray-50 border focus:ring-indigo-500 focus:border-indigo-500 rounded-md w-full py-2 px-3 text-sm ${errors.signOutTime ? 'border-red-500' : ''}`}
-            id="signOutTime"
-            type="time"
-            value={signOutTime}
-            onChange={handleSignOutTimeChange}
-          />
-          {errors.signOutTime && <p className="text-red-500 text-xs italic">{errors.signOutTime}</p>}
-        </div>
-      </div>
-      <div className="mt-4">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
-          onClick={calculateWorkingHours}
-        >
-          Calculate Working Hours
-        </button>
-        <button
-          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-4"
-          onClick={handleCancel}
-        >
-          Cancel
-        </button>
-        <Link to={'/payroll'}>
+        <div className="mt-4">
           <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            onClick={handleSubmit}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4"
+            onClick={calculateWorkingHours}
           >
-            Submit
+            Calculate Working Hours
           </button>
-        </Link>
+          <p className="mt-2 text-lg font-medium">Working Hours: {workingHours.toFixed(2)}</p>
+        </div>
+        <div className="flex justify-center mt-4">
+          <button
+            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-5 rounded mr-60"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+          <Link to={'/payroll'}>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded "
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </Link>
+          
+        </div>
       </div>
-      <p className="mt-2 text-lg font-medium">Working Hours: {workingHours.toFixed(2)}</p>
     </div>
   );
 }

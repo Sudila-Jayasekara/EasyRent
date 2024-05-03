@@ -8,12 +8,32 @@ const HrPayroll = () => {
     hourlyrate: '',
   });
   const [totalSalary, setTotalSalary] = useState(0);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let cleanedValue = value;
+
+    // Real-time validation for Employee Name input
+    if (name === 'employeeName') {
+      if (!/^[A-Za-z\s]*$/.test(value)) {
+        setErrors(prevState => ({
+          ...prevState,
+          [name]: 'Only alphabets and spaces are allowed'
+        }));
+        // If non-alphabetic characters are present, clean the value
+        cleanedValue = value.replace(/[^A-Za-z\s]/g, '');
+      } else {
+        setErrors(prevState => ({
+          ...prevState,
+          [name]: ''
+        }));
+      }
+    }
+
     setFormData(prevState => ({
       ...prevState,
-      [name]: value
+      [name]: cleanedValue
     }));
   };
 
@@ -56,13 +76,14 @@ const HrPayroll = () => {
             Employee Name:
           </label>
           <input
-            className="w-full border rounded p-2"
+            className={`w-full border rounded p-2 ${errors.employeeName ? 'border-red-500' : ''}`}
             type="text"
             id="employeeName"
             name="employeeName"
             value={formData.employeeName}
             onChange={handleChange}
           />
+          {errors.employeeName && <p className="text-red-500 text-xs italic">{errors.employeeName}</p>}
         </div>
         <div className="mb-4">
           <label className="block mb-2 font-semibold" htmlFor="hoursworked">

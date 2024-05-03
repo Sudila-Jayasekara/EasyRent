@@ -8,6 +8,7 @@ import BookingRoute from './routes/Booking And Payment Management/bookingRoute.j
 import EmployeeRoute from './routes/HR Management/employeeRoute.js'; 
 import PayrollRoute from './routes/HR Management/payrollRoute.js'; 
 import LeaveRequestRoute from './routes/HR Management/leaveRequestRoute.js'; 
+import AttendanceRoute from './routes/HR Management/attendanceRoute.js'; 
 
 
 const app = express();
@@ -29,6 +30,7 @@ app.use('/api/booking', BookingRoute);
 app.use('/api/employee', EmployeeRoute);
 app.use('/api/payroll', PayrollRoute);
 app.use('/api/leaverequest', LeaveRequestRoute);
+app.use('/api/attendance',AttendanceRoute);
 
 // Global error handling middleware
 app.use((err, req, res, next) => {

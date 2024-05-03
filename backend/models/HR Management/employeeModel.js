@@ -15,6 +15,7 @@ const employeeSchema = new mongoose.Schema({
   },
   role: {
     type: String,
+    enum:['car washer', 'cleaner'],
     required: true
   },
   dateOfBirth: {

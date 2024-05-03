@@ -66,6 +66,28 @@ const HrEmpLeave = () => {
     }
   };
 
+  const handleEmployeeNameChange = (e) => {
+    const { value } = e.target;
+    let cleanedValue = value;
+
+    // Real-time validation for Employee Name input
+    if (!/^[A-Za-z\s]*$/.test(value)) {
+      setErrors(prevState => ({
+        ...prevState,
+        employeeName: 'Only alphabets and spaces are allowed'
+      }));
+      // If non-alphabetic characters are present, clean the value
+      cleanedValue = value.replace(/[^A-Za-z\s]/g, '');
+    } else {
+      setErrors(prevState => ({
+        ...prevState,
+        employeeName: ''
+      }));
+    }
+
+    setEmployeeName(cleanedValue);
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
@@ -78,9 +100,9 @@ const HrEmpLeave = () => {
           <input
             type="text"
             id="employeeName"
-            className="mt-1 p-2 border rounded-md w-full"
+            className={`mt-1 p-2 border rounded-md w-full ${errors.employeeName ? 'border-red-500' : ''}`}
             value={employeeName}
-            onChange={(e) => setEmployeeName(e.target.value)}
+            onChange={handleEmployeeNameChange}
           />
           {errors.employeeName && <p className="text-red-500 mt-1">{errors.employeeName}</p>}
         </div>

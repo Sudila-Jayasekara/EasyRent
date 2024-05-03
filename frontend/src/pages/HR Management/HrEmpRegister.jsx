@@ -18,89 +18,68 @@ const HrEmpRegister = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let cleanedValue = value;
+  
+    // Validate input for string type fields
+    if (name === 'firstName' || name === 'lastName' || name === 'role' || name === 'gender') {
+      if (!/^[A-Za-z\s]*$/.test(value)) {
+        setErrors(prevState => ({
+          ...prevState,
+          [name]: 'Only alphabets and spaces are allowed'
+        }));
+        // If non-alphabetic characters are present, clean the value
+        cleanedValue = value.replace(/[^A-Za-z\s]/g, '');
+      } else {
+        setErrors(prevState => ({
+          ...prevState,
+          [name]: ''
+        }));
+      }
+    }
+  
     setFormData(prevState => ({
       ...prevState,
-      [name]: value
+      [name]: cleanedValue
     }));
   };
+  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      axios.post('http://localhost:5556/api/employee', formData)
-        .then(response => {
-          console.log(response.data);
-          alert('Employee data sent successfully!');
-          setFormData({ // Clear form data
-            firstName: '',
-            lastName: '',
-            nic: '',
-            role: '',
-            dateOfBirth: '',
-            gender: 'pending',
-            contactNumber: '',
-            email: ''
-          });
-        })
-        .catch(error => {
-          console.error(error);
-          alert('Error sending data: ' + error.message);
-        });
+    try {
+      const response = await axios.post('http://localhost:5556/api/employee', formData);
+      console.log(response.data);
+      alert('Employee data sent successfully!');
+      setFormData({ // Clear form data
+        firstName: '',
+        lastName: '',
+        nic: '',
+        role: '',
+        dateOfBirth: '',
+        gender: '',
+        contactNumber: '',
+        email: ''
+      });
+    } catch (error) {
+      console.error(error);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        alert('Server Error: ' + error.response.data);
+      } else if (error.request) {
+        // The request was made but no response was received
+        alert('No response received from server');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        alert('Error: ' + error.message);
+      }
     }
   };
-
-  const validateForm = () => {
-    let errors = {};
-    let formIsValid = true;
-
-    if (!formData.firstName) {
-      formIsValid = false;
-      errors['firstName'] = 'Please enter first name';
-    }
-
-    if (!formData.lastName) {
-      formIsValid = false;
-      errors['lastName'] = 'Please enter last name';
-    }
-
-    if (!formData.nic) {
-      formIsValid = false;
-      errors['nic'] = 'Please enter NIC';
-    }
-
-    if (!formData.role) {
-      formIsValid = false;
-      errors['role'] = 'Please enter role';
-    }
-
-    if (!formData.dateOfBirth) {
-      formIsValid = false;
-      errors['dateOfBirth'] = 'Please enter date of birth';
-    }
-
-    if (!formData.gender) {
-      formIsValid = false;
-      errors['gender'] = 'Please select gender';
-    }
-
-    if (!formData.contactNumber) {
-      formIsValid = false;
-      errors['contactNumber'] = 'Please enter contact number';
-    }
-
-    if (!formData.email) {
-      formIsValid = false;
-      errors['email'] = 'Please enter email';
-    }
-
-    setErrors(errors);
-    return formIsValid;
-  };
-
+  
   return (
     <div className='wrapper flex justify-center items-center screen'>
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h1 className="block flex justify-center text-gray-700 text-xl font-bold mb-2">Employee Registration</h1>
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 grid grid-cols-2 gap-4">
+        <h1 className="block flex justify-center text-gray-1000 text-3xl font-bold col-span-2  ">Employee Registration</h1>
         
         {/* First Name Input */}
         <div className='mb-4'>
@@ -145,19 +124,22 @@ const HrEmpRegister = () => {
         </div>
         
         {/* Role Input */}
-        <div className='mb-4'>
-          <input
+        <div className="mb-4">
+          <select
             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.role ? 'border-red-500' : ''}`}
-            type="text"
             name="role"
-            placeholder='Role'
             value={formData.role}
             onChange={handleChange}
             required
-          />
+          >
+            <option value="">Select an employee role</option>
+            <option value="car washer">Car Washer</option>
+            <option value="cleaner">Cleaner</option>
+            {/* Add more role options as needed */}
+          </select>
           <p className="text-red-500 text-xs italic">{errors.role}</p>
         </div>
-        
+
         {/* Date of Birth Input */}
         <div className='mb-4'>
           <input
@@ -218,15 +200,14 @@ const HrEmpRegister = () => {
         </div>
         
         {/* Submit Button */}
-        <div className="flex justify-center">
+        <div className="col-span-2 flex justify-center">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type='submit'>
             Register
           </button>
-        
         </div>
         
         {/* Link to Login */}
-        <div className='text-center mt-4'>
+        <div className='col-span-2 text-center mt-4'>
           <p className="text-gray-600 text-sm">Already have an account? <Link to={'/Login'} className="text-blue-500 hover:text-blue-800">Login</Link></p>
         </div>
       </form>
