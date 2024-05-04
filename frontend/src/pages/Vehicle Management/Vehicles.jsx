@@ -9,7 +9,7 @@ const Vehicles = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [likedItems, setLikedItems] = useState([]);
 
-    useEffect(() => {
+    useEffect(() => { 
         axios.get('http://localhost:5556/api/vehicle/')
             .then(response => {
                 console.log('Response data:', response.data);
@@ -117,8 +117,9 @@ const Vehicles = () => {
                                         </li>
                                     </ul>
                                     <div>
-                                    <button type="button" className="py-2 px-6 ml-36  text-base font-medium text-black focus:outline-none bg-amber-500 rounded-lg border border-indigo-200 hover:bg-slate-700 focus:z-10 focus:ring-4 focus:ring-indigo-200  "> 
-                                    <Link to = "/VehicleDetails">View</Link></button>
+                                    <button type="button" className="py-2 px-6 ml-36 text-base font-medium text-black focus:outline-none bg-amber-500 rounded-lg border border-indigo-200 hover:bg-slate-700 focus:z-10 focus:ring-4 focus:ring-indigo-200">
+                                <Link to={`/vehicleDetails/${detail._id}`}>View</Link>
+                            </button>
                                     
                                     </div>
                                 </div>
