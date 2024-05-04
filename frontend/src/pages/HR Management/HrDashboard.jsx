@@ -1,5 +1,8 @@
+// HrDashboard.js
+
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 function HrDashboard() {
   const [employeeName, setEmployeeName] = useState('');
@@ -8,18 +11,14 @@ function HrDashboard() {
   const [signOutTime, setSignOutTime] = useState('');
   const [workingHours, setWorkingHours] = useState(0);
   const [errors, setErrors] = useState({});
-  
 
   const handleEmployeeNameChange = (event) => {
     const { value } = event.target;
-
-    // Validate input for employee name
     if (!/^[A-Za-z\s]*$/.test(value)) {
       setErrors((prevState) => ({
         ...prevState,
         employeeName: 'Only alphabets and spaces are allowed',
       }));
-      // If non-alphabetic characters are present, clean the value
       setEmployeeName(value.replace(/[^A-Za-z\s]/g, ''));
     } else {
       setErrors((prevState) => ({
@@ -88,6 +87,8 @@ function HrDashboard() {
     }
   };
 
+  const navigate = useNavigate();
+
   const handleCancel = () => {
     setEmployeeName('');
     setSelectedDate('');
@@ -97,12 +98,32 @@ function HrDashboard() {
     setErrors({});
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validateInputs()) {
-      // Implement your submit logic here
-      console.log("Submitted!");
+      try {
+        const response = await axios.post('/api/attendance', {
+          employeeName,
+          selectedDate,
+          signInTime,
+          signOutTime,
+          workingHours,
+        });
+        console.log(response.data);
+        navigate('/payroll', {
+          state: {
+            formData: {
+              employeeName,
+              hoursworked: workingHours.toFixed(2),
+            }
+          }
+        });
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        // Optionally, you can show an error message to the user
+      }
     }
   };
+  
 
   return (
     <div className="container mx-auto flex justify-center items-center h-screen">
@@ -178,15 +199,12 @@ function HrDashboard() {
           >
             Cancel
           </button>
-          <Link to={'/payroll'}>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded "
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-          </Link>
-          
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded "
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>

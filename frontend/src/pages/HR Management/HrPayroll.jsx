@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+// HrPayroll.js
+
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const HrPayroll = () => {
+const HrPayroll = ({ location }) => {
   const [formData, setFormData] = useState({
     employeeName: '',
     hoursworked: '',
@@ -9,6 +11,12 @@ const HrPayroll = () => {
   });
   const [totalSalary, setTotalSalary] = useState(0);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    if (location.state && location.state.formData) {
+      setFormData(location.state.formData);
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
