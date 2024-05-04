@@ -58,6 +58,14 @@ const SideBar = () => {
             );
             
             break;
+            case 'vehiclemanager':
+                dashboardLink = '/vehiclemanager';
+                additionalLinks = (
+                    <>
+                        <li><Link to="/vehicles" className="block py-2 px-4 hover:bg-yellow-400">AddedVehicles</Link></li>
+                        <li><Link to="/VehicleMProfile" className="block py-2 px-4 hover:bg-yellow-400">Profile</Link></li>
+                    </>
+                );
         default:
             dashboardLink = '/dashboard'; // Default dashboard for unknown roles
             break;

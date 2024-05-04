@@ -1,8 +1,62 @@
-import React from 'react'
+
 import Profilepic from '../Vehicle Management/Profilepic.jpg'
 
- 
-const Profile = () => {
+const VehicleMProfile = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: '',
+    phoneNumber: '',
+    address: ''
+  });
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const id = user ? user._id : '';
+  const userName = user ? user.username : '';
+  const phoneNumber = user ? user.phoneNumber : '';
+  const address = user ? user.address : '';
+
+  useEffect(() => {
+    setFormData({
+      username: userName,
+      phoneNumber: phoneNumber,
+      address: address
+    });
+  }, [userName, phoneNumber, address]);
+
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:5556/api/vehiclemanager/${id}`)
+      .then(() => {
+        localStorage.removeItem('user');
+        navigate('/logout');
+      })
+      .catch(error => {
+        console.error('Error deleting the vehiclemanager:', error);
+      });
+  };
+
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    axios.patch(`http://localhost:5556/api/vehiclemanager/${id}`, formData)
+      .then(response => {
+        console.log('Updated successfully:', response);
+        localStorage.setItem('user', JSON.stringify(response.data));
+       
+        setFormData(response.data);
+      })
+      .catch(error => {
+        console.error('Error updating the vehiclemanager:', error);
+      });
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const fileRef = useRef(null);
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <main className="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
@@ -77,5 +131,5 @@ const Profile = () => {
   );
 }
 
-export default Profile;
+export default VehicleMProfile;
 

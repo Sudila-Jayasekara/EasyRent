@@ -63,16 +63,18 @@ import ComplainsForm from './pages/Reviews and rating management/ComplainsForm.j
 
 
 
-import Vprofile from './pages/Vehicle Management/Profile.jsx';
+
 import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
-import VehicleDetails from './pages/Vehicle Management/VehicleDetails';
-import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar.jsx';
-// import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
+import VehicleDetails from './pages/Vehicle Management/VehicleDetails';// import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
+import VehicleManager from './pages/Vehicle Management/VehicleManager.jsx';
+import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar.jsx';
+import VehicleMProfile from './pages/Vehicle Management/VehicleMProfile.jsx';
+import Vehicles from './pages/Vehicle Management/Vehicles.jsx';
 
 
 
@@ -116,12 +118,13 @@ const App = () => {
       <Route path="/driveradd" element={<DriverAdd/>}/>
       <Route path="/ownersidebar" element={<Layout><OwnerSidebar/></Layout>}/>
       <Route path="/dataVehicle" element={<Layout><DataVehicle/></Layout>}/>
-
+      <Route path='/vehiclemanager' element={<Layout><VehicleManager/></Layout>}/>
       <Route path="/ownerProfile" element={<Layout><OwnerProfile/></Layout>} />
       <Route path="/viewvehicle" element={<ViewVehicle/>}/>
-      <Route path="/profile" element={<Layout><Vprofile/></Layout>}/>
+      <Route path="/VehicleMProfile" element={<Layout><VehicleMProfile/></Layout>}/>
       <Route path="/VehicleDetails" element={<Layout><VehicleDetails/></Layout>}/>
       <Route path="/VehicleSideBar" element={<Layout><VehicleSidebar/></Layout>}/>
+      <Route path="/Vehicles" element={<Layout><Vehicles/></Layout>}/>
 
 
       <Route path='/bp' element={<Layout><BookingAndPayment/></Layout>}/>

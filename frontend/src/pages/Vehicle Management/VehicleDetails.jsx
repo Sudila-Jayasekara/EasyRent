@@ -10,17 +10,22 @@ const VehicleDetails = () => {
         <div className="p-2 md:p-4  justifyContent: 'center'">
           <div className="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg">
             
-            <h2 className="mx-auto pl-6 text-2xl font-bold text-red-700 sm:text-center ml-96">Vehicle Details </h2>
+            <h2 className="mx-auto pl-6 text-2xl font-bold text-red-700 sm:text-center -ml-px">Vehicle Details </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto mt-8">
-              <div className="flex flex-col items-center space-y-5">
+            <div className="flex flex-col items-center space-y-5">
+                <label htmlFor="brand" className="block mb-1 my-1  text-sm font-medium text-gray-900">Vehicle Number</label>
+                <input type="text" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 py-2 px-5" placeholder="" required />
+                
                 <img className="object-fill  w-full h-64 p-0 " src="https://m.atcdn.co.uk/ect/media/w600/1f7b79c7f1c54528a05e2fe338b76ae5.jpg"alt="vehicle image" />
                 <div className="flex flex-col space-y-5 sm:ml-8">
-                  <button type="button" className="py-3.5 px-3 ml-18 text-base font-medium text-indigo-100 focus:outline-none bg-black rounded-lg border border-indigo-200 hover:bg-slate-700 focus:z-10 focus:ring-4 focus:ring-indigo-200  ">
-                    Change picture
-                  </button>
-                  <button type="button" className="py-3.5 px-7 text-base font-medium text-black focus:outline-none bg-blackrounded-lg border border-black rounded hover:bg-slate-700 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200 ">
-                    Delete picture
-                  </button>
+                <div>
+                      <label htmlFor="brand" className="block mb-2 text-sm font-medium text-gray-900">Offers</label>
+                      <input type="text" id="brand" className="bg-gray-50 border border-gray-300 text-red-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-10" placeholder="" required />
+                      <div>
+                      <button type="submit" className="text-bold-black bg-yellow-500 hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-4 py-2.5 text-center">Update</button>
+                    </div>
+                    </div>
+                    
                 </div>
               </div>
              
@@ -58,8 +63,7 @@ const VehicleDetails = () => {
                   </div>
                  
                   
-                  <button type="submit" className="text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Book</button>
-                  <button type="submit" className="text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Reviews</button>
+                  
                   </form>
    
    </div>
