@@ -41,10 +41,11 @@ const Header = () => {
                             <span className="absolute -inset-1.5" />
                             <span className="sr-only">Open user menu</span>
                             <img
-                                className="h-8 w-8 rounded-full"
-                               src={`http://localhost:5556/${user.profilePicture.replace("public", "")}`}
-                                alt="profile picture"
-                            />
+    className="h-8 w-8 rounded-full"
+    src={`http://localhost:5556/${user.profilePicture.replace("public", "")}`}
+    alt="profile picture"
+/>
+
                         </Menu.Button>
                     </div>
                     <Transition

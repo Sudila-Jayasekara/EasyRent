@@ -1,27 +1,42 @@
 import React, { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
-
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const RiskNote = () => {
-
+  const [vehicles, setVehicles] = useState([]);
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
   const [photos, setPhotos] = useState([]);
-  const handleUploadPhotos=(e)=>{
-    const newPhotos=e.target.files;
-    setPhotos((prevPhotos)=>[...prevPhotos,...newPhotos]);
-  }
-  const handleDragPhotos=(result)=>{
-    if(!result.destination) return;
-    const items=Array.from(photos);
-    const [reorderedItem]=items.splice(result.source.index,1);
-    items.splice(result.destination.index,0,reorderedItem);
-    setPhotos(items);
-  }
 
-  const handleRemovePhoto=(indexToRemove)=>{
-    setPhotos((prevPhotos)=>prevPhotos.filter((_,index)=>index!==indexToRemove));
-  }
+  useEffect(() => {
+    const fetchVehicles = async () => {
+      try {
+        const response = await fetch("http://localhost:5556/api/vehicle");
+        if (response.ok) {
+          const data = await response.json();
+          setVehicles(data);
+        } else {
+          throw new Error("Failed to fetch vehicles");
+        }
+      } catch (error) {
+        console.error("Error fetching vehicles:", error);
+      }
+    };
+    fetchVehicles();
+  }, []);
+
+  const handleSelectVehicle = (vehicle) => {
+    setSelectedVehicle(vehicle);
+    setSearchValue(vehicle.vehicleNumber);
+  };
+
+  const handleUploadPhotos = (e) => {
+    const newPhotos = Array.from(e.target.files);
+    setPhotos(newPhotos);
+  };
+
   const navigate = useNavigate();
   const location = useLocation();
   const renterdetail = location.state.renterDetail;
@@ -44,7 +59,6 @@ const RiskNote = () => {
     accidentDate: "",
     accidentTime: "",
     accidentDescription: "",
-    accidentPhotos: [],
     injuries: "",
     legalAndInsuranceInfo: "",
     vehiclenumber: "",
@@ -53,43 +67,66 @@ const RiskNote = () => {
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "accidentPhotos") {
-      // If the input field is for file upload
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: files[0], // Update the state with the file
-      }));
+      setPhotos(files);
     } else {
-      // For other input fields
       setFormData((prevState) => ({
         ...prevState,
-        [name]: value, // Update the state with the value of the input field
+        [name]: value,
       }));
+
+      // Update searchValue only if the input field is for search
+      if (name === "search") {
+        setSearchValue(value);
+      }
+
+      // Update formData.vehiclenumber when a vehicle is selected
+      if (name === "search" && filteredVehicles.length === 1) {
+        setFormData((prevState) => ({
+          ...prevState,
+          vehiclenumber: filteredVehicles[0].vehicleNumber,
+        }));
+      }
     }
+  };
+
+  const filteredVehicles = vehicles.filter((vehicle) =>
+    vehicle.vehicleNumber.includes(searchValue)
+  );
+  const handleRemovePhoto = (indexToRemove) => {
+    // Create a new array without the photo to be removed
+    const updatedPhotos = photos.filter((_, index) => index !== indexToRemove);
+    // Update the state with the new array of photos
+    setPhotos(updatedPhotos);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5556/api/risk", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      const formDataToSend = new FormData();
+
+      for (const key in formData) {
+        formDataToSend.append(key, formData[key]);
+      }
+      photos.forEach((photo) => {
+        formDataToSend.append("accidentPhotos", photo);
       });
-      if (res.ok) {
+
+      const response = await fetch("http://localhost:5556/api/risk", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      if (response.ok) {
         alert("Risk added successfully");
-        navigate("/viewrenter");
+        navigate("/risk-details"); // Navigate to the new page after successful form submission
       } else {
-        // Handle error response from server
-        const errorData = await res.json();
-        // Display error message or handle appropriately
+        const errorData = await response.json();
+        console.error("Error submitting risk:", errorData);
       }
     } catch (error) {
       console.error("Error submitting risk:", error);
     }
   };
-
 
   return (
     <div>
@@ -220,6 +257,64 @@ const RiskNote = () => {
                   <div className="flex flex-wrap">
                     <div className="w-full lg:w-12/12 px-4">
                       <div className="relative w-full mb-3">
+                        {/* Search bar for vehicle number */}
+                        <div className="relative w-full mb-3">
+                          <input
+                            type="search"
+                            placeholder="Search Vehicle Number"
+                            value={formData.vehiclenumber}
+                            onChange={handleChange}
+                            name="search" // Set the name attribute to "search"
+                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          />
+                        </div>
+
+                        {/* Display vehicle details as card views */}
+                        <div className="flex flex-wrap">
+                          {filteredVehicles.map((vehicle) => (
+                            <div
+                              key={vehicle._id}
+                              className="w-full lg:w-6/12 px-4"
+                            >
+                              {/* Card view for each vehicle */}
+                              <div
+                                className={`relative w-full mb-3 cursor-pointer ${
+                                  selectedVehicle &&
+                                  selectedVehicle._id === vehicle._id
+                                    ? "border border-blue-500"
+                                    : ""
+                                }`}
+                                onClick={() => handleSelectVehicle(vehicle)}
+                              >
+                                <div>
+                                  <h3>{vehicle.vehicleNumber}</h3>
+                                  {/* Display other relevant vehicle details */}
+                                  {/* Example: Brand, Model, Year, etc. */}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="w-full lg:w-6/12 px-4">
+                          <div className="relative w-full mb-3">
+                            <label
+                              className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                              htmlFor="vehicleNumber"
+                            >
+                              Vehicle Number
+                            </label>
+                            <input
+                              type="text"
+                              id="vehicleNumber"
+                              name="vehiclenumber"
+                              value={formData.vehiclenumber}
+                              onChange={handleChange}
+                              placeholder="Enter Vehicle Number"
+                              className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                            />
+                          </div>
+                        </div>
+
                         <label
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
@@ -300,40 +395,54 @@ const RiskNote = () => {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       > */}
-                      
-                      
-                      <h1 className="mb-5">Accident Photos</h1>  
-                     
-                     <DragDropContext onDragEnd={handleDragPhotos}>
-                       <Droppable droppableId="photos" direction="horizontal">
-                         {(provided) => (
-                           <div className="photos" {...provided.droppableProps} ref={provided.innerRef}>
-                             {/* Remove the condition to always display file input */}
-                             <input id="image" type="file" style={{ display: "none" }} accept="image/*" onChange={handleUploadPhotos} multiple />
-                             <label htmlFor="image" className="border-0 px-3 py-3 m-5 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 cursor-pointer mt-2">Upload Photos</label>
-                             
-                             {/* Render uploaded photos */}
-                             {photos.map((photo, index) => (
-                               <Draggable key={index} draggableId={index.toString()} index={index}>
-                                 {(provided) => (
-                                   <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                     {/* Apply fixed size to images */}
-                                     <img src={URL.createObjectURL(photo)} alt="accident Photos" style={{ width: "200px", height: "150px", objectFit: "cover" }} />
-                                     <button onClick={() => handleRemovePhoto(index)}>Remove</button>
-                                   </div>
-                                 )}
-                               </Draggable>
-                             ))}
-                             
-                             {provided.placeholder}
-                           </div>
-                         )}
-                       </Droppable>
-                     </DragDropContext>
-                     
-                     
 
-                      <label
+                      <div className="w-full lg:w-6/12 px-4">
+                        <div className="relative w-full mb-3">
+                          <label
+                            className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                            htmlFor="accidentPhotos"
+                          >
+                            Accident Photos
+                          </label>
+                          {/* Modified file input to allow multiple file selection */}
+                          <input
+                            type="file"
+                            id="accidentPhotos"
+                            name="accidentPhotos"
+                            onChange={handleUploadPhotos}
+                            className="hidden"
+                            multiple // Allow multiple file selection
+                          />
+                          {/* Button to trigger file input */}
+                          <label
+                            htmlFor="accidentPhotos"
+                            className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600"
+                          >
+                            Select Photos
+                          </label>
+                          {/* Display selected photos preview */}
+                          <div className="mt-2 grid grid-cols-3 gap-4">
+                            {photos.map((photo, index) => (
+                              <div key={index} className="relative">
+                                <img
+                                  src={URL.createObjectURL(photo)}
+                                  alt={`Photo ${index + 1}`}
+                                  className="w-full h-auto"
+                                />
+                                {/* Add remove button */}
+                                <button
+                                  onClick={() => handleRemovePhoto(index)}
+                                  className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 rounded-full"
+                                >
+                                  Remove
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* <label
                         className="block uppercase text-blueGray-600 text-xs mt-2 font-bold mb-2"
                         htmlFor="grid-password"
                       >
@@ -346,7 +455,7 @@ const RiskNote = () => {
                         name="vehiclenumber"
                         placeholder="details About Injuries"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      />
+                      /> */}
                       <label
                         className="block uppercase text-blueGray-600 text-xs mt-2 font-bold mb-2"
                         htmlFor="grid-password"

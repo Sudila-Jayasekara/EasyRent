@@ -72,6 +72,9 @@ import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
+import RiskDetailsPage from './pages/Renter Management/RiskDetailsPage.jsx';
+import PrintRisk from './pages/Renter Management/PrintRisk.jsx';
+
 
 
 
@@ -88,6 +91,8 @@ const App = () => {
       <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
+      <Route path="/risk-details" element={<Layout><RiskDetailsPage /></Layout>} />
+      <Route path="/printrisk/:nic" element={<Layout><PrintRisk/></Layout>}/>
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/renterprofile" element={<Layout><Manageprofile/></Layout>} />

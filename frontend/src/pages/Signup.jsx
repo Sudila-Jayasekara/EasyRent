@@ -14,7 +14,7 @@ const Signup = () => {
     phoneNumber: "",
     additionalField1: "",
     additionalField2: "",
-    profilePicture:null,
+    profilePicture: null,
   });
 
   const [errors, setErrors] = useState({});
@@ -22,81 +22,86 @@ const Signup = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    let newErrors = { ...errors };
-  
-    if (name === "username" && !value.trim()) {
-      newErrors.username = "Username is required";
+    if (name === "profilePicture") {
+      setFormData((prevState) => ({
+        ...prevState,
+        profilePicture: files[0],
+      }));
     } else {
-      delete newErrors.username;
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
     }
-  
-    if (name === "email" && !value.trim()) {
-      newErrors.email = "Email is required";
-    } else if (name === "email" && !/^\S+@\S+\.\S+$/.test(value)) {
-      newErrors.email = "Email is invalid";
-    } else {
-      delete newErrors.email;
-    }
-  
-    if (name === "password" && !value.trim()) {
-      newErrors.password = "Password is required";
-    } else if (name === "password" && !/^(?=.*[A-Z]).{8,}$/.test(value)) {
-      newErrors.password = "Password must contain at least one uppercase letter and be at least 8 characters long";
-    } else {
-      delete newErrors.password;
-    }
-  
-    if (name === "confirmPassword" && !value.trim()) {
-      newErrors.confirmPassword = "Confirm Password is required";
-    } else if (name === "confirmPassword" && value !== formData.password) {
-      newErrors.confirmPassword = "Passwords do not match";
-    } else {
-      delete newErrors.confirmPassword;
-    }
-  
-    if (name === "phoneNumber" && !value.trim()) {
-      newErrors.phoneNumber = "Phone Number is required";
-    } else if (name === "phoneNumber" && !/^\d{10}$/.test(value)) {
-      newErrors.phoneNumber = "Phone Number must be 10 digits";
-    } else {
-      delete newErrors.phoneNumber;
-    }
-  
-    setErrors(newErrors);
-  
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: name === "profilePicture" ? files[0] : value,
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: undefined,
     }));
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const formDataWithImage = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataWithImage.append(key, value);
-    });
-  
+
+    const newErrors = {};
+    if (!formData.username.trim()) {
+      newErrors.username = "Username is required";
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
+    }
+    if (!formData.password.trim()) {
+      newErrors.password = "Password is required";
+    } else if (!/^(?=.*[A-Z]).{8,}$/.test(formData.password)) {
+      newErrors.password =
+        "Password must contain at least one uppercase letter and be at least 8 characters long";
+    }
+    if (!formData.confirmPassword.trim()) {
+      newErrors.confirmPassword = "Confirm Password is required";
+    } else if (formData.confirmPassword !== formData.password) {
+      newErrors.confirmPassword = "Passwords do not match";
+    }
+    if (!formData.phoneNumber.trim()) {
+      newErrors.phoneNumber = "Phone Number is required";
+    } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
+      newErrors.phoneNumber = "Phone Number must be 10 digits";
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      return;
+    }
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("role", formData.role);
+    formDataToSend.append("username", formData.username);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("password", formData.password);
+    formDataToSend.append("confirmPassword", formData.confirmPassword);
+    formDataToSend.append("address", formData.address);
+    formDataToSend.append("phoneNumber", formData.phoneNumber);
+    formDataToSend.append("nic", formData.nic);
+    if (formData.profilePicture) {
+      formDataToSend.append("profilePicture", formData.profilePicture);
+    }
+
     try {
       const res = await fetch("api/auth/signup", {
         method: "POST",
-        body: formDataWithImage,
+        body: formDataToSend,
       });
-  
       const data = await res.json();
-      console.log(data);
       if (data.status) {
         alert("User Registered");
         navigate("/login");
       }
     } catch (error) {
       console.error("Error:", error);
-      // Handle error (e.g., show error message)
     }
   };
-  
 
   return (
     <div>
@@ -107,7 +112,7 @@ const Signup = () => {
         >
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Are You:
-            <select 
+            <select
               name="role"
               value={userRole}
               onChange={(e) => setUserRole(e.target.value)}
@@ -125,12 +130,14 @@ const Signup = () => {
             Username:
             <input
               type="text"
-              name="username" 
+              name="username"
               value={formData.username}
               onChange={handleChange}
               className="h-7 p-3 w-full block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+            {errors.username && (
+              <p className="text-red-500 text-sm">{errors.username}</p>
+            )}
           </label>
 
           <label>
@@ -142,7 +149,9 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
           </label>
 
           <label>
@@ -154,7 +163,9 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password}</p>
+            )}
           </label>
 
           <label>
@@ -166,7 +177,11 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm">
+                {errors.confirmPassword}
+              </p>
+            )}
           </label>
 
           <label>
@@ -189,21 +204,21 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7  p-3 block w-full mb-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
+            {errors.phoneNumber && (
+              <p className="text-red-500 text-sm">{errors.phoneNumber}</p>
+            )}
           </label>
 
-        
-            <label>
-              NIC:
-              <input
-                type="text"
-                name="nic"
-                value={formData.nic}
-                onChange={handleChange}
-                className="h-7 block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-              />
-            </label>
- 
+          <label>
+            NIC:
+            <input
+              type="text"
+              name="nic"
+              value={formData.nic}
+              onChange={handleChange}
+              className="h-7 block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            />
+          </label>
 
           {userRole === "employee" && (
             <>
@@ -229,6 +244,7 @@ const Signup = () => {
               </label>
             </>
           )}
+
           <label>
             Profile picture:
             <input
@@ -241,13 +257,11 @@ const Signup = () => {
           </label>
           {formData.profilePicture && (
             <img
-              className="mb-4"
               src={URL.createObjectURL(formData.profilePicture)}
-              alt="Profile"
-              style={{ width: "100px" }}
+              alt="profile"
+              className="mb-4 mt-2 rounded-full h-20 w-20"
             />
           )}
-
           <button
             className="relative h-10 mt-4 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-200 via-red-300 to-yellow-200 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 w-full"
             type="submit"
