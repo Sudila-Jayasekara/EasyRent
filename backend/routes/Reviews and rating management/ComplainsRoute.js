@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
     const newComplains = await complains.save();
     res.status(201).json(newComplains);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to insert booking' });
+    res.status(500).json({ error: 'Failed to insert Review..' });
   }
 });
 
@@ -28,11 +28,34 @@ router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const complaint = await Complains.findById(id);
-    return res.status(200).json(complaint);
+    if(!complaint){
+    return res.status(404).json({message:'Review is not found..'})
+    }
+    res.json(complaint);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 });
+
+//get complains by vehicle id
+
+router.get('/Complains/:vehicleId',async(req,res)=>{
+  const {vehicleId}=req.params;
+
+  try{
+    const complains  =await Complains.find({vehicle_id:vehicleId});
+    if(!complains||Complains.length===0){
+      return res.status(404).json({ error: 'Complains not found for the specified vehicle_id' });
+    }
+    res.status(200).json(complains);
+  }
+ catch (error) {
+  console.error('Error fetching complains details:', error);
+  res.status(500).json({ error: 'Internal server error' });
+}
+  
+});
+
 
 // Update complaint
 router.put('/:id', async (req, res) => {
@@ -72,5 +95,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+
 
 export default router;

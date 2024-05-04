@@ -5,7 +5,7 @@ import { useNavigate,useParams } from 'react-router-dom'
 const DeleteComplains=()=>  {
 
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams();   
 
 const handleDeleteComplains=()=>{
   axios

@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useReactToPrint } from 'react-to-print';
 
 const ViewRenterDetails = () => {
   const location = useLocation();

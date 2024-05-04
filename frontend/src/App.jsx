@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
-import '@fortawesome/fontawesome-free/css/all.css';
 
 import Layout from './components/Layout';
 
@@ -72,7 +71,7 @@ import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
-
+import viewComplainsBYid from './pages/Reviews and rating management/viewComplainsBYid.jsx';
 
 
 axios.defaults.baseURL = 'http://localhost:5556';
@@ -109,6 +108,7 @@ const App = () => {
       <Route path="/complains/edit/:id" element={<EditComplains/>}/>
       <Route path="/complains/delete/:id" element={<DeleteComplains/>}/>
       <Route path="/complainsForm" element={<ComplainsForm/>}/>
+
 
       <Route path="/owner" element={<Layout><Owner/></Layout>} />
       <Route path="/vehicleadd" element={<VehicleAdd/>}/>
