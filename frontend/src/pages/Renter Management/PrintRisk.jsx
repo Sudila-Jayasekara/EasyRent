@@ -13,6 +13,8 @@ const PrintRisk = () => {
         onAfterPrint: () => alert('Printed Successfully')
     });
 
+    const accidentPhotos = riskDetail.accidentPhotos;
+
     return (
         <div className="container mx-auto px-4">
             <div className="mt-8">
@@ -31,15 +33,17 @@ const PrintRisk = () => {
                         <p className='mb-2'><span className='font-semibold'>Vehicle Number:</span>{riskDetail.vehiclenumber}</p>
                         <p className='mb-2'><span className='font-semibold'>Injuries:</span>{riskDetail.injuries}</p>
                         <p className="mb-2"><span className="font-semibold">Legal and Insurance Info:</span> {riskDetail.legalAndInsuranceInfo}</p>
-                        {riskDetail.accidentPhotos.map((photo, index) => (
-                            <img
-                            key={index}
-                            className="mb-4"
-                            src={`/uploads/accident/${photo}`} // Use relative path
-                            alt={`Accident Photo ${index + 1}`}
-                        />
-                        
-                        ))}
+                        <div className="flex flex-wrap">
+                            {accidentPhotos && accidentPhotos.map((photo, index) => (
+                                <div key={index} className="mt-4" style={{ flex: '0 0 33.33%', maxWidth: '33.33%' }}>
+                                    <img 
+                                        src={`http://localhost:5556/${photo.replace("public", "")}`} 
+                                        alt={`Accident ${index + 1}`} 
+                                        style={{ width: '100%', height: 'auto' }} // Adjusted size for better visibility
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
