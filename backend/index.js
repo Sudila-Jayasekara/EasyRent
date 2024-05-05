@@ -58,11 +58,9 @@ app.use('/api/renter', RenterRouter);
 app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
 app.use('/Complains',ComplainsRoute);
-<<<<<<< HEAD
-// app.use('/api/risk',RiskRouter);
-=======
+
+
 app.use('/api/risk',RiskRouter);
->>>>>>> origin/Customer-Management
 
 
 

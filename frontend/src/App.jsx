@@ -55,7 +55,7 @@ import RiskNote from './pages/Renter Management/RiskNote.jsx';
 // import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
 // import HrPayroll from './pages/HR Management/HrPayroll.jsx';
 // import HrDetails from './pages/HR Management/HrDetails.jsx';
-import HrDashboard from './pages/HR Management/HrDashboard.jsx';
+
 // import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
 // import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
 // import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
