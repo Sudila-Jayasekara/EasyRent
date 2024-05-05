@@ -12,26 +12,27 @@ const paymentSchema = mongoose.Schema(
         //payment detials
         estimatePrice: {
             type: Number,
-            required: true,
+            // required: true,
+        },
+        additionalCost: {
+            type: Number,
+            // required: true,
+        },
+        totalCost: {
+            type: Number,
+            // required: true,
         },
         tirpStart: {
             type: Date,
         },
         tripEnd: {
             type: Date,
-        }
-        // actualPrice: {
-        //     type: Number,
-        //     required: true,
-        // },
-        // paymentMethod: {
-        //     type: String,
-        //     required: true,
-        // },
-        // paymentStatus: {
-        //     type: String,
-        //     required: true,
-        // },
+        },
+        paymentStatus: {
+            enum: ['pending','completed'],
+            default: 'pending',
+            type: String,
+         },
     },
     {
         timestamps: true,
