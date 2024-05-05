@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import SideBar from '../../components/SideBar';
 
 const EmpDash = () => {
   const [employees, setEmployees] = useState([]);
@@ -36,6 +36,7 @@ const EmpDash = () => {
   return (
     <div className="flex h-screen bg-gray-100 bg-cover" style={{ backgroundImage: "url('/src/assets/HR/Dashboard.jpg')" }}>
       {/* Sidebar */}
+      <SideBar/>
       <div className="w-64 bg-white shadow-md">
         <div className="p-4">
           <div className="flex items-center space-x-4 p-2 mb-5">
@@ -49,24 +50,7 @@ const EmpDash = () => {
               <p className="text-gray-600">HR Manager</p>
             </div>
           </div>
-          <nav>
-            <Link to="/EmpDash" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-500 hover:text-white">
-              Dashboard
-            </Link>
-            <Link to="/empRegister" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-500 hover:text-white">
-              Employee Registration
-            </Link>
-            <Link to="/Dashboard" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-500 hover:text-white">
-              Payroll
-            </Link>
-            <Link to="/EmpLeave" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-500 hover:text-white">
-              Leave
-            </Link>
-			<Link to="/Details" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-500 hover:text-white">
-              Profile
-            </Link>
-            {/* Add more navigation links as needed */}
-          </nav>
+          
         </div>
       </div>
 

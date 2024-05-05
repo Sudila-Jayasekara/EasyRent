@@ -1,154 +1,267 @@
-import React, { useState } from 'react';
-import Axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [phoneno, setPhoneno] = useState('');
-  const [address, setAddress] = useState('');
-  const [error, setError] = useState('');
+  const [userRole, setUserRole] = useState("renter");
+  const [formData, setFormData] = useState({
+    role: userRole,
+    username: "",
+    email: "",
+    nic: "",
+    password: "",
+    confirmPassword: "",
+    address: "",
+    phoneNumber: "",
+    additionalField1: "",
+    additionalField2: "",
+    profilePicture:"",
+  });
 
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  const registerUser = async (e) => {
+  const handleChange = (e) => {
+    const { name, value,files } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+      [name]: name  === "profilePicture" ? files[0] : value,
+    }));
+
+    let newErrors = { ...errors };
+
+    if (name === "username" && !value.trim()) {
+      newErrors.username = "Username is required";
+    } else {
+      delete newErrors.username;
+    }
+
+    if (name === "email" && !value.trim()) {
+      newErrors.email = "Email is required";
+    } else if (name === "email" && !/^\S+@\S+\.\S+$/.test(value)) {
+      newErrors.email = "Email is invalid";
+    } else {
+      delete newErrors.email;
+    }
+
+    if (name === "password" && !value.trim()) {
+      newErrors.password = "Password is required";
+    } else if (name === "password" && !/^(?=.*[A-Z]).{8,}$/.test(value)) {
+      newErrors.password = "Password must contain at least one uppercase letter and be at least 8 characters long";
+    } else {
+      delete newErrors.password;
+    }
+
+    if (name === "confirmPassword" && !value.trim()) {
+      newErrors.confirmPassword = "Confirm Password is required";
+    } else if (name === "confirmPassword" && value !== formData.password) {
+      newErrors.confirmPassword = "Passwords do not match";
+    } else {
+      delete newErrors.confirmPassword;
+    }
+
+    if (name === "phoneNumber" && !value.trim()) {
+      newErrors.phoneNumber = "Phone Number is required";
+    } else if (name === "phoneNumber" && !/^\d{10}$/.test(value)) {
+      newErrors.phoneNumber = "Phone Number must be 10 digits";
+    } else {
+      delete newErrors.phoneNumber;
+    }
+
+    setErrors(newErrors);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await Axios.post('http://localhost:5556/auth/signup', {
-        username,
-        email,
-        confirmPassword,
-        password,
-        phoneno,
-        address,
-      });
-      if (response.data.status) {
-        navigate('/login');
-      }
-    } catch (err) {
-      if (err.response && err.response.data && err.response.data.message) {
-        setError(err.response.data.message);
-      } else {
-        setError('An error occurred while registering. Please try again.');
-      }
+
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+
+    const updatedFormData = {
+      ...formData,
+      role: userRole,
+    };
+
+    const res = await fetch("api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedFormData),
+    });
+
+    const data = await res.json();
+    console.log(data);
+    if (data.status) {
+      alert("User Registered");
+      navigate("/login");
     }
   };
 
   return (
     <div>
-      <form onSubmit={registerUser}>
-        <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-8">
-          <div className="relative py-3 sm:max-w-fit sm:mx-auto">
-            <div className="absolute inset-0 bg-gradient-to-r to-indigo-500 from-indigo-300 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-            <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-              <div className="max-w-xl mx-auto">
-                <div className="divide-y divide-gray-200">
-                  <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                    <h1 style={{ marginBottom: '5px' }} className="font-extrabold text-4xl text-center">
-                      Login
-                    </h1>
-                    <p className="text-center">Text should be in here</p>
-                  
-                    <div className="justify-center flex flex-col py-6 sm-py-12">
-                    {error && <span className="text-red-500">{error}</span>}
-                      <label className="text-black font-extrabold" htmlFor="Username">
-                        Username
-                      </label>
-                      <input
-                        name="Username"
-                        style={{ marginBottom: '10px' }}
-                        placeholder="Username"
-                        type="text"
-                        className="pr-40 pl-2 py-1 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring"
-                        onChange={(e) => setUsername(e.target.value)}
-                      />
-                      {/* Render error message */}
-                      
-                      <label className="text-black font-extrabold" htmlFor="Username">
-                        Email
-                      </label>{' '}
-                      <input
-                        name="email"
-                        style={{ marginBottom: '10px' }}
-                        placeholder="Email"
-                        type="email"
-                        className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring"
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                      <label className="text-black font-extrabold" htmlFor="Username">
-                        Password
-                      </label>{' '}
-                      <input
-                        name="password"
-                        placeholder="Password"
-                        type="password"
-                        className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring"
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                      <label className="text-black font-extrabold" htmlFor="Username">
-                        Confirm Password
-                      </label>{' '}
-                      <input
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        type="password"
-                        className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring"
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                      />
-                      <label className="text-black font-extrabold" htmlFor="Username">
-                        Phone Number
-                      </label>{' '}
-                      <input
-                        name="phoneno"
-                        placeholder="Phone Number"
-                        type="tel"
-                        className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring"
-                        onChange={(e) => setPhoneno(e.target.value)}
-                      />
-                      <label className="text-black font-extrabold" htmlFor="Username">
-                        Address
-                      </label>{' '}
-                      <input
-                        name="address"
-                        placeholder="Address"
-                        type="text"
-                        className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring"
-                        onChange={(e) => setAddress(e.target.value)}
-                      />
-                      <div style={{ marginTop: '10px' }}>
-                        <label>
-                          <input style={{ marginBottom: '5px' }} type="checkbox" className="checkbox" defaultChecked />
-                          <span className="select-none">Remember me</span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">
-                    <p className="text-center">
-                      <button
-                        type="submit"
-                        className="transition rounded-lg duration-200 ease-in-out px-4 py-2 bg-indigo-500 text-white focus:ring-indigo-300 focus:ring hover:bg-indigo-600 select-none outline-none"
-                      >
-                        Login
-                      </button>
-                    </p>
-                    <p style={{ marginTop: '5px' }} className="text-center font-normal">
-                      No account?{' '}
-                      <Link to="/login" className="text-indigo-500 hover:text-indigo-800">
-                        Create one!
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
+      <div className="flex justify-center items-center h-screen bg-gray-200">
+        <form
+          className="bg-gray-100 shadow-md rounded px-8 pt-6 mt-4 pb-8 mb-4 border border-slate-900 w-full sm:w-96"
+          onSubmit={handleSubmit}
+        >
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Are You:
+            <select
+              name="role"
+              value={userRole}
+              onChange={(e) => setUserRole(e.target.value)}
+              className="h-7 p-1 mt-1 block w-28 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            >
+              <option value="renter">Renter</option>
+              <option value="owner">Owner</option>
+              <option value="driver">Driver</option>
+              <option value="employee">Employee</option>
+              <option value="vehiclemanager">Vehicle Manager</option>
+            </select>
+          </label>
+
+          <label>
+            Username:
+            <input
+              type="text"
+              name="username" 
+              value={formData.username}
+              onChange={handleChange}
+              className="h-7 p-3 w-full block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            />
+            {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+          </label>
+
+          <label>
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+          </label>
+
+          <label>
+            Password:
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            />
+            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+          </label>
+
+          <label>
+            Confirm Password:
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            />
+            {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+          </label>
+
+          <label>
+            Address:
+            <input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            />
+          </label>
+
+          <label>
+            Phone Number:
+            <input
+              type="tel"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              className="h-7  p-3 block w-full mb-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            />
+            {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
+          </label>
+
+        
+            <label>
+              NIC:
+              <input
+                type="text"
+                name="nic"
+                value={formData.nic}
+                onChange={handleChange}
+                className="h-7 block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              />
+            </label>
+ 
+
+          {userRole === "employee" && (
+            <>
+              <label>
+                Additional Field 1 for Employee:
+                <input
+                  type="text"
+                  name="additionalField1"
+                  value={formData.additionalField1}
+                  onChange={handleChange}
+                  className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                />
+              </label>
+              <label>
+                Additional Field 2 for Employee:
+                <input
+                  type="text"
+                  name="additionalField2"
+                  value={formData.additionalField2}
+                  onChange={handleChange}
+                  className="h-7  p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                />
+              </label>
+            </>
+          )}
+          {/* <label>
+            Profile picture:
+            <input
+              className="mb-4 mt-2"
+              type="file"
+              name="profilePicture"
+              accept="image/*"
+              onChange={handleChange} // Add onChange handler
+            />
+          </label>
+          {formData.profilePicture && (
+            <img
+              src={URL.createObjectURL(formData.profilePicture)}
+              alt="profile"
+              className="mb-4 mt-2 rounded-full h-20 w-20"
+            />
+          )} */}
+          <button
+            className="relative h-10 mt-4 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-200 via-red-300 to-yellow-200 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 w-full"
+            type="submit"
+          >
+            Register
+          </button>
+          <span className="text-xs text-gray-500">
+            Already have an account?{" "}
+            <Link to={"/login"} className="text-blue-500">
+              Sign In
+            </Link>
+          </span>
+        </form>
+      </div>
     </div>
   );
 };
-
 export default Signup;
