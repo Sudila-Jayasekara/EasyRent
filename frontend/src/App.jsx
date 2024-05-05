@@ -6,10 +6,10 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import Layout from './components/Layout';
 
 import Owner from './pages/Vehicle Owner Management/Owner';
-import VehicleAdd from './pages/Vehicle Management/VehicleAdd.jsx';
+import VehicleAdd from './pages/Vehicle Owner Management/VehicleAdd.jsx';
 import DriverAdd from './pages/Driver Management/DriverAdd.jsx';
 import OwnerProfile from './pages/Vehicle Owner Management/OwnerProfile';
-import ViewVehicle from './pages/Vehicle Management/ViewVehicle.jsx';
+import ViewVehicle from './pages/Vehicle Owner Management/ViewVehicle.jsx';
 import DataVehicle from './pages/Vehicle Owner Management/DataVehicle';
 
 import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';
@@ -71,7 +71,7 @@ import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
-
+import ViewDriver from './pages/Vehicle Owner Management/ViewDriver.jsx';
 
 
 axios.defaults.baseURL = 'http://localhost:5556';
@@ -107,7 +107,7 @@ const App = () => {
       <Route path='/ownerProfile'>
         <Route path='' element={<Layout><OwnerProfile/></Layout>} />
       </Route>
-      <Route path="/viewvehicle/:id" element={<Layout><ViewVehicle/></Layout>}/>
+      <Route path="/viewvehicle" element={<Layout><ViewVehicle/></Layout>}/>
       <Route path='/' element={<Layout />} />
       <Route path='/viewRenter' element={<Layout><ViewRenter/></Layout>}/>
       <Route path='/login' element={<Login/>} />
@@ -135,6 +135,7 @@ const App = () => {
       <Route path="/owner" element={<Layout><Owner/></Layout>} />
       <Route path="/vehicleadd" element={<VehicleAdd/>}/>
       <Route path="/driveradd" element={<DriverAdd/>}/>
+      <Route path="/viewDriver" element={<Layout><ViewDriver/></Layout>}/>
 
       <Route path="/dataVehicle" element={<Layout><DataVehicle/></Layout>}/>
 

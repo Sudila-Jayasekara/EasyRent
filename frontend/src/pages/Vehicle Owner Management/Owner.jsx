@@ -15,7 +15,7 @@ const Owner = () => {
         <div className="flex flex-col items-center justify-center max-w-lg">
           <img className="w-80 h-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFe8qnXIBFrvVcDo_zCVCrFhu9pZyt9QkTEZTceBSfLg&s" alt="driver photo" />
           <button className="btn">
-            <Link to="/driveradd">Driver Details</Link>
+            <Link to="/viewDriver">Driver Details</Link>
           </button>
         </div>
 

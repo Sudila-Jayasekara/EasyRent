@@ -49,9 +49,10 @@ const vehicleSchema = mongoose.Schema({
         type: Number,
         required: true
       },
-      vehicleId:{
+      vehicleNumber:{
         type:String,
-        required: true
+        required: true,
+        unique:true
       },
       startDate:{
         type:String,

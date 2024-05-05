@@ -27,15 +27,18 @@ const DataVehicle = () => {
       });
   };
 
+  
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
   const filteredDetails = details.filter((detail) =>
-    Object.values(detail).some((value) =>
-      String(value).toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    
+      String(detail.vehicleNumber).toLowerCase().includes(searchQuery.toLowerCase())
+    
   );
+  
+  
 
   return (
     <div className="container mx-auto ml-4 ">
@@ -43,7 +46,7 @@ const DataVehicle = () => {
         type="text"
         value={searchQuery}
         onChange={handleSearchInputChange}
-        placeholder="Search..."
+        placeholder="Search"
         className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-md"
       />
 
@@ -52,10 +55,12 @@ const DataVehicle = () => {
           <div key={index} className="bg-white p-4 rounded shadow-md">
             <h2 className="text-xl font-semibold">{detail.brand}</h2>
             <p className="text-gray-600">{detail.model}</p>
+            <p className="text-gray-600">{detail.vehicleNumber}</p>
             <p className="text-gray-600">{detail.modelYear}</p>
             <p className="text-gray-600">{detail.engineCapacity}</p>
             <p className="text-gray-600">{detail.mileage}</p>
             <p className="text-gray-600">{detail.totalSeats}</p>
+            <p className="text-gray-600">{detail.startDate}</p>
 
             <div className="flex justify-between mt-4">
               <Link to={'/viewvehicle'}>

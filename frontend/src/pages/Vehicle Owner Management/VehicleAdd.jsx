@@ -11,6 +11,8 @@ const VehicleAdd = () => {
     totalSeats: '',
     transmission: '',
     price: '',
+    vehicleNumber:'',
+    startDate:''
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -22,6 +24,8 @@ const VehicleAdd = () => {
     totalSeats: '',
     transmission: '',
     price: '',
+    vehicleNumber:'',
+    startDate:''
   });
 
   const handleChange = (e) => {
@@ -29,13 +33,16 @@ const VehicleAdd = () => {
     let errorMessage = '';
 
     // Validation rules
+    if (name === "brand" && !/^[A-Za-z ]+$/.test(value)) {
+      errorMessage = value.trim() === '' ? 'Brand is required' : '';
+      return;
+    }
+    if (name === "model" && !/^[A-Za-z ]+$/.test(value)) {
+      return;
+    }
+
     switch (name) {
-      case 'brand':
-        errorMessage = value.trim() === '' ? 'Brand is required' : '';
-        break;
-      case 'model':
-        errorMessage = value.trim() === '' ? 'Model is required' : '';
-        break;
+   
       case 'modelYear':
         errorMessage = isNaN(value) || value < 1900 || value > new Date().getFullYear() ? 'Invalid model year' : '';
         break;
@@ -51,11 +58,33 @@ const VehicleAdd = () => {
       case 'transmission':
         errorMessage = value.trim() === '' ? 'Transmission is required' : '';
         break;
+        case 'vehicleNumber':
+         
+    
+            if (name === "vehicleNumber") {
+              if (!/^(\d{0,7}|[A-Za-z]+\d*)$/.test(value)) {
+                return;
+              }
+              if (!/^\d{0,7}[A-Za-z]{0,3}\d{0,4}$/.test(value)) {
+                return;
+              }
+              if (!/^\d{0,7}[A-Za-z]{0,3}\d{0,4}$/.test(value)) {
+                return;
+              } if (!/^([A-Za-z]\d*|[A-Za-z]{2,}\d*)$/.test(value)) {
+                return;
+              }
+               
+            }
+        
+        break;
       case 'price':
         errorMessage = isNaN(value) || value <= 0 ? 'Price must be a positive number' : '';
         break;
       default:
         break;
+        case 'startDate':
+          errorMessage = value.trim() === '' ? 'Date is required' : '';
+          break;
     }
 
     // Update state with new form data and error message
@@ -143,16 +172,18 @@ const VehicleAdd = () => {
   </div>
 
   <div className="mt-4">
-    <label className="block text-gray-700 text-sm font-bold mb-2">Vehicle Id</label>
+    <label className="block text-gray-700 text-sm font-bold mb-2">Vehicle Number</label>
     <input
-      value={formData.vehicleId}
+      value={formData.vehicleNumber}
       onChange={handleChange}
-      name="vehicleid"
+      name="vehicleNumber"
       className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-      type="text"
+      type="text"            
     />
-    {formErrors.vehicleId && <p className="text-red-500 text-xs mt-1">{formErrors.vehicleId}</p>}
+    {formErrors.vehicleNumber&& <p className="text-red-500 text-xs mt-1">{formErrors.vehicleNumber}</p>}
   </div>
+
+  
 
   <div className="mt-4">
     <label className="block text-gray-700 text-sm font-bold mb-2">Model Year</label>
@@ -166,7 +197,7 @@ const VehicleAdd = () => {
     {formErrors.modelYear && <p className="text-red-500 text-xs mt-1">{formErrors.modelYear}</p>}
   </div>
   <div className="mt-4">
-    <label className="block text-gray-700 text-sm font-bold mb-2">Engine Capacity</label>
+    <label className="block text-gray-700 text-sm font-bold mb-2">Engine Capacity (cc)</label>
     <input
       value={formData.engineCapacity}
       onChange={handleChange}
@@ -177,7 +208,7 @@ const VehicleAdd = () => {
     {formErrors.engineCapacity && <p className="text-red-500 text-xs mt-1">{formErrors.engineCapacity}</p>}
   </div>
   <div className="mt-4">
-    <label className="block text-gray-700 text-sm font-bold mb-2">Mileage</label>
+    <label className="block text-gray-700 text-sm font-bold mb-2">Mileage (km)</label>
     <input
       value={formData.mileage}
       onChange={handleChange}
@@ -215,7 +246,7 @@ const VehicleAdd = () => {
   </div>
   <div className="mt-4">
     <div className="flex justify-between">
-      <label className="block text-gray-700 text-sm font-bold mb-2">Price</label>
+      <label className="block text-gray-700 text-sm font-bold mb-2 ">Price (Rs)</label>
     </div>
     <input
       value={formData.price}
@@ -228,7 +259,7 @@ const VehicleAdd = () => {
   </div>
   <div className="mt-4">
     <div className="flex justify-between">
-      <label className="block text-gray-700 text-sm font-bold mb-2">Start Date</label>
+      <label className="block text-gray-700 text-sm font-bold mb-2">Posted On</label>
     </div>
     <input
       value={formData.startDate}

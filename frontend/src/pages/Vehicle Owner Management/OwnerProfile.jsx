@@ -3,22 +3,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-
 const OwnerProfile = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
-    contactNumber: '',
+    phoneNumber: '',
     address: '',
-    nic:'',
-    email:''
-
+    nic: '',
+    email: ''
   });
 
   const user = JSON.parse(localStorage.getItem('user'));
   const id = user ? user._id : '';
   const userName = user ? user.username : '';
-  const contactNumber = user ? user.contactNumber : '';
+  const phoneNumber = user ? user.phoneNumber : '';
   const address = user ? user.address : '';
   const nic = user ? user.nic : '';
   const email = user ? user.email : '';
@@ -26,14 +24,12 @@ const OwnerProfile = () => {
   useEffect(() => {
     setFormData({
       username: userName,
-      contactNumber: contactNumber,
+      phoneNumber: phoneNumber,
       address: address,
-      nic:nic,
-      email:email
+      nic: nic,
+      email: email
     });
-  }, [userName, contactNumber, address,nic,email]);
-
-
+  }, [userName, phoneNumber, address, nic, email]);
 
   const handleDelete = (id) => {
     axios.delete(`http://localhost:5556/api/owner/${id}`)
@@ -46,6 +42,7 @@ const OwnerProfile = () => {
       });
   };
 
+ 
 
   const handleUpdate = (event) => {
     event.preventDefault();
@@ -60,9 +57,6 @@ const OwnerProfile = () => {
         console.error('Error updating the owner:', error);
       });
   };
-
-
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -101,12 +95,12 @@ const OwnerProfile = () => {
                     
                     <div>
                       <label htmlFor="nic" className="block mb-2 text-sm font-medium text-gray-900">NIC</label>
-                      <input type="text" id="nic" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" pattern="[0-9]{10}"  value={formData.nic} onChange={handleChange}required />
+                      <input type="text" id="nic" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder=""   value={formData.nic} onChange={handleChange}required />
                     </div>
                     
                     <div>
-                      <label htmlFor="contactNumber" className="block mb-2 text-sm font-medium text-gray-900">Contact number</label>
-                      <input type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" pattern="[0-9]{10}" value={formData.contactNumber} onChange={handleChange} required />
+                      <label htmlFor="phoneNumber" className="block mb-2 text-sm font-medium text-gray-900">Phone number</label>
+                      <input type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" pattern="[0-9]{10}" value={formData.phoneNumber} onChange={handleChange} required />
                     </div>
                   </div>
                   <div className="mb-6">
