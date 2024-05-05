@@ -13,13 +13,12 @@ import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
 import DriverRoute from './routes/Driver Management/driverRoute.js';
 import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
 import ComplainsRoute from'./routes/Reviews and rating management/ComplainsRoute.js'
+// import { RiskRouter } from "./routes/Renter Management/RiskManage.route.js";
 
 
 import EmployeeRoute from './routes/HR Management/employeeRoute.js'; 
 import PayrollRoute from './routes/HR Management/payrollRoute.js'; 
 import LeaveRequestRoute from './routes/HR Management/leaveRequestRoute.js'; 
-import AttendanceRoute from './routes/HR Management/attendanceRoute.js'; 
-
 import bodyParser from 'body-parser';
 
 const app = express();
@@ -34,6 +33,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true // Allow credentials (cookies)
 }));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cookieParser());
 
@@ -52,13 +52,13 @@ app.use('/api/booking', BookingRoute);
 app.use('/api/employee', EmployeeRoute);
 app.use('/api/payroll', PayrollRoute);
 app.use('/api/leaverequest', LeaveRequestRoute);
-app.use('/api/attendance',AttendanceRoute);
 app.use('/api/payment', PaymentRoute);
 app.use('/api/vehicle', VehicleRoute);
 app.use('/api/renter', RenterRouter);
 app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
-app.use('/Complains',ComplainsRoute)
+app.use('/Complains',ComplainsRoute);
+// app.use('/api/risk',RiskRouter);
 
 
 
