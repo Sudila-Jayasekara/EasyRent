@@ -1,10 +1,133 @@
-import { useState } from "react";
+// import { useState } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+
+// const Signup = () => {
+//   const [userRole, setUserRole] = useState("renter");
+//   const [formData, setFormData] = useState({
+//     role: userRole,
+//     username: "",
+//     email: "",
+//     nic: "",
+//     password: "",
+//     confirmPassword: "",
+//     address: "",
+//     phoneNumber: "",
+//     additionalField1: "",
+//     additionalField2: "",
+//     profilePicture: null,
+//   });
+
+//   const [errors, setErrors] = useState({});
+//   const navigate = useNavigate();
+
+//   const handleChange = (e) => {
+//     const { name, value, files } = e.target;
+//     if (name === "profilePicture") {
+//       setFormData((prevState) => ({
+//         ...prevState,
+//         profilePicture: files[0],
+//       }));
+//     } else {
+//       setFormData((prevState) => ({
+//         ...prevState,
+//         [name]: value,
+//       }));
+//     }
+
+//     setErrors((prevErrors) => ({
+//       ...prevErrors,
+//       [name]: undefined,
+//     }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     const newErrors = {};
+//     if (!formData.username.trim()) {
+//       newErrors.username = "Username is required";
+//     }
+//     if (!formData.email.trim()) {
+//       newErrors.email = "Email is required";
+//     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+//       newErrors.email = "Email is invalid";
+
+
+//     }
+//     if (!formData.password.trim()) {
+
+//       newErrors.password = "Password is required";
+//     } else if (!/^(?=.*[A-Z]).{8,}$/.test(formData.password)) {
+//       newErrors.password =
+//         "Password must contain at least one uppercase letter and be at least 8 characters long";
+
+//     }
+//     if (!formData.confirmPassword.trim()) {
+
+//       newErrors.confirmPassword = "Confirm Password is required";
+//     } else if (formData.confirmPassword !== formData.password) {
+//       newErrors.confirmPassword = "Passwords do not match";
+
+
+//     }
+//     if (!formData.phoneNumber.trim()) {
+
+//       newErrors.phoneNumber = "Phone Number is required";
+//     } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
+//       newErrors.phoneNumber = "Phone Number must be 10 digits";
+
+
+//     }
+
+//     setErrors(newErrors);
+
+//     if (Object.keys(newErrors).length > 0) {
+//       return;
+//     }
+
+
+
+
+
+
+
+//     const formDataToSend = new FormData();
+//     formDataToSend.append("role", formData.role);
+//     formDataToSend.append("username", formData.username);
+//     formDataToSend.append("email", formData.email);
+//     formDataToSend.append("password", formData.password);
+//     formDataToSend.append("confirmPassword", formData.confirmPassword);
+//     formDataToSend.append("address", formData.address);
+//     formDataToSend.append("phoneNumber", formData.phoneNumber);
+//     formDataToSend.append("nic", formData.nic);
+//     if (formData.profilePicture) {
+//       formDataToSend.append("profilePicture", formData.profilePicture);
+//     }
+
+//     try {
+//       const res = await fetch("api/auth/signup", {
+//         method: "POST",
+//         body: formDataToSend,
+//       });
+
+//       const data = await res.json();
+
+//       if (data.status) {
+//         alert("User Registered");
+//         navigate("/login");
+//       }
+//     } catch (error) {
+//       console.error("Error:", error);
+
+//     }
+//   };
+
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [userRole, setUserRole] = useState("renter");
   const [formData, setFormData] = useState({
-    role: userRole,
+    role: "renter",
     username: "",
     email: "",
     nic: "",
@@ -12,92 +135,47 @@ const Signup = () => {
     confirmPassword: "",
     address: "",
     phoneNumber: "",
-    additionalField1: "",
-    additionalField2: "",
-    profilePicture:"",
+    profilePicture: null,
+    licensePhoto: null,
   });
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value,files } = e.target;
+    const { name, value, files } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
-      [name]: name  === "profilePicture" ? files[0] : value,
+      [name]: name === "profilePicture" ? files[0] : value,
+      [name]: name === "licensePhoto" ? files[0] : value,
     }));
-
-    let newErrors = { ...errors };
-
-    if (name === "username" && !value.trim()) {
-      newErrors.username = "Username is required";
-    } else {
-      delete newErrors.username;
-    }
-
-    if (name === "email" && !value.trim()) {
-      newErrors.email = "Email is required";
-    } else if (name === "email" && !/^\S+@\S+\.\S+$/.test(value)) {
-      newErrors.email = "Email is invalid";
-    } else {
-      delete newErrors.email;
-    }
-
-    if (name === "password" && !value.trim()) {
-      newErrors.password = "Password is required";
-    } else if (name === "password" && !/^(?=.*[A-Z]).{8,}$/.test(value)) {
-      newErrors.password = "Password must contain at least one uppercase letter and be at least 8 characters long";
-    } else {
-      delete newErrors.password;
-    }
-
-    if (name === "confirmPassword" && !value.trim()) {
-      newErrors.confirmPassword = "Confirm Password is required";
-    } else if (name === "confirmPassword" && value !== formData.password) {
-      newErrors.confirmPassword = "Passwords do not match";
-    } else {
-      delete newErrors.confirmPassword;
-    }
-
-    if (name === "phoneNumber" && !value.trim()) {
-      newErrors.phoneNumber = "Phone Number is required";
-    } else if (name === "phoneNumber" && !/^\d{10}$/.test(value)) {
-      newErrors.phoneNumber = "Phone Number must be 10 digits";
-    } else {
-      delete newErrors.phoneNumber;
-    }
-
-    setErrors(newErrors);
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
-
-    const updatedFormData = {
-      ...formData,
-      role: userRole,
-    };
-
-    const res = await fetch("api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedFormData),
+    const formDataToSend = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      formDataToSend.append(key, value);
     });
 
-    const data = await res.json();
-    console.log(data);
-    if (data.status) {
-      alert("User Registered");
-      navigate("/login");
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      const data = await res.json();
+
+      if (data.status) {
+        alert("User Registered");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
+
 
   return (
     <div>
@@ -106,12 +184,12 @@ const Signup = () => {
           className="bg-gray-100 shadow-md rounded px-8 pt-6 mt-4 pb-8 mb-4 border border-slate-900 w-full sm:w-96"
           onSubmit={handleSubmit}
         >
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+           <label className="block text-gray-700 text-sm font-bold mb-2">
             Are You:
             <select
               name="role"
-              value={userRole}
-              onChange={(e) => setUserRole(e.target.value)}
+              value={formData.role}
+              onChange={handleChange}
               className="h-7 p-1 mt-1 block w-28 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             >
               <option value="renter">Renter</option>
@@ -121,17 +199,18 @@ const Signup = () => {
               <option value="vehiclemanager">Vehicle Manager</option>
             </select>
           </label>
-
           <label>
             Username:
             <input
               type="text"
-              name="username" 
+              name="username"
               value={formData.username}
               onChange={handleChange}
               className="h-7 p-3 w-full block  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+            {errors.username && (
+              <p className="text-red-500 text-sm">{errors.username}</p>
+            )}
           </label>
 
           <label>
@@ -143,7 +222,9 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
           </label>
 
           <label>
@@ -155,7 +236,9 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password}</p>
+            )}
           </label>
 
           <label>
@@ -167,7 +250,11 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm">
+                {errors.confirmPassword}
+              </p>
+            )}
           </label>
 
           <label>
@@ -190,23 +277,49 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7  p-3 block w-full mb-3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
-            {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
+            {errors.phoneNumber && (
+              <p className="text-red-500 text-sm">{errors.phoneNumber}</p>
+            )}
           </label>
 
-        
-            <label>
-              NIC:
-              <input
-                type="text"
-                name="nic"
-                value={formData.nic}
-                onChange={handleChange}
-                className="h-7 block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-              />
-            </label>
- 
 
-          {userRole === "employee" && (
+          <label>
+            NIC:
+            <input
+              type="text"
+              name="nic"
+              value={formData.nic}
+              onChange={handleChange}
+              className="h-7 block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            />
+          </label>
+          {formData.role === "driver" && (
+            <>
+            <label>
+            License Photo:
+            <input
+              className="mb-4 mt-2"
+              type="file"
+              name="licensePhoto"
+              accept="image/*"
+              onChange={handleChange}
+            />
+          </label>
+          {formData.licensePhoto && (
+            <img
+
+              src={URL.createObjectURL(formData.licensePhoto)}
+              alt="profile"
+              className="mb-4 mt-2 rounded-full h-20 w-20"
+            />
+          )}
+
+            </>
+          )
+          }
+
+          {formData.role === "employee" && (
+
             <>
               <label>
                 Additional Field 1 for Employee:
@@ -230,23 +343,26 @@ const Signup = () => {
               </label>
             </>
           )}
-          {/* <label>
+
+          <label>
             Profile picture:
             <input
               className="mb-4 mt-2"
               type="file"
               name="profilePicture"
               accept="image/*"
-              onChange={handleChange} // Add onChange handler
+              onChange={handleChange}
             />
           </label>
           {formData.profilePicture && (
             <img
+
               src={URL.createObjectURL(formData.profilePicture)}
               alt="profile"
               className="mb-4 mt-2 rounded-full h-20 w-20"
             />
-          )} */}
+          )}
+
           <button
             className="relative h-10 mt-4 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-200 via-red-300 to-yellow-200 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 w-full"
             type="submit"
@@ -264,4 +380,5 @@ const Signup = () => {
     </div>
   );
 };
+
 export default Signup;

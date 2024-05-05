@@ -6,8 +6,22 @@ import { Renter } from "../../models/Renter Management/Renter.model.js";
 import { Vehicle } from "../../models/Vehicle Management/vehicleModel.js";
 // import {Favlist} from '../../models/Renter Management/favList.js'
 import nodemailer from 'nodemailer' 
+import multer from "multer"; // For handling file uploads
+import path from "path";
 
 const router = express.Router();
+
+// Multer configuration for file upload
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/uploads/'); // Save the uploaded files to the 'public/uploads' folder
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+  const upload = multer({ storage });
 
 router.get('/test', (req, res) => {
     res.json({ message: "Renter route working" });
@@ -122,6 +136,48 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+router.patch("/update-picture/:id", upload.single("profilePicture"), async (req, res) => {
+    const { id } = req.params;
+    const profilePicturePath = req.file ? `/uploads/profile/${req.file.filename}` : null;
+  
+    try {
+      const renter = await Renter.findById(id);
+      if (!renter) {
+        return res.status(404).json({ message: "Renter not found" });
+      }
+  
+      // Update the profile picture field in the renter document
+      renter.profilePicture = profilePicturePath;
+      await renter.save();
+  
+      res.json({ profilePicture: profilePicturePath });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+  
+  // Delete profile picture route
+  router.delete("/delete-picture/:id", async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const renter = await Renter.findById(id);
+      if (!renter) {
+        return res.status(404).json({ message: "Renter not found" });
+      }
+  
+      // Remove the profile picture field from the renter document
+      renter.profilePicture = null;
+      await renter.save();
+  
+      res.json({ message: "Profile picture deleted successfully" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
 
 
 

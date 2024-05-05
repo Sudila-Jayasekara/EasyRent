@@ -30,8 +30,8 @@ const Login = () => {
           case 'driver':
             navigate('/driverprofile');
             break;
-          case 'hr':
-            navigate('/homerenter');
+          case 'employee':
+            navigate('/hrdashboard');
             break;
           case 'vehiclemanager':
             navigate('/VehicleManager');

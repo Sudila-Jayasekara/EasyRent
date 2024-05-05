@@ -13,7 +13,7 @@ import VehicleRoute from './routes/Vehicle Management/vehicleRoute.js';
 import DriverRoute from './routes/Driver Management/driverRoute.js';
 import OwnerRoute from './routes/Vehicle Owner Management/ownerRoute.js';
 import ComplainsRoute from'./routes/Reviews and rating management/ComplainsRoute.js'
-// import { RiskRouter } from "./routes/Renter Management/RiskManage.route.js";
+import { RiskRouter } from "./routes/Renter Management/RiskManage.route.js";
 
 
 import EmployeeRoute from './routes/HR Management/employeeRoute.js'; 
@@ -58,7 +58,11 @@ app.use('/api/renter', RenterRouter);
 app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
 app.use('/Complains',ComplainsRoute);
+<<<<<<< HEAD
 // app.use('/api/risk',RiskRouter);
+=======
+app.use('/api/risk',RiskRouter);
+>>>>>>> origin/Customer-Management
 
 
 
