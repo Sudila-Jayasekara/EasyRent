@@ -37,19 +37,20 @@ import ErrorPage from './pages/ErrorPage.jsx';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Logout from './pages/Logout.jsx';
-
-
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword.jsx';
+import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
+import HrPayroll from './pages/HR Management/HrPayroll.jsx';
+import HrDetails from './pages/HR Management/HrDetails.jsx';
+import HrDashboard from './pages/HR Management/HrDashboard.jsx';
+import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
+import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
+import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
+import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
+import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
+import HrDetailsRead from './pages/HR Management/HrDetailsRead.jsx';
+import EmpDashbord from './pages/HR Management/EmpDashbord.jsx';
 import RiskNote from './pages/Renter Management/RiskNote.jsx';
-
-// import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
-// import HrPayroll from './pages/HR Management/HrPayroll.jsx';
-// import HrDetails from './pages/HR Management/HrDetails.jsx';
-// import HrDashboard from './pages/HR Management/HrDashboard.jsx';
-// import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
-// import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
-// import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
-// import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
-// import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
 
 import Displaydates from './pages/Driver Management/Displaydates';
 import Driverprofile from './pages/Driver Management/Driverprofile';
@@ -70,26 +71,8 @@ import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword.jsx';
-import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
-import HrPayroll from './pages/HR Management/HrPayroll.jsx';
-import HrDetails from './pages/HR Management/HrDetails.jsx';
-import HrDashboard from './pages/HR Management/HrDashboard.jsx';
-import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
-import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
-import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
-import HrLeaveDetails from './pages/HR Management/HrLeaveDetails.jsx';
-import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
-import EmpDashbord from './pages/HR Management/EmpDashbord.jsx';
-
-
-
-
-
-
-
-
+import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
+import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
 
 
 
@@ -99,20 +82,50 @@ axios.defaults.withCredentials = true;
 const App = () => {
   return (
     <Routes>
-      
-      <Route path='/' element={<Layout />} />
-      <Route path='/signup' element={<Signup/>} />
-      <Route path='/login' element={<Login/>} />
-      <Route path='/forgotpassword' element={<ForgotPassword/>}/>
-      <Route path='/resetPassword' element={<ResetPassword/>}/>
-      <Route path='/landing'element={<Layout><Landing/></Layout>}/>
-      <Route path='/profile'element={<Layout><Manageprofile/></Layout>}/>
-      <Route path='/Rentersidebar'element={<Layout><RenterSidebar/></Layout>}/>
-      <Route path='/homerenter' element={<Layout><RenterHome/></Layout>}/>
-      <Route path='/selectbooking' title="Select Booking" element={<Layout><SelectBooking/></Layout>}/>
-       
-      <Route path='/booking/create' element={<CreateBooking/>}/>
-      <Route path='/booking/details' element={<ShowBooking/>}/>
+      <Route path="*" element={<Layout><ErrorPage /></Layout>} />
+      <Route path="/favlist" element={<Layout><FavouriteList/></Layout>} />
+      <Route path="/" element={<Layout><Landing/></Layout> } />
+      <Route path="/landing" element={<Layout><Landing/></Layout>} />
+      <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/logout" element={<Logout />} />
+      <Route path="/forgotpassword" element={<ForgotPassword />} />
+      <Route path="/resetPassword" element={<ResetPassword />} />
+      <Route path="/renterprofile" element={<Layout><Manageprofile/></Layout>} />
+      <Route path="/Rentersidebar" element={<Layout><RenterSidebar/></Layout>} />
+      <Route path="/homerenter" element={<Layout><RenterHome/></Layout>} />
+      <Route path="/renterdetail/:nic" element={<Layout><ViewRenterDetails/></Layout>} />
+      <Route path="/risknote/:nic" element={<Layout><RiskNote/></Layout>} />
+      <Route path="/selectbooking/:vehicleId" element={<Layout><SelectBooking/></Layout>} />
+      <Route path="/signup" element={<Signup />} />
+
+      <Route path="/displaydate" element={<Layout><Displaydates/></Layout>} />
+      <Route path="/driverprofile" element={<Layout><Driverprofile/></Layout>} />
+      <Route path="/license" element={<Layout><License/></Layout>} />
+      <Route path="/driverdashboard" element={<Layout><DriverDashboard/></Layout>} />
+      <Route path="/driverdisplay" element={<Layout><DriverDisplay/></Layout>} />
+
+      <Route path="/complains" element={<Home/>}/>
+      <Route path="/complains/details/:id" element={<ShowComplains/>}/>
+      <Route path="/complains/edit/:id" element={<EditComplains/>}/>
+      <Route path="/complains/delete/:id" element={<DeleteComplains/>}/>
+      <Route path="/complainsForm" element={<ComplainsForm/>}/>
+
+      <Route path="/owner" element={<Layout><Owner/></Layout>} />
+      <Route path="/vehicleadd" element={<VehicleAdd/>}/>
+      <Route path="/driveradd" element={<DriverAdd/>}/>
+      <Route path="/ownersidebar" element={<Layout><OwnerSidebar/></Layout>}/>
+      <Route path="/dataVehicle" element={<Layout><DataVehicle/></Layout>}/>
+
+      <Route path="/ownerProfile" element={<Layout><OwnerProfile/></Layout>} />
+      <Route path="/viewvehicle" element={<ViewVehicle/>}/>
+      <Route path="/profile" element={<Layout><Vprofile/></Layout>}/>
+      <Route path="/AddedVehicles" element={<Layout><AddedVehicles/></Layout>}/>
+      <Route path="/VehicleManager" element={<Layout><VehicleManager/></Layout>}/>
+      <Route path="/VehicleSidebar" element={<Layout><VehicleSidebar/></Layout>}/>
+      <Route path="/ApprovedF" element={<Layout><ApprovedF/></Layout>}/>
+      <Route path="/Forms" element={<Layout><Forms/></Layout>}/>
+
       <Route path='/empRegister' element={<Layout><HrEmpRegister/></Layout>}/>
       <Route path='/payroll' element={<Layout><HrPayroll/></Layout>}/>
       <Route path='/Details' element={<Layout><HrDetails/></Layout>}/>
@@ -122,15 +135,21 @@ const App = () => {
       <Route path='/DetailsEdit/:id' element={<Layout><HrDetailsEdit/></Layout>} />
       <Route path='/LeaveDetails' element={<Layout><HrLeaveDetails/></Layout>}/>
       <Route path='/SalaryEdit/:id' element={<Layout><HrSalaryEdit/></Layout>}/>
+      <Route path='/DetailsRead/:id' element={<Layout><HrDetailsRead/></Layout>}/>
       <Route path='/EmpDash' element={<Layout><EmpDashbord/></Layout>}/>
-      
 
-      
-     
-      
-      
-     
-      
+      <Route path='/bp' element={<Layout><BookingAndPayment/></Layout>}/>
+      <Route path='/booking/create/:vehicleId' element={<Layout><CreateBooking/></Layout>}/>
+      <Route path='/booking/update/:bookingId' element={<Layout><UpdateBooking/></Layout>}/>
+      <Route path='/booking/history' element={<Layout><ShowBooking/></Layout>}/>
+      <Route path='/booking/check' element={<Layout><CheckBooking/></Layout>}/>
+      <Route path='/booking/approved' element={<Layout><ApprovedBookings/></Layout>}/>
+      <Route path='/booking/rejected' element={<Layout><RejectBookings/></Layout>}/>
+      <Route path='/booking/pending' element={<Layout><PendingBookings/></Layout>}/>
+
+      <Route path='/payment' element={<Layout><Payment/></Layout>}/>
+      <Route path='/payment/generateBill/:bookingId' element={<Layout><GenerateBill/></Layout>}/>
+      <Route path='/payment/displayBill/:bookingId' element={<Layout><DisplayBill/></Layout>}/>
       
     </Routes>
   );
