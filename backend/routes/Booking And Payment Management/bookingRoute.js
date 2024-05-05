@@ -3,7 +3,7 @@ import {Booking} from '../../models/Booking And Payment Management/bookingModel.
 
 const router = express.Router();
 
-// Insert a new booking
+//Insert a new booking
 router.post('/', async (req, res) => {
   const booking = new Booking(req.body);
   try {
@@ -14,19 +14,19 @@ router.post('/', async (req, res) => {
   }
 });
 
+
+
 // GET all bookings
 router.get('/', async (req, res) => {
   try {
     const bookings = await Booking.find();
-     res.status(200).json({
-      count: bookings.length,
-      data: bookings,
-    });
+    res.json(bookings);
 
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
 
 // GET a specific booking by id
 router.get('/:id', async (req, res) => {
@@ -39,6 +39,59 @@ router.get('/:id', async (req, res) => {
     res.json(booking);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+// Fetch booking details by RenterId
+router.get('/renter/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const bookings = await Booking.find({ renter_id: userId });
+
+    if (!bookings || bookings.length === 0) {
+      return res.status(404).json({ error: 'Bookings not found for the specified renter_id' });
+    }
+
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error('Error fetching Booking details:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router.get('/renter/:renterNIC', async (req, res) => {
+  const { renterNIC } = req.params;
+
+  try {
+    const bookings = await Booking.find({ renter_nic: renterNIC });
+
+    if (!bookings || bookings.length === 0) {
+      return res.status(404).json({ error: 'Bookings not found for the specified renter NIC' });
+    }
+
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error('Error fetching Booking details:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Fetch booking details by VehicleId
+router.get('/vehicle/:vehicleId', async (req, res) => {
+  const { vehicleId } = req.params;
+
+  try {
+    const bookings = await Booking.find({ vehicle_id: vehicleId });
+
+    if (!bookings || bookings.length === 0) {
+      return res.status(404).json({ error: 'Bookings not found for the specified vehicle_id' });
+    }
+
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error('Error fetching Booking details:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -73,5 +126,5 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-export default router;
 
+export default router;

@@ -3,21 +3,28 @@ import mongoose from "mongoose";
 const bookingSchema = mongoose.Schema(
     {
         // User details
-        renter: {
+        renter_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Renter',
             type: String,
             required: true,
           },
-
+        renter_nic: {
+            type:String,
+        },
         // Vehicle information
-        vehicle: {
+        vehicle_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Vehicle',
             type: String,
             required: true,
         },
 
+        driver_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Driver',
+            type: String,
+        },
         // Booking details
         serviceType: {
             type: String,
@@ -34,7 +41,7 @@ const bookingSchema = mongoose.Schema(
         },
         status: {
             type: String,
-            enum: ['pending', 'approved', 'rejected', 'cancelled'],
+            enum: ['pending', 'approved', 'rejected', 'cancelled', 'completed'],
             default: 'pending',
             required: true,
         },
@@ -42,9 +49,8 @@ const bookingSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        description: {
+        description: { //reject Reason
             type: String,
-            required: true,
         },
     },
     {
