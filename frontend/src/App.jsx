@@ -71,8 +71,8 @@ import SelectBooking from './pages/Renter Management/SelectBooking';
 import VehicleDetails from './pages/Vehicle Management/VehicleDetails';// import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
-import VehicleManager from './pages/Vehicle Management/vehicleManager.jsx';
-import VehicleSidebar from './pages/Vehicle Management/vehicleSidebar.jsx';
+import VehicleManager from './pages/Vehicle Management/VehicleManager.jsx';
+import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar.jsx';
 import VehicleMProfile from './pages/Vehicle Management/VehicleMProfile.jsx';
 import Vehicles from './pages/Vehicle Management/Vehicles.jsx';
 
