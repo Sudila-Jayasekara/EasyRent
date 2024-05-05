@@ -50,7 +50,7 @@ const vehicleSchema = mongoose.Schema({
         required: true
       },
 
-      vehicleId:{
+      vehicleNumber:{
         type:String,
         required: true,
         unique:true
