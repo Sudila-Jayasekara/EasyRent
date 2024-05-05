@@ -14,6 +14,11 @@ const vehicleSchema = mongoose.Schema({
         ref: 'Owner',
         type: String,
     },
+    email:{
+        type: String,
+        required: true
+    },
+    
     photos: {
         type: [String],
     

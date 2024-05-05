@@ -5,29 +5,34 @@ import {Vehicle} from '../../models/Vehicle Management/vehicleModel.js';
 
 
 const router = express.Router();
+
 router.post('/vehicleadd', async (req, res) => {
-  const { brand, model,modelYear,engineCapacity, mileage,totalSeats,photos,transmission,price,vehicleNumber,startDate } = req.body;
   try {
-   
-      const newVehicle = new Vehicle({
-          brand,
-          model,
-          modelYear, 
-          engineCapacity,
-          mileage,
-          totalSeats,
-          photos,
-          transmission,
-          price,
-          vehicleNumber,
-          startDate,
-      });
-      await newVehicle.save();
-      return res.json({ status: true, message: "Vehicle Added" });
+    const { brand, model, modelYear, engineCapacity, mileage, totalSeats, transmission, price, vehicleNumber, startDate } = req.body;
+    const ownerEmail = req.body.ownerEmail; // Retrieve owner email from the request body
+
+    const newVehicle = new Vehicle({
+      brand,
+      model,
+      ownerEmail, // Store owner's email in the database
+      modelYear,
+      engineCapacity,
+      mileage,
+      totalSeats,
+      transmission,
+      price,
+      vehicleNumber,
+      startDate,
+    });
+
+    await newVehicle.save();
+    res.json({ status: true, message: "Vehicle Added" });
   } catch (error) {
-      console.error(error);
-     }
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
+
 
 // Insert a new Vehicle
 router.post('/', async (req, res) => {

@@ -61,6 +61,15 @@ const OwnerProfile = () => {
     });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    // Handle file upload logic here
+  };
+
+  const handlePictureDelete = () => {
+    // Handle picture deletion logic here
+  };
+
   const fileRef = useRef(null);
 
   return (
@@ -75,10 +84,18 @@ const OwnerProfile = () => {
                 <div className="flex flex-col items-center space-y-5">
                   <img className="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500" onClick={() => fileRef.current.click()} src="https://watermark.lovepik.com/photo/20211202/large/lovepik-private-car-driver-picture_501434302.jpg" alt="Bordered avatar" />
                   <div className="flex flex-col space-y-5 sm:ml-8">
-                    <button type="button" className="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 ">
+                    <button
+                      type="button"
+                      className="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200"
+                      onClick={() => fileRef.current.click()}
+                    >
                       Change picture
                     </button>
-                    <button type="button" className="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200 ">
+                    <button
+                      type="button"
+                      className="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200"
+                      onClick={handlePictureDelete}
+                    >
                       Delete picture
                     </button>
                   </div>
@@ -88,24 +105,24 @@ const OwnerProfile = () => {
                     <div className="grid gap-6 mb-6 lg:grid-cols-2">
                       <div>
                         <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900">Username</label>
-                        <input type="text" id="username" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="John" value={formData.username} onChange={handleChange} required />
+                        <input type="text" id="username" name="username" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="John" value={formData.username} onChange={handleChange} required />
                       </div>
                       <div>
                         <label htmlFor="nic" className="block mb-2 text-sm font-medium text-gray-900">NIC</label>
-                        <input type="text" id="nic" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" value={formData.nic} onChange={handleChange} required />
+                        <input type="text" id="nic" name="nic" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" value={formData.nic} onChange={handleChange} required />
                       </div>
                       <div>
                         <label htmlFor="phoneNumber" className="block mb-2 text-sm font-medium text-gray-900">Phone number</label>
-                        <input type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" pattern="[0-9]{10}" value={formData.phoneNumber} onChange={handleChange} required />
+                        <input type="tel" id="phoneNumber" name="phoneNumber" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" pattern="[0-9]{10}" value={formData.phoneNumber} onChange={handleChange} required />
                       </div>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900"> E-mail</label>
-                      <input type="email" id="adress" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter the email here" value={formData.email} onChange={handleChange} required />
+                      <input type="email" id="email" name="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter the email here" value={formData.email} onChange={handleChange} required />
                     </div>
                     <div className="mb-6">
                       <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900"> Address</label>
-                      <input type="text" id="adress" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter the address here" value={formData.address} onChange={handleChange} required />
+                      <input type="text" id="address" name="address" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter the address here" value={formData.address} onChange={handleChange} required />
                     </div>
                     <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Update Details</button>
                   </form>
