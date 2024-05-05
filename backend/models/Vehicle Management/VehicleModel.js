@@ -50,17 +50,15 @@ const vehicleSchema = mongoose.Schema({
         required: true
       },
 
-      vehicleId:{
-       type:String,
-       required:true
+      vehicleNumber:{
+        type:String,
+        required: true,
+        unique:true
       },
-
       startDate:{
-        type:Date,
-        required:true
-      },
-     
-
+        type:String,
+        required: true
+      } 
 
 },{timestamps:true});
 export const Vehicle = mongoose.model('Vehicle',vehicleSchema);

@@ -14,6 +14,8 @@ const VehicleAdd = () => {
     vehicleNumber:'',
     startDate:''
   });
+  const user = JSON.parse(localStorage.getItem('user'));
+  
 
   const [formErrors, setFormErrors] = useState({
     brand: '',
@@ -110,6 +112,12 @@ const VehicleAdd = () => {
       return;
     }
 
+    // Include owner email address in form data
+    const formDataWithOwner = {
+      ...formData,
+      ownerEmail: user.email // Assuming user object has email property
+    };
+
     // Proceed with form submission
     try {
       const res = await fetch('api/vehicle/vehicleadd', {
@@ -117,7 +125,7 @@ const VehicleAdd = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formDataWithOwner), // Pass formDataWithOwner instead of formData
       });
 
       const data = await res.json();
@@ -130,6 +138,7 @@ const VehicleAdd = () => {
       // Handle error appropriately, e.g., display an error message to the user
     }
   };
+  
 
   return (
     <div className="py-6 bg-amber-300">
