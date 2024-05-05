@@ -1,3 +1,5 @@
+// Manageprofile.js
+
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,8 +8,10 @@ const Manageprofile = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
+    email: "",
     phoneNumber: "",
     address: "",
+    nic: "",
     profilePicture: null,
   });
   const [previewProfilePicture, setPreviewProfilePicture] = useState(null);
@@ -15,19 +19,23 @@ const Manageprofile = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const id = user ? user._id : "";
   const userName = user ? user.username : "";
+  const email = user ? user.email : "";
   const phoneNumber = user ? user.phoneNumber : "";
   const address = user ? user.address : "";
+  const nic = user ? user.nic : "";
   const profilePicture = user ? user.profilePicture : "";
 
   useEffect(() => {
     setFormData({
       username: userName,
+      email: email,
       phoneNumber: phoneNumber,
       address: address,
+      nic: nic,
       profilePicture: profilePicture,
     });
     setPreviewProfilePicture(profilePicture);
-  }, [userName, phoneNumber, address, profilePicture]);
+  }, [userName, email, phoneNumber, address, nic, profilePicture]);
 
   const handleDelete = async (id) => {
     try {
@@ -38,14 +46,15 @@ const Manageprofile = () => {
       console.error("Error deleting the renter:", error);
     }
   };
-  
 
   const handleUpdate = async (event) => {
     event.preventDefault();
     const updateData = new FormData();
     updateData.append("username", formData.username);
+    updateData.append("email", formData.email);
     updateData.append("phoneNumber", formData.phoneNumber);
     updateData.append("address", formData.address);
+    updateData.append("nic", formData.nic);
   
     // Append profilePicture only if it exists
     if (formData.profilePicture) {
@@ -63,7 +72,7 @@ const Manageprofile = () => {
       console.log("Updated successfully:", response);
       localStorage.setItem("user", JSON.stringify(response.data));
       setFormData(response.data);
-      setPreviewProfilePicture(response.data.profilePicture);
+      setPreviewProfilePicture(response.data.profilePicture); // Update the preview image
     } catch (error) {
       console.error("Error updating the renter:", error);
     }
@@ -109,26 +118,6 @@ const Manageprofile = () => {
                   src={`http://localhost:5556/${user.profilePicture.replace("public", "")}`}
                   alt="Profile"
                 />
-
-                <div className="flex flex-col space-y-5 sm:ml-8">
-                  <button
-                    type="button"
-                    onClick={() => fileRef.current.click()}
-                    className="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200"
-                  >
-                    Change picture
-                  </button>
-                  <button
-                    type="button"
-                    className="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200"
-                    onClick={() => {
-                      setFormData({ ...formData, profilePicture: null });
-                      setPreviewProfilePicture(profilePicture);
-                    }}
-                  >
-                    Delete picture
-                  </button>
-                </div>
               </div>
               <div className="mx-auto block max-w-lg rounded-lg bg-white p-6 shadow-4 dark:bg-surface-dark">
                 <form className="w-96" onSubmit={handleUpdate}>
@@ -153,6 +142,24 @@ const Manageprofile = () => {
                     </div>
                     <div>
                       <label
+                        htmlFor="email"
+                        className="block mb-2 text-sm font-medium text-gray-900"
+                      >
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="example@example.com"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label
                         htmlFor="phoneNumber"
                         className="block mb-2 text-sm font-medium text-gray-900"
                       >
@@ -169,24 +176,42 @@ const Manageprofile = () => {
                         required
                       />
                     </div>
-                  </div>
-                  <div className="mb-6">
-                    <label
-                      htmlFor="address"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Address
-                    </label>
-                    <input
-                      type="text"
-                      id="address"
-                      name="address"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      placeholder="Enter the address here"
-                      value={formData.address}
-                      onChange={handleChange}
-                      required
-                    />
+                    <div>
+                      <label
+                        htmlFor="address"
+                        className="block mb-2 text-sm font-medium text-gray-900"
+                      >
+                        Address
+                      </label>
+                      <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Enter the address here"
+                        value={formData.address}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="nic"
+                        className="block mb-2 text-sm font-medium text-gray-900"
+                      >
+                        NIC
+                      </label>
+                      <input
+                        type="text"
+                        id="nic"
+                        name="nic"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="NIC Number"
+                        value={formData.nic}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
                   </div>
                   <button
                     type="submit"

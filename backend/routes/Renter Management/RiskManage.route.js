@@ -20,6 +20,16 @@ router.get('/risk', (req, res) => {
   res.json({ message: "Risk route working" });
 });
 
+router.get('/:nic', async (req, res) => {
+  const { nic } = req.params;
+  try {
+    const accidents = await Risk.find({ nic: nic });
+    res.json(accidents);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 router.get('/', async (req, res) => {
   try {
     const risks = await Risk.find();

@@ -28,8 +28,19 @@ const RiskNote = () => {
   }, []);
 
   const handleSelectVehicle = (vehicle) => {
-    setSelectedVehicle(vehicle);
-    setSearchValue(vehicle.vehicleNumber);
+    // If the same vehicle is clicked again, deselect it
+    if (selectedVehicle && selectedVehicle._id === vehicle._id) {
+      setSelectedVehicle(null);
+      setSearchValue(""); // Clear the search value
+      setFormData((prevState) => ({ ...prevState, vehiclenumber: "" })); // Clear the vehicle number in formData
+    } else {
+      setSelectedVehicle(vehicle);
+      setSearchValue(vehicle.vehicleNumber); // Update searchValue with the selected vehicle's number
+      setFormData((prevState) => ({
+        ...prevState,
+        vehiclenumber: vehicle.vehicleNumber,
+      })); // Update formData with the selected vehicle's number
+    }
   };
 
   const handleUploadPhotos = (e) => {
@@ -68,30 +79,22 @@ const RiskNote = () => {
     const { name, value, files } = e.target;
     if (name === "accidentPhotos") {
       setPhotos(files);
+    } else if (name === "search") {
+      setSearchValue(value.toUpperCase()); // Convert the entered value to uppercase
+      setSelectedVehicle(null); // Clear selected vehicle when typing in the search bar
+      setFormData((prevState) => ({ ...prevState, vehiclenumber: "" })); // Clear vehicle number in formData when typing in the search bar
     } else {
       setFormData((prevState) => ({
         ...prevState,
         [name]: value,
       }));
-
-      // Update searchValue only if the input field is for search
-      if (name === "search") {
-        setSearchValue(value);
-      }
-
-      // Update formData.vehiclenumber when a vehicle is selected
-      if (name === "search" && filteredVehicles.length === 1) {
-        setFormData((prevState) => ({
-          ...prevState,
-          vehiclenumber: filteredVehicles[0].vehicleNumber,
-        }));
-      }
     }
   };
 
   const filteredVehicles = vehicles.filter((vehicle) =>
     vehicle.vehicleNumber.includes(searchValue)
   );
+
   const handleRemovePhoto = (indexToRemove) => {
     // Create a new array without the photo to be removed
     const updatedPhotos = photos.filter((_, index) => index !== indexToRemove);
@@ -101,6 +104,68 @@ const RiskNote = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.username.trim()) {
+      alert("Please enter a name.");
+      return;
+    }
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    if (!/^\d{10}$/.test(formData.phoneNumber)) {
+      alert("Please enter a valid phone number.");
+      return;
+    }
+    if (!formData.nic.trim()) {
+      alert("Please enter a NIC.");
+      return;
+    }
+
+    // Validation for Customer Address Section
+    if (!formData.address.trim()) {
+      alert("Please enter an address.");
+      return;
+    }
+
+    // Validation for Accident Details Section
+    if (!searchValue.trim()) {
+      alert("Please search and select a vehicle number.");
+      return;
+    }
+    if (!formData.vehiclenumber.trim()) {
+      alert("Please enter a vehicle number.");
+      return;
+    }
+    if (!formData.accidentAddress.trim()) {
+      alert("Please enter an accident address.");
+      return;
+    }
+    if (!formData.accidentDate) {
+      alert("Please select an accident date.");
+      return;
+    }
+    if (!formData.accidentTime) {
+      alert("Please select an accident time.");
+      return;
+    }
+    if (!formData.accidentDescription.trim()) {
+      alert("Please enter an accident description.");
+      return;
+    }
+    if (photos.length === 0) {
+      alert("Please upload at least one accident photo.");
+      return;
+    }
+
+    // Validation for About Accident Section
+    if (!formData.injuries.trim()) {
+      alert("Please enter details about injuries.");
+      return;
+    }
+    if (!formData.legalAndInsuranceInfo.trim()) {
+      alert("Please enter legal and insurance information.");
+      return;
+    }
     try {
       const formDataToSend = new FormData();
 
@@ -128,6 +193,20 @@ const RiskNote = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      // Trigger search functionality here
+      // For example, you can filter vehicles based on the search value
+      const filteredVehicles = vehicles.filter((vehicle) =>
+        vehicle.vehicleNumber.includes(searchValue)
+      );
+      // Optionally, you can perform further actions such as selecting the first item from the filtered list
+      if (filteredVehicles.length > 0) {
+        handleSelectVehicle(filteredVehicles[0]);
+      }
+    }
+  };
+
   return (
     <div>
       <section className="py-1 bg-blueGray-50">
@@ -135,16 +214,9 @@ const RiskNote = () => {
           <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
             <div className="rounded-t bg-white mb-0 px-6 py-6">
               <div className="text-center flex justify-between">
-                <h6 className="text-blueGray-700 text-xl font-bold">
+                <h6 className="text-blueGray-700 text-xl font-bold text-center">
                   Accident Details
                 </h6>
-                <button
-                  onClick={handlePrint}
-                  className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                  type="button"
-                >
-                  Download Info
-                </button>
               </div>
             </div>
             <form onSubmit={handleSubmit}>
@@ -168,6 +240,7 @@ const RiskNote = () => {
                           value={renterdetail.username}
                           name="username"
                           onChange={handleChange}
+                          disabled
                         />
                       </div>
                     </div>
@@ -185,6 +258,7 @@ const RiskNote = () => {
                           value={renterdetail.email}
                           name="email"
                           onChange={handleChange}
+                          disabled
                         />
                       </div>
                     </div>
@@ -202,6 +276,7 @@ const RiskNote = () => {
                           value={renterdetail.phoneNumber}
                           name="phoneNumber"
                           onChange={handleChange}
+                          disabled
                         />
                       </div>
                     </div>
@@ -219,6 +294,7 @@ const RiskNote = () => {
                           value={renterdetail.nic}
                           name="nic"
                           onChange={handleChange}
+                          disabled
                         />
                       </div>
                     </div>
@@ -244,6 +320,7 @@ const RiskNote = () => {
                           value={renterdetail.address}
                           name="address"
                           onChange={handleChange}
+                          disabled
                         />
                       </div>
                     </div>
@@ -262,9 +339,10 @@ const RiskNote = () => {
                           <input
                             type="search"
                             placeholder="Search Vehicle Number"
-                            value={formData.vehiclenumber}
+                            value={searchValue}
                             onChange={handleChange}
-                            name="search" // Set the name attribute to "search"
+                            onKeyDown={handleKeyDown} // Call handleKeyDown function when a key is pressed
+                            name="search"
                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           />
                         </div>
@@ -340,10 +418,11 @@ const RiskNote = () => {
                           Date
                         </label>
                         <input
-                          type="Date"
+                          type="date"
                           value={formData.accidentDate}
                           onChange={handleChange}
                           name="accidentDate"
+                          max={new Date().toISOString().split("T")[0]}
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         />
                       </div>
@@ -361,6 +440,7 @@ const RiskNote = () => {
                           value={formData.accidentTime}
                           onChange={handleChange}
                           name="accidentTime"
+                          max={new Date().toTimeString().split(" ")[0]}
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         />
                       </div>
@@ -391,10 +471,6 @@ const RiskNote = () => {
                           rows="4"
                         ></textarea>
                       </div>
-                      {/* <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="grid-password"
-                      > */}
 
                       <div className="w-full lg:w-6/12 px-4">
                         <div className="relative w-full mb-3">
@@ -442,20 +518,6 @@ const RiskNote = () => {
                         </div>
                       </div>
 
-                      {/* <label
-                        className="block uppercase text-blueGray-600 text-xs mt-2 font-bold mb-2"
-                        htmlFor="grid-password"
-                      >
-                        vehicleNumber
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.vehiclenumber}
-                        onChange={handleChange}
-                        name="vehiclenumber"
-                        placeholder="details About Injuries"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      /> */}
                       <label
                         className="block uppercase text-blueGray-600 text-xs mt-2 font-bold mb-2"
                         htmlFor="grid-password"
@@ -488,7 +550,14 @@ const RiskNote = () => {
                   </div>
                 </div>
               </div>
-              <button type="submit">Submit</button>
+              <div className="flex justify-center items-center">
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                >
+                  Submit
+                </button>
+              </div>
             </form>
           </div>
           <footer className="relative pt-8 pb-6 mt-2">

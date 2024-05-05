@@ -146,11 +146,11 @@ const Signup = () => {
     const { name, value, files } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: name === "profilePicture" ? files[0] : value,
-      [name]: name === "licensePhoto" ? files[0] : value,
+      [name]: files ? files[0] : value,
     }));
     setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }));
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
