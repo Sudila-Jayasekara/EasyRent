@@ -25,6 +25,7 @@ router.post('/create-checkout-session', async (req, res) => {
 
       // Update the totalCost of the payment
       payment.totalCost = totalCost;
+      payment.paymentStatus = 'completed';
       await payment.save();
 
       // Create a Stripe Checkout Session
@@ -43,7 +44,7 @@ router.post('/create-checkout-session', async (req, res) => {
               },
           ],
           mode: 'payment',
-          success_url: 'http://localhost:5173/payment/success',
+          success_url: 'http://localhost:5173/booking/history',
           cancel_url: 'http://localhost:5173/payment/cancel',
           metadata: { bookingId: bookingId },
       });
@@ -55,8 +56,6 @@ router.post('/create-checkout-session', async (req, res) => {
   }
 });
 
-
-// // Then add this route
 // router.post('/webhook', bodyParser.raw({type: 'application/json'}), async (req, res) => {
 //   const sig = req.headers['stripe-signature'];
 //   let event;
@@ -64,29 +63,36 @@ router.post('/create-checkout-session', async (req, res) => {
 //   try {
 //     event = stripeClient.webhooks.constructEvent(req.body, sig, "whsec_1d42e052f14f0c7d96c3a65e8253c51e715bcd9e23533b8c20858b8a66e74476");
 //   } catch (err) {
+//     console.error('Error constructing event:', err); // Log the error here
 //     return res.status(400).send(`Webhook Error: ${err.message}`);
 //   }
+
 //   if (event.type === 'checkout.session.completed') {
 //     const session = event.data.object;
 
 //     try {
-//         // Update the payment status in your database
-//         const payment = await Payment.findOneAndUpdate(
-//             { booking_id: session.client_reference_id },
-//             { paymentStatus: 'completed' },
-//             { new: true }
-//         );
+//       const payment = await Payment.findOneAndUpdate(
+//         { booking_id: session.metadata.bookingId }, // Use bookingId from metadata
+//         { paymentStatus: 'completed' },
+//         { new: true }
+//       );
 
-//         if (!payment) {
-//             console.error('Error: No payment found for the specified booking ID');
-//         }
+//       if (!payment) {
+//         console.error('Error: No payment found for the specified booking ID');
+//         return res.status(404).send('Payment not found for the specified booking ID');
+//       }
+
+//       res.json({received: true});
 //     } catch (error) {
-//         console.error('Error updating payment status:', error);
+//       console.error('Error updating payment status:', error);
+//       res.status(500).send('Internal server error');
 //     }
-// }
-
-//   res.json({received: true});
+//   } else {
+//     console.error('Received unhandled event type:', event.type);
+//     res.status(400).send('Unhandled event type');
+//   }
 // });
+
 
 
 //Insert a new payment
@@ -114,19 +120,19 @@ router.get('/', async (req, res) => {
 });
 
 
-// // GET a specific booking by id
-// router.get('/:id', async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     const booking = await Booking.findById(id);
-//     if (!booking) {
-//       return res.status(404).json({ message: 'Booking not found' });
-//     }
-//     res.json(booking);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
+// GET a payment by bookingid
+router.get('/booking/:booking_id', async (req, res) => {
+  const { booking_id } = req.params;
+  try {
+    const payment = await Payment .findOne({ booking_id: booking_id }); 
+    if (!payment) {
+      return res.status(404).json({ message: 'Payment not found' });
+    }
+    res.json(payment);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 // Update a payment by bookingid
 router.patch('/booking/:booking_id', async (req, res) => {
