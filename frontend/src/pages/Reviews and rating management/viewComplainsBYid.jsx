@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import Header from '../../components/Header';
+import React,{useState} from 'react'
+import axios from 'axios'
+import { useNavigate,useParams } from 'react-router-dom'
 
-function ShowComplains() {
-  const [complains, setComplains] = useState({});
-  const { id } = useParams();
 
-  useEffect(() => {    
-    axios
-      .get(`http://localhost:5556/complains/${id}`)
-      .then((response) => {
-        setComplains(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [id]); // Added id to the dependency array to re-fetch data when id changes
+const viewComplainsBYid=()=> {
 
+    const navigate = useNavigate();
+    const { vehicleId } = useParams();
+    const [complains,setcomplains]=useState([])
+    const[vehicle_id,setvehicleId]= useState(vehicleId); 
+
+
+    useEffect(() => {
+      axios
+        .get(`http://localhost:5556/complains`)  
+        .then(res => {
+          setcomplains(res.data);   
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }, []);
+    
+      
   return (
     <div>
       <Header></Header>
@@ -43,7 +48,7 @@ function ShowComplains() {
       </div>
     </div>
     </div>
-  );
-}
+  )
 
-export default ShowComplains;
+}
+export default viewComplainsBYid

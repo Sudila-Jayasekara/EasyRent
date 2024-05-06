@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { useReactToPrint } from 'react-to-print'
 import {useLocation} from 'react-router-dom'
 
 const RiskNote = () => {

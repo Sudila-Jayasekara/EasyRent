@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
-import '@fortawesome/fontawesome-free/css/all.css';
 
 import Layout from './components/Layout';
 
@@ -15,6 +14,7 @@ import DataVehicle from './pages/Vehicle Owner Management/DataVehicle';
 import ShowComplains from './pages/Reviews and rating management/ShowComplains.jsx';
 import EditComplains from './pages/Reviews and rating management/EditComplains.jsx';
 import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx';
+
 
 //Booking  imports
 import BookingAndPayment from './pages/Booking And Payment Management/BookingAndPayment.jsx';
@@ -30,6 +30,11 @@ import PendingBookings from './pages/Booking And Payment Management/PendingBooki
 import Payment from './pages/Booking And Payment Management/Payment.jsx';
 import GenerateBill from './pages/Booking And Payment Management/GenerateBill.jsx'; 
 import DisplayBill from './pages/Booking And Payment Management/DisplayBill.jsx';
+
+//Maintenance imports
+import Conditions from './pages/Maintenance Management/Conditions.jsx';
+import MaintenanceForm from './pages/Maintenance Management/MaintenanceForm.jsx'; 
+import Maintenance from './pages/Maintenance Management/Maintenance.jsx';
 
 
 import Landing from './pages/Landing.jsx';
@@ -72,7 +77,6 @@ import SelectBooking from './pages/Renter Management/SelectBooking';
 import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
 import ViewDriver from './pages/Vehicle Owner Management/ViewDriver.jsx';
-
 
 axios.defaults.baseURL = 'http://localhost:5556';
 axios.defaults.withCredentials = true;
@@ -132,6 +136,8 @@ const App = () => {
       <Route path="/complains/delete/:id" element={<DeleteComplains/>}/>
       <Route path="/complainsForm" element={<ComplainsForm/>}/>
 
+
+
       <Route path="/owner" element={<Layout><Owner/></Layout>} />
       <Route path="/vehicleadd" element={<VehicleAdd/>}/>
       <Route path="/driveradd" element={<DriverAdd/>}/>
@@ -162,6 +168,10 @@ const App = () => {
       <Route path='/payment/generateBill/:bookingId' element={<Layout><GenerateBill/></Layout>}/>
       <Route path='/payment/displayBill/:bookingId' element={<Layout><DisplayBill/></Layout>}/>
       
+      <Route path='/maintenance' element={<Layout><Maintenance/></Layout>}/>
+      <Route path='/maintenanceForm' element={<Layout><MaintenanceForm/></Layout>}/>
+      <Route path='/conditions' element={<Layout><Conditions/></Layout>}/>
+
     </Routes>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import ComplainsForm from '../Reviews and rating management/ComplainsForm';
 
 const RenterHome = () => {
     const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
@@ -8,6 +9,7 @@ const RenterHome = () => {
     const [details, setDetails] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [likedItems, setLikedItems] = useState([]);
+    const [popup, setPopup] = useState(null);
 
     useEffect(() => {
         axios.get('http://localhost:5556/api/vehicle/')
@@ -41,6 +43,10 @@ const RenterHome = () => {
     const filteredDetails = details.filter(detail => {
         return detail.brand.toLowerCase().includes(searchTerm.toLowerCase());
     });
+
+    const handleClickPopup = (id) => {
+            setPopup(id);
+    }
 
     return (
         <div>
@@ -81,6 +87,7 @@ const RenterHome = () => {
                                         </a>
                                         <div className="bg-green-100 rounded-lg p-1">
                                             <span className="text-green-600">Available</span>
+                                            <button className='ml-20' onClick={()=> {handleClickPopup(detail)}}>Add Reviews</button>
                                         </div>
                                     </div>
                                     <div>
@@ -126,8 +133,15 @@ const RenterHome = () => {
                     </section>
                 </div>
             </main>
+
+            {popup && (
+                <div className="popupContainer">
+                    <ComplainsForm data={popup} close={setPopup}/>
+                </div>
+            )}
         </div>
     );
 };
 
 export default RenterHome;
+

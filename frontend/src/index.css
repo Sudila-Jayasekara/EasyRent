@@ -2,3 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.popupContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #FFF;
+    backdrop-filter: blur(8px);
+    width: 100vw;
+    height: 100%;
+}

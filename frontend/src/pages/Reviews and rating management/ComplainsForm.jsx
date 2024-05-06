@@ -4,59 +4,37 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
 
-const ComplainsForm = () => {
+const ComplainsForm = ({data, close}) => {
+
+    
     const [formData, setFormData] = useState({
-        vehicle_id: "",
+        vehicle_id: data._id,
         Driver_description: "",
         Vehicle_description: "",
         rating: "",
     });
     const [errors, setErrors] = useState({});
-    const navigate = useNavigate();
+    const navigate = useNavigate();	
 
     const handleButtonClick = () => {
         navigate('/complains');
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { id, value } = e.target;
         // Validate the field
-        const regex = /^[a-zA-Z\s]*$/; // Regular expression to allow only letters and spaces
+        const regex = /^[a-zA-Z0-9\s]*$/;  // Regular expression to allow only letters and spaces
         if (!regex.test(value)) {
-            setErrors({ ...errors, [name]: `Special characters and numbers are not allowed` });
+            setErrors({ ...errors, [id]: "Special characters are not allowed" });
         } else {
-            setErrors({ ...errors, [name]: "" });
-            setFormData({ ...formData, [name]: value });
-        }
-    };
-
-    // Separate handleChangeid function for the "vehicle_id" field
-    const handleChangeid = (e) => {
-        const { name, value } = e.target;
-        let errorMessage = "";
-
-        // Validate the field based on the name
-        if (name === "vehicle_id") {
-            // Regular expression to allow only alphanumeric characters and spaces
-            const regex = /^[a-zA-Z0-9\s]*$/;
-            if (!regex.test(value)) {
-                errorMessage = "Special characters are not allowed";
-            }
-        }
-        
-
-        // Update the errors state based on the validation result
-        setErrors({ ...errors, [name]: errorMessage });
-
-        // Update form data only if there's no error
-        if (!errorMessage) {
-            setFormData({ ...formData, [name]: value });
+            setErrors({ ...errors, [id]: "" });
+            setFormData({ ...formData, [id]: value });
         }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Check if there are any 
+        // Check if there are any errors
         const hasErrors = Object.values(errors).some((error) => error !== "");
         if (hasErrors) {
             return;
@@ -82,9 +60,13 @@ const ComplainsForm = () => {
         });
     };
 
+    const handleClose = () => {
+        close(null);
+    }
+
     return (
         <div>
-            <Header />
+            
             <div className="flex flex-col justify-between min-h-screen">
                 <div className="flex justify-center">
                     <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-9 pt-10 pb-8 mt-10">
@@ -103,26 +85,40 @@ const ComplainsForm = () => {
                                     ★
                                 </button>
                             ))}
-                            <div className="ml-10 mt-2">{formData.rating === 0 ? 'Please rate':
-                                                        formData.rating === 1 ? 'Very Bad' :
-                                                        formData.rating === 2 ? 'Bad' :
-                                                        formData.rating === 3 ? 'Average' :
-                                                        formData.rating === 4 ? 'Good' :
-                                                        formData.rating === 5 ? 'Excellent' :
-                                                        ''}</div>
+                           <div className="ml-10 mt-2">
+    {formData.rating === ''? 'Please rate' :
+        (() => {
+            switch (formData.rating) {
+                case 1:
+                    return 'Bad';
+                case 2:
+                    return 'Average';
+                case 3:
+                    return 'Good';
+                case 4:
+                    return 'Best';
+                case 5:
+                    return 'Excellent';
+                default:
+                    return '';
+            }
+        })()
+    }
+</div>
+
                         </div>
 
                         {/* Vehicle ID input */}
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="vehicle_id">Vehicle Id</label>
                             <input
-                                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.vehicle_id ? 'border-red-500' : ''}`}
                                 id="vehicle_id"
                                 type="text"
                                 placeholder="Vehicle ID"
                                 name="vehicle_id"
-                                value={formData.vehicle_id}
-                                onChange={handleChangeid} // Use handleChangeid for "vehicle_id" field
+                                value={data._id  || ""}
+                                onChange={handleChange}
                                 required
                             />
                             {errors.vehicle_id && <p className="text-red-500 text-xs italic">{errors.vehicle_id}</p>}
@@ -137,7 +133,7 @@ const ComplainsForm = () => {
                                 type="text"
                                 placeholder="Review for driver"
                                 name="Driver_description"
-                                value={formData.Driver_description}
+                                value={formData.Driver_description || ""}
                                 onChange={handleChange}
                                 required
                             />
@@ -153,7 +149,7 @@ const ComplainsForm = () => {
                                 type="text"
                                 placeholder="Review for Vehicle"
                                 name="Vehicle_description"
-                                value={formData.Vehicle_description}
+                                value={formData.Vehicle_description || ""}
                                 onChange={handleChange}
                                 required
                             />
@@ -168,6 +164,12 @@ const ComplainsForm = () => {
                             Save
                         </button>
                         <button
+                            className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
+                            type="button" onClick={handleClose}
+                        >
+                            close
+                        </button>
+                        <button
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
                             type="button"
                             onClick={handleButtonClick}
@@ -177,9 +179,10 @@ const ComplainsForm = () => {
                     </form>
                 </div>
             </div>
-            <Footer />
+            
         </div>
     );
 };
 
 export default ComplainsForm;
+    
