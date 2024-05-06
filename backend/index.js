@@ -19,6 +19,7 @@ import EmployeeRoute from './routes/HR Management/employeeRoute.js';
 import PayrollRoute from './routes/HR Management/payrollRoute.js'; 
 import LeaveRequestRoute from './routes/HR Management/leaveRequestRoute.js'; 
 import bodyParser from 'body-parser';
+import { ComplainReplyRoute } from "./routes/Vehicle Management/ComplainReplyRoute.js";
 
 const app = express();
 const __dirname = path.resolve();
@@ -56,6 +57,7 @@ app.use('/api/renter', RenterRouter);
 app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
 app.use('/Complains',ComplainsRoute)
+app.use('/api/complainreply',ComplainReplyRoute)
 
 
 
