@@ -74,6 +74,7 @@ import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
 import RiskDetailsPage from './pages/Renter Management/RiskDetailsPage.jsx';
 import PrintRisk from './pages/Renter Management/PrintRisk.jsx';
+import UpdateRisk from './pages/Renter Management/UpdateRisk.jsx';
 
 
 
@@ -102,6 +103,7 @@ const App = () => {
       <Route path="/risknote/:nic" element={<Layout><RiskNote/></Layout>} />
       <Route path="/selectbooking/:vehicleId" element={<Layout><SelectBooking/></Layout>} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/updaterisk/:id" element={<Layout><UpdateRisk/></Layout>} />
 
       <Route path="/displaydate" element={<Layout><Displaydates/></Layout>} />
       <Route path="/driverprofile" element={<Layout><Driverprofile/></Layout>} />

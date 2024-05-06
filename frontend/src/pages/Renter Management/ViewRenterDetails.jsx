@@ -43,9 +43,9 @@ const ViewRenterDetails = () => {
   }
 
   return (
-    <div>
-      <div ref={printtoPdf}>
-        <div className="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg hover:shadow-blue-400">
+    <div className="flex justify-center">
+      <div ref={printtoPdf} className="max-w-sm mx-auto">
+        <div className="overflow-hidden bg-white rounded-lg shadow-lg hover:shadow-blue-400">
           <div className="relative">
             <img className="w-full h-48 object-cover" src={`http://localhost:5556/${renterDetail.profilePicture ? renterDetail.profilePicture.replace("public", "") : ''}`} alt="Profile Image" />
           </div>
@@ -62,20 +62,28 @@ const ViewRenterDetails = () => {
         {accidentRecords.length > 0 && (
           <div className="my-4">
             <h2 className="text-xl font-semibold">Accident Records</h2>
-            <ul className="list-disc pl-8">
-              {accidentRecords.map(accident => (
-                <li key={accident._id}>
-                  <p><strong>Accident Date:</strong> {accident.accidentDate}</p>
-                  <p><strong>Accident Address:</strong> {accident.accidentAddress}</p>
-                </li>
-              ))}
-            </ul>
+            <table className="table-auto border-collapse border border-gray-800">
+              <thead>
+                <tr className="bg-gray-200">
+                  <th className="px-4 py-2">Accident Date</th>
+                  <th className="px-4 py-2">Accident Happened At</th>
+                </tr>
+              </thead>
+              <tbody>
+                {accidentRecords.map(accident => (
+                  <tr key={accident._id} className="bg-gray-100">
+                    <td className="border px-4 py-2">{accident.accidentDate}</td>
+                    <td className="border px-4 py-2">{accident.accidentAddress}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
-      </div>
 
-      <div className="flex justify-center mt-4">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handlePrint}>Download Report</button>
+        <div className="flex justify-center mt-4">
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handlePrint}>Download Report</button>
+        </div>
       </div>
     </div>
   );

@@ -22,11 +22,65 @@ const Signup = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
+    let newValue = value;
+    let newErrors = { ...errors }; // Copy current errors
+    
+    // Basic validation based on input field name
+    switch (name) {
+      case "username":
+        // Allow only letters, no numbers or symbols
+        newValue = value.replace(/[^a-zA-Z]/g, "");
+        break;
+      case "email":
+        // Simple email format validation
+        if (!/\S+@\S+\.\S+/.test(value)) {
+          newErrors[name] = "Invalid email address";
+        } else {
+          delete newErrors[name]; // Clear error if valid
+        }
+        break;
+      case "password":
+        // Password strength validation
+        if (value.length < 8) {
+          newErrors[name] = "Password should be at least 8 characters long";
+        } else if (!/[A-Z]/.test(value)) {
+          newErrors[name] = "Password should contain at least one uppercase letter";
+        } else {
+          delete newErrors[name]; // Clear error if valid
+        }
+        break;
+      case "confirmPassword":
+        // Check if confirmPassword matches password
+        if (value !== formData.password) {
+          newErrors[name] = "Passwords do not match";
+        } else {
+          delete newErrors[name]; // Clear error if valid
+        }
+        break;
+      case "phoneNumber":
+        // Allow only numbers and optional hyphens or spaces
+        newValue = value.replace(/[^0-9- ]/g, "");
+        break;
+      case "nic":
+        // NIC validation (National Identification Card)
+        // Assuming NIC should be of a specific format, like xxxxx-xxxxxxx-x
+        if (!/^\d{5}-\d{7}-\d$/.test(value)) {
+          newErrors[name] = "Invalid NIC format";
+        } else {
+          delete newErrors[name]; // Clear error if valid
+        }
+        break;
+      default:
+        // For other fields, no specific validation
+        break;
+    }
+    
     setFormData((prevState) => ({
       ...prevState,
-      [name]: files ? files[0] : value,
+      [name]: files ? files[0] : newValue,
     }));
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }));
+    
+    setErrors(newErrors); // Update errors
   };
   
 
@@ -36,23 +90,48 @@ const Signup = () => {
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
-
-    try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        body: formDataToSend,
-      });
-
-      const data = await res.json();
-
-      if (data.status) {
-        alert("User Registered");
-        navigate("/login");
+  
+    // Check for errors in the form data
+    let formErrors = {};
+    Object.entries(formData).forEach(([key, value]) => {
+      switch (key) {
+        case "username":
+        case "email":
+        case "password":
+        case "confirmPassword":
+        case "phoneNumber":
+        case "nic":
+          if (!value.trim()) {
+            formErrors[key] = "This field is required";
+          }
+          break;
+     
       }
-    } catch (error) {
-      console.error("Error:", error);
+    });
+  
+    // Set errors state with the formErrors
+    setErrors(formErrors);
+  
+    // If there are no errors, submit the form
+    if (Object.keys(formErrors).length === 0) {
+      try {
+        const res = await fetch("/api/auth/signup", {
+          method: "POST",
+          body: formDataToSend,
+        });
+  
+        const data = await res.json();
+  
+        if (data.status) {
+          alert("User Registered");
+          navigate("/login");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
+  
 
 
   return (

@@ -91,9 +91,12 @@ const RiskNote = () => {
     }
   };
 
-  const filteredVehicles = vehicles.filter((vehicle) =>
-    vehicle.vehicleNumber.includes(searchValue)
-  );
+  const filteredVehicles = vehicles?.filter((vehicle) =>
+    vehicle.vehicleNumber && vehicle.vehicleNumber.includes(searchValue)
+  ) ?? [];
+  
+  
+  
 
   const handleRemovePhoto = (indexToRemove) => {
     // Create a new array without the photo to be removed
@@ -440,7 +443,7 @@ const RiskNote = () => {
                           value={formData.accidentTime}
                           onChange={handleChange}
                           name="accidentTime"
-                          max={new Date().toTimeString().split(" ")[0]}
+                         
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         />
                       </div>
