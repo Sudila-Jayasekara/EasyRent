@@ -32,9 +32,6 @@ import GenerateBill from './pages/Booking And Payment Management/GenerateBill.js
 import DisplayBill from './pages/Booking And Payment Management/DisplayBill.jsx';
 
 //Maintenance imports
-import Conditions from './pages/Maintenance Management/Conditions.jsx';
-import MaintenanceForm from './pages/Maintenance Management/MaintenanceForm.jsx'; 
-import Maintenance from './pages/Maintenance Management/Maintenance.jsx';
 
 
 import Landing from './pages/Landing.jsx';
@@ -144,11 +141,7 @@ const App = () => {
       <Route path='/payment' element={<Layout><Payment/></Layout>}/>
       <Route path='/payment/generateBill/:bookingId' element={<Layout><GenerateBill/></Layout>}/>
       <Route path='/payment/displayBill/:bookingId' element={<Layout><DisplayBill/></Layout>}/>
-      
-      <Route path='/maintenance' element={<Layout><Maintenance/></Layout>}/>
-      <Route path='/maintenanceForm' element={<Layout><MaintenanceForm/></Layout>}/>
-      <Route path='/conditions' element={<Layout><Conditions/></Layout>}/>
-
+    
     </Routes>
   );
 }
