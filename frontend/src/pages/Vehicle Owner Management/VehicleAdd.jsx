@@ -157,7 +157,10 @@ const VehicleAdd = () => {
             <span className="border-b w-1/5 lg:w-1/4"></span>
           </div>
           <form onSubmit={handleSubmit}>
+
   <div className="mt-4">
+  
+ 
     <label className="block text-gray-700 text-sm font-bold mb-2">Brand</label>
     <input
       value={formData.brand}
@@ -179,6 +182,7 @@ const VehicleAdd = () => {
     />
     {formErrors.model && <p className="text-red-500 text-xs mt-1">{formErrors.model}</p>}
   </div>
+ 
 
   <div className="mt-4">
     <label className="block text-gray-700 text-sm font-bold mb-2">Vehicle Number</label>
