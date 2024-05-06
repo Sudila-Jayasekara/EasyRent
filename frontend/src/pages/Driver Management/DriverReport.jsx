@@ -119,7 +119,7 @@ const DriverReport = () => {
             </div>
             <div className="mt-4">
               <div className="flex justify-between">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Reason</label>
+                <label className="block text-gray-700 text-sm font-bold mb-2">Reasons</label>
               </div>
               <input
                 value={formData.reason}
