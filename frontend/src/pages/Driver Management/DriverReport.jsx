@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const DriverReport = () => {
   const [formData, setFormData] = useState({
@@ -28,6 +29,7 @@ const DriverReport = () => {
     console.log('Form data submitted:', updatedFormData);
 
     try {
+      const response = await axios.post('http://localhost:5556/api/driverreport',formData)
       const res = await fetch('api/vehicle/vehicleadd', {
         method: 'POST',
         headers: {
