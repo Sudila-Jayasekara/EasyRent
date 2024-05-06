@@ -78,6 +78,7 @@ import VehicleMProfile from './pages/Vehicle Management/VehicleMProfile.jsx';
 import Vehicles from './pages/Vehicle Management/Vehicles.jsx';
 import ReviewsDetails from './pages/Vehicle Management/ReviewsDetails.jsx';
 import Reply from './pages/Vehicle Management/Reply.jsx';
+import ShowReplies from './pages/Vehicle Management/ShowReplies.jsx';
 
 
 
@@ -130,6 +131,7 @@ const App = () => {
       <Route path="/Vehicles" element={<Layout><Vehicles/></Layout>}/>
       <Route path="/ReviewsDetails" element={<Layout><ReviewsDetails/></Layout>}/>
       <Route path="/Reply" element={<Layout><Reply/></Layout>}/>
+      <Route path="/ShowReplies" element={<Layout><ShowReplies/></Layout>}/>
 
 
       <Route path='/bp' element={<Layout><BookingAndPayment/></Layout>}/>

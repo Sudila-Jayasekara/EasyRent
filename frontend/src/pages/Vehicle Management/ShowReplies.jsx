@@ -5,7 +5,7 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineDelete } from 'react-icons/md';
 
-const ReviewsDetails = () => {
+const ShowReplies = () => {
   const [complains, setComplains] = useState([]);
 
   useEffect(() => {
@@ -30,9 +30,9 @@ const ReviewsDetails = () => {
           <tr>
             <th className='border border-slate-600 rounded-md p-2'>Complain ID</th>
             <th className='border border-slate-600 rounded-md p-2'>Vehicle ID</th>
-            <th className='border border-slate-600 rounded-md p-2'>Reviews for Vehicles</th>
-            <th className='border border-slate-600 rounded-md p-2'>Reviews for Drivers</th>
             <th className='border border-slate-600 rounded-md p-2'>Reply</th>
+           
+            
             
           </tr>
         </thead>
@@ -41,14 +41,15 @@ const ReviewsDetails = () => {
            <tr key={complaint._id} className='h-8'>
               <td className='border border-slate-700 rounded-md text-center'>{index + 1}</td>
               <td className='border border-slate-700 rounded-md text-center'>{complaint.vehicle_id}</td>
-              <td className='border border-slate-700 rounded-md text-center'>{complaint.Vehicle_description}</td>
-              <td className='border border-slate-700 rounded-md text-center'>{complaint.Driver_description}</td>
+              <td className='border border-slate-700 rounded-md text-center'></td>
               <td className='border border-slate-700 rounded-md text-center'>
-               <button type="button" className="py-2 px-6 ml-36 text-base font-medium text-black focus:outline-none bg-amber-500 rounded-lg border border-indigo-200 hover:bg-slate-700 focus:z-10 focus:ring-4 focus:ring-indigo-200">
-               <Link to={`/Reply`}>Reply</Link>
-                            </button>
-                                     
-              </td>
+              <div className="flex justify-center">
+						<button className="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type='submit'>
+                        Delete</button></div> </td>
+            <td className='border border-slate-700 rounded-md text-center'>
+              <div className="flex justify-center">
+						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type='submit'>
+                        Edit</button></div> </td>
               
             </tr>
           ))}
@@ -59,4 +60,4 @@ const ReviewsDetails = () => {
   );
 };
 
-export default ReviewsDetails;
+export default ShowReplies;

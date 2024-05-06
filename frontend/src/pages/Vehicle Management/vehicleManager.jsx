@@ -8,7 +8,7 @@ const VehicleManager = () => {
         <img src={carwall}/>
       </div> 
     </div>
-  )
+  ) 
 }
 
 export default VehicleManager
