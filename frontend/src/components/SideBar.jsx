@@ -34,7 +34,7 @@ const SideBar = () => {
                     <li> <Link to="/displaydate" className="block py-2 px-4 hover:bg-yellow-400">Display dates</Link></li>
                     <li> <Link to="/license" className="block py-2 px-4 hover:bg-yellow-400">license</Link></li>
                     <li> <Link to="/driverdisplay" className="block py-2 px-4 hover:bg-yellow-400">All Drivers</Link></li>
-                    <li> <Link to="/driverreport" className="block py-2 px-4 hover:bg-yellow-400">Report</Link></li>
+                    <li> <Link to="/driverreport" className="block py-2 px-4 hover:bg-yellow-400">Rejection upload</Link></li>
                 </>
             );
             break;
