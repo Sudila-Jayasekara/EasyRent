@@ -25,6 +25,9 @@ const storage = multer.diskStorage({
 // Init multer
 const upload = multer({ storage: storage });
 
+
+
+
 router.post('/signup', upload.single('profilePicture'), async (req, res) => {
     const { role } = req.body;
 
