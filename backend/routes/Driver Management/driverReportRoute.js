@@ -1,5 +1,9 @@
 import express from 'express';
+
 import { DriverReport } from '../../models/Driver Management/driverReportModel';
+
+import { DriverReport } from '../../models/Driver Management/driverReportModel.js'; // Assuming the model file is named driverReportModel.js
+
 
 const router = express.Router();
 
@@ -70,4 +74,4 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-export default router;
+export  { router as DriverReportRoute};

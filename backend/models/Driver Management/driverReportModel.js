@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-
-// Create model
 const driverReportSchema = new mongoose.Schema({
   driverName: {
     type: String,
@@ -27,7 +25,7 @@ const driverReportSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-}, { timestamps: true });
+}, { timestamps: true }); 
 
 
 const DriverReportModel = mongoose.model("DriverReport", driverReportSchema)

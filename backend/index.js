@@ -24,6 +24,9 @@ import LeaveRequestRoute from './routes/HR Management/leaveRequestRoute.js';
 
 import bodyParser from 'body-parser';
 
+import {DriverReportRoute} from './routes/Driver Management/driverReportRoute.js';
+
+
 
 
 const app = express();
@@ -62,7 +65,11 @@ app.use('/api/renter', RenterRouter);
 app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
 app.use('/Complains',ComplainsRoute)
+
 //app.use('/api/driverReport',DriverReport);
+
+app.use('/api/driverReport',DriverReportRoute);
+
 
 
 
