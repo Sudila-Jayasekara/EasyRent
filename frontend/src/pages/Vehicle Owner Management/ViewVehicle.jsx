@@ -1,4 +1,4 @@
-
+import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 
 
@@ -18,40 +18,7 @@ const ViewVehicle = () => {
       startDate: ''
     });
   
-    useEffect(() => {
-      // Fetch vehicle details from the database
-      // Assuming you have a function to fetch vehicle details and it returns a promise
-      fetchVehicleDetailsFromDatabase()
-        .then((data) => {
-          // Update state with fetched vehicle details
-          setVehicleDetails(data);
-        })
-        .catch((error) => {
-          console.error('Error fetching vehicle details:', error);
-        });
-    }, []);
   
-    // Function to fetch vehicle details from the database (replace with actual implementation)
-    const fetchVehicleDetailsFromDatabase = () => {
-      // Example implementation using fetch API
-
-      return fetch('http://localhost:5556/api/vehicle/${id}') // Replace '123' with the ID of the vehicle
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch vehicle details');
-          }
-          return response.json();
-        });
-    };
-  
-    // Function to handle form input changes
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setVehicleDetails((prevDetails) => ({
-        ...prevDetails,
-        [name]: value
-      }));
-    };
   
   
   return (
