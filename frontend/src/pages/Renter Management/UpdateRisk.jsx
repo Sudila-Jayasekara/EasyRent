@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useReactToPrint } from 'react-to-print';
 
 const UpdateRisk = () => {
     const location = useLocation();
@@ -17,17 +16,76 @@ const UpdateRisk = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        const newErrors = { ...errors };
-        if (name === 'username' && !/^[a-zA-Z\s]*$/.test(value)) {
-            newErrors[name] = 'Only letters are allowed';
-        } else {
-            delete newErrors[name];
-        }
-        setErrors(newErrors);
-        setEditableRiskDetail({ ...editableRiskDetail, [name]: value });
-    };
+        let newValue = value;
+        let newErrors = { ...errors };
 
-    
+        switch (name) {
+            case 'username':
+                newValue = value.replace(/[^a-zA-Z\s]/g, "");
+                if (!newValue.trim()) {
+                    newErrors[name] = 'Name is required';
+                } else {
+                    delete newErrors[name];
+                }
+                break;
+            case 'email':
+                if (!/\S+@\S+\.\S+/.test(value)) {
+                    newErrors[name] = 'Invalid email address';
+                } else {
+                    delete newErrors[name];
+                }
+                break;
+            case 'nic':
+                if (!/^\d{12}$/.test(value)) {
+                    newErrors[name] = 'NIC must contain exactly 12 numbers';
+                } else {
+                    delete newErrors[name];
+                }
+                break;
+            case 'phoneNumber':
+                newValue = value.replace(/\D/g, "");
+                if (newValue.length !== 10 || newValue.charAt(0) !== "0") {
+                    newErrors[name] = "Phone number must start with 0 and contain exactly 10 digits";
+                } else {
+                    delete newErrors[name];
+                }
+                break;
+            case 'accidentDate':
+                if (value.trim() === "") {
+                    newErrors[name] = "Accident date is required";
+                } else {
+                    delete newErrors[name];
+                }
+                break;
+            case 'accidentTime':
+                if (value.trim() === "") {
+                    newErrors[name] = "Accident time is required";
+                } else {
+                    delete newErrors[name];
+                }
+                break;
+            // Basic validation for other fields
+            case 'accidentAddress':
+            case 'accidentDescription':
+            case 'injuries':
+            case 'legalAndInsuranceInfo':
+            case 'vehiclenumber':
+                if (!value.trim()) {
+                    newErrors[name] = 'This field is required';
+                } else {
+                    delete newErrors[name];
+                }
+                break;
+            default:
+                break;
+        }
+
+       
+
+
+        setErrors(newErrors);
+        setEditableRiskDetail({ ...editableRiskDetail, [name]: newValue });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -47,88 +105,71 @@ const UpdateRisk = () => {
         } catch (error) {
             console.error('Error occurred while updating risk detail:', error);
         }
-    };
+    }
 
     return (
-        <div className="print:border print:border-gray-400 print:border-4 print:p-4">
-            <form onSubmit={handleSubmit}>
-                <div className="print:flex print:flex-col print:min-h-full print:overflow-auto">
-                    {/* Header */}
-                    
-                    {/* Content */}
-                    <div className="print:flex-1 print:p-8" ref={printRef}>
-                        <div className="bg-white rounded-lg shadow-lg p-8">
-                            <h2 className="text-3xl font-bold mb-6 text-blue-600">Risk Details</h2>
-                            <div>
-                                {/* Render form fields for editing */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="mb-4">
-                                        <label htmlFor="username" className="font-bold text-lg text-black underline">Name:</label>
-                                        <input type="text" id="username" name="username" value={editableRiskDetail.username} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                        {errors['username'] && <p className="text-red-500">{errors['username']}</p>}
-
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="email" className="font-bold text-lg text-black underline">Email:</label>
-                                        <input type="email" id="email" name="email" value={editableRiskDetail.email} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="nic" className="font-bold text-lg text-black underline">NIC:</label>
-                                        <input type="text" id="nic" name="nic" value={editableRiskDetail.nic} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="phoneNumber" className="font-bold text-lg text-black underline">Phone Number:</label>
-                                        <input type="text" id="phoneNumber" name="phoneNumber" value={editableRiskDetail.phoneNumber} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="address" className="font-bold text-lg text-black underline">Address:</label>
-                                        <input type="text" id="address" name="address" value={editableRiskDetail.address} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="accidentAddress" className="font-bold text-lg text-black underline">Accident Address:</label>
-                                        <input type="text" id="accidentAddress" name="accidentAddress" value={editableRiskDetail.accidentAddress} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="accidentDate" className="font-bold text-lg text-black underline">Accident Date:</label>
-                                        <input type="date" id="accidentDate" name="accidentDate" value={editableRiskDetail.accidentDate} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="accidentTime" className="font-bold text-lg text-black underline">Accident Time:</label>
-                                        <input type="time" id="accidentTime" name="accidentTime" value={editableRiskDetail.accidentTime} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="accidentDescription" className="font-bold text-lg text-black underline">Accident Description:</label>
-                                        <textarea id="accidentDescription" name="accidentDescription" rows="4" value={editableRiskDetail.accidentDescription} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="injuries" className="font-bold text-lg text-black underline">Injuries:</label>
-                                        <input type="text" id="injuries" name="injuries" value={editableRiskDetail.injuries} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="legalAndInsuranceInfo" className="font-bold text-lg text-black underline">Legal and Insurance Info:</label>
-                                        <textarea id="legalAndInsuranceInfo" name="legalAndInsuranceInfo" rows="4" value={editableRiskDetail.legalAndInsuranceInfo} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="vehiclenumber" className="font-bold text-lg text-black underline">Vehicle Number:</label>
-                                        <input type="text" id="vehiclenumber" name="vehiclenumber" value={editableRiskDetail.vehiclenumber} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div className="container mx-auto">
+            <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h2 className="text-3xl font-bold mb-6 text-blue-600">Risk Details</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">Name:</label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="username" name="username" value={editableRiskDetail.username} onChange={handleInputChange} />
+                        {errors['username'] && <p className="text-red-500 text-xs italic">{errors['username']}</p>}
                     </div>
-                    {/* Footer */}
-                    <div className="print:bg-gradient-to-r from-blue-300 to-blue-500 print:py-4 print:px-8 print:border-t print:border-gray-400">
-    <p className="print:text-center text-white font-bold">Easy Rent</p>
-</div>
-
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email:</label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" id="email" name="email" value={editableRiskDetail.email} onChange={handleInputChange} />
+                        {errors['email'] && <p className="text-red-500 text-xs italic">{errors['email']}</p>}
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nic">NIC:</label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="nic" name="nic" value={editableRiskDetail.nic} onChange={handleInputChange} />
+                        {errors['nic'] && <p className="text-red-500 text-xs italic">{errors['nic']}</p>}
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">Phone Number:</label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="phoneNumber" name="phoneNumber" value={editableRiskDetail.phoneNumber} onChange={handleInputChange} />
+                        {errors['phoneNumber'] && <p className="text-red-500 text-xs italic">{errors['phoneNumber']}</p>}
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="accidentAddress">Accident Address:</label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="accidentAddress" name="accidentAddress" value={editableRiskDetail.accidentAddress} onChange={handleInputChange} />
+                        {errors['accidentAddress'] && <p className="text-red-500 text-xs italic">{errors['accidentAddress']}</p>}
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="accidentDate">Accident Date:</label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="date" id="accidentDate" name="accidentDate" value={editableRiskDetail.accidentDate} onChange={handleInputChange} />
+                        {errors['accidentDate'] && <p className="text-red-500 text-xs italic">{errors['accidentDate']}</p>}
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="accidentTime">Accident Time:</label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="time" id="accidentTime" name="accidentTime" value={editableRiskDetail.accidentTime} onChange={handleInputChange} />
+                        {errors['accidentTime'] && <p className="text-red-500 text-xs italic">{errors['accidentTime']}</p>}
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="accidentDescription">Accident Description:</label>
+                        <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="accidentDescription" name="accidentDescription" rows="4" value={editableRiskDetail.accidentDescription} onChange={handleInputChange}></textarea>
+                        {errors['accidentDescription'] && <p className="text-red-500 text-xs italic">{errors['accidentDescription']}</p>}
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="injuries">Injuries:</label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="injuries" name="injuries" value={editableRiskDetail.injuries} onChange={handleInputChange} />
+                        {errors['injuries'] && <p className="text-red-500 text-xs italic">{errors['injuries']}</p>}
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="legalAndInsuranceInfo">Legal and Insurance Info:</label>
+                        <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="legalAndInsuranceInfo" name="legalAndInsuranceInfo" rows="4" value={editableRiskDetail.legalAndInsuranceInfo} onChange={handleInputChange}></textarea>
+                        {errors['legalAndInsuranceInfo'] && <p className="text-red-500 text-xs italic">{errors['legalAndInsuranceInfo']}</p>}
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="vehiclenumber">Vehicle Number:</label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="vehiclenumber" name="vehiclenumber" value={editableRiskDetail.vehiclenumber} onChange={handleInputChange} />
+                        {errors['vehiclenumber'] && <p className="text-red-500 text-xs italic">{errors['vehiclenumber']}</p>}
+                    </div>
                 </div>
-                {/* Button to trigger printing and submit form */}
-                <div className="mb-3  flex justify-center">
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
-                        Save Changes 
-                    </button>
-                    
-                </div>
+                {/* Submit button */}
+                <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
             </form>
         </div>
     );

@@ -1,5 +1,3 @@
-// Manageprofile.js
-
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +13,7 @@ const Manageprofile = () => {
     profilePicture: null,
   });
   const [previewProfilePicture, setPreviewProfilePicture] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const user = JSON.parse(localStorage.getItem("user"));
   const id = user ? user._id : "";
@@ -55,12 +54,12 @@ const Manageprofile = () => {
     updateData.append("phoneNumber", formData.phoneNumber);
     updateData.append("address", formData.address);
     updateData.append("nic", formData.nic);
-  
+
     // Append profilePicture only if it exists
     if (formData.profilePicture) {
       updateData.append("profilePicture", formData.profilePicture);
     }
-  
+
     try {
       const response = await axios.patch(
         `http://localhost:5556/api/renter/${id}`,
@@ -77,22 +76,53 @@ const Manageprofile = () => {
       console.error("Error updating the renter:", error);
     }
   };
-  
 
   const handleChange = (e) => {
-    if (e.target.name === "profilePicture") {
-      const file = e.target.files[0];
-      setFormData({
-        ...formData,
-        profilePicture: file,
-      });
-      setPreviewProfilePicture(URL.createObjectURL(file));
-    } else {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-      });
+    const { name, value } = e.target;
+    let newValue = value;
+    let newErrors = { ...errors };
+
+    switch (name) {
+      case "username":
+        // Allow only letters, no numbers or symbols
+        newValue = value.replace(/[^a-zA-Z]/g, "");
+        break;
+      case "email":
+        // Simple email format validation
+        if (!/\S+@\S+\.\S+/.test(value)) {
+          newErrors[name] = "Invalid email address";
+        } else {
+          delete newErrors[name]; // Clear error if valid
+        }
+        break;
+      
+        case "phoneNumber":
+          // Allow only numbers
+          newValue = value.replace(/\D/g, "");
+          if (newValue.length !== 10 || newValue.charAt(0) !== "0") {
+            newErrors[name] = "Phone number must start with 0 and contain exactly 10 digits";
+          } else {
+            delete newErrors[name]; // Clear error if valid
+          }
+          break;
+        
+        case "nic":
+          if (!/^\d{12}$/.test(value)) {
+            newErrors[name] = "NIC must contain exactly 12 numbers";
+          } else {
+            delete newErrors[name]; // Clear error if valid
+          }
+          break;
+        
+      default:
+        break;
     }
+
+    setErrors(newErrors);
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   const fileRef = useRef(null);
@@ -139,6 +169,7 @@ const Manageprofile = () => {
                         onChange={handleChange}
                         required
                       />
+                      {errors['username'] && <p className="text-red-500 text-xs italic">{errors['username']}</p>}
                     </div>
                     <div>
                       <label
@@ -157,6 +188,7 @@ const Manageprofile = () => {
                         onChange={handleChange}
                         required
                       />
+                      {errors['email'] && <p className="text-red-500 text-xs italic">{errors['email']}</p>}
                     </div>
                     <div>
                       <label
@@ -175,6 +207,7 @@ const Manageprofile = () => {
                         onChange={handleChange}
                         required
                       />
+                      {errors['phoneNumber'] && <p className="text-red-500 text-xs italic">{errors['phoneNumber']}</p>}
                     </div>
                     <div>
                       <label
@@ -193,6 +226,7 @@ const Manageprofile = () => {
                         onChange={handleChange}
                         required
                       />
+                      {errors['address'] && <p className="text-red-500 text-xs italic">{errors['address']}</p>}
                     </div>
                     <div>
                       <label
@@ -211,6 +245,7 @@ const Manageprofile = () => {
                         onChange={handleChange}
                         required
                       />
+                      {errors['nic'] && <p className="text-red-500 text-xs italic">{errors['nic']}</p>}
                     </div>
                   </div>
                   <button
