@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'; // Import useParams hook
 import axios from 'axios';
 
-const DriverReport = () => {
+const UpdateDriverReport = () => {
+  const { id } = useParams(); // Get the report id from the URL
   const [formData, setFormData] = useState({
     driverName: '',
     nic: '',
@@ -11,6 +12,19 @@ const DriverReport = () => {
     noOfDates: '',
     reason: '',
   });
+
+  useEffect(() => {
+    // Retrieve URL parameters and set form data
+    const params = new URLSearchParams(window.location.search);
+    setFormData({
+      driverName: params.get('driverName'),
+      nic: params.get('nic'),
+      date: params.get('date'),
+      location: params.get('location'),
+      noOfDates: params.get('noOfDates'),
+      reason: params.get('reason'),
+    });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,25 +36,11 @@ const DriverReport = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post('http://localhost:5556/api/driverreport', formData);
-      console.log('Form data submitted:', formData);
-      if (response.data.status) {
-        alert('Details submitted');
-        // Clear form fields after successful submission
-        setFormData({
-          driverName: '',
-          nic: '',
-          date: '',
-          location: '',
-          noOfDates: '',
-          reason: '',
-        });
-      }
+      await axios.patch(`http://localhost:5556/api/driverreport/${id}`, formData);
+      console.log('Report updated successfully');
     } catch (error) {
-      console.error('Error submitting form:', error);
-      // Handle error appropriately, e.g., display an error message to the user
+      console.error('Error updating report:', error);
     }
   };
 
@@ -52,14 +52,7 @@ const DriverReport = () => {
           style={{ backgroundImage: "url('https://wallpapercave.com/wp/wp4848993.jpg')" }}
         ></div>
         <div className="w-full p-8 lg:w-1/2">
-          <h2 className="text-2xl font-semibold text-black text-center">EasyRent</h2>
-          <div className="mt-4 flex items-center justify-between">
-            <span className="border-b w-1/5 lg:w-1/4"></span>
-            <a href="#" className="text-xs text-center text-red-600 font-bold uppercase mt-4 mb-5">
-              Enter your details and concerns here.
-            </a>
-            <span className="border-b w-1/5 lg:w-1/4"></span>
-          </div>
+          <h2 className="text-2xl font-semibold text-black text-center">Update Driver Report</h2>
           <form onSubmit={handleSubmit}>
             <div className="mt-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">Driver Name</label>
@@ -101,34 +94,26 @@ const DriverReport = () => {
                 type="text"
               />
             </div>
-            
             <div className="mt-4">
-              <div className="flex justify-between">
-                <label className="block text-gray-700 text-sm font-bold mb-2">No of dates</label>
-              </div>
+              <label className="block text-gray-700 text-sm font-bold mb-2">No of Dates</label>
               <input
                 value={formData.noOfDates}
                 onChange={handleChange}
                 name="noOfDates"
                 className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="Number"
+                type="number"
               />
             </div>
             <div className="mt-4">
-              <div className="flex justify-between">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Reasons</label>
-              </div>
+              <label className="block text-gray-700 text-sm font-bold mb-2">Reason</label>
               <input
                 value={formData.reason}
                 onChange={handleChange}
                 name="reason"
                 className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="String"
+                type="text"
               />
             </div>
-            
-            
-
             <div className="mt-8">
               <button
                 type="submit"
@@ -137,7 +122,6 @@ const DriverReport = () => {
                 Submit
               </button>
             </div>
-           
           </form>
         </div>
       </div>
@@ -145,4 +129,4 @@ const DriverReport = () => {
   );
 };
 
-export default DriverReport;
+export default UpdateDriverReport;

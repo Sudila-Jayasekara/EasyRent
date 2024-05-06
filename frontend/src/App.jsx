@@ -73,6 +73,8 @@ import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
+import DriverReportPage from './pages/Driver Management/DriverReportPage.jsx';
+import UpdateDriverReport from './pages/Driver Management/UpdateDriverReport.jsx';
 
 
 
@@ -105,6 +107,8 @@ const App = () => {
       <Route path="/driverdashboard" element={<Layout><DriverDashboard/></Layout>} />
       <Route path="/driverreport" element={<Layout><DriverReport/></Layout>} />
       <Route path="/driverdisplay" element={<Layout><DriverDisplay/></Layout>} />
+      <Route path="/driverreportpage" element={<Layout><DriverReportPage/></Layout>} />
+      <Route path="/driverreport/update/:id" element={<Layout><UpdateDriverReport/></Layout>} />
 
       <Route path="/complains" element={<Home/>}/>
       <Route path="/complains/details/:id" element={<ShowComplains/>}/>
