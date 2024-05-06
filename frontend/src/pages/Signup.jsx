@@ -57,19 +57,24 @@ const Signup = () => {
           delete newErrors[name]; // Clear error if valid
         }
         break;
-      case "phoneNumber":
-        // Allow only numbers and optional hyphens or spaces
-        newValue = value.replace(/[^0-9- ]/g, "");
-        break;
-      case "nic":
-        // NIC validation (National Identification Card)
-        // Assuming NIC should be of a specific format, like xxxxx-xxxxxxx-x
-        if (!/^\d{5}-\d{7}-\d$/.test(value)) {
-          newErrors[name] = "Invalid NIC format";
-        } else {
-          delete newErrors[name]; // Clear error if valid
-        }
-        break;
+        case "phoneNumber":
+          // Allow only numbers
+          newValue = value.replace(/\D/g, "");
+          if (newValue.length !== 10 || newValue.charAt(0) !== "0") {
+            newErrors[name] = "Phone number must start with 0 and contain exactly 10 digits";
+          } else {
+            delete newErrors[name]; // Clear error if valid
+          }
+          break;
+        
+        case "nic":
+          if (!/^\d{12}$/.test(value)) {
+            newErrors[name] = "NIC must contain exactly 12 numbers";
+          } else {
+            delete newErrors[name]; // Clear error if valid
+          }
+          break;
+        
       default:
         // For other fields, no specific validation
         break;
@@ -101,6 +106,7 @@ const Signup = () => {
         case "confirmPassword":
         case "phoneNumber":
         case "nic":
+        case "address":
           if (!value.trim()) {
             formErrors[key] = "This field is required";
           }
@@ -249,6 +255,9 @@ const Signup = () => {
               onChange={handleChange}
               className="h-7 block p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             />
+            {errors.nic && (
+              <p className="text-red-500 text-sm">{errors.nic}</p>
+            )}
           </label>
           {formData.role === "driver" && (
             <>
