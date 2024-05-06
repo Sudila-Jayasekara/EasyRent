@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import SideBar from '../../components/SideBar';
+
 
 const EmpDash = () => {
   const [employees, setEmployees] = useState([]);
@@ -25,42 +25,38 @@ const EmpDash = () => {
 
   const filteredEmployees = employees.filter((employee) => {
     return (
-      employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.nic.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.email.toLowerCase().includes(searchTerm.toLowerCase())
+      employee.firstName && employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.lastName && employee.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.nic && employee.nic.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.role && employee.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.email && employee.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
+  
 
   return (
-    <div className="flex h-screen bg-gray-100 bg-cover" style={{ backgroundImage: "url('/src/assets/HR/Dashboard.jpg')" }}>
+    <div className="flex h-screen" style={{ backgroundImage: "url('/src/assets/HR/Dashboard.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
       {/* Sidebar */}
-      <SideBar/>
-      <div className="w-64 bg-white shadow-md">
-        <div className="p-4">
+      
+      
+        <div className="p-6">
           <div className="flex items-center space-x-4 p-2 mb-5">
-            <img
-              className="h-12 w-12 rounded-full"
-              src="/profile-pic.jpg" // Replace with your profile picture path
-              alt="Profile"
-            />
+           
             <div>
-              <h4 className="font-semibold text-lg text-gray-700">Chandrasekara</h4>
-              <p className="text-gray-600">HR Manager</p>
+            
             </div>
           </div>
           
         </div>
-      </div>
+      
 
       {/* Main content */}
       <div className="flex-1 p-10">
-        <h1 className="text-3xl font-bold mb-6 ">Manage Employee</h1>
+        <h1 className="text-3xl font-bold text-center text-white  mb-6 ">Manage Employee</h1>
         {/* Search bar */}
-        <div className="  mb-30 mt-5  ">
+        <div className="  mb-30 mt-5">
           <input
-            className=" p-2 flex-6 border rounded "
+            className=" p-2 flex-6 border rounded mt-20 "
             type="search"
             placeholder="Search Employee"
             value={searchTerm}

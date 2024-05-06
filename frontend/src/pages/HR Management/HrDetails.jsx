@@ -59,18 +59,19 @@ const HrDetails = () => {
 
   const filteredEmployees = employees.filter((employee) => {
     return (
-      employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.nic.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.email.toLowerCase().includes(searchTerm.toLowerCase())
+      employee.firstName && employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.lastName && employee.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.nic1 && employee.nic1.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.role && employee.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.email1 && employee.email1.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
+  
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-1">
       <h2 className="text-2xl font-bold mb-4">Employee Details</h2>
-      <div className="flex items-center mb-4">
+      <div className="flex items-center mb-2">
         <input
           type="text"
           placeholder="Search"
@@ -100,12 +101,12 @@ const HrDetails = () => {
               <tr key={employee._id} className="border-b">
                 <td className="px-4 py-2">{employee.firstName}</td>
                 <td className="px-4 py-2">{employee.lastName}</td>
-                <td className="px-4 py-2">{employee.nic}</td>
+                <td className="px-4 py-2">{employee.nic1}</td>
                 <td className="px-4 py-2">{employee.role}</td>
                 <td className="px-4 py-2">{new Date(employee.dateOfBirth).toLocaleDateString()}</td>
                 <td className="px-4 py-2">{employee.gender}</td>
                 <td className="px-4 py-2">{employee.contactNumber}</td>
-                <td className="px-4 py-2">{employee.email}</td>
+                <td className="px-4 py-2">{employee.email1}</td>
                 <td className="action-button">
                   <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleView(employee)}>
                     Read
@@ -130,12 +131,12 @@ const HrDetails = () => {
             <h2>Employee Details</h2>
             <p><strong>First Name:</strong> {selectedEmployee.firstName}</p>
             <p><strong>Last Name:</strong> {selectedEmployee.lastName}</p>
-            <p><strong>NIC:</strong> {selectedEmployee.nic}</p>
+            <p><strong>NIC:</strong> {selectedEmployee.nic1}</p>
             <p><strong>Role:</strong> {selectedEmployee.role}</p>
             <p><strong>Date of Birth:</strong> {new Date(selectedEmployee.dateOfBirth).toLocaleDateString()}</p>
             <p><strong>Gender:</strong> {selectedEmployee.gender}</p>
             <p><strong>Contact Number:</strong> {selectedEmployee.contactNumber}</p>
-            <p><strong>Email:</strong> {selectedEmployee.email}</p>
+            <p><strong>Email:</strong> {selectedEmployee.email1}</p>
           </div>
         </div>
       )}

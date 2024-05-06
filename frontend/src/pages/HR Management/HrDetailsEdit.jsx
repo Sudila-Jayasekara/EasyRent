@@ -8,12 +8,12 @@ export default function HrDetailsEdit() {
   const [values, setValues] = useState({
     firstName: '',
     lastName: '',
-    nic: '',
+    nic1: '',
     role: '',
     dateOfBirth: '',
     gender: '',
     contactNumber: '',
-    email: '',
+    email1: '',
   });
 
   useEffect(() => {
@@ -25,12 +25,12 @@ export default function HrDetailsEdit() {
         setValues({
           firstName: employeeData.firstName,
           lastName: employeeData.lastName,
-          nic: employeeData.nic,
+          nic1: employeeData.nic1,
           role: employeeData.role,
           dateOfBirth: employeeData.dateOfBirth,
           gender: employeeData.gender,
           contactNumber: employeeData.contactNumber,
-          email: employeeData.email,
+          email1: employeeData.email1,
         });
         setLoading(false);
       })
@@ -94,16 +94,17 @@ export default function HrDetailsEdit() {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              id="nic"
-              name="nic"
+              id="nic1"
+              name="nic1"
               placeholder='NIC'
-              value={values.nic}
+              value={values.nic1}
               onChange={handleInputChange}
               required
             />
           </div>
           <div className='mb-4'>
-            <input
+            
+            <select
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               id="role"
@@ -112,7 +113,13 @@ export default function HrDetailsEdit() {
               value={values.role}
               onChange={handleInputChange}
               required
-            />
+            >
+            <option value="">Select an employee role</option>
+            <option value="car washer">Car Washer</option>
+            <option value="cleaner">Cleaner</option>
+            <option value="technician">Technician</option>
+            <option value="inspector">Vehicle Inspector</option>
+            </select>
           </div>
           <div className='mb-4'>
             <input
@@ -155,11 +162,11 @@ export default function HrDetailsEdit() {
           <div className='mb-4'>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="email"
-              id="email"
-              name="email"
+              type="email1"
+              id="email1"
+              name="email1"
               placeholder='Email'
-              value={values.email}
+              value={values.email1}
               onChange={handleInputChange}
               required
             />

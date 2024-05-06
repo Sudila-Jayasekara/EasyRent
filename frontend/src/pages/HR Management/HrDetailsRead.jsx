@@ -30,12 +30,12 @@ const HrDetailsRead = () => {
       <div className="bg-white rounded-lg shadow-md p-4">
         <p className="mb-2"><strong>First Name:</strong> {employee.firstName}</p>
         <p className="mb-2"><strong>Last Name:</strong> {employee.lastName}</p>
-        <p className="mb-2"><strong>NIC:</strong> {employee.nic}</p>
+        <p className="mb-2"><strong>NIC:</strong> {employee.nic1}</p>
         <p className="mb-2"><strong>Role:</strong> {employee.role}</p>
         <p className="mb-2"><strong>Date of Birth:</strong> {new Date(employee.dateOfBirth).toLocaleDateString()}</p>
         <p className="mb-2"><strong>Gender:</strong> {employee.gender}</p>
         <p className="mb-2"><strong>Contact Number:</strong> {employee.contactNumber}</p>
-        <p className="mb-2"><strong>Email:</strong> {employee.email}</p>
+        <p className="mb-2"><strong>Email:</strong> {employee.email1}</p>
       </div>
     </div>
   );

@@ -6,12 +6,12 @@ const HrEmpRegister = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    nic: '',
+    nic1: '',
     role: '',
     dateOfBirth: '',
     gender: '',
     contactNumber: '',
-    email: '',
+    email1: '',
   });
 
   const [errors, setErrors] = useState({});
@@ -53,12 +53,12 @@ const HrEmpRegister = () => {
       setFormData({ // Clear form data
         firstName: '',
         lastName: '',
-        nic: '',
+        nic1: '',
         role: '',
         dateOfBirth: '',
         gender: '',
         contactNumber: '',
-        email: ''
+        email1: ''
       });
     } catch (error) {
       console.error(error);
@@ -76,6 +76,10 @@ const HrEmpRegister = () => {
     }
   };
   
+ 
+
+
+
   return (
     <div className='wrapper flex justify-center items-center screen'>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 grid grid-cols-2 gap-4">
@@ -114,9 +118,9 @@ const HrEmpRegister = () => {
           <input
             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.nic ? 'border-red-500' : ''}`}
             type="text"
-            name="nic"
+            name="nic1"
             placeholder='NIC'
-            value={formData.nic}
+            value={formData.nic1}
             onChange={handleChange}
             required
           />
@@ -135,6 +139,8 @@ const HrEmpRegister = () => {
             <option value="">Select an employee role</option>
             <option value="car washer">Car Washer</option>
             <option value="cleaner">Cleaner</option>
+            <option value="technician">Technician</option>
+            <option value="inspector">Vehicle Inspector</option>
             {/* Add more role options as needed */}
           </select>
           <p className="text-red-500 text-xs italic">{errors.role}</p>
@@ -190,9 +196,9 @@ const HrEmpRegister = () => {
           <input
             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.email ? 'border-red-500' : ''}`}
             type="email"
-            name="email"
+            name="email1"
             placeholder='Email'
-            value={formData.email}
+            value={formData.email1}
             onChange={handleChange}
             required
           />

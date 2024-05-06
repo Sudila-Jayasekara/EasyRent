@@ -1,9 +1,12 @@
-// HrPayroll.js
+
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
-const HrPayroll = ({ location }) => {
+
+const HrPayroll = () => {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     employeeName: '',
     hoursworked: '',

@@ -9,7 +9,7 @@ const employeeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  nic: {
+  nic1: {
     type: String,
     required: true
   },
@@ -31,7 +31,7 @@ const employeeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  email: {
+  email1: { 
     type: String,
     required: true
   }
