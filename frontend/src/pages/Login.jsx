@@ -14,35 +14,49 @@ const Login = () => {
   const loginUser = async (e) => {
     e.preventDefault();
     try {
-      const response = await Axios.post('api/auth/login', { email, password });
-      const { status, user, token } = response.data;
-      if (status) {
-        localStorage.setItem('user', JSON.stringify(user));
+      // Check if the user is the special admin
+      if (email === 'admin@gmail.com' && password === 'admin1234') {
+        // Special admin login
+        const adminUser = {
+          email: 'admin@gmail.com',
+          userType: 'admin' // Add userType 'admin' for the special admin
+        };
+        const token = 'your-special-admin-token'; // Generate a special admin token
+        localStorage.setItem('user', JSON.stringify(adminUser));
         localStorage.setItem('token', token);
-        dispatch(setLogin({ user, token }));
-        switch (user.userType) {
-          case 'renter':
-            navigate('/homerenter');
-            break;
-          case 'owner':
-            navigate('/ownerprofile');
-            break;
-          case 'driver':
-            navigate('/driverprofile');
-            break;
-          case 'employee':
-            navigate('/hrdashboard');
-            break;
-          case 'vehiclemanager':
-            navigate('/VehicleManager');
-            break;
-          default:
-            // Handle unexpected userType
-            setError('Invalid user type');
-            break;
-        }
+        dispatch(setLogin({ user: adminUser, token }));
+        navigate('/empDash');
       } else {
-        setError('Invalid email or password');
+        // Normal user login
+        const response = await Axios.post('api/auth/login', { email, password });
+        const { status, user, token } = response.data;
+        if (status) {
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('token', token);
+          dispatch(setLogin({ user, token }));
+          switch (user.userType) {
+            case 'renter':
+              navigate('/homerenter');
+              break;
+            case 'owner':
+              navigate('/ownerprofile');
+              break;
+            case 'driver':
+              navigate('/driverprofile');
+              break;
+            case 'employee':
+              navigate('/empDash');
+              break;
+            case 'vehiclemanager':
+              navigate('/VehicleManager');
+              break;
+            default:
+              setError('Invalid user type');
+              break;
+          }
+        } else {
+          setError('Invalid email or password');
+        }
       }
     } catch (err) {
       setError('Login failed. Please try again later.');
@@ -93,4 +107,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login;

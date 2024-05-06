@@ -52,7 +52,8 @@ const EmpDash = () => {
 
       {/* Main content */}
       <div className="flex-1 p-10">
-        <h1 className="text-3xl font-bold text-center text-white  mb-6 ">Manage Employee</h1>
+        <div className='bg-black ml-70 mr-80 mx-56 rounded  mb-6  py-2'>
+        <h1 className="text-3xl font-bold text-center text-yellow-400 mb-3">Manage Employee</h1></div>
         {/* Search bar */}
         <div className="  mb-30 mt-5">
           <input
@@ -63,7 +64,7 @@ const EmpDash = () => {
             onChange={handleSearch}
           />
         </div>
-        <div className="bg-white shadow-md rounded my-20 p-2 ">
+        <div className="bg-white shadow-md rounded my-5 p-2 ">
           <table className="min-w-max w-full table-auto ">
             <thead>
               <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">

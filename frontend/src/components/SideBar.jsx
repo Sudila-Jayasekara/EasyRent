@@ -26,14 +26,30 @@ const SideBar = () => {
             dashboardLink = '/ownerdashboard';
             additionalLinks = (
                 <>
-                    <li><Link to="/viewvehicle" className="block py-2 px-4 hover:bg-yellow-400">view vehicle</Link></li>
+                    <li><Link to="/viewvehicle" className="block py-2 px-4 hover:bg-yellow-400">View Vehicle</Link></li>
                     <li><Link to="/AddedVehicles" className="block py-2 px-4 hover:bg-yellow-400">Added Vehicles</Link></li>
-                    <li><Link to="/VehicleManager" className="block py-2 px-4 hover:bg-yellow-400">VehicleManager</Link></li>
+                    <li><Link to="/VehicleManager" className="block py-2 px-4 hover:bg-yellow-400">Vehicle Manager</Link></li>
                     <li><Link to="/ApprovedF" className="block py-2 px-4 hover:bg-yellow-400">Approved Forms</Link></li>
                     <li><Link to="/Forms" className="block py-2 px-4 hover:bg-yellow-400">Forms</Link></li>
                 </>
             );
             break;
+
+        case 'admin':
+            dashboardLink = '/empDash';
+            additionalLinks = (
+                <>
+                    <li><Link to="/empDash" className="block py-2 px-4 hover:bg-yellow-400">Dashboard</Link></li>
+                    <li><Link to="/EmpRegister" className="block py-2 px-4 hover:bg-yellow-400">Employee Registration</Link></li>
+                    <li><Link to="/dashboard" className="block py-2 px-4 hover:bg-yellow-400">Payroll</Link></li>
+                    <li><Link to="/empLeave" className="block py-2 px-4 hover:bg-yellow-400">Leave</Link></li>
+                    <li><Link to="/Details" className="block py-2 px-4 hover:bg-yellow-400">Details</Link></li>
+                    <li><Link to="/leaveDetails" className="block py-2 px-4 hover:bg-yellow-400">Leave Details</Link></li>
+                    <li><Link to="/salaryDetails" className="block py-2 px-4 hover:bg-yellow-400">Salary Details</Link></li>
+                </>
+            );
+            break;
+
         // other cases...
         default:
             dashboardLink = '/dashboard'; // Default dashboard for unknown roles
@@ -41,7 +57,7 @@ const SideBar = () => {
     }
 
     return (
-        <div className="bg-gray-900 text-white w-64 flex flex-col justify-between pt-5">
+        <div className="bg-gray-900 text-white w-64 flex flex-col justify-between pt-5 h-screen overflow-y-auto">
             <div className="p-4">
                 <h2 className="text-2xl font-bold mb-4 text-yellow-400">Welcome {user.username}</h2>
                 <ul className="space-y-2">

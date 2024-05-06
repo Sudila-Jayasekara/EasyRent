@@ -107,14 +107,14 @@ const HrDetails = () => {
                 <td className="px-4 py-2">{employee.gender}</td>
                 <td className="px-4 py-2">{employee.contactNumber}</td>
                 <td className="px-4 py-2">{employee.email1}</td>
-                <td className="action-button">
-                  <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleView(employee)}>
+                <td className="action-button flex flex-row space-y-2">
+                  <button className="bg-green-400 hover:bg-green-700 text-white font-bold  py-1 px-1 rounded mr-1" onClick={() => handleView(employee)}>
                     Read
                   </button>
                   <button className="bg-yellow-400 hover:bg-yellow-600 text-white font-bold py-1 px-0 rounded mr-2" onClick={() => handleEdit(employee)}>
                     Update
                   </button>
-                  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded" onClick={() => handleDelete(employee)}>
+                  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-0 rounded mr-2" onClick={() => handleDelete(employee)}>
                     Delete
                   </button>
                 </td>
