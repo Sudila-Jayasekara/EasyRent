@@ -59,11 +59,13 @@ const SideBar = () => {
             
             break;
             case 'vehiclemanager':
-                dashboardLink = '/vehiclemanager';
+                dashboardLink = '/VehicleMProfile';
                 additionalLinks = (
                     <>
-                        <li><Link to="/vehicles" className="block py-2 px-4 hover:bg-yellow-400">AddedVehicles</Link></li>
+                        <li><Link to="/vehicles" className="block py-2 px-4 hover:bg-yellow-400">Added Vehicles</Link></li>
                         <li><Link to="/VehicleMProfile" className="block py-2 px-4 hover:bg-yellow-400">Profile</Link></li>
+                        <li><Link to="/ReviewsDetails" className="block py-2 px-4 hover:bg-yellow-400">Show Reviews</Link></li>
+
                     </>
                 );
         default:

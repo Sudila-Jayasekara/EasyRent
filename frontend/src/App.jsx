@@ -68,6 +68,7 @@ import Manageprofile from './pages/Renter Management/Manageprofile';
 import RenterSidebar from './pages/Renter Management/RenterSidebar';
 import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
+
 import VehicleDetails from './pages/Vehicle Management/VehicleDetails';// import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
@@ -75,6 +76,8 @@ import VehicleManager from './pages/Vehicle Management/VehicleManager.jsx';
 import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar.jsx';
 import VehicleMProfile from './pages/Vehicle Management/VehicleMProfile.jsx';
 import Vehicles from './pages/Vehicle Management/Vehicles.jsx';
+import ReviewsDetails from './pages/Vehicle Management/ReviewsDetails.jsx';
+import Reply from './pages/Vehicle Management/Reply.jsx';
 
 
 
@@ -125,6 +128,8 @@ const App = () => {
       <Route path="/VehicleDetails/:vehicleId" element={<Layout><VehicleDetails/></Layout>}/>
       <Route path="/VehicleSideBar" element={<Layout><VehicleSidebar/></Layout>}/>
       <Route path="/Vehicles" element={<Layout><Vehicles/></Layout>}/>
+      <Route path="/ReviewsDetails" element={<Layout><ReviewsDetails/></Layout>}/>
+      <Route path="/Reply" element={<Layout><Reply/></Layout>}/>
 
 
       <Route path='/bp' element={<Layout><BookingAndPayment/></Layout>}/>
