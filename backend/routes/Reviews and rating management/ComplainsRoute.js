@@ -39,12 +39,12 @@ router.get('/:id', async (req, res) => {
 
 //get complains by vehicle id
 
-router.get('/Complains/:vehicleId',async(req,res)=>{
+router.get('/vehicle/:vehicleId',async(req,res)=>{
   const {vehicleId}=req.params;
 
   try{
     const complains  =await Complains.find({vehicle_id:vehicleId});
-    if(!complains||Complains.length===0){
+    if(!Complains||Complains.length===0){
       return res.status(404).json({ error: 'Complains not found for the specified vehicle_id' });
     }
     res.status(200).json(complains);

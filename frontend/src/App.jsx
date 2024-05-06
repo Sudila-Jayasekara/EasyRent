@@ -15,6 +15,7 @@ import ShowComplains from './pages/Reviews and rating management/ShowComplains.j
 import EditComplains from './pages/Reviews and rating management/EditComplains.jsx';
 import DeleteComplains from './pages/Reviews and rating management/DeleteComplains.jsx';
 
+
 //Booking  imports
 import BookingAndPayment from './pages/Booking And Payment Management/BookingAndPayment.jsx';
 import CreateBooking from './pages/Booking And Payment Management/CreateBooking.jsx';
@@ -71,7 +72,6 @@ import RenterHome from './pages/Renter Management/RenterHome';
 import SelectBooking from './pages/Renter Management/SelectBooking';
 import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
-import viewComplainsBYid from './pages/Reviews and rating management/viewComplainsBYid.jsx';
 
 
 axios.defaults.baseURL = 'http://localhost:5556';
@@ -108,6 +108,7 @@ const App = () => {
       <Route path="/complains/edit/:id" element={<EditComplains/>}/>
       <Route path="/complains/delete/:id" element={<DeleteComplains/>}/>
       <Route path="/complainsForm" element={<ComplainsForm/>}/>
+
 
 
       <Route path="/owner" element={<Layout><Owner/></Layout>} />

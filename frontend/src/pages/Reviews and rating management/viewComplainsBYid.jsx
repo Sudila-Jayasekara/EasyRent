@@ -11,18 +11,17 @@ const viewComplainsBYid=()=> {
     const[vehicle_id,setvehicleId]= useState(vehicleId); 
 
 
-
-    useEffect=(()=>{
-        axios
-        .get(`http://localhost:5556/complains/${vehicleId}`)  
-        .then(res=>{
+    useEffect(() => {
+      axios
+        .get(`http://localhost:5556/complains`)  
+        .then(res => {
           setcomplains(res.data);   
-      })
-        .catch((err)=>{
+        })
+        .catch(err => {
           console.log(err);
-              })
-            
-            },[vehicle_id]);
+        });
+    }, []);
+    
       
   return (
     <div>

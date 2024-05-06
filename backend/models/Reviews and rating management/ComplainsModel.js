@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 const ComplainsSchema = mongoose.Schema(
     {
        
-
         // Vehicle information
         vehicle_id:{
             type: mongoose.Schema.Types.ObjectId,

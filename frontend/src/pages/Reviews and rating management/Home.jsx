@@ -11,7 +11,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5556/Complains')
+      .get(`http://localhost:5556/Complains`)
       .then((response) => {
         setComplains(response.data); // Assuming response.data contains an array of complaints
       })
@@ -36,6 +36,8 @@ const Home = () => {
             <th className='border border-slate-600 rounded-md p-2'>Rating(Stars)</th>
             <th className='border border-slate-600 rounded-md p-2'>Vehicle Description</th>
             <th className='border border-slate-600 rounded-md p-2'>Driver Description</th>
+            <th className='border border-slate-600 rounded-md p-2'>Reply</th>
+
             <th className='border border-slate-600 rounded-md '>Actions</th>
           </tr>
         </thead>
@@ -47,6 +49,10 @@ const Home = () => {
               <td className='border border-slate-700 rounded-md text-center'>{complaint.rating}</td>
               <td className='border border-slate-700 rounded-md text-center'>{complaint.Vehicle_description}</td>
               <td className='border border-slate-700 rounded-md text-center'>{complaint.Driver_description}</td>
+              <td className='border border-slate-700 rounded-md text-center'>{complaint.reply}</td>
+              
+
+
               <td className='border border-slate-600  text-center flex justify-center gap-x-4'>
                 <Link to={`/complains/details/${complaint._id}`}>
                   <BsInfoCircle className='text-xl text-green-800 mt-2 ml-1 mr-1' />
@@ -58,6 +64,8 @@ const Home = () => {
                 <Link to={`/complains/delete/${complaint._id}`}>
                   <MdOutlineDelete className='text-xl text-yellow-600 mt-2 ml-1 mr-1' />
                 </Link>
+                
+
               </td>
             </tr>
           ))}

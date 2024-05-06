@@ -66,7 +66,7 @@ const ComplainsForm = ({data, close}) => {
 
     return (
         <div>
-            <Header />
+            
             <div className="flex flex-col justify-between min-h-screen">
                 <div className="flex justify-center">
                     <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-9 pt-10 pb-8 mt-10">
@@ -179,7 +179,7 @@ const ComplainsForm = ({data, close}) => {
                     </form>
                 </div>
             </div>
-            <Footer />
+            
         </div>
     );
 };

@@ -87,7 +87,7 @@ const RenterHome = () => {
                                         </a>
                                         <div className="bg-green-100 rounded-lg p-1">
                                             <span className="text-green-600">Available</span>
-                                            <button className='ml-20' onClick={()=> {handleClickPopup(detail)}}>Reviews</button>
+                                            <button className='ml-20' onClick={()=> {handleClickPopup(detail)}}>Add Reviews</button>
                                         </div>
                                     </div>
                                     <div>
@@ -144,3 +144,4 @@ const RenterHome = () => {
 };
 
 export default RenterHome;
+
