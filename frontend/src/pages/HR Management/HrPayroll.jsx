@@ -56,7 +56,7 @@ const HrPayroll = () => {
   const handleCalculateSalary = () => {
     const total = calculateSalary();
     setTotalSalary(total);
-  };
+  }; 
 
   const handleSubmit = (e) => {
     e.preventDefault();
