@@ -5,10 +5,16 @@ const ComplainsSchema = mongoose.Schema(
        
         // Vehicle information
         vehicle_id:{
-            type: mongoose.Schema.Types.ObjectId,
+            type: String,
             ref: 'Vehicle',
             required: true,
+      },
+        // complains details
+        id:{
+            type: String,
+            required: true,
         },
+
 
         // complains details
         Driver_description:{

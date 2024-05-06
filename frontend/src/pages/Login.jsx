@@ -17,6 +17,7 @@ const Login = () => {
       const response = await Axios.post('api/auth/login', { email, password });
       const { status, user, token } = response.data;
       if (status) {
+        localStorage.setItem('id', user._id);
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('token', token);
         dispatch(setLogin({ user, token }));
@@ -29,7 +30,7 @@ const Login = () => {
             break;
           case 'driver':
             navigate('/driverprofile');
-            break;
+            break;   
           case 'hr':
             navigate('/homerenter');
             break;

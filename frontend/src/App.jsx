@@ -105,11 +105,11 @@ const App = () => {
       <Route path="/driverdashboard" element={<Layout><DriverDashboard/></Layout>} />
       <Route path="/driverdisplay" element={<Layout><DriverDisplay/></Layout>} />
 
-      <Route path="/complains" element={<Home/>}/>
+      <Route path="/reviews" element={<Home/>}/>
       <Route path="/complains/details/:id" element={<ShowComplains/>}/>
       <Route path="/complains/edit/:id" element={<EditComplains/>}/>
       <Route path="/complains/delete/:id" element={<DeleteComplains/>}/>
-      <Route path="/complainsForm" element={<ComplainsForm/>}/>
+      <Route path="/complainsForms" element={<ComplainsForm/>}/>
 
 
 

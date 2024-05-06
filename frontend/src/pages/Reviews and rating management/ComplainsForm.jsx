@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
 
 const ComplainsForm = ({data, close}) => {
 
+    const id = localStorage.getItem('id');
     
     const [formData, setFormData] = useState({
+        id: id,
         vehicle_id: data._id,
         Driver_description: "",
         Vehicle_description: "",
@@ -17,7 +17,7 @@ const ComplainsForm = ({data, close}) => {
     const navigate = useNavigate();	
 
     const handleButtonClick = () => {
-        navigate('/complains');
+        navigate('/reviews');
     };
 
     const handleChange = (e) => {
@@ -46,6 +46,7 @@ const ComplainsForm = ({data, close}) => {
             .then((response) => {
                 console.log(response.data);
                 alert('Thanks for your Reviews...!')
+                handleClose();
             })
             .catch((error) => {
                 console.error(error);
@@ -53,6 +54,7 @@ const ComplainsForm = ({data, close}) => {
 
         // Clear the form after submit
         setFormData({
+            id: id,
             vehicle_id: "",
             Driver_description: "",
             Vehicle_description: "",
@@ -77,6 +79,7 @@ const ComplainsForm = ({data, close}) => {
                             {[...Array(5)].map((_, index) => (
                                 <button
                                     key={index}
+                                    type="button"
                                     onClick={() => setFormData({ ...formData, rating: index + 1 })}
                                     className={`text-3xl mx-1 focus:outline-none ${
                                         index + 1 <= formData.rating ? 'text-yellow-500' : 'text-gray-300'
@@ -86,25 +89,25 @@ const ComplainsForm = ({data, close}) => {
                                 </button>
                             ))}
                            <div className="ml-10 mt-2">
-    {formData.rating === ''? 'Please rate' :
-        (() => {
-            switch (formData.rating) {
-                case 1:
-                    return 'Bad';
-                case 2:
-                    return 'Average';
-                case 3:
-                    return 'Good';
-                case 4:
-                    return 'Best';
-                case 5:
-                    return 'Excellent';
-                default:
-                    return '';
-            }
-        })()
-    }
-</div>
+                                {formData.rating === ''? 'Please rate' :
+                                    (() => {
+                                        switch (formData.rating) {
+                                            case 1:
+                                                return 'Bad';
+                                            case 2:
+                                                return 'Average';
+                                            case 3:
+                                                return 'Good';
+                                            case 4:
+                                                return 'Best';
+                                            case 5:
+                                                return 'Excellent';
+                                            default:
+                                                return '';
+                                        }
+                                    })()
+                                }
+                            </div>
 
                         </div>
 
@@ -123,6 +126,7 @@ const ComplainsForm = ({data, close}) => {
                             />
                             {errors.vehicle_id && <p className="text-red-500 text-xs italic">{errors.vehicle_id}</p>}
                         </div>
+                       
 
                         {/* Driver Description input */}
                         <div className="mb-4">
@@ -181,6 +185,7 @@ const ComplainsForm = ({data, close}) => {
             </div>
             
         </div>
+    
     );
 };
 

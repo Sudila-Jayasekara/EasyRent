@@ -11,7 +11,7 @@ const handleDeleteComplains=()=>{
   axios
   .delete(`http://localhost:5556/complains/${id}`)  
   .then(()=>{
-    navigate('/complains');
+    navigate('/reviews');
     alert('deleted Sucessfully...');
 })
   .catch((err)=>{

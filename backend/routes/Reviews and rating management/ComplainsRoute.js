@@ -4,14 +4,16 @@ const router = express.Router();
 
 // Insert a new complaint
 router.post('/', async (req, res) => {
-  const complains = new Complains(req.body);
+  const complaint = new Complains(req.body); // Changed variable name from 'complains' to 'complaint'
   try {
-    const newComplains = await complains.save();
-    res.status(201).json(newComplains);
+    const newComplaint = await complaint.save(); // Changed variable name from 'newComplains' to 'newComplaint'
+    res.status(201).json(newComplaint);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to insert Review..' });
+    console.error('Error inserting complaint:', error); // Log the error for debugging purposes
+    res.status(500).json({ error: 'Failed to insert complaint' }); // Changed error message for consistency
   }
 });
+
 
 // GET all complaints
 router.get('/', async (req, res) => {
@@ -58,7 +60,7 @@ router.get('/vehicle/:vehicleId',async(req,res)=>{
 
 
 // Update complaint
-router.put('/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     if (
