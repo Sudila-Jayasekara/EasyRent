@@ -1,5 +1,5 @@
 import express from 'express';
-import { DriverReport } from '../../models/driverReportModel.js'; // Assuming the model file is named driverReportModel.js
+import { DriverReport } from '../../models/Driver Management/driverReportModel';
 
 const router = express.Router();
 
@@ -13,6 +13,7 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Failed to insert driver report' });
   }
 });
+
 
 // GET all driver reports
 router.get('/', async (req, res) => {

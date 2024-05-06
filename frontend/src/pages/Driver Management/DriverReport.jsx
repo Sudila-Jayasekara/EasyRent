@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const DriverReport = () => {
@@ -9,8 +8,7 @@ const DriverReport = () => {
     date: '',
     location: '',
     noOfDates: '',
-    reason:'',
-    
+    reason: '',
   });
 
   const handleChange = (e) => {
@@ -26,10 +24,13 @@ const DriverReport = () => {
 
     const updatedFormData = { ...formData };
 
-    console.log('Form data submitted:', updatedFormData);
+    console.log('Form data submitted:', updatedFormData); // Check formData here
 
     try {
-      const response = await axios.post('http://localhost:5556/api/driverreport',formData)
+      const response = await axios.post('http://localhost:5556/api/driverreport', updatedFormData);
+      console.log('Response:', response.data); // Log the response data from the backend
+
+      // Make sure 'api/vehicle/vehicleadd' is the correct backend route for adding vehicles
       const res = await fetch('api/vehicle/vehicleadd', {
         method: 'POST',
         headers: {
@@ -48,7 +49,7 @@ const DriverReport = () => {
       // Handle error appropriately, e.g., display an error message to the user
     }
   };
-
+  
   return (
     <div className="py-6 bg-amber-300">
       <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">

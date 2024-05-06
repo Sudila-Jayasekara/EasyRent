@@ -29,6 +29,8 @@ const driverReportSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
- const DriverReportModel = mongoose.model("DriverReport", driverReportSchema);
+
+const DriverReportModel = mongoose.model("DriverReport", driverReportSchema)
 
 export { DriverReportModel as DriverReport };
+
