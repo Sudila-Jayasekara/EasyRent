@@ -92,7 +92,7 @@ router.post('/signup', upload.single('profilePicture'), async (req, res) => {
                         userType: "driver",
                         nic: dNic,
                         profilePicture: req.file ? `public/uploads/${req.file.filename}` : null,
-                        licensePhoto: req.file ? `public/uploads/${req.file.filename}` : null,
+                        
                     });
                     await newDriver.save();
                     return res.status(200).json({ status: true, message: "Driver Registered" });
@@ -106,7 +106,7 @@ router.post('/signup', upload.single('profilePicture'), async (req, res) => {
                     return res.status(400).json({ message: "Owner already registered" });
                 }
                 const hashOPassword = await bcrypt.hash(oPassword, 10);
-                const newOwner = new OwnerModel({
+                const newOwner = new Owner({
                     username: oUsername,
                     email: oEmail,
                     password: hashOPassword,
@@ -114,6 +114,7 @@ router.post('/signup', upload.single('profilePicture'), async (req, res) => {
                     address: oAddress,
                     userType: "owner",
                     nic: oNic,
+                    profilePicture: req.file ? `public/uploads/${req.file.filename}` : null,
                 });
                 await newOwner.save();
                 return res.status(200).json({ status: true, message: "User Registered" });
