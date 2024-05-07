@@ -64,7 +64,7 @@ const EmpDash = () => {
             onChange={handleSearch}
           />
         </div>
-        <div className="bg-white shadow-md rounded my-5 p-2 ">
+        <div className="bg-white shadow-md rounded my-5 p-2">
           <table className="min-w-max w-full table-auto ">
             <thead>
               <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
