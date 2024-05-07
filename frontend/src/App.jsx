@@ -51,6 +51,7 @@ import HrSalaryEdit from './pages/HR Management/HrSalaryEdit.jsx';
 import HrDetailsRead from './pages/HR Management/HrDetailsRead.jsx';
 import EmpDashbord from './pages/HR Management/EmpDashbord.jsx';
 import RiskNote from './pages/Renter Management/RiskNote.jsx';
+import HrProfile from './pages/HR Management/HrProfile.jsx';
 
 // import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
 // import HrPayroll from './pages/HR Management/HrPayroll.jsx';
@@ -158,6 +159,7 @@ const App = () => {
       <Route path='/SalaryEdit/:id' element={<Layout><HrSalaryEdit/></Layout>}/>
       <Route path='/DetailsRead/:id' element={<Layout><HrDetailsRead/></Layout>}/>
       <Route path='/EmpDash' element={<Layout><EmpDashbord/></Layout>}/>
+      <Route path="/profile" element={<Layout><HrProfile/></Layout>} />
 
       <Route path='/bp' element={<Layout><BookingAndPayment/></Layout>}/>
       <Route path='/booking/create/:vehicleId' element={<Layout><CreateBooking/></Layout>}/>

@@ -39,6 +39,7 @@ const SideBar = () => {
             dashboardLink = '/empDash';
             additionalLinks = (
                 <>
+                    
                     <li><Link to="/empDash" className="block py-2 px-4 hover:bg-yellow-400">Dashboard</Link></li>
                     <li><Link to="/EmpRegister" className="block py-2 px-4 hover:bg-yellow-400">Employee Registration</Link></li>
                     <li><Link to="/dashboard" className="block py-2 px-4 hover:bg-yellow-400">Payroll</Link></li>
@@ -46,6 +47,7 @@ const SideBar = () => {
                     <li><Link to="/Details" className="block py-2 px-4 hover:bg-yellow-400">Employee Details</Link></li>
                     <li><Link to="/salaryDetails" className="block py-2 px-4 hover:bg-yellow-400">Salary Details</Link></li>
                     <li><Link to="/leaveDetails" className="block py-2 px-4 hover:bg-yellow-400">Leave Details</Link></li>
+                    <li><Link to="/profile" className="block py-2 px-4 hover:bg-yellow-400">Profile</Link></li>
                 </>
             );
             break;
