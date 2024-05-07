@@ -32,12 +32,16 @@ const ShowBooking = () => {
               const renterResponse = await axios.get(`http://localhost:5556/api/renter/${booking.renter_id}`);
               const renterUsername = renterResponse.data.username;
 
+                            // Fetch payment details
+            const paymentResponse = await axios.get(`http://localhost:5556/api/payment/booking/${booking._id}`);
+            const paymentDetails = paymentResponse.data;
               // Return processed booking details
               return {
                 ...booking,
                 renter_username: renterUsername,
                 vehicle_brand: vehicle.brand,
-                vehicle_model: vehicle.model
+                vehicle_model: vehicle.model,
+                payment_status: paymentDetails.paymentStatus,
               };
             }));
 
@@ -113,7 +117,10 @@ const ShowBooking = () => {
               Es. End Date
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
-              Status
+            Payment STATUS
+            </th>
+            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
+            BOOKING STATUS
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
               Generate Bill
@@ -132,6 +139,9 @@ const ShowBooking = () => {
                 <td className="py-2 px-4">{booking.location}</td>
                 <td className="py-2 px-4">{formatDate(booking.startDate)}</td>
                 <td className="py-2 px-4">{formatDate(booking.endDate)}</td>
+                <td className='py-2 px-4'>
+                  {booking.payment_status}
+                </td>
                 <td className="py-2 px-4">
                   <button
                     className={`px-3 py-1 rounded-md ${booking.status === 'pending' ? 'bg-blue-500 text-white' : booking.status === 'approved' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}
@@ -140,6 +150,7 @@ const ShowBooking = () => {
                     {booking.status}
                   </button>
                 </td>
+
                 <td className="py-2 px-4">
                   <Link to={`/payment/generateBill/${booking._id}`} className="px-3 py-1 rounded-md bg-blue-500 text-white">
                     Generate Bill

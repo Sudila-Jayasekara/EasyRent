@@ -30,6 +30,8 @@ import PendingBookings from './pages/Booking And Payment Management/PendingBooki
 import Payment from './pages/Booking And Payment Management/Payment.jsx';
 import GenerateBill from './pages/Booking And Payment Management/GenerateBill.jsx'; 
 import DisplayBill from './pages/Booking And Payment Management/DisplayBill.jsx';
+import PaymentCancle from './pages/Booking And Payment Management/PaymentCancle.jsx';
+import PaymentSuccess from './pages/Booking And Payment Management/PaymentSuccess.jsx';
 
 //Maintenance imports
 
@@ -141,7 +143,10 @@ const App = () => {
       <Route path='/payment' element={<Layout><Payment/></Layout>}/>
       <Route path='/payment/generateBill/:bookingId' element={<Layout><GenerateBill/></Layout>}/>
       <Route path='/payment/displayBill/:bookingId' element={<Layout><DisplayBill/></Layout>}/>
-    
+      <Route path='/payment/cancel' element={<Layout><PaymentCancle/></Layout>}/>
+      <Route path='/payment/success' element={<Layout><PaymentSuccess/></Layout>}/>
+
+      
     </Routes>
   );
 }
