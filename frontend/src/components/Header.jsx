@@ -41,14 +41,15 @@ const Header = () => {
                             <span className="absolute -inset-1.5" />
                             <span className="sr-only">Open user menu</span>
                             {user.profilePicture ? (
-                                <img
-                                    className="h-8 w-8 rounded-full"
-                                    src={`http://localhost:5556/${user.profilePicture.replace("public", "")}`}
-                                    alt="profile picture"
-                                />
-                            ) : (
-                                <div className="h-8 w-8 rounded-full bg-black" /> // Black color circle
-                            )}
+                            <img
+                                className="h-8 w-8 rounded-full"
+                                src={`http://localhost:5556/${user.profilePicture.replace("public", "")}`}
+                                alt="profile picture"
+                            />
+                        ) : (
+                            <div className="h-8 w-8 rounded-full bg-black" /> // Black color circle
+                        )}
+
                         </Menu.Button>
                     </div>
                     <Transition

@@ -25,6 +25,9 @@ const storage = multer.diskStorage({
 // Init multer
 const upload = multer({ storage: storage });
 
+
+
+
 router.post('/signup', upload.single('profilePicture'), async (req, res) => {
     const { role } = req.body;
 
@@ -190,42 +193,69 @@ router.post('/login', async (req, res, next) => {
     }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Backend routes
+router.patch("/update-picture/:id", upload.single("profilePicture"), async (req, res) => {
+    const { id } = req.params;
+    const profilePicturePath = req.file ? `/uploads/profile/${req.file.filename}` : null;
+  
+    try {
+      const renter = await Renter.findById(id);
+      if (!renter) {
+        return res.status(404).json({ message: "Renter not found" });
+      }
+  
+      // Update the profile picture field in the renter document
+      renter.profilePicture = profilePicturePath;
+      await renter.save();
+  
+      res.json({ profilePicture: profilePicturePath });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+  
+ // Backend routes
+router.patch("/update-picture/:id", upload.single("profilePicture"), async (req, res) => {
+    const { id } = req.params;
+    const profilePicturePath = req.file ? `/uploads/profile/${req.file.filename}` : null;
+  
+    try {
+      const renter = await Renter.findById(id);
+      if (!renter) {
+        return res.status(404).json({ message: "Renter not found" });
+      }
+  
+      // Update the profile picture field in the renter document
+      renter.profilePicture = profilePicturePath;
+      await renter.save();
+  
+      res.json({ profilePicture: profilePicturePath });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+  
+  // Delete profile picture route
+  router.delete("/delete-picture/:id", async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const renter = await Renter.findById(id);
+      if (!renter) {
+        return res.status(404).json({ message: "Renter not found" });
+      }
+  
+      // Remove the profile picture field from the renter document
+      renter.profilePicture = null;
+      await renter.save();
+  
+      res.json({ message: "Profile picture deleted successfully" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+  
 export { router as authRouter };

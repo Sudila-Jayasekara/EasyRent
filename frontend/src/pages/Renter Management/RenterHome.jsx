@@ -7,6 +7,7 @@ const RenterHome = () => {
     const renterId = user ? user._id : null;
     const [details, setDetails] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [filterBy, setFilterBy] = useState('model');
     const [likedItems, setLikedItems] = useState([]);
 
     useEffect(() => {
@@ -24,6 +25,10 @@ const RenterHome = () => {
         setSearchTerm(event.target.value);
     };
 
+    const handleFilterChange = (event) => {
+        setFilterBy(event.target.value);
+    };
+
     const handleLike = async (vehicleId) => {
         try {
             const response = await axios.patch(`http://localhost:5556/api/renter/${renterId}/${vehicleId}`);
@@ -39,32 +44,39 @@ const RenterHome = () => {
     };
 
     const filteredDetails = details.filter(detail => {
-        return detail.brand.toLowerCase().includes(searchTerm.toLowerCase());
+        if (filterBy === "totalSeats") {
+            return detail[filterBy] === parseInt(searchTerm);
+        } else {
+            return detail[filterBy].toLowerCase().includes(searchTerm.toLowerCase());
+        }
     });
+    
 
     return (
         <div>
             <header className="border-b md:flex md:items-center md:justify-between p-4 pb-0 shadow-lg md:pb-4">
-                <div className="flex items-center justify-between mb-4 md:mb-0">
-                    <h1 className="leading-none text-2xl text-grey-darkest">
-                        <a className="no-underline text-grey-darkest hover:text-black" href="#">
-                            Easy Rent
-                        </a>
-                    </h1>
-                    <a className="text-black hover:text-orange md:hidden" href="#">
-                        <i className="fa fa-2x fa-bars"></i>
-                    </a>
-                </div>
-                <form className="mb-4 w-full md:mb-0 md:w-1/4">
-                    <label className="hidden" htmlFor="search-form">Search</label>
-                    <input
-                        className="bg-grey-lightest border-2 focus:border-orange p-2 rounded-lg shadow-inner w-full"
-                        placeholder="Search by category"
-                        type="text"
-                        value={searchTerm}
-                        onChange={handleSearch}
-                    />
-                    <button className="hidden">Submit</button>
+                <form className="flex items-center w-full md:w-auto">
+                    <div className="mr-4">
+                        <label htmlFor="filter-select" className="block text-gray-700">Filter By:</label>
+                        <select id="filter-select" className="bg-gray-200 border border-gray-300 py-2 px-4 rounded-md focus:outline-none focus:bg-white focus:border-gray-500" value={filterBy} onChange={handleFilterChange}>
+                            <option value="model">Model</option>
+                            <option value="brand">Brand</option>
+                            <option value="transmission">Transmission</option>
+                           
+                            <option value="totalSeats">Total Seats</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="hidden" htmlFor="search-form">Search</label>
+                        <input
+                            className="bg-grey-lightest border-2 focus:border-orange p-2 rounded-lg shadow-inner"
+                            placeholder={`Search by ${filterBy}`}
+                            type="text"
+                            value={searchTerm}
+                            onChange={handleSearch}
+                        />
+                        <button className="hidden">Submit</button>
+                    </div>
                 </form>
             </header>
             <main className="main">

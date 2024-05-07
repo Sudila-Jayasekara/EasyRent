@@ -30,6 +30,7 @@ const renterSchema=new mongoose.Schema({
     profilePicture:{
         type:String,
         default:"",
+        required:true,
     },
     wishList: {
         type: Array,

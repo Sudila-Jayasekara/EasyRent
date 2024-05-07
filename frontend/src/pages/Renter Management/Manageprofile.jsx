@@ -6,28 +6,35 @@ const Manageprofile = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
+    email: "",
     phoneNumber: "",
     address: "",
+    nic: "",
     profilePicture: null,
   });
   const [previewProfilePicture, setPreviewProfilePicture] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const user = JSON.parse(localStorage.getItem("user"));
   const id = user ? user._id : "";
   const userName = user ? user.username : "";
+  const email = user ? user.email : "";
   const phoneNumber = user ? user.phoneNumber : "";
   const address = user ? user.address : "";
+  const nic = user ? user.nic : "";
   const profilePicture = user ? user.profilePicture : "";
 
   useEffect(() => {
     setFormData({
       username: userName,
+      email: email,
       phoneNumber: phoneNumber,
       address: address,
+      nic: nic,
       profilePicture: profilePicture,
     });
     setPreviewProfilePicture(profilePicture);
-  }, [userName, phoneNumber, address, profilePicture]);
+  }, [userName, email, phoneNumber, address, nic, profilePicture]);
 
   const handleDelete = async (id) => {
     try {
@@ -38,20 +45,21 @@ const Manageprofile = () => {
       console.error("Error deleting the renter:", error);
     }
   };
-  
 
   const handleUpdate = async (event) => {
     event.preventDefault();
     const updateData = new FormData();
     updateData.append("username", formData.username);
+    updateData.append("email", formData.email);
     updateData.append("phoneNumber", formData.phoneNumber);
     updateData.append("address", formData.address);
-  
+    updateData.append("nic", formData.nic);
+
     // Append profilePicture only if it exists
     if (formData.profilePicture) {
       updateData.append("profilePicture", formData.profilePicture);
     }
-  
+
     try {
       const response = await axios.patch(
         `http://localhost:5556/api/renter/${id}`,
@@ -63,27 +71,58 @@ const Manageprofile = () => {
       console.log("Updated successfully:", response);
       localStorage.setItem("user", JSON.stringify(response.data));
       setFormData(response.data);
-      setPreviewProfilePicture(response.data.profilePicture);
+      setPreviewProfilePicture(response.data.profilePicture); // Update the preview image
     } catch (error) {
       console.error("Error updating the renter:", error);
     }
   };
-  
 
   const handleChange = (e) => {
-    if (e.target.name === "profilePicture") {
-      const file = e.target.files[0];
-      setFormData({
-        ...formData,
-        profilePicture: file,
-      });
-      setPreviewProfilePicture(URL.createObjectURL(file));
-    } else {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-      });
+    const { name, value } = e.target;
+    let newValue = value;
+    let newErrors = { ...errors };
+
+    switch (name) {
+      case "username":
+        // Allow only letters, no numbers or symbols
+        newValue = value.replace(/[^a-zA-Z]/g, "");
+        break;
+      case "email":
+        // Simple email format validation
+        if (!/\S+@\S+\.\S+/.test(value)) {
+          newErrors[name] = "Invalid email address";
+        } else {
+          delete newErrors[name]; // Clear error if valid
+        }
+        break;
+      
+        case "phoneNumber":
+          // Allow only numbers
+          newValue = value.replace(/\D/g, "");
+          if (newValue.length !== 10 || newValue.charAt(0) !== "0") {
+            newErrors[name] = "Phone number must start with 0 and contain exactly 10 digits";
+          } else {
+            delete newErrors[name]; // Clear error if valid
+          }
+          break;
+        
+        case "nic":
+          if (!/^\d{12}$/.test(value)) {
+            newErrors[name] = "NIC must contain exactly 12 numbers";
+          } else {
+            delete newErrors[name]; // Clear error if valid
+          }
+          break;
+        
+      default:
+        break;
     }
+
+    setErrors(newErrors);
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   const fileRef = useRef(null);
@@ -109,26 +148,6 @@ const Manageprofile = () => {
                   src={`http://localhost:5556/${user.profilePicture.replace("public", "")}`}
                   alt="Profile"
                 />
-
-                <div className="flex flex-col space-y-5 sm:ml-8">
-                  <button
-                    type="button"
-                    onClick={() => fileRef.current.click()}
-                    className="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200"
-                  >
-                    Change picture
-                  </button>
-                  <button
-                    type="button"
-                    className="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200"
-                    onClick={() => {
-                      setFormData({ ...formData, profilePicture: null });
-                      setPreviewProfilePicture(profilePicture);
-                    }}
-                  >
-                    Delete picture
-                  </button>
-                </div>
               </div>
               <div className="mx-auto block max-w-lg rounded-lg bg-white p-6 shadow-4 dark:bg-surface-dark">
                 <form className="w-96" onSubmit={handleUpdate}>
@@ -150,6 +169,26 @@ const Manageprofile = () => {
                         onChange={handleChange}
                         required
                       />
+                      {errors['username'] && <p className="text-red-500 text-xs italic">{errors['username']}</p>}
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="block mb-2 text-sm font-medium text-gray-900"
+                      >
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="example@example.com"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                      {errors['email'] && <p className="text-red-500 text-xs italic">{errors['email']}</p>}
                     </div>
                     <div>
                       <label
@@ -168,25 +207,46 @@ const Manageprofile = () => {
                         onChange={handleChange}
                         required
                       />
+                      {errors['phoneNumber'] && <p className="text-red-500 text-xs italic">{errors['phoneNumber']}</p>}
                     </div>
-                  </div>
-                  <div className="mb-6">
-                    <label
-                      htmlFor="address"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Address
-                    </label>
-                    <input
-                      type="text"
-                      id="address"
-                      name="address"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      placeholder="Enter the address here"
-                      value={formData.address}
-                      onChange={handleChange}
-                      required
-                    />
+                    <div>
+                      <label
+                        htmlFor="address"
+                        className="block mb-2 text-sm font-medium text-gray-900"
+                      >
+                        Address
+                      </label>
+                      <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Enter the address here"
+                        value={formData.address}
+                        onChange={handleChange}
+                        required
+                      />
+                      {errors['address'] && <p className="text-red-500 text-xs italic">{errors['address']}</p>}
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="nic"
+                        className="block mb-2 text-sm font-medium text-gray-900"
+                      >
+                        NIC
+                      </label>
+                      <input
+                        type="text"
+                        id="nic"
+                        name="nic"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="NIC Number"
+                        value={formData.nic}
+                        onChange={handleChange}
+                        required
+                      />
+                      {errors['nic'] && <p className="text-red-500 text-xs italic">{errors['nic']}</p>}
+                    </div>
                   </div>
                   <button
                     type="submit"
