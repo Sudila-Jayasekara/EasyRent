@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 
 const RiskNote = () => {
   const [vehicles, setVehicles] = useState([]);

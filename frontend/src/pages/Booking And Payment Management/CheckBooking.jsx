@@ -4,8 +4,10 @@ import ApproveAndReject_Popup from './ApproveAndReject_Popup'; // Import the Pop
 
 const ShowBooking = () => {
   const [bookings, setBookings] = useState([]);
+  const [payments, setPayments] = useState([]);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchBookings = async () => {
     try {
@@ -31,12 +33,17 @@ const ShowBooking = () => {
               const renterResponse = await axios.get(`http://localhost:5556/api/renter/${booking.renter_id}`);
               const renterUsername = renterResponse.data.username;
 
+              // Fetch payment details
+            const paymentResponse = await axios.get(`http://localhost:5556/api/payment/booking/${booking._id}`);
+            const paymentDetails = paymentResponse.data;
+
               // Return processed booking details
               return {
                 ...booking,
                 renter_username: renterUsername,
                 vehicle_brand: vehicle.brand,
-                vehicle_model: vehicle.model
+                vehicle_model: vehicle.model,
+                payment_status: paymentDetails.paymentStatus,
               };
             }));
 
@@ -49,14 +56,14 @@ const ShowBooking = () => {
 
         // Flatten the array of arrays into a single array of bookings
         const flattenedBookings = updatedBookings.flat();
-        
+
         // Set the state with the fetched and processed bookings
         setBookings(flattenedBookings);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-};
+  };
 
   useEffect(() => {
     fetchBookings();
@@ -69,7 +76,7 @@ const ShowBooking = () => {
 
   const handleStatusClick = async (bookingId, newStatus) => {
     try {
-      await axios.patch(`http://localhost:5556/api/booking/${bookingId}`, { 
+      await axios.patch(`http://localhost:5556/api/booking/${bookingId}`, {
         status: newStatus
       });
       fetchBookings();
@@ -83,10 +90,29 @@ const ShowBooking = () => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
   };
-  
+
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredBookings = bookings.filter((booking) =>
+    Object.values(booking).some((detail) =>
+      String(detail).toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  );
+
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-2xl font-bold mb-4">Booking For Your Vehicles</h1>
+      {/* Search Box */}
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+        placeholder="Search..."
+        className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-md"
+      />
+
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
           <tr>
@@ -115,12 +141,15 @@ const ShowBooking = () => {
               Es. End Date
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
-              Status
+              Payment Status
+            </th>
+            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
+              Booking Status
             </th>
           </tr>
         </thead>
         <tbody>
-          {bookings.map((booking, index) => (
+          {filteredBookings.map((booking, index) => (
             <tr key={index} className="hover:bg-gray-100">
               <td className="py-2 px-4">{index + 1}</td>
               <td className="py-2 px-4">{booking.renter_username}</td>
@@ -131,7 +160,10 @@ const ShowBooking = () => {
               <td className="py-2 px-4">{formatDate(booking.startDate)}</td>
               <td className="py-2 px-4">{formatDate(booking.endDate)}</td>
               <td className="py-2 px-4">
-                <button 
+                  {booking.payment_status}
+              </td>
+              <td className="py-2 px-4">
+                <button
                   className={`px-3 py-1 rounded-md ${booking.status === 'pending' ? 'bg-blue-500 text-white' : booking.status === 'approved' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}
                   onClick={() => handleCheckButtonClick(booking)}
                 >
@@ -143,13 +175,13 @@ const ShowBooking = () => {
         </tbody>
       </table>
       {showModal && (
-            <ApproveAndReject_Popup
-              booking={selectedBooking}
-              onApprove={() => handleStatusClick(selectedBooking._id, 'approved')}
-              onReject={() => handleStatusClick(selectedBooking._id, 'rejected')}
-              onClose={() => setShowModal(false)}
-            />
-          )}
+        <ApproveAndReject_Popup
+          booking={selectedBooking}
+          onApprove={() => handleStatusClick(selectedBooking._id, 'approved')}
+          onReject={() => handleStatusClick(selectedBooking._id, 'rejected')}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 };

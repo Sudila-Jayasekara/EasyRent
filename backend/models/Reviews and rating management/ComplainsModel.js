@@ -3,12 +3,18 @@ import mongoose from "mongoose";
 const ComplainsSchema = mongoose.Schema(
     {
        
-
         // Vehicle information
         vehicle_id:{
             type: String,
+            ref: 'Vehicle',
+            required: true,
+      },
+        // complains details
+        id:{
+            type: String,
             required: true,
         },
+
 
         // complains details
         Driver_description:{
@@ -24,6 +30,9 @@ const ComplainsSchema = mongoose.Schema(
             type:String,
             required:true
         },
+        reply:{
+            type:String
+        }
        
     },
     {
