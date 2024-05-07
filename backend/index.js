@@ -20,12 +20,8 @@ import ComplainsRoute from'./routes/Reviews and rating management/ComplainsRoute
 import EmployeeRoute from './routes/HR Management/employeeRoute.js'; 
 import PayrollRoute from './routes/HR Management/payrollRoute.js'; 
 import LeaveRequestRoute from './routes/HR Management/leaveRequestRoute.js'; 
-//import {DriverReport} from './routes/Driver Management/driverReportRoute.js';
-
 import bodyParser from 'body-parser';
-
 import {DriverReportRoute} from './routes/Driver Management/driverReportRoute.js';
-
 
 
 
@@ -65,11 +61,7 @@ app.use('/api/renter', RenterRouter);
 app.use('/api/driver', DriverRoute);
 app.use('/api/owner', OwnerRoute);
 app.use('/Complains',ComplainsRoute)
-
-//app.use('/api/driverReport',DriverReport);
-
 app.use('/api/driverReport',DriverReportRoute);
-
 
 
 

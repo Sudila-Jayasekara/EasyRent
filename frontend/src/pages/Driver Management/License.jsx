@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import license from '../Driver Management/license.jpg';
+import license from '../Driver Management/driving.jpg';
 
 const License = () => {
   const [selectedItem, setSelectedItem] = useState(null);

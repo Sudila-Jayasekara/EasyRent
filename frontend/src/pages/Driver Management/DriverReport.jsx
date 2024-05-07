@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const DriverReport = () => {
@@ -7,7 +8,9 @@ const DriverReport = () => {
     nic: '',
     date: '',
     location: '',
-    noOfDates: 0, // Changed type to number for better validation
+    noOfDates: '',
+    reason:'',
+    
     reason: '',
   });
 
@@ -22,7 +25,23 @@ const DriverReport = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const updatedFormData = { ...formData };
+
+    console.log('Form data submitted:', updatedFormData);
+
     try {
+      const response = await axios.post('http://localhost:5556/api/driverreport',formData)
+      const res = await fetch('api/vehicle/vehicleadd', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedFormData),
+      });
+
+      const data = await res.json();
+      console.log(data);
+      if (data.status) {
       const response = await axios.post('http://localhost:5556/api/driverreport', formData);
       console.log('Form data submitted:', formData);
       if (response.data.status) {
@@ -33,29 +52,13 @@ const DriverReport = () => {
           nic: '',
           date: '',
           location: '',
-          noOfDates: 0, // Reset to default value
+          noOfDates: '',
           reason: '',
         });
       }
+    }
     } catch (error) {
       console.error('Error submitting form:', error);
-      // Handle error appropriately, e.g., display an error message to the user
-    }
-
-    try {
-      // Corrected backend route for adding vehicles
-      const res = await fetch('http://localhost:5556/api/vehicle/vehicleadd', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-      console.log(data);
-    } catch (error) {
-      console.error('Error adding vehicle:', error);
       // Handle error appropriately, e.g., display an error message to the user
     }
   };
@@ -77,7 +80,83 @@ const DriverReport = () => {
             <span className="border-b w-1/5 lg:w-1/4"></span>
           </div>
           <form onSubmit={handleSubmit}>
-            {/* Form inputs */}
+            <div className="mt-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Driver Name</label>
+              <input
+                value={formData.driverName}
+                onChange={handleChange}
+                name="driverName"
+                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                type="text"
+              />
+            </div>
+            <div className="mt-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">NIC</label>
+              <input
+                value={formData.nic}
+                onChange={handleChange}
+                name="nic"
+                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                type="text"
+              />
+            </div>
+            <div className="mt-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Date</label>
+              <input
+                value={formData.date}
+                onChange={handleChange}
+                name="date"
+                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                type="text"
+              />
+            </div>
+            <div className="mt-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Location</label>
+              <input
+                value={formData.location}
+                onChange={handleChange}
+                name="location"
+                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                type="text"
+              />
+            </div>
+            
+            <div className="mt-4">
+              <div className="flex justify-between">
+                <label className="block text-gray-700 text-sm font-bold mb-2">No of dates</label>
+              </div>
+              <input
+                value={formData.noOfDates}
+                onChange={handleChange}
+                name="noOfDates"
+                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                type="Number"
+              />
+            </div>
+            <div className="mt-4">
+              <div className="flex justify-between">
+                <label className="block text-gray-700 text-sm font-bold mb-2">Reasons</label>
+              </div>
+              <input
+                value={formData.reason}
+                onChange={handleChange}
+                name="reason"
+                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                type="String"
+              />
+            </div>
+            
+            
+
+            <div className="mt-8">
+              <button
+                type="submit"
+                className="bg-black text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600"
+              >
+                Submit
+              </button>
+            </div>
+           
           </form>
         </div>
       </div>
