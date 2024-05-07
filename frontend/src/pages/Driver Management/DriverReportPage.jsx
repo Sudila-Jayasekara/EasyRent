@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import jsPDF from 'jspdf';
 
 const DriverReportPage = () => {
   const [driverReports, setDriverReports] = useState([]);
@@ -35,6 +35,23 @@ const DriverReportPage = () => {
     }
   };
 
+  const generatePDF = (report) => {
+    const doc = new jsPDF();
+
+    doc.setFont('helvetica');
+    doc.setFontSize(18);
+    doc.text(`Driver Report for ${report.driverName}`, 15, 15);
+
+    doc.setFontSize(12);
+    doc.text(`NIC: ${report.nic}`, 15, 30);
+    doc.text(`Location: ${report.location}`, 15, 45);
+    doc.text(`Date: ${report.date}`, 15, 60);
+    doc.text(`No of Dates: ${report.noOfDates}`, 15, 75);
+    doc.text(`Reason: ${report.reason}`, 15, 90);
+
+    doc.save(`driver_report_${report.driverName}.pdf`);
+  };
+
   return (
     <div className="container mx-auto px-4">
       <h2 className="text-2xl font-semibold mb-4">Driver Reports</h2>
@@ -62,6 +79,7 @@ const DriverReportPage = () => {
               <td className="px-6 py-4 whitespace-nowrap">
                 <button onClick={() => handleUpdate(report._id, report)} className="mr-2 px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600">Update</button>
                 <button onClick={() => handleDelete(report._id)} className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Delete</button>
+                <button onClick={() => generatePDF(report)} className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Generate PDF</button>
               </td>
             </tr>
           ))}

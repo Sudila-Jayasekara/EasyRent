@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const DriverReport = () => {
@@ -9,13 +8,18 @@ const DriverReport = () => {
     date: '',
     location: '',
     noOfDates: '',
-    reason:'',
-    
     reason: '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // Regular expression to validate date format (YYYY-MM-DD)
+    const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (name === 'date' && !dateFormatRegex.test(value)) {
+      return; // Don't update state if input doesn't match the date format
+    }
+
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -30,18 +34,6 @@ const DriverReport = () => {
     console.log('Form data submitted:', updatedFormData);
 
     try {
-      const response = await axios.post('http://localhost:5556/api/driverreport',formData)
-      const res = await fetch('api/vehicle/vehicleadd', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedFormData),
-      });
-
-      const data = await res.json();
-      console.log(data);
-      if (data.status) {
       const response = await axios.post('http://localhost:5556/api/driverreport', formData);
       console.log('Form data submitted:', formData);
       if (response.data.status) {
@@ -56,7 +48,6 @@ const DriverReport = () => {
           reason: '',
         });
       }
-    }
     } catch (error) {
       console.error('Error submitting form:', error);
       // Handle error appropriately, e.g., display an error message to the user
@@ -107,7 +98,7 @@ const DriverReport = () => {
                 onChange={handleChange}
                 name="date"
                 className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="text"
+                type="date"
               />
             </div>
             <div className="mt-4">
@@ -120,7 +111,6 @@ const DriverReport = () => {
                 type="text"
               />
             </div>
-            
             <div className="mt-4">
               <div className="flex justify-between">
                 <label className="block text-gray-700 text-sm font-bold mb-2">No of dates</label>
@@ -130,7 +120,7 @@ const DriverReport = () => {
                 onChange={handleChange}
                 name="noOfDates"
                 className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="Number"
+                type="number"
               />
             </div>
             <div className="mt-4">
@@ -142,12 +132,9 @@ const DriverReport = () => {
                 onChange={handleChange}
                 name="reason"
                 className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="String"
+                type="text"
               />
             </div>
-            
-            
-
             <div className="mt-8">
               <button
                 type="submit"
@@ -156,7 +143,6 @@ const DriverReport = () => {
                 Submit
               </button>
             </div>
-           
           </form>
         </div>
       </div>

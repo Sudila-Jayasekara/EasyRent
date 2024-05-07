@@ -25,6 +25,11 @@ const Displaydates = () => {
       });
   };
 
+  const formatDate = (dateString) => {
+    const dateObject = new Date(dateString);
+    return dateObject.toLocaleDateString('en-US'); // Adjust locale as needed
+  };
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-9 ml-9 mr-9">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -61,10 +66,10 @@ const Displaydates = () => {
                 {detail.description}
               </td>
               <td className="px-6 py-4">
-                {detail.startDate}
+                {formatDate(detail.startDate)}
               </td>
               <td className="px-6 py-4">
-                {detail.endDate}
+                {formatDate(detail.endDate)}
               </td>
               <td className="px-6 py-4 text-right">
                 <button onClick={() => handleDelete(detail._id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Reject</button>

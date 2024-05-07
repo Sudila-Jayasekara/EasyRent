@@ -20,7 +20,7 @@ router.post('/vehicleadd', async (req, res) => {
           transmission,
           price,
           status,
-          category,
+          
           vehicleNumber
 
       });

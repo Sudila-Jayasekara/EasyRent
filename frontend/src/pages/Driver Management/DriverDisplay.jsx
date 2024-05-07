@@ -87,12 +87,11 @@ const DriverDisplay = () => {
                             <td className="px-4 py-2">{driver.nic}</td>
                             <td className="px-4 py-2">{driver.phoneNumber}</td>
                             <td className="px-4 py-2">
-                                <button
-                                    onClick={() => handleRemoveDriver(driver._id)}
-                                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-                                >
-                                    Remove
+                               <Link to="/displaydate" >
+                                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
+                                    View Bookings
                                 </button>
+                                </Link>
                             </td>
                         </tr>
                     ))}
