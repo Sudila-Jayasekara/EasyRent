@@ -44,7 +44,7 @@ import RiskNote from './pages/Renter Management/RiskNote.jsx';
 // import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
 // import HrPayroll from './pages/HR Management/HrPayroll.jsx';
 // import HrDetails from './pages/HR Management/HrDetails.jsx';
-// import HrDashboard from './pages/HR Management/HrDashboard.jsx';
+import HrDashboard from './pages/HR Management/HrDashboard.jsx';
 // import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
 // import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
 // import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
@@ -80,6 +80,9 @@ import ReviewsDetails from './pages/Vehicle Management/ReviewsDetails.jsx';
 import Reply from './pages/Vehicle Management/Reply.jsx';
 import ReplyList from './pages/Vehicle Management/ReplyList.jsx';
 import UpdateReply from './pages/Vehicle Management/UpdateReply.jsx';
+import RiskDetailsPage from './pages/Renter Management/RiskDetailsPage.jsx';
+import PrintRisk from './pages/Renter Management/PrintRisk.jsx';
+
 
 
 
@@ -96,6 +99,8 @@ const App = () => {
       <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
+      <Route path="/risk-details" element={<Layout><RiskDetailsPage /></Layout>} />
+      <Route path="/printrisk/:nic" element={<Layout><PrintRisk/></Layout>}/>
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/renterprofile" element={<Layout><Manageprofile/></Layout>} />
@@ -111,6 +116,8 @@ const App = () => {
       <Route path="/license" element={<Layout><License/></Layout>} />
       <Route path="/driverdashboard" element={<Layout><DriverDashboard/></Layout>} />
       <Route path="/driverdisplay" element={<Layout><DriverDisplay/></Layout>} />
+
+      <Route path="/hrdashboard" element={<Layout><HrDashboard/></Layout>} />
 
       <Route path="/complains" element={<Home/>}/>
       <Route path="/complains/details/:id" element={<ShowComplains/>}/>
