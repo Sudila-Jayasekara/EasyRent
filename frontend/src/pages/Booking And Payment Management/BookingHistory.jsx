@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 const BookingHistory = () => {
@@ -31,8 +33,8 @@ const BookingHistory = () => {
         const bookingsWithEstimatePrice = await Promise.all(booking.map(async (booking) => {
           try {
             const paymentResponse = await axios.get(`http://localhost:5556/api/payment/booking/${booking._id}`);
-            const estimatePrice = paymentResponse.data.estimatePrice;
-            return { ...booking, estimatePrice };
+            const paymentStatus = paymentResponse.data.paymentStatus;
+            return { ...booking, paymentStatus };
           } catch (error) {
             console.error('Error fetching estimate price for booking:', booking._id, error);
             return booking;
@@ -109,13 +111,12 @@ const BookingHistory = () => {
           <tr>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">ID</th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">Model</th>
-            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">Brand</th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">Service Type</th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">Start Date</th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">End Date</th>
-            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">Status</th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">Location</th>
-            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">Estimate Price</th>
+            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">Booking Status</th>
+            <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">Payment Status</th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">Actions</th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">Display Bill</th>
           </tr>
@@ -125,13 +126,12 @@ const BookingHistory = () => {
             <tr key={booking._id} className="hover:bg-gray-100">
               <td className="py-2 px-4">{index + 1}</td>
               <td className="py-2 px-4">{booking.vehicle_model}</td>
-              <td className="py-2 px-4">{booking.vehicle_brand}</td>
               <td className="py-2 px-4">{booking.serviceType}</td>
               <td className="py-2 px-4">{formatDate(booking.startDate)}</td>
               <td className="py-2 px-4">{formatDate(booking.endDate)}</td>
-              <td className="py-2 px-4">{booking.status}</td>
               <td className="py-2 px-4">{booking.location}</td>
-              <td className="py-2 px-4">{booking.estimatePrice}</td>
+              <td className="py-2 px-4">{booking.status}</td>
+              <td className="py-2 px-4">{booking.paymentStatus}</td>
               <td className="py-2 px-4 space-x-8">
                 <FontAwesomeIcon
                   icon={faEdit}
@@ -146,7 +146,7 @@ const BookingHistory = () => {
               </td>
               <td className="py-2 px-4">
                 {booking.status === 'approved' ? (
-                  <Link to={`/payment/displayBill/${booking._id}`} className="px-3 py-1 rounded-md bg-blue-500 text-white">
+                  <Link to={`/payment/displayBill/${booking._id}`} className="px-3 py-1 rounded-md bg-blue-500 text-white block">
                     Display Bill
                   </Link>
                 ) : (

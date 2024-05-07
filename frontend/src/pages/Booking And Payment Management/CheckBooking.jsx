@@ -7,6 +7,7 @@ const ShowBooking = () => {
   const [payments, setPayments] = useState([]);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchBookings = async () => {
     try {
@@ -90,9 +91,28 @@ const ShowBooking = () => {
     return date.toLocaleDateString();
   };
 
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredBookings = bookings.filter((booking) =>
+    Object.values(booking).some((detail) =>
+      String(detail).toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  );
+
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-2xl font-bold mb-4">Booking For Your Vehicles</h1>
+      {/* Search Box */}
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+        placeholder="Search..."
+        className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-md"
+      />
+
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
           <tr>
@@ -129,7 +149,7 @@ const ShowBooking = () => {
           </tr>
         </thead>
         <tbody>
-          {bookings.map((booking, index) => (
+          {filteredBookings.map((booking, index) => (
             <tr key={index} className="hover:bg-gray-100">
               <td className="py-2 px-4">{index + 1}</td>
               <td className="py-2 px-4">{booking.renter_username}</td>

@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const SideBar = () => {
 
     const location = useLocation();
 
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userType = user ? user.userType : '';
+    let dashboardLink, additionalLinks;
+
     // Check if the current pathname is '/landing'
     if (location.pathname === '/' || location.pathname === '/landing' || location.pathname === '/logout' || location.pathname === '/login' || location.pathname === '/signup') {
         return null; // Don't render anything if the pathname is '/landing'
     }
 
-    const user = JSON.parse(localStorage.getItem('user'));
-    const userType = user ? user.userType : '';
-    let dashboardLink, additionalLinks;
+        // State to manage visibility of additional links
+        const [showBookings, setShowBookings] = useState(false);
+
+        // Function to toggle visibility of bookings
+        const toggleBookings = () => {
+            setShowBookings(!showBookings);
+        };
+
+
 
     switch (userType) {
         case 'owner':
@@ -24,6 +34,25 @@ const SideBar = () => {
                     <li><Link to="/VehicleManager" className="block py-2 px-4 hover:bg-yellow-400">VehicleManager</Link></li>
                     <li><Link to="/ApprovedF" className="block py-2 px-4 hover:bg-yellow-400">Approved Forms</Link></li>
                     <li><Link to="/Forms" className="block py-2 px-4 hover:bg-yellow-400">Forms</Link></li>
+                    <li>
+                        <div onClick={toggleBookings} className="block py-2 px-4 hover:bg-yellow-400 cursor-pointer">Bookings</div>
+                        {showBookings && (
+                            <ul>
+                                <li>
+                                    <Link to="/booking/check" className="block py-2 px-4 ml-8 hover:bg-yellow-400">Check</Link>
+                                </li>
+                                <li>
+                                    <Link to="/booking/approved" className="block py-2 px-4 ml-8 hover:bg-yellow-400">Approved</Link>
+                                </li>
+                                <li>
+                                    <Link to="/booking/pending" className="block py-2 px-4 ml-8 hover:bg-yellow-400">Pending</Link>
+                                </li>
+                                <li>
+                                    <Link to="/booking/rejected" className="block py-2 px-4 ml-8 hover:bg-yellow-400">Rejected</Link>
+                                </li>
+                            </ul>
+                        )}
+                    </li>
                 </>
             );
             break;

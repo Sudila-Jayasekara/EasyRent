@@ -7,6 +7,7 @@ const ShowBooking = () => {
   const [bookings, setBookings] = useState([]);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchBookings = async () => {
     try {
@@ -32,9 +33,9 @@ const ShowBooking = () => {
               const renterResponse = await axios.get(`http://localhost:5556/api/renter/${booking.renter_id}`);
               const renterUsername = renterResponse.data.username;
 
-                            // Fetch payment details
-            const paymentResponse = await axios.get(`http://localhost:5556/api/payment/booking/${booking._id}`);
-            const paymentDetails = paymentResponse.data;
+              // Fetch payment details
+              const paymentResponse = await axios.get(`http://localhost:5556/api/payment/booking/${booking._id}`);
+              const paymentDetails = paymentResponse.data;
               // Return processed booking details
               return {
                 ...booking,
@@ -54,14 +55,14 @@ const ShowBooking = () => {
 
         // Flatten the array of arrays into a single array of bookings
         const flattenedBookings = updatedBookings.flat();
-        
+
         // Set the state with the fetched and processed bookings
         setBookings(flattenedBookings);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-};
+  };
 
   useEffect(() => {
     fetchBookings();
@@ -89,9 +90,29 @@ const ShowBooking = () => {
     return date.toLocaleDateString();
   };
 
+
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredBookings = bookings.filter((booking) =>
+    Object.values(booking).some((detail) =>
+      String(detail).toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  );
+
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-2xl font-bold mb-4">Track Your Approved Bookings</h1>
+      {/* Search Box */}
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+        placeholder="Search..."
+        className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-md"
+      />
+
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
           <tr>
@@ -117,10 +138,10 @@ const ShowBooking = () => {
               Es. End Date
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
-            Payment STATUS
+              Payment STATUS
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
-            BOOKING STATUS
+              BOOKING STATUS
             </th>
             <th className="py-2 px-4 text-left font-medium text-gray-900 uppercase tracking-wider">
               Generate Bill
@@ -128,7 +149,7 @@ const ShowBooking = () => {
           </tr>
         </thead>
         <tbody>
-          {bookings
+          {filteredBookings
             .filter(booking => booking.status === 'approved') // Filter only approved bookings
             .map((booking, index) => (
               <tr key={index} className="hover:bg-gray-100">
@@ -152,7 +173,7 @@ const ShowBooking = () => {
                 </td>
 
                 <td className="py-2 px-4">
-                  <Link to={`/payment/generateBill/${booking._id}`} className="px-3 py-1 rounded-md bg-blue-500 text-white">
+                  <Link to={`/payment/generateBill/${booking._id}`} className="px-3 py-1 rounded-md bg-blue-500 text-white whitespace-nowrap ">
                     Generate Bill
                   </Link>
                 </td>

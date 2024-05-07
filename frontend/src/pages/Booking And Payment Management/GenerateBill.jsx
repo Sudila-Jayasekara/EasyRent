@@ -46,14 +46,29 @@ const MyDocument = ({ bookingDetails, paymentDetails }) => (
 function GenerateBill() {
     const { bookingId } = useParams();
     const [bookingDetails, setBookingDetails] = useState(null);
+    const [renterDetails, setRenterDetails] = useState(null);
+    const [vehicleDetails, setVehicleDetails] = useState(null);
     const [paymentDetails, setPaymentDetails] = useState(null);
-
     useEffect(() => {
         const fetchBookingDetails = async () => {
             try {
                 const response = await axios.get(`http://localhost:5556/api/booking/${bookingId}`);
                 const booking = response.data;
                 setBookingDetails(booking);
+                console.log('Booking details:', booking);
+
+                // Fetch renter details based on renter_id
+                const renterResponse = await axios.get(`http://localhost:5556/api/renter/${booking.renter_id}`);
+                const renter = renterResponse.data;
+                setRenterDetails(renter);
+                console.log('Renter details:', renter);
+
+                // Fetch vehicle details based on vehicle_id
+                const vehicleResponse = await axios.get(`http://localhost:5556/api/vehicle/${booking.vehicle_id}`);
+                const vehicle = vehicleResponse.data;
+                setVehicleDetails(vehicle);
+                console.log('Vehicle details:', vehicle);
+
             } catch (error) {
                 console.error('Error fetching booking details:', error);
             }
@@ -64,11 +79,11 @@ function GenerateBill() {
                 const response = await axios.get(`http://localhost:5556/api/payment/booking/${bookingId}`);
                 const payment = response.data;
                 setPaymentDetails(payment);
+                console.log('Payment details:', payment);
             } catch (error) {
                 console.error('Error fetching payment details:', error);
             }
         };
-
         fetchBookingDetails();
         fetchPaymentDetails();
 
@@ -78,37 +93,38 @@ function GenerateBill() {
         try {
             const updatedAdditionalCost = paymentDetails.additionalCost;
             const totalCost = parseFloat(paymentDetails.estimatePrice) + parseFloat(updatedAdditionalCost);
-            
+
             await axios.patch(`http://localhost:5556/api/payment/booking/${bookingId}`, {
                 additionalCost: updatedAdditionalCost,
                 totalCost: totalCost
             });
-            
+
             setPaymentDetails({
                 ...paymentDetails,
                 additionalCost: updatedAdditionalCost,
                 totalCost: totalCost,
                 paymentStatus: 'pending'
             });
-            
+
             alert('Additional cost updated successfully');
         } catch (error) {
             console.error('Error updating additional cost:', error);
         }
     };
-    
+
 
     return (
         <div className="container mx-auto px-4 mb-8">
-            <h1 className="text-3xl font-bold mb-8">Bill Infomation</h1>
-            {bookingDetails && paymentDetails && (
+            <h1 className="text-3xl font-bold mb-8">Generate Bill</h1>
+            {bookingDetails && paymentDetails && renterDetails && vehicleDetails && (
                 <div className="flex flex-row space-x-8">
                     <div className="border border-gray-300 rounded-lg p-6 flex-1">
                         <h2 className="text-xl font-bold mb-4">Booking Details</h2>
                         <div className="grid grid-cols-2 gap-4">
-                            <DetailLabel label="Booking ID" value={bookingDetails._id} />
-                            <DetailLabel label="Renter ID" value={bookingDetails.renter_id} />
-                            <DetailLabel label="Vehicle ID" value={bookingDetails.vehicle_id} />
+                            <DetailLabel label="Renter Name" value={renterDetails.username} />
+                            <DetailLabel label="Renter Address" value={renterDetails.address} />
+                            <DetailLabel label="Vehicle Brand" value={vehicleDetails.brand} />
+                            <DetailLabel label="Vehicle Model" value={vehicleDetails.model} />
                             {bookingDetails.driver_id ? (
                                 <DetailLabel label="Driver ID" value={bookingDetails.driver_id} />
                             ) : (
@@ -132,7 +148,7 @@ function GenerateBill() {
                     <div className="border border-gray-300 rounded-lg p-6 flex-1">
                         <h2 className="text-xl font-bold mb-4">Payment Details</h2>
                         <div className="grid grid-cols-2 gap-4 mb-4">
-                            <DetailLabel label="Booking ID" value={paymentDetails.booking_id} />
+                            <DetailLabel label="Payment Status" value={paymentDetails.paymentStatus} />
                             <DetailLabel label="Estimate Price" value={paymentDetails.estimatePrice} />
                         </div>
                         <div className="mb-4 w-full">
@@ -142,13 +158,20 @@ function GenerateBill() {
                                     type="text"
                                     className="border border-gray-300 p-2 rounded-md flex-1 mr-4"
                                     value={paymentDetails.additionalCost || ''}
-                                    onChange={(e) => setPaymentDetails({ ...paymentDetails, additionalCost: e.target.value })}
+                                    onChange={(e) => {
+                                        // Allow only numeric input
+                                        const numericRegex = /^[0-9]*$/;
+                                        if (numericRegex.test(e.target.value) || e.target.value === '') {
+                                            setPaymentDetails({ ...paymentDetails, additionalCost: e.target.value });
+                                        }
+                                    }}
                                 />
+
                                 <button
                                     className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded"
                                     onClick={handleUpdate}
                                 >
-                                    Create Total
+                                    Generate Bill
                                 </button>
                             </div>
                             <DetailLabel label="Total Cost" value={paymentDetails.totalCost || 'No total cost'} />
