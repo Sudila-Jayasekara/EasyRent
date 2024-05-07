@@ -16,9 +16,11 @@ const ReplyList = () => {
         console.error('Error fetching replies:', error);
       }
     };
+    
 
     fetchData();
   }, []);
+  
 
   const handleDelete = async (id) => {
     try {
@@ -71,8 +73,8 @@ const ReplyList = () => {
         <thead>
           <tr className="bg-gray-100">
             <th className="border border-gray-300 px-4 py-2">Complain Id</th> 
-            <th className="border border-gray-300 px-4 py-2">Vehicle Review</th>
-            <th className="border border-gray-300 px-4 py-2">Driver Review</th>
+            <th className="border border-gray-300 px-4 py-2">Reviews for vehicles</th>
+            <th className="border border-gray-300 px-4 py-2">Reviews for Drivers</th>
             <th className="border border-gray-300 px-4 py-2">Reply</th>
             <th className="border border-gray-300 px-4 py-2">Actions</th>
           </tr>
@@ -85,7 +87,7 @@ const ReplyList = () => {
               <td className="border border-gray-300 px-4 py-2">{reply.driverReview}</td>
               <td className="border border-gray-300 px-4 py-2 text-blue-600">{reply.reply}</td>
               <td className="border border-gray-300 px-4 py-2">
-                <Link to={`/update-reply/${reply._id}`} className="text-blue-500 font-bold hover:text-blue-700 mr-2">Update</Link>
+                <Link to={`/update-reply/${reply._id}`} state={{replyDetails:reply}} className="text-blue-500 font-bold hover:text-blue-700 mr-2">Update</Link>
                 <button onClick={() => handleDelete(reply._id)} className="text-red-500 font-bold hover:text-red-700">Delete</button>
               </td>
             </tr>

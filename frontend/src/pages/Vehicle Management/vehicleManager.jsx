@@ -1,14 +1,13 @@
-import React from 'react'
-import carwall from '../Vehicle Management/carwall.jpeg'
+import React from 'react';
+import carwall from '../Vehicle Management/carwall.jpeg';
 
 const VehicleManager = () => {
   return (
-    <div>
-      <div >
-        <img src={carwall}/>
-      </div> 
+    <div className="h-screen flex justify-center items-center">
+      <img src={carwall} alt="Car Wall" className="max-h-full max-w-full" />
     </div>
-  ) 
-}
+  );
+};
 
-export default VehicleManager
+export default VehicleManager;
+

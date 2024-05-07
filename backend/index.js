@@ -29,11 +29,11 @@ app.use(bodyParser.json({ limit: '10mb' }));
 
 // Set up CORS middleware
 app.use(cors({
-    origin: 'http://localhost:5173', // Replace with your React app's origin
-    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true // Allow credentials (cookies)
-}));
+    origin: 'http://localhost:5173', // Specify the specific origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
+    credentials: true, // Enable credentials
+  }));
+  
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cookieParser());

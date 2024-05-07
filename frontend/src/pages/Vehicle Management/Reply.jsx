@@ -6,6 +6,7 @@ const Reply = () => {
   const { id } = useParams();
   const [complaint, setComplaint] = useState(null);
   const [reply, setReply] = useState('');
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     axios.get(`http://localhost:5556/Complains/${id}`)
@@ -16,6 +17,18 @@ const Reply = () => {
         console.log(error);
       });
   }, [id]);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    // Validate the field
+    const regex = /^[a-zA-Z0-9\s]*$/;  // Regular expression to allow only letters and spaces
+    if (!regex.test(value)) {
+        setErrors({ ...errors, [id]: "Special characters are not allowed" });
+    } else {
+        setErrors({ ...errors, [id]: "" });
+        setReply(value);
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,12 +85,14 @@ const Reply = () => {
           <div>
             <label>Reply</label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-blue-800 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-blue-800 mb-3 leading-tight focus:outline-none focus:shadow-outline ${errors.reply ? 'border-red-500' : ''}`}
               type="text"
               required
               value={reply}
-              onChange={(e) => setReply(e.target.value)}
+              onChange={handleChange}
+              id="reply" // Added id attribute for validation
             />
+            {errors.reply && <p className="text-red-500 text-xs italic">{errors.reply}</p>} {/* Display validation error message */}
           </div>
           <div className="flex justify-center">
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type='submit'>
