@@ -38,7 +38,7 @@ const ReviewsDetails = () => {
                   <td className='border border-slate-700 rounded-md text-center'>{complaint.Vehicle_description}</td>
                   <td className='border border-slate-700 rounded-md text-center'>{complaint.Driver_description}</td>
                   <td className='border border-slate-700 rounded-md text-center'>
-                    <button type="button" className="py-2 px-6 ml-36 text-base font-medium text-black focus:outline-none bg-amber-500 rounded-lg border border-indigo-200 hover:bg-slate-700 focus:z-10 focus:ring-4 focus:ring-indigo-200">
+                    <button type="button" className="py-2 px-4 text-base font-bold bg-red-300 text-red-600 focus:outline-none rounded-lg border border-indigo-200 hover:bg-transparent focus:z-10 focus:ring-4 focus:ring-indigo-200">
                       <Link to={`/reply/${complaint._id}`}>Reply</Link>
                     </button>
                   </td>

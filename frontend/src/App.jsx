@@ -72,13 +72,12 @@ import SelectBooking from './pages/Renter Management/SelectBooking';
 import VehicleDetails from './pages/Vehicle Management/VehicleDetails';// import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
-import VehicleManager from './pages/Vehicle Management/vehicleManager.jsx';
-import VehicleSidebar from './pages/Vehicle Management/vehicleSidebar.jsx';
+import VehicleManager from './pages/Vehicle Management/VehicleManager.jsx';
+import VehicleSidebar from './pages/Vehicle Management/VehicleSidebar.jsx';
 import VehicleMProfile from './pages/Vehicle Management/VehicleMProfile.jsx';
 import Vehicles from './pages/Vehicle Management/Vehicles.jsx';
 import ReviewsDetails from './pages/Vehicle Management/ReviewsDetails.jsx';
 import Reply from './pages/Vehicle Management/Reply.jsx';
-import ShowReplies from './pages/Vehicle Management/ShowReplies.jsx';
 import ReplyList from './pages/Vehicle Management/ReplyList.jsx';
 import UpdateReply from './pages/Vehicle Management/UpdateReply.jsx';
 
@@ -133,7 +132,7 @@ const App = () => {
       <Route path="/Vehicles" element={<Layout><Vehicles/></Layout>}/>
       <Route path="/ReviewsDetails" element={<Layout><ReviewsDetails/></Layout>}/>
       <Route path="/Reply/:id" element={<Layout><Reply/></Layout>}/>
-      <Route path="/ShowReplies" element={<Layout><ShowReplies/></Layout>}/>
+  
       <Route path="/showreply" element={<Layout><ReplyList/></Layout>}/>
       <Route path='/update-reply/:id' element={<Layout><UpdateReply/></Layout>}/>
 
