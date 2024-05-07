@@ -44,7 +44,7 @@ import RiskNote from './pages/Renter Management/RiskNote.jsx';
 // import HrEmpRegister from './pages/HR Management/HrEmpRegister.jsx';
 // import HrPayroll from './pages/HR Management/HrPayroll.jsx';
 // import HrDetails from './pages/HR Management/HrDetails.jsx';
-// import HrDashboard from './pages/HR Management/HrDashboard.jsx';
+import HrDashboard from './pages/HR Management/HrDashboard.jsx';
 // import HrSalaryDetails from './pages/HR Management/HrSalaryDetails.jsx';
 // import HrEmpLeave from './pages/HR Management/HrEmpLeave.jsx';
 // import HrDetailsEdit from './pages/HR Management/HrDetailsEdit.jsx';
@@ -75,6 +75,11 @@ import FavouriteList from './pages/Renter Management/FavouriteList.jsx';
 import ViewRenterDetails from './pages/Renter Management/ViewRenterDetails.jsx';
 import DriverReportPage from './pages/Driver Management/DriverReportPage.jsx';
 import UpdateDriverReport from './pages/Driver Management/UpdateDriverReport.jsx';
+import RiskDetailsPage from './pages/Renter Management/RiskDetailsPage.jsx';
+import PrintRisk from './pages/Renter Management/PrintRisk.jsx';
+import UpdateRisk from './pages/Renter Management/UpdateRisk.jsx';
+import ContactUs from './pages/Renter Management/ContactUs.jsx';
+
 
 
 
@@ -91,6 +96,8 @@ const App = () => {
       <Route path="/viewRenter" element={<Layout><ViewRenter/></Layout>} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
+      <Route path="/risk-details" element={<Layout><RiskDetailsPage /></Layout>} />
+      <Route path="/printrisk/:nic" element={<Layout><PrintRisk/></Layout>}/>
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/renterprofile" element={<Layout><Manageprofile/></Layout>} />
@@ -100,6 +107,8 @@ const App = () => {
       <Route path="/risknote/:nic" element={<Layout><RiskNote/></Layout>} />
       <Route path="/selectbooking/:vehicleId" element={<Layout><SelectBooking/></Layout>} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/updaterisk/:id" element={<Layout><UpdateRisk/></Layout>} />
+      <Route path='/contact' element={<Layout><ContactUs/></Layout>}/>
 
       <Route path="/displaydate" element={<Layout><Displaydates/></Layout>} />
       <Route path="/driverprofile" element={<Layout><Driverprofile/></Layout>} />
@@ -109,6 +118,8 @@ const App = () => {
       <Route path="/driverdisplay" element={<Layout><DriverDisplay/></Layout>} />
       <Route path="/driverreportpage" element={<Layout><DriverReportPage/></Layout>} />
       <Route path="/driverreport/update/:id" element={<Layout><UpdateDriverReport/></Layout>} />
+
+      <Route path="/hrdashboard" element={<Layout><HrDashboard/></Layout>} />
 
       <Route path="/complains" element={<Home/>}/>
       <Route path="/complains/details/:id" element={<ShowComplains/>}/>

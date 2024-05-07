@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import image from './image.jpeg';
+
 
 const Driverprofile = () => {
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ const Driverprofile = () => {
               {/* Profile Picture Section */}
               <div className="flex flex-col items-center space-y-5">
                 <input type="file" ref={fileRef} hidden accept='image/*' />
-                <img className="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500" onClick={() => fileRef.current.click()} src={image} alt="Bordered avatar" />
+                <img className="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500" onClick={() => fileRef.current.click()} src={`http://localhost:5556/${user.profilePicture.replace("public", "")}`} alt="Bordered avatar" />
                 <div className="flex flex-col space-y-5 sm:ml-8">
                   <button type="button" className="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 ">
                     Change picture

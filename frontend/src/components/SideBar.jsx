@@ -45,6 +45,7 @@ const SideBar = () => {
                     <li><Link to="/homerenter" className="block py-2 px-4 hover:bg-yellow-400">All Vehicles</Link></li>
                     <li><Link to="/booking/history" className="block py-2 px-4 hover:bg-yellow-400">Bookings</Link></li>
                     <li><Link to="/viewRenter" className="block py-2 px-4 hover:bg-yellow-400">viewRenters</Link></li>
+                    <li><Link to="/risk-details" className="block py-2 px-4 hover:bg-yellow-400">View Accident Details</Link></li>
                 </>
             );
             break;

@@ -21,6 +21,7 @@
     "flowbite-react": "^0.7.8",
     "jsonwebtoken": "^9.0.2",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-cookie": "^7.1.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
