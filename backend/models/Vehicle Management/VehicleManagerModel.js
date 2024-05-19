@@ -27,10 +27,10 @@ const vehiclemanagerSchema=new mongoose.Schema({
         type:String,
         required:true,
     },
-    profilePicturePath:{
-        type:String,
-        default:"",
-    },
+    profilePicture: {
+        type: String,
+    
+      },
    
     nic:{
         type:String,

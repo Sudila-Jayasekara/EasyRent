@@ -33,6 +33,10 @@ const ownerSchema=new mongoose.Schema({
         type:String,
         required:true,
     },
+    profilePicture: {
+        type: String,
+    
+      },
     
     
 

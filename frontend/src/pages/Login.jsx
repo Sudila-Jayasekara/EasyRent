@@ -14,82 +14,123 @@ const Login = () => {
   const loginUser = async (e) => {
     e.preventDefault();
     try {
-      const response = await Axios.post('api/auth/login', { email, password });
-      const { status, user, token } = response.data;
-      if (status) {
-        localStorage.setItem('id', user._id);
-        localStorage.setItem('user', JSON.stringify(user));
+      // Check if the user is the special admin
+      if (email === 'admin@gmail.com' && password === 'admin1234') {
+        // Special admin login
+        const adminUser = {
+          email: 'admin@gmail.com',
+          userType: 'admin' // Add userType 'admin' for the special admin
+        };
+        const token = 'your-special-admin-token'; // Generate a special admin token
+        localStorage.setItem('user', JSON.stringify(adminUser));
         localStorage.setItem('token', token);
-        dispatch(setLogin({ user, token }));
-        switch (user.userType) {
-          case 'renter':
-            navigate('/homerenter');
-            break;
-          case 'owner':
-            navigate('/ownerprofile');
-            break;
-          case 'driver':
-            navigate('/driverprofile');
-            break;   
-          case 'hr':
-            navigate('/homerenter');
-            break;
-          case 'vehiclemanager':
-            navigate('/VehicleManager');
-            break;
-          default:
-            // Handle unexpected userType
-            setError('Invalid user type');
-            break;
-        }
+        dispatch(setLogin({ user: adminUser, token }));
+        navigate('/hrdashboard');
       } else {
-        setError('Invalid email or password');
+        // Normal user login
+        const response = await Axios.post('api/auth/login', { email, password });
+        const { status, user, token } = response.data;
+        if (status) {
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('token', token);
+          dispatch(setLogin({ user, token }));
+          switch (user.userType) {
+            case 'renter':
+              navigate('/homerenter');
+              break;
+            case 'owner':
+              navigate('/ownerprofile');
+              break;
+            case 'driver':
+              navigate('/driverprofile');
+              break;
+            case 'employee':
+              navigate('/hrdashboard');
+              break;
+            case 'vehiclemanager':
+              navigate('/VehicleManager');
+              break;
+            default:
+              setError('Invalid user type');
+              break;
+          }
+        } else {
+          setError('Invalid email or password');
+        }
       }
     } catch (err) {
       setError('Login failed. Please try again later.');
       console.error('Login Failed', err.message);
     }
   };
-
-  return (
-    <div>
-      <form onSubmit={loginUser}>
-        <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-8">
-          <div className="relative py-3 sm:max-w-fit sm:mx-auto">
-            <div className="absolute inset-0 bg-gradient-to-r to-indigo-500 from-indigo-300 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-            <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-              <div className="max-w-xl mx-auto">
-                <div className="divide-y divide-gray-200">
-                  <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                    <h1 style={{ marginBottom: "5px" }} className="font-extrabold text-4xl text-center">Login</h1>
-                    <p className="text-center">Text should be in here</p>
-                    <div className="justify-center flex flex-col py-6 sm-py-12">
-                      <label className='text-black font-extrabold' htmlFor='Username'>Email</label>
-                      <input name="email" style={{ marginBottom: "10px" }} placeholder="Email" type="email" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" value={email} onChange={(e) => setEmail(e.target.value)} />
-                      <label className='text-black font-extrabold' htmlFor='Username'>Password</label>
-                      <input name="password" placeholder="Password" type="password" className="px-2 py-2 outline-none border-2 border-gray-300 rounded-lg transition duration-200 ease-in-out hover:border-indigo-600 focus:border-indigo-600 focus:ring-indigo-300 focus:ring" value={password} onChange={(e) => setPassword(e.target.value)} />
-                      <div style={{ marginTop: "10px" }}>
-                        <label>
-                          <span className="select-none">
-                            <Link to={'/forgotpassword'}>Forgot password?</Link>
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">
-                    <p className="text-center">
-                      <button type="submit" className="transition rounded-lg duration-200 ease-in-out px-4 py-2 bg-indigo-500 text-white focus:ring-indigo-300 focus:ring hover:bg-indigo-600 select-none outline-none">Login</button>
-                    </p>
-                    <p style={{ marginTop: "5px" }} className="text-center font-normal">No account? <Link to='/signup' className="text-indigo-500 hover:text-indigo-800">Create one!</Link></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+return(
+  
+    <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+      <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+          <div>
+          <div>
+            <h1 className="text-3xl font-extrabold text-center mb-8">
+              Easy Rent
+            </h1>
+          </div>
+          </div>
+          <div className="mt-12 flex flex-col items-center">
+           
+            <form onSubmit={loginUser} className="w-full flex-1 mt-8">
+              <input
+                className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                
+              />
+              <input
+                className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+               
+              />
+              <button
+                type="submit"
+                className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+              >
+                <svg
+                  className="w-6 h-6 -ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M16 21v-2a4 4 0 00-4-4H4a4 4 0 00-4 4v2" />
+                  <circle cx="8.5" cy="7" r="4" />
+                  <path d="M20 8v6M23 11h-6" />
+                </svg>
+                <span className="ml-3">Sign Up</span>
+              </button>
+            </form>
+            <p className="mt-6 text-base text-gray-600 text-center">
+              Don't You have an account?
+              <a href="/signup" className="border-b border-gray-500 text-blue-600 font-bold border-dotted">
+                Signin
+              </a>
+            </p>
           </div>
         </div>
-      </form>
-      {error && <div className="text-red-500 text-center mt-4">{error}</div>}
+        <div className="flex-1 bg-indigo-100 text-center hidden lg:flex">
+          <div
+            className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg')",
+            }}
+          ></div>
+        </div>
+      </div>
     </div>
   );
 };
