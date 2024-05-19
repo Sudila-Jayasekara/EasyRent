@@ -21,6 +21,7 @@ const BookingForm = () => {
     const [vehicle, setVehicle] = useState([]);
     const [estimatePrice, setEstimatePrice] = useState(null);
     const [dateDifference, setDateDifference] = useState(null);
+    const today = new Date().toISOString().split('T')[0];
 
     useEffect(() => {
         // Extract user details from localStorage
@@ -161,6 +162,7 @@ const BookingForm = () => {
                                     name="startDate"
                                     value={formData.startDate}
                                     onChange={handleChange}
+                                    min={today}
                                     required
                                 />
                             </div>
@@ -200,6 +202,7 @@ const BookingForm = () => {
                                     name="endDate"
                                     value={formData.endDate}
                                     onChange={handleChange}
+                                    min={formData.startDate}
                                     required
                                 />
                             </div>
