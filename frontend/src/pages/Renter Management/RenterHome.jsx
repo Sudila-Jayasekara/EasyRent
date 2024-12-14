@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import ComplainsForm from '../Reviews and rating management/ComplainsForm';
 
 const RenterHome = () => {
     const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
@@ -10,20 +9,6 @@ const RenterHome = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterBy, setFilterBy] = useState('model');
     const [likedItems, setLikedItems] = useState([]);
-    const [popup, setPopup] = useState(null);
-    const [complains, setComplains] = useState([]);
-    const userid = localStorage.getItem('id');
-
-    useEffect(() => {
-        axios
-            .get(`http://localhost:5556/Complains`)
-            .then((response) => {
-                setComplains(response.data); // Assuming response.data contains an array of complaints
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
 
     useEffect(() => {
         axios.get('http://localhost:5556/api/vehicle/')
@@ -67,15 +52,6 @@ const RenterHome = () => {
     });
     
 
-    const handleClickPopup = (id) => {
-        setPopup(id);
-    }
-
-    const getReviewValue = (vehicleId) => {
-        const review = complains.find(complaint => complaint.vehicle_id === vehicleId);
-        return review ? review.rating : 'No Reviews';
-    };
-
     return (
         <div>
             <header className="border-b md:flex md:items-center md:justify-between p-4 pb-0 shadow-lg md:pb-4">
@@ -112,17 +88,16 @@ const RenterHome = () => {
                                     <div className="flex items-center gap-2">
                                         <a href="#" className="border-2 border-gray-200 rounded-lg p-1 flex items-center">
                                             <i className="fas fa-star text-yellow-500"></i>
-                                            <span className="text-gray-700">{getReviewValue(detail._id)}</span>
+                                            <span className="text-gray-700">4.7</span>
                                             <span className="text-gray-600">(109)</span>
                                         </a>
                                         <div className="bg-green-100 rounded-lg p-1">
                                             <span className="text-green-600">Available</span>
-                                            <button className='ml-20' onClick={() => { handleClickPopup(detail) }}>Add Reviews</button>
                                         </div>
                                     </div>
                                     <div>
                                         <button className="button_like" onClick={() => handleLike(detail._id)} data-vehicle-id={detail._id}>
-                                            <i className={`far fa-heart ${likedItems.includes(detail._id) ? 'text-red-500' : ''}`}></i>
+                                             <i className={`far fa-heart ${likedItems.includes(detail._id) ? 'text-red-500' : ''}`}></i>
                                         </button>
                                     </div>
                                 </div>
@@ -163,12 +138,6 @@ const RenterHome = () => {
                     </section>
                 </div>
             </main>
-
-            {popup && (
-                <div className="popupContainer">
-                    <ComplainsForm data={popup} close={setPopup} />
-                </div>
-            )}
         </div>
     );
 };

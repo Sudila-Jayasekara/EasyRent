@@ -394,7 +394,7 @@ const Signup = () => {
               <span className="text-xs text-gray-500">
                 Already have an account?{" "}
                 <Link to={"/login"} className="text-blue-500">
-                  Sign In
+                  Sign up
                 </Link>
               </span>
             </form>
